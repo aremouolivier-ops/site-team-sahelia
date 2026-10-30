@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "routes": [
+    {
+      "src": "/manuels/(\\d+)-([^/]+)/chapitres/.*\\.md",
+      "dest": "/formation.html"
+    },
+    {
+      "src": "/guides/.*\\.md",
+      "dest": "/formation.html"
+    },
+    {
+      "src": "/badges",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/formation",
+      "dest": "/formation.html"
+    },
+    {
+      "src": "/verifier",
+      "dest": "/verifier.html"
+    },
+    {
+      "src": "/admin",
+      "dest": "/admin.html"
+    }
+  ]
+}

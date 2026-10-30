@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="webGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#webGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">LA TRILOGIE FONDAMENTALE DU WEB MODERNE · TEAM SAHÉLIA</text>
+
+  <!-- Pilier 1 : HTML5 (Structure) -->
+  <rect x="35" y="85" width="260" height="270" fill="#061a14" stroke="#e8946a" stroke-width="1.5" rx="8" />
+  <rect x="35" y="85" width="260" height="35" fill="#0d352b" rx="8" />
+  <text x="50" y="108" fill="#e8946a" font-size="14" font-weight="bold">1. HTML5 (SQUELETTE)</text>
+  <text x="50" y="145" fill="#f4faf7" font-size="12" font-weight="bold">Structure Sémantique</text>
+  <text x="50" y="175" fill="#88b3a4" font-size="11" font-family="monospace">&lt;header&gt; Titre &lt;/header&gt;</text>
+  <text x="50" y="195" fill="#88b3a4" font-size="11" font-family="monospace">&lt;main&gt; Contenu &lt;/main&gt;</text>
+  <text x="50" y="215" fill="#88b3a4" font-size="11" font-family="monospace">&lt;article&gt; Bloc &lt;/article&gt;</text>
+  <text x="50" y="235" fill="#88b3a4" font-size="11" font-family="monospace">&lt;button&gt; Clic &lt;/button&gt;</text>
+  <text x="50" y="275" fill="#e8946a" font-size="11" font-weight="bold">Rôle : Décrit CE QUE SONT</text>
+  <text x="50" y="295" fill="#e8946a" font-size="11" font-weight="bold">les éléments sur la page.</text>
+  <text x="50" y="335" fill="#88b3a4" font-size="10">Sans CSS : texte noir brut sur fond blanc.</text>
+
+  <!-- Pilier 2 : CSS3 (Apparence) -->
+  <rect x="320" y="85" width="260" height="270" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <rect x="320" y="85" width="260" height="35" fill="#0d352b" rx="8" />
+  <text x="335" y="108" fill="#7fb0ee" font-size="14" font-weight="bold">2. CSS3 (HABILLAGE)</text>
+  <text x="335" y="145" fill="#f4faf7" font-size="12" font-weight="bold">Design &amp; Responsive</text>
+  <text x="335" y="175" fill="#88b3a4" font-size="11" font-family="monospace">color: #3fae7a;</text>
+  <text x="335" y="195" fill="#88b3a4" font-size="11" font-family="monospace">display: flex;</text>
+  <text x="335" y="215" fill="#88b3a4" font-size="11" font-family="monospace">border-radius: 8px;</text>
+  <text x="335" y="235" fill="#88b3a4" font-size="11" font-family="monospace">@media (max-width: 768px)</text>
+  <text x="335" y="275" fill="#7fb0ee" font-size="11" font-weight="bold">Rôle : COMMENT C'EST FAIT</text>
+  <text x="335" y="295" fill="#7fb0ee" font-size="11" font-weight="bold">(couleurs, espacements, mobile).</text>
+  <text x="335" y="335" fill="#88b3a4" font-size="10">Donne son identité visuelle pro au site.</text>
+
+  <!-- Pilier 3 : JavaScript (Dynamisme) -->
+  <rect x="605" y="85" width="260" height="270" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <rect x="605" y="85" width="260" height="35" fill="#0d352b" rx="8" />
+  <text x="620" y="108" fill="#3fae7a" font-size="14" font-weight="bold">3. JAVASCRIPT (CERVEAU)</text>
+  <text x="620" y="145" fill="#f4faf7" font-size="12" font-weight="bold">Interactivité &amp; Logique</text>
+  <text x="620" y="175" fill="#88b3a4" font-size="11" font-family="monospace">btn.addEventListener('click')</text>
+  <text x="620" y="195" fill="#88b3a4" font-size="11" font-family="monospace">fetch('/api/parcelles')</text>
+  <text x="620" y="215" fill="#88b3a4" font-size="11" font-family="monospace">calculerSurface(coords)</text>
+  <text x="620" y="235" fill="#88b3a4" font-size="11" font-family="monospace">modal.classList.add('open')</text>
+  <text x="620" y="275" fill="#3fae7a" font-size="11" font-weight="bold">Rôle : CE QUE ÇA FAIT</text>
+  <text x="620" y="295" fill="#3fae7a" font-size="11" font-weight="bold">(répond aux clics, calcule, charge).</text>
+  <text x="620" y="335" fill="#88b3a4" font-size="10">Transforme un document statique en application.</text>
+
+  <!-- Encadré Conclusion bas -->
+  <rect x="35" y="380" width="830" height="70" fill="#0a2b24" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="50" y="410" fill="#e8946a" font-size="13" font-weight="bold">RÈGLE D'OR MOBILE-FIRST :</text>
+  <text x="50" y="435" fill="#f4faf7" font-size="12">Au Bénin, plus de 85 % des internautes consultent le web sur smartphone. Tout code HTML/CSS doit être testé d'abord sur écran mobile !</text>
+</svg>

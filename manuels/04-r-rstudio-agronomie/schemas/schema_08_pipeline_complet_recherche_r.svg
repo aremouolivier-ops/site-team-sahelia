@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="pipeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#pipeGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">PIPELINE R REPRODUCTIBLE &amp; CERTIFICATION STATISTIQUE · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Le Workflow en 6 Étapes -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#3fae7a" font-size="15" font-weight="bold">Architecture d'un Script Reproductible</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">De l'importation brute à la figure de publication</text>
+
+  <!-- Étape 1 & 2 -->
+  <rect x="50" y="145" width="370" height="45" fill="#0d352b" rx="6" />
+  <text x="65" y="167" fill="#7fb0ee" font-size="12" font-family="monospace" font-weight="bold">1. Packages &amp; Importation :</text>
+  <text x="65" y="182" fill="#88b3a4" font-size="10">library(tidyverse, agricolae) ; read.csv("parcelles.csv")</text>
+
+  <!-- Étape 3 -->
+  <rect x="50" y="198" width="370" height="45" fill="#0d352b" rx="6" />
+  <text x="65" y="220" fill="#7fb0ee" font-size="12" font-family="monospace" font-weight="bold">2. Contrôle Préalable des Hypothèses :</text>
+  <text x="65" y="235" fill="#88b3a4" font-size="10">shapiro.test(residus) &amp; bartlett.test() -> Vérifier p &gt; 0.05</text>
+
+  <!-- Étape 4 -->
+  <rect x="50" y="251" width="370" height="45" fill="#0d352b" rx="6" />
+  <text x="65" y="273" fill="#3fae7a" font-size="12" font-family="monospace" font-weight="bold">3. Modélisation ANOVA (Fisher) :</text>
+  <text x="65" y="288" fill="#88b3a4" font-size="10">modele &lt;- aov(Rendement ~ Traitement) ; summary(modele)</text>
+
+  <!-- Étape 5 -->
+  <rect x="50" y="304" width="370" height="45" fill="#0d352b" rx="6" />
+  <text x="65" y="326" fill="#e8946a" font-size="12" font-family="monospace" font-weight="bold">4. Comparaisons Post-Hoc de Tukey :</text>
+  <text x="65" y="341" fill="#88b3a4" font-size="10">HSD.test(modele, "Traitement") -> Groupes de lettres (a, b, c)</text>
+
+  <!-- Étape 6 -->
+  <rect x="50" y="357" width="370" height="45" fill="#0d352b" rx="6" />
+  <text x="65" y="379" fill="#f4faf7" font-size="12" font-family="monospace" font-weight="bold">5. Graphique de Publication ggplot2 :</text>
+  <text x="65" y="394" fill="#88b3a4" font-size="10">geom_col() + geom_text(aes(label = groups)) + ggsave(dpi=300)</text>
+
+  <text x="50" y="425" fill="#3fae7a" font-size="11" font-weight="bold">Reproductibilité : Réexécutable en 1 clic le jour J !</text>
+
+  <!-- Colonne Droite : Certification & Badge -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">Projet Capstone &amp; Certification</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Validation officielle des compétences de biostatisticien</text>
+
+  <!-- Boîte Badge Officiel -->
+  <rect x="480" y="145" width="370" height="150" fill="#09291b" stroke="#3fae7a" rx="6" />
+  <text x="495" y="172" fill="#3fae7a" font-size="13" font-weight="bold">Badge Officiel : TS-SKL-2026-002</text>
+  <text x="495" y="195" fill="#f4faf7" font-size="12" font-weight="bold">« Analyse Statistique R &amp; Agronomie »</text>
+  <text x="495" y="218" fill="#88b3a4" font-size="11">Délivré par le Conseil Académique de TEAM Sahélia</text>
+  <text x="495" y="238" fill="#88b3a4" font-size="11">en partenariat avec la Faculté d'Agronomie (FA-UP)</text>
+  <rect x="495" y="255" width="340" height="26" fill="#0d352b" rx="4" />
+  <text x="505" y="272" fill="#e8946a" font-size="10" font-weight="bold">ID Vérifiable en ligne : sahelia.org/verifier?id=TS-SKL-2026-002</text>
+
+  <!-- Critères d'Évaluation -->
+  <rect x="480" y="310" width="370" height="125" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="495" y="332" fill="#f4faf7" font-size="11" font-weight="bold">Critères d'Attribution :</text>
+  <text x="495" y="352" fill="#3fae7a" font-size="10">☑ Script R structuré et commenté sans aucun avertissement</text>
+  <text x="495" y="372" fill="#3fae7a" font-size="10">☑ Tests de normalité et d'homogénéité validés avant ANOVA</text>
+  <text x="495" y="392" fill="#3fae7a" font-size="10">☑ Figure vectorielle 300 DPI avec lettres de Tukey intégrées</text>
+  <text x="495" y="412" fill="#3fae7a" font-size="10">☑ Conclusion agronomique claire pour les producteurs du Borgou</text>
+</svg>

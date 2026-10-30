@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="webGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#webGrad3)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">JAVASCRIPT MODERNE : CONST / LET, FONCTIONS FLÉCHÉES &amp; ÉVÉNEMENTS</text>
+
+  <!-- Colonne Gauche : Variables Modernes & Fonctions -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">1. Variables &amp; Fonctions Modernes (ES6+)</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Les standards professionnels qui ont remplacé le vieux JavaScript</text>
+
+  <!-- Box Const vs Let -->
+  <rect x="50" y="145" width="370" height="135" fill="#0d2538" stroke="#7fb0ee" stroke-width="1" rx="6" />
+  <text x="65" y="170" fill="#3fae7a" font-size="12" font-family="monospace">const prixSacUree = 24500; // Immuable</text>
+  <text x="65" y="190" fill="#7fb0ee" font-size="12" font-family="monospace">let surfaceEnHa = 3.5;     // Réassignable</text>
+  <text x="65" y="215" fill="#e86a6a" font-size="11" font-weight="bold">❌ Bannir 'var' : Portée globale piégeuse et obsolète.</text>
+  
+  <line x1="65" y1="230" x2="400" y2="230" stroke="#1b4d3e" stroke-width="1" />
+  <text x="65" y="250" fill="#d89f3c" font-size="12" font-family="monospace">const calculerTotal = (surf, dose) => surf * dose;</text>
+  <text x="65" y="268" fill="#88b3a4" font-size="10">Fonction fléchée concise avec retour automatique de valeur.</text>
+
+  <!-- Box Objets et Tableaux -->
+  <rect x="50" y="295" width="370" height="140" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="320" fill="#d89f3c" font-size="12" font-weight="bold">Objets et Tableaux Structurés :</text>
+  <text x="65" y="342" fill="#f4faf7" font-size="11">const producteur = {</text>
+  <text x="80" y="360" fill="#7fb0ee" font-size="11">nom: 'Sègla KPEROU', commune: 'Parakou', cultures: ['Maïs', 'Coton']</text>
+  <text x="65" y="380" fill="#f4faf7" font-size="11">};</text>
+  <text x="65" y="405" fill="#3fae7a" font-size="10" font-weight="bold">Structure universelle JSON prête pour les API et bases de données.</text>
+
+  <!-- Colonne Droite : Le Moteur Événementiel (Event Listeners) -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">2. Architecture Événementielle (DOM Events)</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Comment la page réagit instantanément aux actions de l'utilisateur</text>
+
+  <!-- Schéma Boucle Événementielle -->
+  <rect x="480" y="145" width="370" height="135" fill="#09291b" stroke="#3fae7a" stroke-width="1" rx="6" />
+  
+  <!-- Étape 1 : Clic -->
+  <rect x="495" y="160" width="85" height="40" fill="#06100c" stroke="#7fb0ee" rx="4" />
+  <text x="505" y="185" fill="#7fb0ee" font-size="11" font-weight="bold">1. Clic / Saisie</text>
+
+  <!-- Flèche -->
+  <text x="590" y="185" fill="#3fae7a" font-size="14">➔</text>
+
+  <!-- Étape 2 : Event Listener -->
+  <rect x="615" y="160" width="105" height="40" fill="#06100c" stroke="#3fae7a" rx="4" />
+  <text x="625" y="177" fill="#3fae7a" font-size="10" font-weight="bold">2. Écouteur Actif</text>
+  <text x="625" y="192" fill="#88b3a4" font-size="9">addEventListener</text>
+
+  <!-- Flèche -->
+  <text x="730" y="185" fill="#3fae7a" font-size="14">➔</text>
+
+  <!-- Étape 3 : Exécution Callback -->
+  <rect x="750" y="160" width="85" height="40" fill="#06100c" stroke="#d89f3c" rx="4" />
+  <text x="760" y="177" fill="#d89f3c" font-size="10" font-weight="bold">3. Calcul</text>
+  <text x="760" y="192" fill="#88b3a4" font-size="9">Mise à jour DOM</text>
+
+  <rect x="495" y="215" width="340" height="50" fill="#06100c" rx="4" />
+  <text x="505" y="235" fill="#f4faf7" font-size="10" font-family="monospace">boutonCalculer.addEventListener('click', (e) => {</text>
+  <text x="515" y="252" fill="#3fae7a" font-size="10" font-family="monospace">  afficherResultat(calculerEngrais(surface.value));</text>
+  <text x="505" y="262" fill="#f4faf7" font-size="10" font-family="monospace">});</text>
+
+  <!-- Les 4 Événements Majeurs -->
+  <rect x="480" y="295" width="370" height="140" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="495" y="320" fill="#d89f3c" font-size="12" font-weight="bold">Les 4 Événements les Plus Utilisés :</text>
+  <text x="495" y="342" fill="#f4faf7" font-size="11">• <tspan fill="#7fb0ee" font-weight="bold">'click'</tspan> : Clic sur bouton, lien ou carte.</text>
+  <text x="495" y="362" fill="#f4faf7" font-size="11">• <tspan fill="#3fae7a" font-weight="bold">'input'</tspan> : Frappe au clavier (calcul en temps réel instantané !).</text>
+  <text x="495" y="382" fill="#f4faf7" font-size="11">• <tspan fill="#d89f3c" font-weight="bold">'change'</tspan> : Sélection d'une option dans un menu déroulant.</text>
+  <text x="495" y="405" fill="#e8946a" font-size="11">• <tspan font-weight="bold">'submit'</tspan> : Envoi d'un formulaire (avec e.preventDefault()).</text>
+</svg>

@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="tcdGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#tcdGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">L'ANATOMIE D'UN TABLEAU CROISÉ DYNAMIQUE (TCD) · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Les 4 Zones de Pilotage -->
+  <rect x="35" y="80" width="370" height="310" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <rect x="35" y="80" width="370" height="35" fill="#0d352b" rx="8" />
+  <text x="50" y="103" fill="#7fb0ee" font-size="13" font-weight="bold">LES 4 ZONES DE GLISSER-DÉPOSER</text>
+
+  <!-- Zone Filtres -->
+  <rect x="50" y="125" width="340" height="45" fill="#0a2b24" stroke="#e8946a" rx="6" />
+  <text x="65" y="145" fill="#e8946a" font-size="11" font-weight="bold">1. ZONE FILTRES (Haut) :</text>
+  <text x="65" y="160" fill="#88b3a4" font-size="11">Filtre global sur tout le tableau (ex: Année 2026)</text>
+
+  <!-- Zone Colonnes -->
+  <rect x="50" y="180" width="340" height="50" fill="#0a2b24" stroke="#7fb0ee" rx="6" />
+  <text x="65" y="200" fill="#7fb0ee" font-size="11" font-weight="bold">2. ZONE COLONNES (Horizontal) :</text>
+  <text x="65" y="220" fill="#88b3a4" font-size="11">Glissez la variable "Culture" (Maïs, Soja, Coton...)</text>
+
+  <!-- Zone Lignes -->
+  <rect x="50" y="240" width="340" height="50" fill="#0a2b24" stroke="#3fae7a" rx="6" />
+  <text x="65" y="260" fill="#3fae7a" font-size="11" font-weight="bold">3. ZONE LIGNES (Vertical) :</text>
+  <text x="65" y="280" fill="#88b3a4" font-size="11">Glissez la variable "Commune" (Parakou, N'Dali...)</text>
+
+  <!-- Zone Valeurs -->
+  <rect x="50" y="300" width="340" height="50" fill="#0a2b24" stroke="#f4faf7" rx="6" />
+  <text x="65" y="320" fill="#f4faf7" font-size="11" font-weight="bold">4. ZONE VALEURS (Le Calcul au centre) :</text>
+  <text x="65" y="340" fill="#3fae7a" font-size="11">Glissez "Rendement" -> Moyenne ou Somme</text>
+
+  <text x="50" y="375" fill="#e8946a" font-size="11">✓ Zéro formule écrite au clavier : tout est calculé par le moteur TCD !</text>
+
+  <!-- Flèche de transfert -->
+  <path d="M 415 235 L 445 235 M 435 225 L 445 235 L 435 245" stroke="#3fae7a" stroke-width="3" stroke-linecap="round" />
+
+  <!-- Colonne Droite : Le Résultat Croisé Obtenu -->
+  <rect x="465" y="80" width="400" height="310" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <rect x="465" y="80" width="400" height="35" fill="#0d352b" rx="8" />
+  <text x="480" y="103" fill="#3fae7a" font-size="13" font-weight="bold">LE TABLEAU CROISÉ DYNAMIQUE GÉNÉRÉ</text>
+
+  <!-- Table TCD simulée -->
+  <rect x="480" y="125" width="370" height="210" fill="#09261f" stroke="#1b4d3e" rx="4" />
+  <!-- En-tête colonnes -->
+  <rect x="480" y="125" width="370" height="30" fill="#0d352b" />
+  <text x="490" y="145" fill="#e8946a" font-size="11" font-weight="bold">Commune</text>
+  <text x="580" y="145" fill="#7fb0ee" font-size="11" font-weight="bold">Maïs</text>
+  <text x="640" y="145" fill="#7fb0ee" font-size="11" font-weight="bold">Soja</text>
+  <text x="700" y="145" fill="#7fb0ee" font-size="11" font-weight="bold">Coton</text>
+  <text x="765" y="145" fill="#f4faf7" font-size="11" font-weight="bold">Total</text>
+
+  <!-- Ligne 1 : Parakou -->
+  <text x="490" y="175" fill="#3fae7a" font-size="11" font-weight="bold">Parakou</text>
+  <text x="580" y="175" fill="#f4faf7" font-size="11">3 325</text>
+  <text x="640" y="175" fill="#f4faf7" font-size="11">1 650</text>
+  <text x="700" y="175" fill="#f4faf7" font-size="11">1 900</text>
+  <text x="765" y="175" fill="#3fae7a" font-size="11" font-weight="bold">2 291</text>
+
+  <!-- Ligne 2 : N'Dali -->
+  <text x="490" y="205" fill="#3fae7a" font-size="11" font-weight="bold">N'Dali</text>
+  <text x="580" y="205" fill="#f4faf7" font-size="11">3 275</text>
+  <text x="640" y="205" fill="#f4faf7" font-size="11">1 780</text>
+  <text x="700" y="205" fill="#f4faf7" font-size="11">2 050</text>
+  <text x="765" y="205" fill="#3fae7a" font-size="11" font-weight="bold">2 360</text>
+
+  <!-- Ligne 3 : Tchaourou -->
+  <text x="490" y="235" fill="#3fae7a" font-size="11" font-weight="bold">Tchaourou</text>
+  <text x="580" y="235" fill="#f4faf7" font-size="11">2 875</text>
+  <text x="640" y="235" fill="#f4faf7" font-size="11">1 785</text>
+  <text x="700" y="235" fill="#f4faf7" font-size="11">1 950</text>
+  <text x="765" y="235" fill="#3fae7a" font-size="11" font-weight="bold">2 262</text>
+
+  <!-- Ligne 4 : Bembèrèkè -->
+  <text x="490" y="265" fill="#3fae7a" font-size="11" font-weight="bold">Bembèrèkè</text>
+  <text x="580" y="265" fill="#f4faf7" font-size="11">3 433</text>
+  <text x="640" y="265" fill="#88b3a4" font-size="11">-</text>
+  <text x="700" y="265" fill="#f4faf7" font-size="11">1 850</text>
+  <text x="765" y="265" fill="#3fae7a" font-size="11" font-weight="bold">3 037</text>
+
+  <!-- Ligne Total Général -->
+  <line x1="480" y1="285" x2="850" y2="285" stroke="#3fae7a" stroke-width="1.5" />
+  <text x="490" y="310" fill="#e8946a" font-size="11" font-weight="bold">Total Général</text>
+  <text x="580" y="310" fill="#e8946a" font-size="11" font-weight="bold">3 218</text>
+  <text x="640" y="310" fill="#e8946a" font-size="11" font-weight="bold">1 740</text>
+  <text x="700" y="310" fill="#e8946a" font-size="11" font-weight="bold">1 937</text>
+  <text x="765" y="310" fill="#e8946a" font-size="11" font-weight="bold">2 428</text>
+
+  <text x="480" y="360" fill="#7fb0ee" font-size="11">Généré en 15 secondes · Actualisation en 1 clic (Alt + F5)</text>
+
+  <!-- Bandeau Inférieur -->
+  <rect x="35" y="410" width="830" height="65" fill="#0a2b24" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="50" y="435" fill="#e8946a" font-size="13" font-weight="bold">RÈGLE MAÎTRESSE D'ACTUALISATION DU TCD :</text>
+  <text x="50" y="460" fill="#f4faf7" font-size="12">Contrairement aux formules, un TCD ne recalcule pas tout seul quand vous changez un chiffre dans la base. Faites toujours : <tspan fill="#3fae7a" font-weight="bold">Clic droit &gt; Actualiser (ou Alt + F5)</tspan>.</text>
+</svg>

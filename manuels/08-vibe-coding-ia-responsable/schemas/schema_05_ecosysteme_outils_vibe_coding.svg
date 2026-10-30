@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="vibeGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#vibeGrad5)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">L'ÉCOSYSTÈME DES OUTILS DE VIBE CODING : ÉDITEURS IA &amp; MODÈLES LOCAUX</text>
+
+  <!-- Colonne Gauche : Les Éditeurs de Code IA (Cursor, VS Code) -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">1. Les Éditeurs Augmentés par l'IA</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Passer du simple chatbot web à l'agent qui modifie vos fichiers</text>
+
+  <!-- Box Cursor / Windsurf -->
+  <rect x="50" y="145" width="370" height="135" fill="#0d2538" stroke="#7fb0ee" stroke-width="1" rx="6" />
+  <text x="65" y="170" fill="#7fb0ee" font-size="12" font-weight="bold">Cursor IDE &amp; Windsurf :</text>
+  <text x="65" y="192" fill="#f4faf7" font-size="11">• Indexation vectorielle du projet (<tspan fill="#3fae7a" font-family="monospace">@codebase</tspan>).</text>
+  <text x="65" y="212" fill="#f4faf7" font-size="11">• L'IA comprend les liaisons entre HTML, CSS et JS.</text>
+  <text x="65" y="232" fill="#f4faf7" font-size="11">• Raccourci magique <tspan fill="#d89f3c" font-weight="bold">Ctrl + K</tspan> : Génère le code dans la ligne.</text>
+  <text x="65" y="252" fill="#f4faf7" font-size="11">• Mode <tspan fill="#3fae7a" font-weight="bold">Composer (Ctrl + I)</tspan> : Modifie 5 fichiers à la fois !</text>
+  <text x="65" y="270" fill="#88b3a4" font-size="10">Plus besoin de copier-coller depuis la fenêtre ChatGPT.</text>
+
+  <!-- Box VS Code Extension -->
+  <rect x="50" y="295" width="370" height="140" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="320" fill="#3fae7a" font-size="12" font-weight="bold">VS Code + Extensions Libres :</text>
+  <text x="65" y="342" fill="#f4faf7" font-size="11">• <tspan fill="#7fb0ee" font-weight="bold">Continue.dev :</tspan> Plugin open-source pour brancher n'importe quel LLM.</text>
+  <text x="65" y="362" fill="#f4faf7" font-size="11">• <tspan fill="#3fae7a" font-weight="bold">GitHub Copilot :</tspan> Autocomplétion temps réel à la touche Tab.</text>
+  <text x="65" y="382" fill="#f4faf7" font-size="11">• <tspan fill="#d89f3c" font-weight="bold">Live Server :</tspan> Actualise la page web à chaque enregistrement.</text>
+  <text x="65" y="405" fill="#88b3a4" font-size="10">Écosystème standard, léger et 100% personnalisable.</text>
+
+  <!-- Colonne Droite : Modèles Cloud vs Modèles Locaux (Ollama) -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">2. Modèles Cloud vs Modèles Locaux</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Choisir entre puissance maximale et autonomie hors-ligne</text>
+
+  <!-- Modèles Cloud -->
+  <rect x="480" y="145" width="370" height="120" fill="#09291b" stroke="#3fae7a" rx="4" />
+  <text x="495" y="168" fill="#3fae7a" font-size="12" font-weight="bold">Modèles Cloud (Claude 3.7 / Gemini 2.0 / GPT-4o) :</text>
+  <text x="495" y="190" fill="#f4faf7" font-size="11">• Puissance de raisonnement inégalée sur les architectures complexes.</text>
+  <text x="495" y="210" fill="#f4faf7" font-size="11">• Connaissance à jour des dernières versions de bibliothèques.</text>
+  <text x="495" y="230" fill="#e86a6a" font-size="11">Inconvénient : Nécessite une connexion internet stable et rapide.</text>
+  <text x="495" y="250" fill="#88b3a4" font-size="10">Idéal pour concevoir le prototype initial au bureau.</text>
+
+  <!-- Modèles Locaux Ollama -->
+  <rect x="480" y="275" width="370" height="160" fill="#06100c" stroke="#d89f3c" stroke-width="1" rx="4" />
+  <text x="495" y="298" fill="#d89f3c" font-size="12" font-weight="bold">Modèles Locaux Hors-Ligne (Ollama / Qwen Coder) :</text>
+  <text x="495" y="320" fill="#f4faf7" font-size="11">• <tspan fill="#3fae7a" font-weight="bold">Ollama :</tspan> Installe un LLM en 1 ligne sur votre ordinateur portable.</text>
+  <text x="495" y="340" fill="#f4faf7" font-size="11">• <tspan fill="#7fb0ee" font-weight="bold">Qwen 2.5 Coder 7B / DeepSeek-R1 :</tspan> Spécialisés dans le code.</text>
+  <text x="495" y="360" fill="#3fae7a" font-size="11" font-weight="bold">100 % Hors-Ligne : Fonctionne sans aucune connexion internet !</text>
+  <text x="495" y="380" fill="#f4faf7" font-size="10">Confidentialité totale : Vos données agricoles ne sortent jamais du PC.</text>
+  <text x="495" y="402" fill="#d89f3c" font-size="10">L'arme absolue pour coder sur le terrain en milieu rural.</text>
+</svg>

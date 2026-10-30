@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="sigGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#sigGrad3)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">DIGITALISATION PARCELLAIRE, ACCROCHAGE TOPOLOGIQUE &amp; CALCUL D'AIRES</text>
+
+  <!-- Colonne Gauche : L'Accrochage Topologique (Snapping) -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#d89f3c" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#d89f3c" font-size="15" font-weight="bold">1. Règle d'Or : L'Accrochage (Snapping)</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Éviter les trous (gaps) et les superpositions entre champs voisins</text>
+
+  <!-- Schéma visuel accrochage -->
+  <rect x="50" y="145" width="370" height="150" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  
+  <!-- Parcelle A -->
+  <polygon points="70,170 190,160 210,250 80,260" fill="#10b981" fill-opacity="0.25" stroke="#10b981" stroke-width="2" />
+  <text x="110" y="215" fill="#10b981" font-size="12" font-weight="bold">Champ A (Maïs)</text>
+
+  <!-- Parcelle B avec point d'aimant -->
+  <polygon points="210,160 340,175 350,265 210,250" fill="#3b82f6" fill-opacity="0.25" stroke="#3b82f6" stroke-width="2" />
+  <text x="250" y="215" fill="#3b82f6" font-size="12" font-weight="bold">Champ B (Coton)</text>
+
+  <!-- Symbole Aimant d'accrochage sur frontière commune -->
+  <circle cx="210" cy="205" r="8" fill="#e86a6a" />
+  <text x="225" y="209" fill="#e86a6a" font-size="11" font-weight="bold">Accrochage sommet (Aimant)</text>
+
+  <!-- Panneau explicatif aimant -->
+  <rect x="50" y="305" width="370" height="130" fill="#0d2e24" stroke="#d89f3c" stroke-width="1" rx="6" />
+  <text x="65" y="328" fill="#d89f3c" font-size="12" font-weight="bold">Configuration requise dans QGIS :</text>
+  <text x="65" y="350" fill="#f4faf7" font-size="11">• Activer l'aimant : Icône aimant ou touche <tspan fill="#3fae7a" font-weight="bold">'s'</tspan>.</text>
+  <text x="65" y="370" fill="#f4faf7" font-size="11">• Mode : <tspan fill="#7fb0ee" font-weight="bold">Sommet et segment</tspan> (tolérance 10 pixels).</text>
+  <text x="65" y="390" fill="#f4faf7" font-size="11">• Cochez : <tspan fill="#3fae7a" font-weight="bold">'Éviter le chevauchement sur la couche active'</tspan>.</text>
+  <text x="65" y="412" fill="#d89f3c" font-size="10" font-weight="bold">Garantit des frontières foncières parfaitement jointives.</text>
+
+  <!-- Colonne Droite : Calcul Métrique dans la Calculatrice de Champ -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">2. Calcul Géométrique d'Aires &amp; Périmètres</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Générer les vraies surfaces agricoles sans approximation</text>
+
+  <!-- Formule Surface ha -->
+  <rect x="480" y="145" width="370" height="90" fill="#09291b" stroke="#3fae7a" stroke-width="1" rx="6" />
+  <text x="495" y="168" fill="#3fae7a" font-size="13" font-weight="bold">Superficie en Hectares (ha) :</text>
+  <rect x="495" y="178" width="340" height="25" fill="#06100c" rx="4" />
+  <text x="505" y="195" fill="#f4faf7" font-size="11" font-family="monospace">round( $area / 10000 , 2 )</text>
+  <text x="495" y="222" fill="#88b3a4" font-size="11">Couche en UTM 31N : $area calcule les m². 1 ha = 10 000 m².</text>
+
+  <!-- Formule Périmètre -->
+  <rect x="480" y="245" width="370" height="85" fill="#0a2538" stroke="#7fb0ee" stroke-width="1" rx="6" />
+  <text x="495" y="268" fill="#7fb0ee" font-size="13" font-weight="bold">Périmètre de clôture en mètres (m) :</text>
+  <rect x="495" y="278" width="340" height="25" fill="#06100c" rx="4" />
+  <text x="505" y="295" fill="#f4faf7" font-size="11" font-family="monospace">round( $perimeter , 1 )</text>
+  <text x="495" y="318" fill="#88b3a4" font-size="11">Indispensable pour deviser les grillages ou haies vives.</text>
+
+  <!-- Biais Déclaratif -->
+  <rect x="480" y="340" width="370" height="95" fill="#1f1113" stroke="#e8946a" stroke-width="1" rx="6" />
+  <text x="495" y="362" fill="#e8946a" font-size="12" font-weight="bold">Biais Déclaratif Paysan (Audit Réel) :</text>
+  <text x="495" y="382" fill="#f4faf7" font-size="11">Superficie Déclarée : 5.0 ha | <tspan fill="#3fae7a" font-weight="bold">Superficie SIG : 3.82 ha</tspan></text>
+  <text x="495" y="402" fill="#e8946a" font-size="11">Écart moyen constaté au Bénin : surestimation de 15 à 30 % !</text>
+  <text x="495" y="420" fill="#88b3a4" font-size="10">Le SIG permet d'ajuster les doses d'engrais et semences exactes.</text>
+</svg>

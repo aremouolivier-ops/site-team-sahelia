@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="valGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#valGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">CONTRÔLE QUALITÉ &amp; CRITÈRES DE VALIDATION DANS KOBOTOOLBOX · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Les Formules de Contraintes -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">Formules de Validation (Constraint)</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Bloquer les fautes de frappe avant l'envoi au serveur</text>
+
+  <!-- Règle 1 : Âge -->
+  <rect x="50" y="145" width="370" height="65" fill="#0d352b" rx="6" />
+  <text x="65" y="167" fill="#f4faf7" font-size="12" font-weight="bold">1. Âge du Chef d'Exploitation :</text>
+  <rect x="65" y="177" width="340" height="25" fill="#06100c" rx="4" />
+  <text x="75" y="194" fill="#3fae7a" font-size="11" font-family="monospace">. &gt;= 18 and . &lt;= 100</text>
+
+  <!-- Règle 2 : Superficie -->
+  <rect x="50" y="218" width="370" height="65" fill="#0d352b" rx="6" />
+  <text x="65" y="240" fill="#f4faf7" font-size="12" font-weight="bold">2. Superficie de la Parcelle (ha) :</text>
+  <rect x="65" y="250" width="340" height="25" fill="#06100c" rx="4" />
+  <text x="75" y="267" fill="#7fb0ee" font-size="11" font-family="monospace">. &gt; 0 and . &lt; 50</text>
+
+  <!-- Règle 3 : Rendement -->
+  <rect x="50" y="291" width="370" height="65" fill="#0d352b" rx="6" />
+  <text x="65" y="313" fill="#f4faf7" font-size="12" font-weight="bold">3. Rendement Grains (kg/ha) :</text>
+  <rect x="65" y="323" width="340" height="25" fill="#06100c" rx="4" />
+  <text x="75" y="340" fill="#e8946a" font-size="11" font-family="monospace">. &gt;= 100 and . &lt;= 10000</text>
+
+  <!-- Le Secret du Point -->
+  <rect x="50" y="364" width="370" height="65" fill="#09291b" stroke="#3fae7a" rx="6" />
+  <text x="65" y="386" fill="#3fae7a" font-size="12" font-weight="bold">Le Secret du Point (.) :</text>
+  <text x="65" y="404" fill="#f4faf7" font-size="11">En syntaxe XLSForm, le symbole . désigne</text>
+  <text x="65" y="418" fill="#88b3a4" font-size="10">la valeur exacte tapée par l'enquêteur dans cette case.</text>
+
+  <!-- Colonne Droite : L'Alerte Bloquante sur Smartphone -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#e8946a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#e8946a" font-size="15" font-weight="bold">Alerte Bloquante sur Smartphone</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Ce que voit l'enquêteur en cas de saisie absurde</text>
+
+  <!-- Écran Smartphone Simulé -->
+  <rect x="480" y="145" width="370" height="205" fill="#06100c" stroke="#1b4d3e" stroke-width="2" rx="10" />
+  
+  <!-- Question et Saisie Erronée -->
+  <text x="500" y="175" fill="#f4faf7" font-size="12" font-weight="bold">Âge du producteur :</text>
+  <rect x="500" y="185" width="330" height="35" fill="#240c0c" stroke="#e05252" stroke-width="2" rx="4" />
+  <text x="515" y="208" fill="#ff7b72" font-size="14" font-weight="bold">150</text>
+
+  <!-- Message d'Erreur Personnalisé -->
+  <rect x="500" y="230" width="330" height="60" fill="#240c0c" rx="4" />
+  <text x="515" y="250" fill="#ff7b72" font-size="11" font-weight="bold">⚠️ Valeur Impossible :</text>
+  <text x="515" y="268" fill="#ffaaaa" font-size="10">L'âge doit être compris entre 18 et 100 ans.</text>
+  <text x="515" y="282" fill="#ffaaaa" font-size="10">Veuillez corriger la saisie pour continuer !</text>
+
+  <!-- Bouton Bloqué -->
+  <rect x="500" y="300" width="330" height="35" fill="#334155" rx="4" />
+  <text x="590" y="322" fill="#94a3b8" font-size="12" font-weight="bold">Suivant (Bloqué)</text>
+
+  <!-- Conclusion -->
+  <text x="480" y="375" fill="#3fae7a" font-size="12" font-weight="bold">Zéro Heure Perdue en Nettoyage :</text>
+  <text x="480" y="395" fill="#f4faf7" font-size="11">Vos données arrivent 100 % propres et exploitables</text>
+  <text x="480" y="415" fill="#88b3a4" font-size="11">sur les serveurs de la Faculté d'Agronomie de Parakou.</text>
+</svg>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="vibeGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#vibeGrad3)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">ARCHITECTURE MODULAIRE &amp; DÉCOUPAGE EN VIBE CODING · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Le Piège du Monolithe vs Approche Modulaire -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#e86a6a" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#e86a6a" font-size="15" font-weight="bold">1. Le Piège du Monolithe "Fourre-tout"</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Pourquoi demander tout d'un coup fait échouer le LLM</text>
+
+  <rect x="50" y="145" width="370" height="135" fill="#1f1113" stroke="#e86a6a" stroke-width="1" rx="6" />
+  <text x="65" y="170" fill="#e86a6a" font-size="12" font-weight="bold">❌ L'Approche Naïve (Prompt géant de 2000 lignes) :</text>
+  <text x="65" y="195" fill="#f4faf7" font-size="11">• Dépassement de la fenêtre de contexte de sortie du modèle.</text>
+  <text x="65" y="215" fill="#f4faf7" font-size="11">• Code tronqué au milieu d'une fonction critique.</text>
+  <text x="65" y="235" fill="#f4faf7" font-size="11">• Régressions : corriger un calcul casse le style CSS !</text>
+  <text x="65" y="258" fill="#e86a6a" font-size="10" font-weight="bold">Résultat : Frustration et abandon du projet.</text>
+
+  <!-- La Règle Sahélia -->
+  <rect x="50" y="295" width="370" height="140" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="320" fill="#3fae7a" font-size="12" font-weight="bold">✓ La Règle d'Or Sahélia : Un Rôle par Module</text>
+  <text x="65" y="342" fill="#f4faf7" font-size="11">Ne demandez jamais à l'IA de tout réécrire.</text>
+  <text x="65" y="362" fill="#f4faf7" font-size="11">Isolez chaque responsabilité dans un bloc étanche.</text>
+  <text x="65" y="385" fill="#d89f3c" font-size="11" font-weight="bold">Vous pouvez modifier les calculs sans toucher au design !</text>
+  <text x="65" y="410" fill="#88b3a4" font-size="10">Garantit des outils évolutifs et maintenables à long terme.</text>
+
+  <!-- Colonne Droite : Les 4 Modules Clés d'une Appli Métier -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">2. Les 4 Briques Modulaires Standard</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Une architecture universelle pour vos outils agricoles &amp; web</text>
+
+  <!-- 4 Briques Visuelles -->
+  <rect x="480" y="145" width="180" height="125" fill="#0d2538" stroke="#7fb0ee" stroke-width="1" rx="6" />
+  <text x="490" y="170" fill="#7fb0ee" font-size="12" font-weight="bold">Brique 1 : STATE</text>
+  <text x="490" y="190" fill="#88b3a4" font-size="10">Données en mémoire</text>
+  <text x="490" y="210" fill="#f4faf7" font-size="10">• Liste des parcelles</text>
+  <text x="490" y="225" fill="#f4faf7" font-size="10">• Filtre actif (Maïs/Coton)</text>
+  <text x="490" y="245" fill="#3fae7a" font-size="9" font-weight="bold">Source unique de vérité</text>
+
+  <rect x="670" y="145" width="180" height="125" fill="#09291b" stroke="#3fae7a" stroke-width="1" rx="6" />
+  <text x="680" y="170" fill="#3fae7a" font-size="12" font-weight="bold">Brique 2 : LOGIQUE</text>
+  <text x="680" y="190" fill="#88b3a4" font-size="10">Fonctions pures de calcul</text>
+  <text x="680" y="210" fill="#f4faf7" font-size="10">• Formule dose NPK</text>
+  <text x="680" y="225" fill="#f4faf7" font-size="10">• Débit drone pulvé</text>
+  <text x="680" y="245" fill="#d89f3c" font-size="9" font-weight="bold">Zéro code HTML/DOM</text>
+
+  <rect x="480" y="285" width="180" height="150" fill="#0d2e24" stroke="#d89f3c" stroke-width="1" rx="6" />
+  <text x="490" y="310" fill="#d89f3c" font-size="12" font-weight="bold">Brique 3 : RENDU (UI)</text>
+  <text x="490" y="330" fill="#88b3a4" font-size="10">Manipulation du DOM</text>
+  <text x="490" y="350" fill="#f4faf7" font-size="10">• Génération cartes</text>
+  <text x="490" y="365" fill="#f4faf7" font-size="10">• Mise à jour jauges</text>
+  <text x="490" y="380" fill="#f4faf7" font-size="10">• Modales &amp; formulaires</text>
+  <text x="490" y="405" fill="#7fb0ee" font-size="9" font-weight="bold">Interface visuelle pure</text>
+
+  <rect x="670" y="285" width="180" height="150" fill="#06100c" stroke="#1b4d3e" stroke-width="1" rx="6" />
+  <text x="680" y="310" fill="#ffffff" font-size="12" font-weight="bold">Brique 4 : PERSISTENCE</text>
+  <text x="680" y="330" fill="#88b3a4" font-size="10">Stockage &amp; Export</text>
+  <text x="680" y="350" fill="#f4faf7" font-size="10">• Sauvegarde localStorage</text>
+  <text x="680" y="365" fill="#f4faf7" font-size="10">• Export fichier CSV</text>
+  <text x="680" y="380" fill="#f4faf7" font-size="10">• Import fichier JSON</text>
+  <text x="680" y="405" fill="#3fae7a" font-size="9" font-weight="bold">Autonomie hors-ligne</text>
+</svg>

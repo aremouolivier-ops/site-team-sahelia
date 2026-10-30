@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="webGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#webGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">NAVIGATEUR WEB & RECHERCHE SCIENTIFIQUE AVANCÉE · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Raccourcis Maîtres du Navigateur -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">Raccourcis Maîtres de Navigation</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Naviguer à la vitesse de la pensée sur Chrome / Edge / Firefox</text>
+
+  <!-- Raccourci 1 -->
+  <rect x="50" y="145" width="370" height="45" fill="#0d352b" rx="6" />
+  <text x="65" y="167" fill="#f4faf7" font-size="12" font-weight="bold">Ctrl + Maj + T :</text>
+  <text x="180" y="167" fill="#7fb0ee" font-size="12" font-weight="bold">Ressuscite l'onglet fermé par erreur !</text>
+  <text x="65" y="182" fill="#88b3a4" font-size="10">Fonctionne même si vous fermez 5 onglets d'affilée.</text>
+
+  <!-- Raccourci 2 -->
+  <rect x="50" y="198" width="370" height="45" fill="#0d352b" rx="6" />
+  <text x="65" y="220" fill="#f4faf7" font-size="12" font-weight="bold">Ctrl + L ou Alt + D :</text>
+  <text x="195" y="220" fill="#3fae7a" font-size="12" font-weight="bold">Barre d'adresse instantanée</text>
+  <text x="65" y="235" fill="#88b3a4" font-size="10">Surligne l'URL entière : prêt à copier ou lancer une nouvelle recherche.</text>
+
+  <!-- Raccourci 3 -->
+  <rect x="50" y="251" width="370" height="45" fill="#0d352b" rx="6" />
+  <text x="65" y="273" fill="#f4faf7" font-size="12" font-weight="bold">Ctrl + F5 :</text>
+  <text x="135" y="273" fill="#e8946a" font-size="12" font-weight="bold">Actualisation avec purge du cache</text>
+  <text x="65" y="288" fill="#88b3a4" font-size="10">Force le téléchargement des images et scripts à jour du site web.</text>
+
+  <!-- Raccourci 4 -->
+  <rect x="50" y="304" width="370" height="45" fill="#0d352b" rx="6" />
+  <text x="65" y="326" fill="#f4faf7" font-size="12" font-weight="bold">Ctrl + Clic :</text>
+  <text x="150" y="326" fill="#7fb0ee" font-size="12" font-weight="bold">Ouvre le lien en arrière-plan</text>
+  <text x="65" y="341" fill="#88b3a4" font-size="10">Ouvrez 10 articles d'un coup sans quitter votre page de recherche.</text>
+
+  <!-- Raccourci 5 -->
+  <rect x="50" y="357" width="370" height="45" fill="#0d352b" rx="6" />
+  <text x="65" y="379" fill="#f4faf7" font-size="12" font-weight="bold">Ctrl + Maj + Suppr :</text>
+  <text x="195" y="379" fill="#e8946a" font-size="12" font-weight="bold">Effacer les cookies et historique</text>
+  <text x="65" y="394" fill="#88b3a4" font-size="10">Accès direct au menu de confidentialité sans chercher dans les paramètres.</text>
+
+  <text x="50" y="425" fill="#3fae7a" font-size="11" font-weight="bold">Ctrl + Tab : Fait défiler les onglets ouverts de gauche à droite</text>
+
+  <!-- Colonne Droite : Recherche Scientifique Avancée -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">Les Opérateurs Booléens de Recherche</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Trouver des mémoires, thèses et rapports officiels en 1 clic</text>
+
+  <!-- Opérateur 1 -->
+  <rect x="480" y="145" width="370" height="65" fill="#08221a" stroke="#3fae7a" rx="6" />
+  <text x="495" y="167" fill="#3fae7a" font-size="12" font-family="monospace" font-weight="bold">filetype:pdf</text>
+  <text x="495" y="185" fill="#f4faf7" font-size="11">Exemple : filetype:pdf "rendement coton" Bénin</text>
+  <text x="495" y="201" fill="#88b3a4" font-size="10">Google n'affiche QUE des documents PDF téléchargeables réels !</text>
+
+  <!-- Opérateur 2 -->
+  <rect x="480" y="218" width="370" height="65" fill="#08221a" stroke="#7fb0ee" rx="6" />
+  <text x="495" y="240" fill="#7fb0ee" font-size="12" font-family="monospace" font-weight="bold">"guillemets stricts"</text>
+  <text x="495" y="258" fill="#f4faf7" font-size="11">Exemple : "agroforesterie au Nord-Bénin"</text>
+  <text x="495" y="274" fill="#88b3a4" font-size="10">Force la correspondance exacte de l'expression complète mot pour mot.</text>
+
+  <!-- Opérateur 3 -->
+  <rect x="480" y="291" width="370" height="65" fill="#08221a" stroke="#e8946a" rx="6" />
+  <text x="495" y="313" fill="#e8946a" font-size="12" font-family="monospace" font-weight="bold">site:domaine</text>
+  <text x="495" y="331" fill="#f4faf7" font-size="11">Exemple : site:ird.fr OU site:fao.org fertilisation</text>
+  <text x="495" y="347" fill="#88b3a4" font-size="10">Restreint la recherche aux institutions scientifiques reconnues.</text>
+
+  <!-- Opérateur 4 -->
+  <rect x="480" y="364" width="370" height="65" fill="#08221a" stroke="#88b3a4" rx="6" />
+  <text x="495" y="386" fill="#f4faf7" font-size="12" font-family="monospace" font-weight="bold">-exclusion</text>
+  <text x="495" y="404" fill="#f4faf7" font-size="11">Exemple : maïs hybride -vente -prix -achat</text>
+  <text x="495" y="420" fill="#88b3a4" font-size="10">Élimine les publicités commerciales pour ne garder que la science.</text>
+</svg>

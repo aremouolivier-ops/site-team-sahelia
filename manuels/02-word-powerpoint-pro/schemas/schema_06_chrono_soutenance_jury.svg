@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="wordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#wordGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">CHRONOGRAMME MILITAIRE DES 20 MINUTES DE SOUTENANCE · TEAM SAHÉLIA</text>
+
+  <!-- Ligne temporelle des 20 minutes -->
+  <rect x="35" y="80" width="830" height="150" fill="#061a14" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="50" y="105" fill="#ffffff" font-size="13" font-weight="bold">DÉCOUPAGE CHRONO DES 20 MINUTES DEVANT LE JURY (MAÎTRISE PARFAITE)</text>
+
+  <!-- Blocs temporels -->
+  <!-- 0 - 2 min -->
+  <rect x="50" y="125" width="80" height="60" fill="#1e3a8a" stroke="#3b82f6" rx="4" />
+  <text x="65" y="148" fill="#ffffff" font-size="11" font-weight="bold">2 MIN</text>
+  <text x="58" y="170" fill="#93c5fd" font-size="9.5">Intro / Contexte</text>
+
+  <!-- 2 - 6 min -->
+  <rect x="135" y="125" width="160" height="60" fill="#065f46" stroke="#10b981" rx="4" />
+  <text x="190" y="148" fill="#ffffff" font-size="11" font-weight="bold">4 MIN</text>
+  <text x="150" y="170" fill="#a7f3d0" font-size="9.5">Matériel &amp; Méthodes / Zone</text>
+
+  <!-- 6 - 15 min (Cœur du réacteur) -->
+  <rect x="300" y="125" width="350" height="60" fill="#064e3b" stroke="#34d399" stroke-width="2" rx="4" />
+  <text x="430" y="148" fill="#ffffff" font-size="12" font-weight="bold">9 MINUTES (LE CŒUR DU MÉMOIRE)</text>
+  <text x="350" y="170" fill="#6ee7b7" font-size="10.5">Résultats majeurs, Graphiques de comparaison &amp; Discussion</text>
+
+  <!-- 15 - 18 min -->
+  <rect x="655" y="125" width="115" height="60" fill="#78350f" stroke="#f59e0b" rx="4" />
+  <text x="695" y="148" fill="#ffffff" font-size="11" font-weight="bold">3 MIN</text>
+  <text x="665" y="170" fill="#fde68a" font-size="9.5">Recommandations</text>
+
+  <!-- 18 - 20 min -->
+  <rect x="775" y="125" width="90" height="60" fill="#831843" stroke="#ec4899" rx="4" />
+  <text x="805" y="148" fill="#ffffff" font-size="11" font-weight="bold">2 MIN</text>
+  <text x="785" y="170" fill="#fbcfe8" font-size="9.5">Conclusion</text>
+
+  <!-- Repères minutes -->
+  <text x="50" y="205" fill="#88b3a4" font-size="10">0 min</text>
+  <text x="135" y="205" fill="#88b3a4" font-size="10">2 min</text>
+  <text x="300" y="205" fill="#88b3a4" font-size="10">6 min</text>
+  <text x="655" y="205" fill="#88b3a4" font-size="10">15 min</text>
+  <text x="775" y="205" fill="#88b3a4" font-size="10">18 min</text>
+  <text x="840" y="205" fill="#88b3a4" font-size="10">20 min STOP !</text>
+
+  <!-- 3 Boîtes d'action pour le feu des questions -->
+  <rect x="35" y="250" width="830" height="195" fill="#061a14" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="50" y="275" fill="#e8946a" font-size="13" font-weight="bold">LES 3 RÈGLES D'OR FACE AU FEU DES QUESTIONS DU JURY</text>
+
+  <!-- Règle 1 -->
+  <rect x="50" y="295" width="255" height="135" fill="#09261f" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="320" fill="#3fae7a" font-size="12" font-weight="bold">1. ÉCOUTE ACTIVE &amp; SILENCE</text>
+  <text x="65" y="345" fill="#d1e2d8" font-size="10.5">Prenez des notes sur un bloc-notes</text>
+  <text x="65" y="360" fill="#d1e2d8" font-size="10.5">propre pendant que le jury parle.</text>
+  <text x="65" y="380" fill="#f59e0b" font-size="10.5">Ne coupez JAMAIS un membre</text>
+  <text x="65" y="395" fill="#f59e0b" font-size="10.5">du jury, même s'il se trompe.</text>
+
+  <!-- Règle 2 -->
+  <rect x="320" y="295" width="260" height="135" fill="#09261f" stroke="#1b4d3e" rx="6" />
+  <text x="335" y="320" fill="#7fb0ee" font-size="12" font-weight="bold">2. REFORMULATION COURTOISE</text>
+  <text x="335" y="345" fill="#d1e2d8" font-size="10.5">« Merci M. le Président pour cette</text>
+  <text x="335" y="360" fill="#d1e2d8" font-size="10.5">remarque éclairante. Si j'ai bien</text>
+  <text x="335" y="375" fill="#d1e2d8" font-size="10.5">compris votre préoccupation sur...</text>
+  <text x="335" y="395" fill="#a7f3d0" font-size="10.5">Vous gagnez 5 secondes pour</text>
+  <text x="335" y="410" fill="#a7f3d0" font-size="10.5">structurer votre pensée.</text>
+
+  <!-- Règle 3 -->
+  <rect x="595" y="295" width="255" height="135" fill="#09261f" stroke="#1b4d3e" rx="6" />
+  <text x="610" y="320" fill="#e8946a" font-size="12" font-weight="bold">3. HUMILITÉ SCIENTIFIQUE</text>
+  <text x="610" y="345" fill="#d1e2d8" font-size="10.5">Si vous ne savez pas : dites la vérité</text>
+  <text x="610" y="360" fill="#d1e2d8" font-size="10.5">avec élégance :</text>
+  <text x="610" y="380" fill="#38bdf8" font-size="10.5">« Notre étude n'a pas mesuré ce</text>
+  <text x="610" y="395" fill="#38bdf8" font-size="10.5">paramètre, mais c'est une piste</text>
+  <text x="610" y="410" fill="#38bdf8" font-size="10.5">prioritaire pour nos suites. »</text>
+</svg>

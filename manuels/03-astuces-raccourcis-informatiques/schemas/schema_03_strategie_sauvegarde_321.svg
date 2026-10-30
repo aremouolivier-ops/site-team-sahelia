@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="backupGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#backupGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">STRATÉGIE DE SAUVEGARDE 3-2-1 & DÉCONTAMINATION CLÉ USB · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Règle d'or 3-2-1 -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#3fae7a" font-size="15" font-weight="bold">La Règle d'Or Universelle 3-2-1</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Le protocole militaire pour ne jamais perdre son travail</text>
+
+  <!-- Bloc 3 -->
+  <rect x="50" y="145" width="370" height="68" fill="#0d352b" stroke="#3fae7a" rx="6" />
+  <circle cx="75" cy="179" r="18" fill="#3fae7a" />
+  <text x="69" y="185" fill="#06100c" font-size="16" font-weight="bold">3</text>
+  <text x="105" y="170" fill="#f4faf7" font-size="13" font-weight="bold">3 Copies Distinctes des Données</text>
+  <text x="105" y="190" fill="#88b3a4" font-size="11">1 copie active de travail + 2 copies de secours synchronisées.</text>
+
+  <!-- Bloc 2 -->
+  <rect x="50" y="223" width="370" height="68" fill="#0d352b" stroke="#7fb0ee" rx="6" />
+  <circle cx="75" cy="257" r="18" fill="#7fb0ee" />
+  <text x="69" y="263" fill="#06100c" font-size="16" font-weight="bold">2</text>
+  <text x="105" y="248" fill="#f4faf7" font-size="13" font-weight="bold">2 Supports Physiques Différents</text>
+  <text x="105" y="268" fill="#88b3a4" font-size="11">Ex: Disque dur interne SSD du PC + Disque dur externe / Clé USB.</text>
+
+  <!-- Bloc 1 -->
+  <rect x="50" y="301" width="370" height="68" fill="#0d352b" stroke="#e8946a" rx="6" />
+  <circle cx="75" cy="335" r="18" fill="#e8946a" />
+  <text x="70" y="341" fill="#06100c" font-size="16" font-weight="bold">1</text>
+  <text x="105" y="326" fill="#f4faf7" font-size="13" font-weight="bold">1 Copie Hors-Site (Cloud Déporté)</text>
+  <text x="105" y="346" fill="#88b3a4" font-size="11">Google Drive, OneDrive ou Mega. Protège en cas de vol ou d'incendie.</text>
+
+  <text x="50" y="405" fill="#3fae7a" font-size="12" font-weight="bold">Un fichier sauvegardé à 1 seul endroit n'existe pas !</text>
+  <text x="50" y="425" fill="#88b3a4" font-size="11">Le disque d'un ordinateur peut griller sans avertissement.</text>
+
+  <!-- Colonne Droite : Sauvetage Clé USB & Commande Attrib -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#e8946a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#e8946a" font-size="15" font-weight="bold">Éradication du Virus de Raccourcis USB</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Vos fichiers sont masqués, PAS supprimés !</text>
+
+  <!-- Alerte Symptome -->
+  <rect x="480" y="145" width="370" height="70" fill="#240c0c" stroke="#e05252" stroke-width="1" rx="6" />
+  <text x="495" y="168" fill="#ff7b72" font-size="12" font-weight="bold">SYMPTÔME CLASSIQUE DANS LES CYBERCAFÉS :</text>
+  <text x="495" y="188" fill="#ffaaaa" font-size="11">Vos dossiers sur la clé USB se transforment en raccourcis (.lnk)</text>
+  <text x="495" y="204" fill="#ffaaaa" font-size="11">de 1 Ko avec une flèche bleue. NE CLIQUEZ PAS DESSUS !</text>
+
+  <!-- Solution Commande -->
+  <rect x="480" y="225" width="370" height="115" fill="#09291b" stroke="#3fae7a" stroke-width="1.2" rx="6" />
+  <text x="495" y="248" fill="#3fae7a" font-size="12" font-weight="bold">COMMANDE DE RÉCUPÉRATION IMMÉDIATE (Invite CMD) :</text>
+  <rect x="495" y="258" width="340" height="32" fill="#06100c" rx="4" />
+  <text x="505" y="280" fill="#3fae7a" font-size="12" font-family="monospace" font-weight="bold">attrib -h -r -s /s /d G:\*.*</text>
+  <text x="495" y="306" fill="#88b3a4" font-size="10">• -h : Démasque les fichiers cachés</text>
+  <text x="495" y="322" fill="#88b3a4" font-size="10">• -r -s : Retire les attributs lecture seule et système imposés par le virus</text>
+  <text x="495" y="336" fill="#e8946a" font-size="10">(Remplacez G: par la lettre exacte de votre clé USB)</text>
+
+  <!-- Règle de Prévention -->
+  <rect x="480" y="350" width="370" height="85" fill="#0d352b" rx="6" />
+  <text x="495" y="372" fill="#7fb0ee" font-size="12" font-weight="bold">Vaccination Anti-Autorun :</text>
+  <text x="495" y="392" fill="#f4faf7" font-size="11">Créez un dossier nommé autorun.inf sur la racine de la clé.</text>
+  <text x="495" y="412" fill="#88b3a4" font-size="11">Le virus ne pourra plus écraser ce fichier pour s'exécuter automatiquement.</text>
+</svg>

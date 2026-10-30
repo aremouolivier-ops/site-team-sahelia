@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="mediaGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#mediaGrad2)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">HARMONIE DES COULEURS 60-30-10 &amp; HIÉRARCHIE TYPOGRAPHIQUE · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Règle des Couleurs & Contraste WCAG -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#d89f3c" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#d89f3c" font-size="15" font-weight="bold">1. La Règle des Couleurs 60 - 30 - 10</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Le secret d'un visuel sobre, élégant et sans cacophonie</text>
+
+  <!-- Schéma des proportions 60 / 30 / 10 -->
+  <rect x="50" y="145" width="370" height="130" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  
+  <!-- 60% Fond -->
+  <rect x="65" y="160" width="200" height="30" fill="#0a251e" stroke="#1b4d3e" rx="3" />
+  <text x="75" y="180" fill="#88b3a4" font-size="11" font-weight="bold">60% FOND DOMINANT (Sobre / Sombre)</text>
+
+  <!-- 30% Structure -->
+  <rect x="65" y="198" width="110" height="30" fill="#1b4d3e" rx="3" />
+  <text x="75" y="218" fill="#f4faf7" font-size="11" font-weight="bold">30% CARTES &amp; BLOCS</text>
+
+  <!-- 10% Accent -->
+  <rect x="65" y="236" width="50" height="30" fill="#d89f3c" rx="3" />
+  <text x="125" y="256" fill="#d89f3c" font-size="11" font-weight="bold">10% ACCENT VIF (Bouton, Date, Prix)</text>
+
+  <!-- Règle de Contraste -->
+  <rect x="50" y="290" width="370" height="145" fill="#09291b" stroke="#3fae7a" rx="6" />
+  <text x="65" y="315" fill="#3fae7a" font-size="12" font-weight="bold">Le Test du Contraste sous Plein Soleil :</text>
+  <text x="65" y="338" fill="#f4faf7" font-size="11">• Ratio minimal recommandé : <tspan fill="#3fae7a" font-weight="bold">4.5 : 1</tspan> (Norme WCAG AA).</text>
+  <text x="65" y="360" fill="#f4faf7" font-size="11">• Ne jamais écrire en vert clair sur fond blanc ou jaune sur gris.</text>
+  <text x="65" y="382" fill="#e86a6a" font-size="11">• Texte blanc pur (#ffffff) sur fond sombre émeraude (#06100c) :</text>
+  <text x="65" y="405" fill="#3fae7a" font-size="11" font-weight="bold">Ratio 16.5 : 1 ✓ Lisibilité totale même en plein champ sous 38°C !</text>
+
+  <!-- Colonne Droite : Hiérarchie Typographique -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">2. Hiérarchie Typographique en 3 Niveaux</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Guider le regard du lecteur en moins de 2 secondes</text>
+
+  <!-- Exemple Hiérarchie Visuelle -->
+  <rect x="480" y="145" width="370" height="140" fill="#0d2538" stroke="#7fb0ee" stroke-width="1" rx="6" />
+  
+  <text x="495" y="175" fill="#f4faf7" font-size="18" font-weight="bold">FORMATION EXCEL &amp; SIG 2026</text>
+  <text x="495" y="195" fill="#7fb0ee" font-size="10">NIVEAU 1 : Titre Accrocheur (Gras, 36 à 48 px)</text>
+
+  <text x="495" y="222" fill="#d89f3c" font-size="13" font-weight="bold">Maîtriser QGIS, Kobo &amp; RStudio à l'Université de Parakou</text>
+  <text x="495" y="238" fill="#88b3a4" font-size="10">NIVEAU 2 : Proposition de valeur (Semi-gras, 20 à 24 px)</text>
+
+  <text x="495" y="260" fill="#f4faf7" font-size="11">Du 15 au 20 Novembre 2026 · Inscriptions ouvertes sur WhatsApp</text>
+  <text x="495" y="275" fill="#88b3a4" font-size="10">NIVEAU 3 : Détails pratiques et appel à l'action (14 à 16 px)</text>
+
+  <!-- Règle des 2 Polices Max -->
+  <rect x="480" y="300" width="370" height="135" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="495" y="325" fill="#d89f3c" font-size="12" font-weight="bold">La Règle d'Or des 2 Polices Maximum :</text>
+  <text x="495" y="348" fill="#f4faf7" font-size="11">• <tspan fill="#7fb0ee" font-weight="bold">Police 1 (Titres) :</tspan> Sans-serif géométrique robuste (ex: Figtree, Syne).</text>
+  <text x="495" y="370" fill="#f4faf7" font-size="11">• <tspan fill="#3fae7a" font-weight="bold">Police 2 (Corps) :</tspan> Police neutre et aérée (ex: Inter, Roboto).</text>
+  <text x="495" y="392" fill="#e86a6a" font-size="11">Bannir les polices manuscrites illisibles (Comic Sans, Papyrus).</text>
+  <text x="495" y="415" fill="#3fae7a" font-size="10" font-weight="bold">La simplicité est le summum du professionnalisme.</text>
+</svg>

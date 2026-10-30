@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="droneGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#droneGrad1)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">TYPOLOGIE COMPARÉE &amp; ANATOMIE DES DRONES AGRICOLES · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Drone de Cartographie & Télédétection -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">1. Drones de Cartographie &amp; Télédétection</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Exemples : DJI Mavic 3 Enterprise / Multispectral, eBee X</text>
+
+  <!-- Schéma Visuel Quadricoptère Léger -->
+  <rect x="50" y="145" width="370" height="150" fill="#0d2538" stroke="#7fb0ee" stroke-width="1" rx="6" />
+  
+  <!-- Corps Drone Carto -->
+  <ellipse cx="235" cy="205" rx="35" ry="25" fill="#1b4d3e" stroke="#7fb0ee" stroke-width="1.5" />
+  <!-- Bras -->
+  <line x1="210" y1="190" x2="170" y2="170" stroke="#7fb0ee" stroke-width="3" />
+  <line x1="260" y1="190" x2="300" y2="170" stroke="#7fb0ee" stroke-width="3" />
+  <line x1="210" y1="220" x2="170" y2="240" stroke="#7fb0ee" stroke-width="3" />
+  <line x1="260" y1="220" x2="300" y2="240" stroke="#7fb0ee" stroke-width="3" />
+  <!-- Hélices -->
+  <ellipse cx="170" cy="170" rx="22" ry="5" fill="#3fae7a" opacity="0.8" />
+  <ellipse cx="300" cy="170" rx="22" ry="5" fill="#3fae7a" opacity="0.8" />
+  <ellipse cx="170" cy="240" rx="22" ry="5" fill="#3fae7a" opacity="0.8" />
+  <ellipse cx="300" cy="240" rx="22" ry="5" fill="#3fae7a" opacity="0.8" />
+  <!-- Module RTK sur le dessus -->
+  <rect x="225" y="175" width="20" height="12" fill="#d89f3c" rx="2" />
+  <text x="250" y="184" fill="#d89f3c" font-size="9" font-weight="bold">Module GNSS RTK (Centimétrique)</text>
+  <!-- Nacelle Caméra -->
+  <circle cx="235" cy="225" r="8" fill="#e86a6a" />
+  <text x="140" y="278" fill="#e86a6a" font-size="10" font-weight="bold">Capteur 4 Bandes : Vert, Rouge, RedEdge, NIR</text>
+
+  <!-- Spécifications Carto -->
+  <rect x="50" y="305" width="370" height="130" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="328" fill="#7fb0ee" font-size="12" font-weight="bold">Caractéristiques Clés du Drone Carto :</text>
+  <text x="65" y="348" fill="#f4faf7" font-size="11">• Poids : <tspan fill="#3fae7a">~ 1.0 kg</tspan> (Ultra-portable dans un sac à dos).</text>
+  <text x="65" y="368" fill="#f4faf7" font-size="11">• Autonomie : <tspan fill="#3fae7a">35 à 45 minutes</tspan> par batterie LiPo.</text>
+  <text x="65" y="388" fill="#f4faf7" font-size="11">• Capacité : <tspan fill="#7fb0ee">Couvre 50 à 100 ha</tspan> en un seul vol.</text>
+  <text x="65" y="410" fill="#d89f3c" font-size="10" font-weight="bold">Objectif : Générer l'orthomosaïque et la carte NDVI haute résolution.</text>
+
+  <!-- Colonne Droite : Drone de Pulvérisation Agricole -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">2. Drones de Pulvérisation (Gros Porteurs)</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Exemples : DJI Agras T40 / T50, XAG P100 Pro</text>
+
+  <!-- Schéma Visuel Drone Pulvérisateur -->
+  <rect x="480" y="145" width="370" height="150" fill="#09291b" stroke="#3fae7a" stroke-width="1" rx="6" />
+  
+  <!-- Cuve centrale -->
+  <rect x="630" y="180" width="70" height="50" fill="#0d352b" stroke="#3fae7a" stroke-width="2" rx="8" />
+  <text x="640" y="210" fill="#3fae7a" font-size="12" font-weight="bold">Cuve 40L</text>
+  <!-- Bras lourds repliables -->
+  <line x1="630" y1="190" x2="550" y2="165" stroke="#3fae7a" stroke-width="4" />
+  <line x1="700" y1="190" x2="780" y2="165" stroke="#3fae7a" stroke-width="4" />
+  <line x1="630" y1="220" x2="550" y2="245" stroke="#3fae7a" stroke-width="4" />
+  <line x1="700" y1="220" x2="780" y2="245" stroke="#3fae7a" stroke-width="4" />
+  <!-- Rotors géants 54 pouces -->
+  <ellipse cx="550" cy="165" rx="35" ry="7" fill="#7fb0ee" opacity="0.8" />
+  <ellipse cx="780" cy="165" rx="35" ry="7" fill="#7fb0ee" opacity="0.8" />
+  <ellipse cx="550" cy="245" rx="35" ry="7" fill="#7fb0ee" opacity="0.8" />
+  <ellipse cx="780" cy="245" rx="35" ry="7" fill="#7fb0ee" opacity="0.8" />
+  <!-- Atomiseurs rotatifs centrifuges -->
+  <circle cx="550" cy="265" r="6" fill="#d89f3c" />
+  <circle cx="780" cy="265" r="6" fill="#d89f3c" />
+  <text x="590" y="280" fill="#d89f3c" font-size="10" font-weight="bold">Disques Atomiseurs Rotatifs (50 - 300 µm)</text>
+
+  <!-- Spécifications Pulvérisation -->
+  <rect x="480" y="305" width="370" height="130" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="495" y="328" fill="#3fae7a" font-size="12" font-weight="bold">Caractéristiques Clés du Drone Pulvérisateur :</text>
+  <text x="495" y="348" fill="#f4faf7" font-size="11">• Poids au décollage : <tspan fill="#e86a6a">> 50 à 95 kg</tspan> (avec plein de charge).</text>
+  <text x="495" y="368" fill="#f4faf7" font-size="11">• Débit de traitement : <tspan fill="#3fae7a">jusqu'à 16 à 24 L/min</tspan> en continu.</text>
+  <text x="495" y="388" fill="#f4faf7" font-size="11">• Rendement terrain : <tspan fill="#7fb0ee">1.5 à 2.5 ha traités en 10 minutes</tspan>.</text>
+  <text x="495" y="410" fill="#d89f3c" font-size="10" font-weight="bold">Sécurité : Évite tout contact toxique entre le paysan et le produit.</text>
+</svg>

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="mediaGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#mediaGrad5)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">ANATOMIE D'UNE TIMELINE CAPCUT / VN : RYTHME, B-ROLL &amp; SOUS-TITRES</text>
+
+  <!-- Bloc Haut : La Timeline Multicouche Mobile (0 à 60 secondes) -->
+  <rect x="35" y="75" width="830" height="235" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="100" fill="#7fb0ee" font-size="14" font-weight="bold">1. Organisation des Pistes Vidéo et Audio sur Smartphone</text>
+  
+  <!-- Axe Temporel -->
+  <line x1="120" y1="120" x2="840" y2="120" stroke="#1b4d3e" stroke-width="2" />
+  <text x="120" y="115" fill="#88b3a4" font-size="10">0s (Hook)</text>
+  <text x="280" y="115" fill="#88b3a4" font-size="10">10s (Problème)</text>
+  <text x="500" y="115" fill="#88b3a4" font-size="10">30s (Démonstration)</text>
+  <text x="720" y="115" fill="#88b3a4" font-size="10">50s (Résultat)</text>
+  <text x="825" y="115" fill="#d89f3c" font-size="10" font-weight="bold">60s (CTA)</text>
+
+  <!-- Piste 1 : Piste Incrustation (B-Roll) -->
+  <text x="45" y="145" fill="#3fae7a" font-size="11" font-weight="bold">B-Roll (Couverture)</text>
+  <rect x="120" y="130" width="130" height="25" fill="#1b4d3e" rx="4" />
+  <text x="130" y="147" fill="#f4faf7" font-size="10">Gros plan chenille</text>
+  <rect x="300" y="130" width="180" height="25" fill="#1b4d3e" rx="4" />
+  <text x="315" y="147" fill="#f4faf7" font-size="10">Survol drone parcelle</text>
+  <rect x="520" y="130" width="190" height="25" fill="#1b4d3e" rx="4" />
+  <text x="535" y="147" fill="#f4faf7" font-size="10">Mains pesant les grains</text>
+
+  <!-- Piste 2 : Sous-titres dynamiques -->
+  <text x="45" y="180" fill="#d89f3c" font-size="11" font-weight="bold">Sous-Titres (Karaoké)</text>
+  <rect x="120" y="165" width="715" height="22" fill="#06100c" stroke="#d89f3c" stroke-dasharray="3,3" rx="4" />
+  <text x="135" y="180" fill="#d89f3c" font-size="10" font-weight="bold">Mots clés animés : 2 à 3 mots par écran, police grasse lisible, surlignage jaune/or</text>
+
+  <!-- Piste 3 : Piste Principale (A-Roll Voix Face Caméra) -->
+  <text x="45" y="215" fill="#7fb0ee" font-size="11" font-weight="bold">A-Roll (Face Cam)</text>
+  <!-- Clips découpés avec Jump Cuts -->
+  <rect x="120" y="195" width="110" height="30" fill="#0d2538" stroke="#7fb0ee" rx="3" />
+  <text x="135" y="215" fill="#7fb0ee" font-size="10">Hook choc</text>
+  <rect x="235" y="195" width="140" height="30" fill="#0d2538" stroke="#7fb0ee" rx="3" />
+  <text x="245" y="215" fill="#7fb0ee" font-size="10">Constat dégâts</text>
+  <rect x="380" y="195" width="180" height="30" fill="#0d2538" stroke="#7fb0ee" rx="3" />
+  <text x="395" y="215" fill="#7fb0ee" font-size="10">Explication protocole</text>
+  <rect x="565" y="195" width="150" height="30" fill="#0d2538" stroke="#7fb0ee" rx="3" />
+  <text x="580" y="215" fill="#7fb0ee" font-size="10">Chiffres de gain</text>
+  <rect x="720" y="195" width="115" height="30" fill="#0d352b" stroke="#3fae7a" rx="3" />
+  <text x="735" y="215" fill="#3fae7a" font-size="10" font-weight="bold">Call to Action</text>
+
+  <!-- Piste 4 : Musique & Effets Sonores (SFX) -->
+  <text x="45" y="255" fill="#e86a6a" font-size="11" font-weight="bold">Audio / Ducking</text>
+  <rect x="120" y="235" width="715" height="20" fill="#2d1515" stroke="#e86a6a" rx="3" />
+  <text x="135" y="250" fill="#f4faf7" font-size="10">Musique de fond instrumentale atténuée à -22 dB pendant la voix (Auto-Ducking) + Swoosh SFX</text>
+
+  <!-- Marqueurs Jump Cut -->
+  <text x="120" y="285" fill="#88b3a4" font-size="10"><tspan fill="#e86a6a" font-weight="bold">✂ Jump Cuts :</tspan> Coupez impitoyablement tous les "euh...", respirations bruyantes et silences de plus de 0,3s.</text>
+
+  <!-- Bloc Bas : La Formule Hook - Histoire - Offre (35 à 450) -->
+  <rect x="35" y="325" width="830" height="125" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="50" y="350" fill="#3fae7a" font-size="14" font-weight="bold">2. La Formule Scénaristique des Vidéos Courtes Virales (Reels / Shorts / TikTok)</text>
+
+  <!-- 3 Colonnes Formule -->
+  <rect x="50" y="365" width="240" height="70" fill="#06100c" stroke="#7fb0ee" rx="6" />
+  <text x="65" y="388" fill="#7fb0ee" font-size="11" font-weight="bold">0 à 3 sec : Le Crochet (Hook)</text>
+  <text x="65" y="408" fill="#f4faf7" font-size="10">"Arrêtez de brûler vos pailles !"</text>
+  <text x="65" y="424" fill="#88b3a4" font-size="9">Texte choc + mouvement immédiat</text>
+
+  <rect x="310" y="365" width="270" height="70" fill="#06100c" stroke="#d89f3c" rx="6" />
+  <text x="325" y="388" fill="#d89f3c" font-size="11" font-weight="bold">3 à 45 sec : Valeur Pure (Le Protocole)</text>
+  <text x="325" y="408" fill="#f4faf7" font-size="10">Changement de plan toutes les 2,5s</text>
+  <text x="325" y="424" fill="#88b3a4" font-size="9">Alternance Face Cam et B-Roll démonstratif</text>
+
+  <rect x="600" y="365" width="250" height="70" fill="#06100c" stroke="#3fae7a" rx="6" />
+  <text x="615" y="388" fill="#3fae7a" font-size="11" font-weight="bold">45 à 60 sec : L'Appel à l'Action (CTA)</text>
+  <text x="615" y="408" fill="#f4faf7" font-size="10">"Téléchargez la fiche sur sahelia.bj"</text>
+  <text x="615" y="424" fill="#88b3a4" font-size="9">Engagement : commenter, partager, rejoindre</text>
+</svg>

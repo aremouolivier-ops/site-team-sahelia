@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="koboGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#koboGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">SAUTS LOGIQUES &amp; CONDITIONS D'AFFICHAGE DANS KOBOTOOLBOX · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Arbre de Décision Visuel -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">L'Arbre de Saut Dynamique</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Adapter le questionnaire en temps réel selon les réponses</text>
+
+  <!-- Question Racine -->
+  <rect x="70" y="145" width="330" height="50" fill="#0d352b" stroke="#7fb0ee" rx="6" />
+  <text x="85" y="167" fill="#f4faf7" font-size="12" font-weight="bold">Q1 : Avez-vous apporté des engrais ?</text>
+  <text x="85" y="185" fill="#88b3a4" font-size="11">Type: Select One (oui / non)</text>
+
+  <!-- Branche OUI -->
+  <line x1="160" y1="195" x2="160" y2="230" stroke="#3fae7a" stroke-width="2" />
+  <rect x="70" y="230" width="180" height="95" fill="#09291b" stroke="#3fae7a" rx="6" />
+  <text x="85" y="250" fill="#3fae7a" font-size="12" font-weight="bold">SI "OUI" (Condition vraie)</text>
+  <text x="85" y="270" fill="#f4faf7" font-size="11">• Type d'engrais (NPK/Urée)</text>
+  <text x="85" y="290" fill="#f4faf7" font-size="11">• Dose apportée (kg/ha)</text>
+  <text x="85" y="310" fill="#f4faf7" font-size="11">• Coût d'achat (FCFA)</text>
+
+  <!-- Branche NON -->
+  <line x1="310" y1="195" x2="310" y2="255" stroke="#ff7b72" stroke-width="2" />
+  <rect x="260" y="255" width="160" height="65" fill="#240c0c" stroke="#e05252" rx="6" />
+  <text x="275" y="278" fill="#ff7b72" font-size="12" font-weight="bold">SI "NON" (Saut direct)</text>
+  <text x="275" y="300" fill="#ffaaaa" font-size="10">Les questions engrais</text>
+  <text x="275" y="314" fill="#ffaaaa" font-size="10">sont masquées à l'écran !</text>
+
+  <!-- Reconnexion Q Finale -->
+  <line x1="160" y1="325" x2="160" y2="360" stroke="#88b3a4" stroke-width="1.5" />
+  <line x1="340" y1="320" x2="340" y2="345" stroke="#88b3a4" stroke-width="1.5" />
+  <line x1="160" y1="345" x2="340" y2="345" stroke="#88b3a4" stroke-width="1.5" />
+  <line x1="250" y1="345" x2="250" y2="365" stroke="#88b3a4" stroke-width="1.5" />
+
+  <rect x="70" y="365" width="330" height="50" fill="#0d352b" rx="6" />
+  <text x="85" y="387" fill="#f4faf7" font-size="12" font-weight="bold">Q2 : Quelle quantité de grains récoltée ?</text>
+  <text x="85" y="405" fill="#88b3a4" font-size="11">Rendement total en kg</text>
+
+  <!-- Colonne Droite : Syntaxe & Logique Kobo -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">Syntaxe dans KoboToolbox &amp; XLSForm</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">L'onglet Skip Logic ou la colonne 'relevant'</text>
+
+  <!-- Formule Simple -->
+  <rect x="480" y="145" width="370" height="75" fill="#0d352b" rx="6" />
+  <text x="495" y="168" fill="#e8946a" font-size="12" font-weight="bold">1. Condition Simple (Skip Logic) :</text>
+  <rect x="495" y="178" width="340" height="30" fill="#06100c" rx="4" />
+  <text x="505" y="198" fill="#3fae7a" font-size="12" font-family="monospace">${apport_engrais} = 'oui'</text>
+
+  <!-- Formule Combinée -->
+  <rect x="480" y="230" width="370" height="95" fill="#0d352b" rx="6" />
+  <text x="495" y="253" fill="#e8946a" font-size="12" font-weight="bold">2. Conditions Multiples (Opérateur AND) :</text>
+  <rect x="495" y="263" width="340" height="30" fill="#06100c" rx="4" />
+  <text x="505" y="283" fill="#7fb0ee" font-size="11" font-family="monospace">${culture} = 'mais' and ${sup_ha} &gt; 2</text>
+  <text x="495" y="312" fill="#88b3a4" font-size="10">Ne pose la question que si c'est du maïs ET une parcelle &gt; 2 ha.</text>
+
+  <!-- Bénéfices Qualité -->
+  <rect x="480" y="335" width="370" height="100" fill="#09291b" stroke="#3fae7a" rx="6" />
+  <text x="495" y="358" fill="#3fae7a" font-size="12" font-weight="bold">Gains Clés sur le Terrain :</text>
+  <text x="495" y="378" fill="#f4faf7" font-size="11">✓ Évite de poser des questions absurdes aux producteurs.</text>
+  <text x="495" y="396" fill="#f4faf7" font-size="11">✓ Réduit la durée de l'entretien de 45 à 20 minutes.</text>
+  <text x="495" y="414" fill="#88b3a4" font-size="10">✓ Zéro case vide parasite dans votre fichier d'exportation R.</text>
+</svg>

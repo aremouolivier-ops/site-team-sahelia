@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="bizGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#bizGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">L'ENTONNOIR DE LA PRESTATION FREELANCE RÉMUNÉRÉE · TEAM SAHÉLIA</text>
+
+  <!-- Étape 1 : Compétence Réelle -->
+  <rect x="35" y="85" width="155" height="260" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <rect x="35" y="85" width="155" height="35" fill="#0d352b" rx="8" />
+  <text x="45" y="108" fill="#7fb0ee" font-size="12" font-weight="bold">1. COMPÉTENCE</text>
+  <text x="45" y="145" fill="#f4faf7" font-size="11" font-weight="bold">Savoir-faire réel</text>
+  <text x="45" y="170" fill="#88b3a4" font-size="10">• Tracé GPS / QGIS</text>
+  <text x="45" y="190" fill="#88b3a4" font-size="10">• Enquêtes Kobo</text>
+  <text x="45" y="210" fill="#88b3a4" font-size="10">• Stats RStudio</text>
+  <text x="45" y="230" fill="#88b3a4" font-size="10">• Graphiques Excel</text>
+  <text x="45" y="280" fill="#7fb0ee" font-size="10" font-weight="bold">Preuve : Badge &amp;</text>
+  <text x="45" y="295" fill="#7fb0ee" font-size="10" font-weight="bold">Portfolio en ligne</text>
+
+  <!-- Étape 2 : L'Offre Packagée -->
+  <rect x="205" y="85" width="155" height="260" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <rect x="205" y="85" width="155" height="35" fill="#0d352b" rx="8" />
+  <text x="215" y="108" fill="#3fae7a" font-size="12" font-weight="bold">2. LE FORFAIT</text>
+  <text x="215" y="145" fill="#f4faf7" font-size="11" font-weight="bold">Prix clair en FCFA</text>
+  <text x="215" y="170" fill="#88b3a4" font-size="10">• Délimitation 5 ha :</text>
+  <text x="215" y="185" fill="#e8946a" font-size="11" font-weight="bold">  45 000 FCFA</text>
+  <text x="215" y="210" fill="#88b3a4" font-size="10">• Formulaire Kobo :</text>
+  <text x="215" y="225" fill="#e8946a" font-size="11" font-weight="bold">  35 000 FCFA</text>
+  <text x="215" y="280" fill="#3fae7a" font-size="10" font-weight="bold">Fin du tarif "à la tête</text>
+  <text x="215" y="295" fill="#3fae7a" font-size="10" font-weight="bold">du client".</text>
+
+  <!-- Étape 3 : Devis & Acompte 50% -->
+  <rect x="375" y="85" width="155" height="260" fill="#061a14" stroke="#e8946a" stroke-width="1.5" rx="8" />
+  <rect x="375" y="85" width="155" height="35" fill="#0d352b" rx="8" />
+  <text x="385" y="108" fill="#e8946a" font-size="12" font-weight="bold">3. L'ACCORD ÉCRIT</text>
+  <text x="385" y="145" fill="#f4faf7" font-size="11" font-weight="bold">Devis + Acompte</text>
+  <text x="385" y="170" fill="#88b3a4" font-size="10">• Devis 1 page signé</text>
+  <text x="385" y="190" fill="#88b3a4" font-size="10">• Acompte 50% reçu</text>
+  <text x="385" y="205" fill="#88b3a4" font-size="10">  par Mobile Money</text>
+  <text x="385" y="225" fill="#88b3a4" font-size="10">• Calendrier fixé</text>
+  <text x="385" y="280" fill="#e8946a" font-size="10" font-weight="bold">Règle absolue :</text>
+  <text x="385" y="295" fill="#e8946a" font-size="10" font-weight="bold">Jamais sans acompte !</text>
+
+  <!-- Étape 4 : Livraison Technique -->
+  <rect x="545" y="85" width="155" height="260" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <rect x="545" y="85" width="155" height="35" fill="#0d352b" rx="8" />
+  <text x="555" y="108" fill="#7fb0ee" font-size="12" font-weight="bold">4. LA LIVRAISON</text>
+  <text x="555" y="145" fill="#f4faf7" font-size="11" font-weight="bold">Qualité Irréprochable</text>
+  <text x="555" y="170" fill="#88b3a4" font-size="10">• Carte PDF A3/A4 HD</text>
+  <text x="555" y="190" fill="#88b3a4" font-size="10">• Fichiers sources (SHP)</text>
+  <text x="555" y="210" fill="#88b3a4" font-size="10">• Rapport technique</text>
+  <text x="555" y="230" fill="#88b3a4" font-size="10">• Explication 15 min</text>
+  <text x="555" y="280" fill="#7fb0ee" font-size="10" font-weight="bold">Livré dans les délais</text>
+  <text x="555" y="295" fill="#7fb0ee" font-size="10" font-weight="bold">= Confiance totale</text>
+
+  <!-- Étape 5 : Solde & Recommandation -->
+  <rect x="715" y="85" width="150" height="260" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <rect x="715" y="85" width="150" height="35" fill="#0d352b" rx="8" />
+  <text x="725" y="108" fill="#3fae7a" font-size="12" font-weight="bold">5. LE SOLDE</text>
+  <text x="725" y="145" fill="#f4faf7" font-size="11" font-weight="bold">Paiement &amp; Réseau</text>
+  <text x="725" y="170" fill="#88b3a4" font-size="10">• Solde 50% encaissé</text>
+  <text x="725" y="190" fill="#88b3a4" font-size="10">• Reçu de paiement</text>
+  <text x="725" y="210" fill="#88b3a4" font-size="10">• Témoignage écrit</text>
+  <text x="725" y="230" fill="#88b3a4" font-size="10">• Recommandation</text>
+  <text x="725" y="280" fill="#3fae7a" font-size="10" font-weight="bold">Le client devient</text>
+  <text x="725" y="295" fill="#3fae7a" font-size="10" font-weight="bold">votre commercial !</text>
+
+  <!-- Flèches d'enchaînement -->
+  <path d="M 190 215 L 205 215 M 360 215 L 375 215 M 530 215 L 545 215 M 700 215 L 715 215" stroke="#3fae7a" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Bandeau Inférieur : La règle d'or -->
+  <rect x="35" y="370" width="830" height="80" fill="#0a2b24" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="50" y="400" fill="#e8946a" font-size="13" font-weight="bold">LA RÈGLE D'OR DU FREELANCE SAHÉLIA :</text>
+  <text x="50" y="425" fill="#f4faf7" font-size="12">« On ne travaille jamais sans un devis clair et 50 % d'acompte encaissé. La compétence technique ne vaut rien sans rigueur contractuelle. »</text>
+</svg>

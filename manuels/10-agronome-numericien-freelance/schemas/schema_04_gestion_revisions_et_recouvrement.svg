@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="mediaGrad10_4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#mediaGrad10_4)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">GESTION DU CLIENT : SCOPE CREEP, CYCLES DE RÉVISION &amp; RECOUVREMENT</text>
+
+  <!-- Colonne Gauche : Maîtriser le Périmètre & Avenants (35 à 440) -->
+  <rect x="35" y="75" width="410" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="14" font-weight="bold">1. Stopper le "Scope Creep" (Glissement)</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="11">Empêcher le client d'ajouter du travail non rémunéré</text>
+
+  <!-- Le Piège -->
+  <rect x="50" y="145" width="380" height="70" fill="#2d1515" stroke="#e86a6a" rx="4" />
+  <text x="65" y="168" fill="#e86a6a" font-size="11" font-weight="bold">Le Piège Classique du Client :</text>
+  <text x="65" y="188" fill="#f4faf7" font-size="10">"Ah mais mon cher, cartographie aussi les 8 fermes voisines !"</text>
+  <text x="65" y="205" fill="#88b3a4" font-size="9">Sans contrat clair, vous doublez vos heures gratuitement.</text>
+
+  <!-- La Parade Professionnelle -->
+  <rect x="50" y="225" width="380" height="90" fill="#0d352b" stroke="#3fae7a" rx="4" />
+  <text x="65" y="248" fill="#3fae7a" font-size="11" font-weight="bold">La Parade Professionnelle : L'Avenant</text>
+  <text x="65" y="268" fill="#f4faf7" font-size="10">"Avec grand plaisir ! Voici le devis de l'avenant N°1 pour intégrer</text>
+  <text x="65" y="285" fill="#f4faf7" font-size="10">ces 8 nouvelles parcelles et adapter le calendrier."</text>
+  <text x="65" y="303" fill="#d89f3c" font-size="9" font-weight="bold">Ne dites jamais "Non" sèchement, dites : "Oui, voici le tarif".</text>
+
+  <!-- Règle des 2 Révisions -->
+  <rect x="50" y="325" width="380" height="110" fill="#06100c" stroke="#1b4d3e" rx="4" />
+  <text x="65" y="348" fill="#7fb0ee" font-size="11" font-weight="bold">Règle d'Or des 2 Cycles de Révisions :</text>
+  <text x="65" y="368" fill="#f4faf7" font-size="10">• <tspan fill="#3fae7a" font-weight="bold">Cycle 1 :</tspan> Relecture globale du rapport provisoire (sous 7 jours).</text>
+  <text x="65" y="388" fill="#f4faf7" font-size="10">• <tspan fill="#7fb0ee" font-weight="bold">Cycle 2 :</tspan> Corrections mineures d'ajustement final.</text>
+  <text x="65" y="408" fill="#e86a6a" font-size="10">• <tspan font-weight="bold">Au-delà :</tspan> Toute réécriture majeure est facturée au TJM journalier.</text>
+  <text x="65" y="425" fill="#88b3a4" font-size="9">Signer un PV de recette provisoire pour figer les remarques.</text>
+
+  <!-- Colonne Droite : Le Protocole de Recouvrement Graduel (465 à 865) -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="14" font-weight="bold">2. Procédure de Recouvrement en 4 Paliers</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="11">Récupérer ses honoraires sans briser la relation client</text>
+
+  <!-- Palier 1 : J+1 -->
+  <rect x="480" y="145" width="370" height="60" fill="#0d2538" stroke="#7fb0ee" rx="4" />
+  <text x="495" y="167" fill="#7fb0ee" font-size="11" font-weight="bold">Palier 1 (J+1) : Relance Téléphonique / WhatsApp Courtoise</text>
+  <text x="495" y="185" fill="#f4faf7" font-size="9">"Bonjour M. le Directeur, je m'assure que vous avez bien reçu la facture finale..."</text>
+  <text x="495" y="198" fill="#88b3a4" font-size="8">Ton : Bienveillant, suppose un simple oubli administratif.</text>
+
+  <!-- Palier 2 : J+7 -->
+  <rect x="480" y="215" width="370" height="60" fill="#06100c" stroke="#d89f3c" rx="4" />
+  <text x="495" y="237" fill="#d89f3c" font-size="11" font-weight="bold">Palier 2 (J+7) : E-mail Formel de Suivi de Facture</text>
+  <text x="495" y="255" fill="#f4faf7" font-size="9">Rappel du numéro de bon de commande, du montant TTC et du RIB bancaire / MoMo.</text>
+  <text x="495" y="268" fill="#88b3a4" font-size="8">Fixer une nouvelle date ferme sous 5 jours ouvrés.</text>
+
+  <!-- Palier 3 : J+15 -->
+  <rect x="480" y="285" width="370" height="65" fill="#2d1515" stroke="#e86a6a" rx="4" />
+  <text x="495" y="307" fill="#e86a6a" font-size="11" font-weight="bold">Palier 3 (J+15) : Mise en Demeure &amp; Blocage des Livrables</text>
+  <text x="495" y="325" fill="#f4faf7" font-size="9">Suspension immédiate de la transmission des fichiers sources (Shapefiles, codes R).</text>
+  <text x="495" y="340" fill="#f4faf7" font-size="9">Courrier officiel avec accusé de réception ou décharge physique.</text>
+
+  <!-- Palier 4 : J+30 -->
+  <rect x="480" y="360" width="370" height="75" fill="#06100c" stroke="#1b4d3e" rx="4" />
+  <text x="495" y="382" fill="#3fae7a" font-size="11" font-weight="bold">Palier 4 (J+30) : Arbitrage &amp; Clause Résolutoire</text>
+  <text x="495" y="400" fill="#f4faf7" font-size="9">Recours au médiateur ou à la hiérarchie du projet (Bailleur de tutelle).</text>
+  <text x="495" y="415" fill="#88b3a4" font-size="8">Application des intérêts de retard prévus au contrat initial.</text>
+</svg>

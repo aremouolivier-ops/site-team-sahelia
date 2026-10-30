@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="gridGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <!-- Arrière plan -->
+  <rect x="0" y="0" width="900" height="480" fill="url(#gridGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre supérieur -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">ANATOMIE D'UNE FEUILLE EXCEL PROFESSIONNELLE · TEAM SAHÉLIA</text>
+
+  <!-- Barre de formule -->
+  <rect x="35" y="75" width="100" height="32" fill="#061a14" stroke="#25604d" stroke-width="1" rx="4" />
+  <text x="65" y="96" fill="#7fb0ee" font-size="13" font-weight="bold">B2</text>
+
+  <rect x="145" y="75" width="720" height="32" fill="#061a14" stroke="#25604d" stroke-width="1" rx="4" />
+  <text x="160" y="96" fill="#88b3a4" font-size="13" font-family="monospace">fx =SOMME(D2:D20)</text>
+
+  <!-- En-têtes de colonnes -->
+  <rect x="35" y="125" width="50" height="30" fill="#0d352b" stroke="#1b4d3e" />
+  <rect x="85" y="125" width="220" height="30" fill="#0d352b" stroke="#1b4d3e" />
+  <text x="180" y="145" fill="#f4faf7" font-size="14" font-weight="bold">A (Texte)</text>
+
+  <rect x="305" y="125" width="180" height="30" fill="#0d352b" stroke="#1b4d3e" />
+  <text x="370" y="145" fill="#f4faf7" font-size="14" font-weight="bold">B (Nombres)</text>
+
+  <rect x="485" y="125" width="180" height="30" fill="#0d352b" stroke="#1b4d3e" />
+  <text x="545" y="145" fill="#f4faf7" font-size="14" font-weight="bold">C (Dates)</text>
+
+  <rect x="665" y="125" width="200" height="30" fill="#0d352b" stroke="#1b4d3e" />
+  <text x="715" y="145" fill="#f4faf7" font-size="14" font-weight="bold">D (Calculs)</text>
+
+  <!-- Ligne 1 (En-tête de données) -->
+  <rect x="35" y="155" width="50" height="35" fill="#09261f" stroke="#1b4d3e" />
+  <text x="55" y="177" fill="#88b3a4" font-size="12">1</text>
+  <rect x="85" y="155" width="220" height="35" fill="#09261f" stroke="#1b4d3e" />
+  <text x="95" y="177" fill="#e8946a" font-size="13" font-weight="bold">Commune</text>
+  <rect x="305" y="155" width="180" height="35" fill="#09261f" stroke="#1b4d3e" />
+  <text x="315" y="177" fill="#e8946a" font-size="13" font-weight="bold">Superficie (ha)</text>
+  <rect x="485" y="155" width="180" height="35" fill="#09261f" stroke="#1b4d3e" />
+  <text x="495" y="177" fill="#e8946a" font-size="13" font-weight="bold">Date Semis</text>
+  <rect x="665" y="155" width="200" height="35" fill="#09261f" stroke="#1b4d3e" />
+  <text x="675" y="177" fill="#e8946a" font-size="13" font-weight="bold">Rendement (kg/ha)</text>
+
+  <!-- Ligne 2 (Données réelles) -->
+  <rect x="35" y="190" width="50" height="35" fill="#061a14" stroke="#1b4d3e" />
+  <text x="55" y="212" fill="#88b3a4" font-size="12">2</text>
+
+  <rect x="85" y="190" width="220" height="35" fill="#061a14" stroke="#1b4d3e" />
+  <text x="95" y="212" fill="#f4faf7" font-size="13">Parakou</text>
+  <text x="235" y="212" fill="#7fb0ee" font-size="10">Aligné GAUCHE</text>
+
+  <!-- Cellule active B2 -->
+  <rect x="305" y="190" width="180" height="35" fill="#0b382c" stroke="#3fae7a" stroke-width="2.5" />
+  <text x="445" y="212" fill="#3fae7a" font-size="13" font-weight="bold">2.50</text>
+  <text x="315" y="212" fill="#7fb0ee" font-size="10">Aligné DROITE</text>
+
+  <rect x="485" y="190" width="180" height="35" fill="#061a14" stroke="#1b4d3e" />
+  <text x="575" y="212" fill="#f4faf7" font-size="13">15/06/2026</text>
+
+  <rect x="665" y="190" width="200" height="35" fill="#061a14" stroke="#1b4d3e" />
+  <text x="825" y="212" fill="#f4faf7" font-size="13">3 200</text>
+
+  <!-- Ligne 3 (Données réelles) -->
+  <rect x="35" y="225" width="50" height="35" fill="#061a14" stroke="#1b4d3e" />
+  <text x="55" y="247" fill="#88b3a4" font-size="12">3</text>
+  <rect x="85" y="225" width="220" height="35" fill="#061a14" stroke="#1b4d3e" />
+  <text x="95" y="247" fill="#f4faf7" font-size="13">N'Dali</text>
+  <rect x="305" y="225" width="180" height="35" fill="#061a14" stroke="#1b4d3e" />
+  <text x="445" y="247" fill="#f4faf7" font-size="13">1.80</text>
+  <rect x="485" y="225" width="180" height="35" fill="#061a14" stroke="#1b4d3e" />
+  <text x="575" y="247" fill="#f4faf7" font-size="13">20/06/2026</text>
+  <rect x="665" y="225" width="200" height="35" fill="#061a14" stroke="#1b4d3e" />
+  <text x="825" y="247" fill="#f4faf7" font-size="13">1 650</text>
+
+  <!-- Encadré explicatif en bas -->
+  <rect x="35" y="280" width="830" height="165" fill="#0a241c" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="55" y="310" fill="#e8946a" font-size="14" font-weight="bold">RÈGLE D'OR DE COMPORTEMENT D'EXCEL :</text>
+  <text x="55" y="338" fill="#f4faf7" font-size="13">1. <tspan fill="#3fae7a" font-weight="bold">NOMBRES VRAIS :</tspan> S'alignent TOUJOURS automatiquement à DROITE. S'il s'aligne à gauche, Excel le traite comme du texte !</text>
+  <text x="55" y="365" fill="#f4faf7" font-size="13">2. <tspan fill="#7fb0ee" font-weight="bold">TEXTES &amp; LIBELLÉS :</tspan> S'alignent automatiquement à GAUCHE.</text>
+  <text x="55" y="392" fill="#f4faf7" font-size="13">3. <tspan fill="#e8946a" font-weight="bold">DATES VALIDES :</tspan> S'alignent à DROITE. Ne tapez jamais de texte comme "15 Juin 26", utilisez le format JJ/MM/AAAA.</text>
+  <text x="55" y="420" fill="#88b3a4" font-size="12">Signature Officielle TEAM Sahélia · Manuel 01 : Excel pour les Étudiants &amp; Professionnels</text>
+</svg>

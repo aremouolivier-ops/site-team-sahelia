@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="mediaGrad10_5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#mediaGrad10_5)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">PERSONAL BRANDING LINKEDIN : LE PROFIL MAGNÉTIQUE DU CONSULTANT</text>
+
+  <!-- Colonne Gauche : Anatomie du Profil LinkedIn (35 à 440) -->
+  <rect x="35" y="75" width="410" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="14" font-weight="bold">1. Anatomie d'un Profil d'Expert Vendeur</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="11">Transformer une simple page en aimant à contrats ONG</text>
+
+  <!-- Bannière & Photo miniature -->
+  <rect x="50" y="145" width="380" height="85" fill="#0d2538" stroke="#7fb0ee" rx="6" />
+  <rect x="55" y="150" width="370" height="35" fill="#1b4d3e" rx="4" />
+  <text x="70" y="172" fill="#d89f3c" font-size="10" font-weight="bold">Bannière 1584x396 : "Cartographie SIG · Collecte Kobo · Analyse R"</text>
+  <circle cx="85" cy="205" r="18" fill="#3fae7a" stroke="#06100c" stroke-width="2" />
+  <text x="115" y="200" fill="#f4faf7" font-size="11" font-weight="bold">Titre Magnétique :</text>
+  <text x="115" y="218" fill="#7fb0ee" font-size="9">"J'aide les ONG &amp; Projets à piloter leurs données agronomiques"</text>
+
+  <!-- Section Sélection (Featured) -->
+  <rect x="50" y="240" width="380" height="85" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="263" fill="#d89f3c" font-size="11" font-weight="bold">Section "Sélection" (Votre Vitrine Commerciale) :</text>
+  <text x="65" y="283" fill="#f4faf7" font-size="10">• <tspan fill="#3fae7a" font-weight="bold">Post 1 :</tspan> Étude de cas PDF téléchargeable (Carte Atlas HD).</text>
+  <text x="65" y="301" fill="#f4faf7" font-size="10">• <tspan fill="#7fb0ee" font-weight="bold">Post 2 :</tspan> Témoignage d'un chef de projet ou d'une coopérative.</text>
+  <text x="65" y="318" fill="#88b3a4" font-size="9">Le recruteur voit vos preuves concrètes avant même d'ouvrir votre CV.</text>
+
+  <!-- Section Infos (About) -->
+  <rect x="50" y="335" width="380" height="100" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="358" fill="#3fae7a" font-size="11" font-weight="bold">Section "Infos" : La Structure P.A.S. :</text>
+  <text x="65" y="378" fill="#f4faf7" font-size="10">• <tspan fill="#e86a6a" font-weight="bold">P (Problème) :</tspan> Vos enquêtes terrain prennent des semaines à être saisies ?</text>
+  <text x="65" y="396" fill="#7fb0ee" font-weight="bold">• A (Agitation) :</tspan> Les erreurs de saisie faussent vos rapports aux bailleurs...</text>
+  <text x="65" y="416" fill="#3fae7a" font-weight="bold">• S (Solution) :</tspan> Je déploie KoboToolbox &amp; QGIS pour automatiser vos livrables.</text>
+
+  <!-- Colonne Droite : La Méthode de Publication "Étude de Cas" (465 à 865) -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="14" font-weight="bold">2. La Formule du Post "Étude de Cas Terrain"</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="11">Publier une fois par semaine pour générer des demandes entrantes</text>
+
+  <!-- Étape 1 -->
+  <rect x="480" y="145" width="370" height="65" fill="#0d2538" stroke="#7fb0ee" rx="4" />
+  <text x="495" y="167" fill="#7fb0ee" font-size="11" font-weight="bold">Étape 1 : Le Défi de Terrain (Accroche)</text>
+  <text x="495" y="185" fill="#f4faf7" font-size="10">"La semaine dernière à Parakou, une coopérative de 120 producteurs</text>
+  <text x="495" y="200" fill="#f4faf7" font-size="10">ignorait la surface exacte de ses parcelles..."</text>
+
+  <!-- Étape 2 -->
+  <rect x="480" y="220" width="370" height="65" fill="#06100c" stroke="#1b4d3e" rx="4" />
+  <text x="495" y="242" fill="#3fae7a" font-size="11" font-weight="bold">Étape 2 : La Solution Déployée (Méthode)</text>
+  <text x="495" y="260" fill="#f4faf7" font-size="10">"Nous avons déployé 3 smartphones avec QField et un drone d'appui.</text>
+  <text x="495" y="275" fill="#f4faf7" font-size="10">En 48 heures, 150 hectares ont été géoréférencés."</text>
+
+  <!-- Étape 3 -->
+  <rect x="480" y="295" width="370" height="65" fill="#06100c" stroke="#d89f3c" rx="4" />
+  <text x="495" y="317" fill="#d89f3c" font-size="11" font-weight="bold">Étape 3 : Le Résultat Chiffré &amp; La Leçon</text>
+  <text x="495" y="335" fill="#f4faf7" font-size="10">"Résultat : 18 % de surfaces déclarées en trop, évitant un gaspillage</text>
+  <text x="495" y="350" fill="#f4faf7" font-size="10">de 1,4 million FCFA d'engrais NPK."</text>
+
+  <!-- Étape 4 -->
+  <rect x="480" y="370" width="370" height="65" fill="#0d352b" stroke="#3fae7a" rx="4" />
+  <text x="495" y="392" fill="#3fae7a" font-size="11" font-weight="bold">Étape 4 : L'Appel à l'Action Sobre (CTA)</text>
+  <text x="495" y="410" fill="#f4faf7" font-size="10">"Besoin d'auditer vos parcelles ? Écrivez-moi en message privé."</text>
+  <text x="495" y="425" fill="#88b3a4" font-size="8">Signature TEAM Sahélia · Autorité technique démontrée.</text>
+</svg>

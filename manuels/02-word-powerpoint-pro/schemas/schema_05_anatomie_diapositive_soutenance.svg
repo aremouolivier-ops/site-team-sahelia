@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="wordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#wordGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">ANATOMIE D'UNE DIAPOSITIVE DE SOUTENANCE · AMATEUR VS PRO · TEAM SAHÉLIA</text>
+
+  <!-- 2 Diapositives côte à côte -->
+
+  <!-- DIAPOSITIVE AMATEUR (À BANNIR) -->
+  <rect x="35" y="80" width="405" height="340" fill="#140a08" stroke="#ef4444" stroke-width="1.5" rx="8" />
+  <rect x="50" y="95" width="375" height="30" fill="#2d100d" rx="4" />
+  <text x="60" y="115" fill="#fca5a5" font-size="13" font-weight="bold">❌ À BANNIR : LE PAVÉ ILLISIBLE (JURY ENDORMI)</text>
+
+  <rect x="50" y="135" width="375" height="230" fill="#1f110e" stroke="#451a13" rx="6" />
+  <text x="65" y="160" fill="#ef4444" font-size="12" font-weight="bold">III. RÉSULTATS ET ANALYSES DES DONNÉES</text>
+
+  <!-- Texte illisible copié-collé -->
+  <text x="65" y="185" fill="#d1d5db" font-size="9">Dans le cadre de notre travail de recherche mené au niveau de la station</text>
+  <text x="65" y="198" fill="#d1d5db" font-size="9">d'expérimentation agronomique de Parakou, nous avons pu constater que</text>
+  <text x="65" y="211" fill="#d1d5db" font-size="9">l'application des différentes doses de fumure organique a permis une</text>
+  <text x="65" y="224" fill="#d1d5db" font-size="9">augmentation significative des rendements observés sur l'ensemble des</text>
+  <text x="65" y="237" fill="#d1d5db" font-size="9">vingt parcelles élémentaires du dispositif en blocs aléatoires complets...</text>
+  <text x="65" y="255" fill="#d1d5db" font-size="9">Comme l'indique l'analyse de la variance (ANOVA) effectuée sous RStudio,</text>
+  <text x="65" y="268" fill="#d1d5db" font-size="9">la valeur de la p-value est largement inférieure au seuil critique de 5%...</text>
+  <text x="65" y="286" fill="#d1d5db" font-size="9">Il convient donc de recommander aux producteurs de la zone de...</text>
+
+  <rect x="65" y="315" width="345" height="35" fill="#3b110b" rx="4" />
+  <text x="75" y="337" fill="#fca5a5" font-size="10.5">⚠️ Police 10-12pt · L'étudiant tourne le dos au jury et lit l'écran</text>
+
+  <text x="50" y="395" fill="#ef4444" font-size="11" font-weight="bold">Impact : Le jury s'ennuie, décroche et pose des questions pièges.</text>
+
+  <!-- DIAPOSITIVE PRO SAHÉLIA -->
+  <rect x="460" y="80" width="405" height="340" fill="#061a14" stroke="#10b981" stroke-width="2" rx="8" />
+  <rect x="475" y="95" width="375" height="30" fill="#0d352b" rx="4" />
+  <text x="485" y="115" fill="#34d399" font-size="13" font-weight="bold">✓ STANDARD SAHÉLIA : PERCUTANT &amp; LISIBLE À 10m</text>
+
+  <rect x="475" y="135" width="375" height="230" fill="#09261f" stroke="#1b4d3e" rx="6" />
+  <!-- Titre conclusionnel -->
+  <text x="490" y="162" fill="#38bdf8" font-size="13" font-weight="bold">+38% de rendement avec le compost local (T2)</text>
+
+  <!-- Graphique / Rendu visuel central -->
+  <rect x="490" y="180" width="180" height="120" fill="#051812" stroke="#25604d" rx="4" />
+  <!-- Barres graphiques -->
+  <rect x="510" y="240" width="30" height="45" fill="#e8946a" rx="2" />
+  <text x="513" y="235" fill="#e8946a" font-size="9" font-weight="bold">1.8 t</text>
+  <text x="515" y="295" fill="#88b3a4" font-size="9">T0</text>
+
+  <rect x="560" y="200" width="30" height="85" fill="#10b981" rx="2" />
+  <text x="563" y="195" fill="#10b981" font-size="9" font-weight="bold">2.9 t</text>
+  <text x="565" y="295" fill="#88b3a4" font-size="9">T2</text>
+
+  <rect x="610" y="215" width="30" height="70" fill="#38bdf8" rx="2" />
+  <text x="613" y="210" fill="#38bdf8" font-size="9" font-weight="bold">2.4 t</text>
+  <text x="615" y="295" fill="#88b3a4" font-size="9">T1</text>
+
+  <!-- 3 Points clés ultra-synthétiques à droite -->
+  <text x="690" y="195" fill="#ffffff" font-size="11" font-weight="bold">• Seuil F critique :</text>
+  <text x="700" y="212" fill="#a7f3d0" font-size="10.5">p &lt; 0.001 (ANOVA)</text>
+
+  <text x="690" y="240" fill="#ffffff" font-size="11" font-weight="bold">• Rentabilité nette :</text>
+  <text x="700" y="257" fill="#f59e0b" font-size="10.5">+145 000 FCFA/ha</text>
+
+  <text x="690" y="285" fill="#ffffff" font-size="11" font-weight="bold">• Adoption paysanne :</text>
+  <text x="700" y="302" fill="#38bdf8" font-size="10.5">85% des exploitants</text>
+
+  <rect x="490" y="315" width="345" height="35" fill="#0d352b" rx="4" />
+  <text x="500" y="337" fill="#34d399" font-size="10.5">💡 Titre = Conclusion · Graphique lisible · L'étudiant regarde le jury</text>
+
+  <text x="475" y="395" fill="#10b981" font-size="11" font-weight="bold">Impact : Le jury écoute, comprend en 5 secondes et apprécie la maîtrise.</text>
+</svg>

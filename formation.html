@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espace de Formation & Bibliothèque Pédagogique · TEAM Sahélia</title>
+  <meta name="description" content="Plateforme officielle de lecture et d'apprentissage de TEAM Sahélia : manuels d'agronomie, cartographie QGIS, bureautique professionnelle et Vibe Coding IA.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-sahelia.svg">
+  <meta name="theme-color" content="#08130f">
+
+  <!-- Polices et Styles Officiels -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/formation.css">
+</head>
+<body id="conteneur-article-pedagogique">
+
+  <!-- ========================================================================= -->
+  <!-- 1. TOPBAR DU LECTEUR DE FORMATION                                         -->
+  <!-- ========================================================================= -->
+  <header class="topbar-lecteur">
+    <div class="enveloppe topbar-conteneur">
+      <!-- Logo et Retour Accueil -->
+      <div style="display: flex; align-items: center; gap: 1.25rem;">
+        <a href="index.html" class="logo-lien" style="display: flex; align-items: center; gap: 0.6rem; text-decoration: none;">
+          <img src="assets/logo-sahelia.svg" alt="TEAM Sahélia" style="height: 38px; width: auto;">
+        </a>
+        <a href="index.html" class="v-btn v-btn--fantome" style="min-height: 34px; padding: 0 0.8rem; font-size: 0.8rem;">
+          ← Accueil Vitrine
+        </a>
+      </div>
+
+      <!-- Sélecteur rapide de cours -->
+      <div style="display: flex; align-items: center; gap: 0.75rem;">
+        <label for="select-navigation-cours" style="font-size: 0.78rem; color: var(--texte-3); display: none;">Cours :</label>
+        <select id="select-navigation-cours" class="selecteur-cours-select" aria-label="Choisir un cours ou manuel">
+          <optgroup label="📚 Les 5 Mini-Guides Libres (100% Gratuits)">
+            <option value="guide-01">01 · Urgence Mémoire & Rapport (Word & Excel)</option>
+            <option value="guide-02">02 · Tracer sa Parcelle GPS & QGIS</option>
+            <option value="guide-03">03 · Prompts Recherche & Vibe Coding IA</option>
+            <option value="guide-04">04 · Collecte Numérique Terrain KoboToolbox</option>
+            <option value="guide-05">05 · Création Visuelle & Affiches Pro</option>
+          </optgroup>
+          <optgroup label="🔒 Les 10 Manuels Stratégiques (Membres & Formations)">
+            <option value="mn-01">Manuel 01 · Excel Pro Étudiants & Professionnels (Complet)</option>
+            <option value="mn-02">Manuel 02 · Word & PowerPoint Pro (Mémoires)</option>
+            <option value="mn-03">Manuel 03 · 50 Astuces & Raccourcis PC</option>
+            <option value="mn-04">Manuel 04 · R & RStudio pour l’Agronomie</option>
+            <option value="mn-05">Manuel 05 · KoboToolbox & Enquêtes Mobiles</option>
+            <option value="mn-06">Manuel 06 · Cartographie Agricole & SIG QGIS</option>
+            <option value="mn-07">Manuel 07 · Développement Web Moderne</option>
+            <option value="mn-08">Manuel 08 · Vibe Coding & IA Responsable</option>
+            <option value="mn-09">Manuel 09 · Création Graphique & Vidéo Mobile</option>
+            <option value="mn-10">Manuel 10 · Agronome-Numéricien Indépendant</option>
+          </optgroup>
+        </select>
+        <span id="topbar-statut-acces"></span>
+      </div>
+
+      <!-- Outils de lecture & Info Session -->
+      <div class="outils-lecteur-groupe">
+        <div id="topbar-session-info"></div>
+
+        <button type="button" id="btn-font-minus" class="btn-outil-lecture" title="Réduire la taille de texte" aria-label="Réduire la taille de police">A-</button>
+        <button type="button" id="btn-font-plus" class="btn-outil-lecture" title="Augmenter la taille de texte" aria-label="Augmenter la taille de police">A+</button>
+        <button type="button" id="btn-zen-mode" class="btn-outil-lecture" title="Basculer en mode lecture zen (plein écran)">
+          ⛶ Zen
+        </button>
+        <button type="button" id="btn-imprimer-cours" class="btn-outil-lecture" title="Imprimer ou enregistrer en PDF">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          PDF
+        </button>
+      </div>
+    </div>
+    <!-- Progression de lecture sticky -->
+    <div id="barre-progression-lecture" class="barre-progression-fixe"></div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- 2. STRUCTURE PRINCIPALE DU LECTEUR                                        -->
+  <!-- ========================================================================= -->
+  <div class="enveloppe">
+
+    <!-- ======================================================================= -->
+    <!-- GATEKEEPER : INTERFACE D'AUTHENTIFICATION DOUBLE FACTEUR                 -->
+    <!-- S'affiche lorsque le manuel sélectionné est protégé et non déverrouillé   -->
+    <!-- ======================================================================= -->
+    <section id="gatekeeper-cours-protege" class="gatekeeper-conteneur" style="display: none;">
+      <div class="gatekeeper-icone-cadenas">🔒</div>
+      <h2 class="gatekeeper-titre">Manuel Stratégique Réservé</h2>
+      <p id="gatekeeper-cours-titre" style="font-size: 1.15rem; font-weight: 700; color: var(--marque); margin-bottom: 0.5rem;"></p>
+      <p id="gatekeeper-cours-desc" class="gatekeeper-explication"></p>
+
+      <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--bordure); border-radius: 14px; padding: 1.25rem; margin-bottom: 2rem; text-align: left;">
+        <h4 style="font-size: 0.88rem; color: var(--texte); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.4rem;">
+          <span>🛡️</span> Conditions d'accès au document complet :
+        </h4>
+        <ol style="margin-left: 1.4rem; font-size: 0.82rem; color: var(--texte-2); display: flex; flex-direction: column; gap: 0.3rem;">
+          <li>Être titulaire d'un <strong>Badge Officiel TEAM Sahélia</strong> actif (Membre, Formation ou Compétence).</li>
+          <li>Disposer du <strong>Code d'Accès Formation</strong> confidentiel communiqué par le Fondateur.</li>
+        </ol>
+      </div>
+
+      <!-- Sélecteur de Mode d'Accès : Apprenant VS Super-Administrateur / Éditeur -->
+      <div class="gk-mode-tabs" style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; background: rgba(0,0,0,0.25); padding: 0.35rem; border-radius: 10px; border: 1px solid var(--bordure);">
+        <button type="button" id="tab-mode-apprenant" class="gk-tab-btn actif" style="flex: 1; padding: 0.6rem 0.8rem; border: none; border-radius: 7px; background: var(--marque); color: #06100c; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;">
+          👨‍🎓 Espace Apprenant
+        </button>
+        <button type="button" id="tab-mode-admin" class="gk-tab-btn" style="flex: 1; padding: 0.6rem 0.8rem; border: none; border-radius: 7px; background: transparent; color: var(--texte-2); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;">
+          👑 Accès Éditeur &amp; Fondateur
+        </button>
+      </div>
+
+      <div id="gatekeeper-message-erreur" class="gk-erreur-box" style="display: none; margin-bottom: 1.5rem;"></div>
+
+      <form class="gatekeeper-formulaire" onsubmit="event.preventDefault();">
+        <!-- Champ Badge (uniquement en mode apprenant) -->
+        <div class="gk-champ-groupe" id="gk-groupe-badge">
+          <label for="gk-input-badge-id">1. Identifiant de votre Badge Officiel :</label>
+          <input type="text" id="gk-input-badge-id" class="gk-input gk-input-mono" placeholder="Ex: TS-MBR-2026-001" autocomplete="off">
+          <span id="gk-feedback-badge" class="gk-feedback neutre">Saisissez l'ID figurant sur votre carte ou badge</span>
+        </div>
+
+        <!-- Champ Code / Clé -->
+        <div class="gk-champ-groupe">
+          <label for="gk-input-code" id="gk-label-code">2. Code d'Accès Fondation :</label>
+          <input type="password" id="gk-input-code" class="gk-input" placeholder="Code secret transmis par le fondateur" required>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin: 0.2rem 0;">
+          <input type="checkbox" id="gk-checkbox-souvenir" checked style="cursor: pointer; accent-color: var(--marque);">
+          <label for="gk-checkbox-souvenir" style="font-size: 0.8rem; color: var(--texte-2); cursor: pointer;">Mémoriser ma session sur cet appareil (Accès permanent)</label>
+        </div>
+
+        <button type="button" id="gk-btn-deverrouiller" class="v-btn v-btn--vert" style="width: 100%; min-height: 48px; font-size: 0.95rem; font-weight: 700; margin-top: 0.5rem;">
+          Déverrouiller l’accès au Manuel
+        </button>
+      </form>
+
+      <div class="gk-actions-secondaires">
+        <a href="index.html#badges">Vous n'avez pas de badge ? Obtenir mon badge →</a>
+        <a href="https://wa.me/22900000000" target="_blank" rel="noopener noreferrer">Demander le code au fondateur →</a>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- GRILLE DE LECTURE DU COURS (VISIBLE QUAND AUTORISÉ)                      -->
+    <!-- ======================================================================= -->
+    <div id="zone-lecture-principale" class="layout-grille-formation">
+
+      <!-- Volet Latéral Gauche : Sommaire des chapitres et ressources -->
+      <aside class="sidebar-gauche-navigation" aria-label="Programme du cours">
+        <!-- Carte de Progression Dynamique -->
+        <div class="nav-progression-carte" id="nav-progression-carte">
+          <div class="nav-progression-titre">
+            <span>Progression du Manuel</span>
+            <strong id="progression-pourcentage-nav">0%</strong>
+          </div>
+          <div class="nav-progression-barre-fond">
+            <div class="nav-progression-barre-remplie" id="progression-barre-nav" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <div id="liste-navigation-chapitres">
+          <!-- Rempli dynamiquement par lecteur-formation.js -->
+        </div>
+
+        <!-- Aide & Support Communauté -->
+        <div class="support-communaute-box" style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--bordure); border-radius: 10px; font-size: 0.78rem;">
+          <div style="font-weight: 700; color: var(--texte); margin-bottom: 0.3rem;">🤝 Mentorat TEAM Sahélia</div>
+          <p style="color: var(--texte-3); margin-bottom: 0.6rem;">Un doute sur un calcul ou un code ? Échangez directement sur le canal d'entraide des certifiés.</p>
+          <a href="https://wa.me/22900000000" target="_blank" rel="noopener noreferrer" style="color: var(--marque); font-weight: 600; text-decoration: none;">Canal Entraide WhatsApp →</a>
+        </div>
+      </aside>
+
+      <!-- Colonne Centrale : Article pédagogique complet -->
+      <main class="article-contenu-central">
+        <!-- En-tête de la section : Bannière Hero Hybride avec Photographie de Terrain Réelle -->
+        <header class="en-tete-article-cours">
+          <div class="hero-banniere-hybride" id="hero-banniere-hybride">
+            <img src="assets/images/hero_terrain_agronomie.jpg" alt="Immersion Terrain Parakou" class="hero-banniere-fond" id="hero-image-fond">
+            <div class="hero-banniere-voile"></div>
+            <div class="hero-banniere-contenu">
+              <div class="hero-kicker-ligne">
+                <span id="cours-badge-pole" class="badge-pole-cours"></span>
+                <span class="hero-station-tag">📍 Centre Pilote Sahélia · Parakou / Bénin</span>
+                <span class="hero-qualite-tag">✓ Conforme Normes CAMES & FAO</span>
+              </div>
+              <h1 id="cours-titre-principal" class="titre-cours-h1"></h1>
+              <p id="cours-soustitre" class="soustitre-cours-p"></p>
+              
+              <div class="metadonnees-barre-cours">
+                <div class="metadonnee-item">
+                  <span>⏱️</span>
+                  <span id="cours-duree-totale"></span>
+                </div>
+                <div class="metadonnee-item">
+                  <span>🎓</span>
+                  <span id="cours-niveau"></span>
+                </div>
+                <div class="metadonnee-item">
+                  <span id="cours-badge-cible-icone">🏅</span>
+                  <span id="cours-badge-cible-texte">Badge Officiel Inclus</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Contenu Markdown Rendu -->
+        <article id="corps-cours-rendu" class="corps-texte-rendu">
+          <!-- Rempli dynamiquement par lecteur-formation.js -->
+        </article>
+
+        <!-- Défi Pratique du Chapitre & Sandbox de Validation Badge -->
+        <section id="section-defi-sandbox" class="carte-defi-sandbox">
+          <div class="defi-sandbox-header">
+            <div class="defi-sandbox-pill">
+              <span>⚡</span> DÉFI TERRAIN DU CHAPITRE
+            </div>
+            <div class="defi-sandbox-xp">
+              +150 XP de Savoir Pratique
+            </div>
+          </div>
+          <h3 id="defi-titre" class="defi-sandbox-titre">Application Pratique Immédiate</h3>
+          <p id="defi-description" class="defi-sandbox-texte">Téléchargez les ressources associées, réalisez les manipulations demandées et validez vos compétences pour progresser vers l'attribution de votre badge officiel.</p>
+          <div class="defi-sandbox-actions">
+            <button type="button" id="btn-valider-defi" class="v-btn v-btn--vert">
+              ✓ Valider ce chapitre & Débloquer la suite
+            </button>
+            <span id="defi-statut-feedback" class="defi-feedback-texte"></span>
+          </div>
+        </section>
+
+        <!-- Navigation Précédent / Suivant en bas de page -->
+        <nav id="navigation-pied-cours" class="navigation-pied-cours" aria-label="Navigation entre chapitres">
+          <!-- Rempli dynamiquement par lecteur-formation.js -->
+        </nav>
+      </main>
+
+      <!-- Volet Latéral Droit : Sommaire dynamique (TOC) & Inspecteur d'Objectifs -->
+      <aside class="sidebar-droite-sommaire" aria-label="Sommaire et Objectifs">
+        <div class="titre-bloc-sidebar">📑 Sommaire de la Leçon</div>
+        <nav id="sommaire-dynamique-liste">
+          <!-- Rempli dynamiquement par lecteur-formation.js -->
+        </nav>
+
+        <div class="titre-bloc-sidebar" style="margin-top: 1.75rem;">🎯 Acquis Clés Visés</div>
+        <div id="sidebar-objectifs-cles" class="sidebar-objectifs-box">
+          <!-- Rempli dynamiquement -->
+        </div>
+
+        <div class="titre-bloc-sidebar" style="margin-top: 1.75rem;">🏅 Badge Officiel Associé</div>
+        <div class="sidebar-badge-preview-card" id="sidebar-badge-preview-card">
+          <img id="sidebar-badge-img" src="assets/Badge_TEAM_Sahelia_Competence_Agronomie.png" alt="Badge Officiel" class="sidebar-badge-miniature">
+          <div class="sidebar-badge-details">
+            <strong id="sidebar-badge-nom">Compétence Agronomie</strong>
+            <span id="sidebar-badge-desc">Attribué après validation du projet Capstone</span>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3. SCRIPTS DU SYSTÈME PÉDAGOGIQUE                                         -->
+  <!-- ========================================================================= -->
+  <script src="js/badge-data.js"></script>
+  <script src="js/formation-catalogue.js"></script>
+  <script src="js/formation-contenu.js"></script>
+  <script src="js/controle-acces.js"></script>
+  <script src="js/lecteur-formation.js"></script>
+
+  <script>
+    // Synchronisation du menu déroulant supérieur avec le cours chargé
+    document.addEventListener('DOMContentLoaded', () => {
+      const select = document.getElementById('select-navigation-cours');
+      if (select) {
+        const params = new URLSearchParams(window.location.search);
+        const coursId = params.get('cours') || 'guide-01';
+        select.value = coursId;
+
+        select.addEventListener('change', (e) => {
+          if (window.SaheliaLecteur) {
+            window.SaheliaLecteur.chargerCours(e.target.value, null);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="statGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#statGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">STATISTIQUES DESCRIPTIVES &amp; DISPERSION AGRONOMIQUE · TEAM SAHÉLIA</text>
+
+  <!-- Courbe de Gauss (Distribution normale des rendements) -->
+  <rect x="35" y="80" width="480" height="270" fill="#061a14" stroke="#25604d" stroke-width="1.5" rx="8" />
+  <text x="55" y="110" fill="#e8946a" font-size="13" font-weight="bold">COURBE DE DISPERSION DES RENDEMENTS (kg/ha)</text>
+
+  <!-- Axe horizontal -->
+  <line x1="55" y1="280" x2="480" y2="280" stroke="#1b4d3e" stroke-width="2" />
+
+  <!-- Courbe en cloche -->
+  <path d="M 60 280 C 140 280 180 270 220 210 C 250 160 267 130 267 130 C 267 130 284 160 314 210 C 354 270 394 280 474 280" fill="none" stroke="#3fae7a" stroke-width="3" />
+
+  <!-- Aire centrale (Moyenne ± 1 Écart-type = 68% des parcelles) -->
+  <path d="M 215 210 C 245 160 267 130 267 130 C 267 130 289 160 319 210 L 319 280 L 215 280 Z" fill="rgba(63, 174, 122, 0.25)" />
+
+  <!-- Ligne Moyenne (μ) -->
+  <line x1="267" y1="130" x2="267" y2="280" stroke="#7fb0ee" stroke-width="2" stroke-dasharray="4" />
+  <circle cx="267" cy="130" r="5" fill="#7fb0ee" />
+  <text x="245" y="305" fill="#7fb0ee" font-size="12" font-weight="bold">Moyenne (x̄)</text>
+  <text x="252" y="325" fill="#f4faf7" font-size="11">2 428 kg</text>
+
+  <!-- Lignes Ecart-type (x̄ - σ et x̄ + σ) -->
+  <line x1="215" y1="210" x2="215" y2="280" stroke="#e8946a" stroke-width="1.5" stroke-dasharray="3" />
+  <text x="180" y="305" fill="#e8946a" font-size="11">x̄ - σ (1 513)</text>
+
+  <line x1="319" y1="210" x2="319" y2="280" stroke="#e8946a" stroke-width="1.5" stroke-dasharray="3" />
+  <text x="325" y="305" fill="#e8946a" font-size="11">x̄ + σ (3 343)</text>
+
+  <!-- Panneau Droit : Formules Exactes -->
+  <rect x="535" y="80" width="330" height="270" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <rect x="535" y="80" width="330" height="35" fill="#0d352b" rx="8" />
+  <text x="550" y="103" fill="#3fae7a" font-size="13" font-weight="bold">LES 6 FONCTIONS ESSENTIELLES</text>
+
+  <text x="550" y="140" fill="#f4faf7" font-size="12"><tspan fill="#7fb0ee" font-weight="bold">=MOYENNE(D2:D21)</tspan> : Tendance centrale</text>
+  <text x="550" y="170" fill="#f4faf7" font-size="12"><tspan fill="#7fb0ee" font-weight="bold">=MEDIANE(D2:D21)</tspan> : Coupe en 2 moitiés</text>
+  <text x="550" y="200" fill="#f4faf7" font-size="12"><tspan fill="#e8946a" font-weight="bold">=ECARTYPE.STANDARD(D2:D21)</tspan></text>
+  <text x="565" y="220" fill="#88b3a4" font-size="11">Dispersion réelle de l'échantillon (n-1)</text>
+  <text x="550" y="250" fill="#f4faf7" font-size="12"><tspan fill="#3fae7a" font-weight="bold">=MIN()</tspan> &amp; <tspan fill="#3fae7a" font-weight="bold">=MAX()</tspan> : Étendue des valeurs</text>
+  <text x="550" y="280" fill="#f4faf7" font-size="12"><tspan fill="#7fb0ee" font-weight="bold">=NB()</tspan> : Compte les cellules avec NOMBRES</text>
+  <text x="550" y="310" fill="#f4faf7" font-size="12"><tspan fill="#7fb0ee" font-weight="bold">=NBVAL()</tspan> : Compte toutes les cellules NON VIDES</text>
+
+  <!-- Bandeau Inférieur : Formatage de Jury -->
+  <rect x="35" y="365" width="830" height="95" fill="#0a2b24" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="50" y="392" fill="#e8946a" font-size="13" font-weight="bold">LA FORMULE DE FORMATAGE ACADÉMIQUE OFFICIELLE :</text>
+  <text x="50" y="418" fill="#f4faf7" font-size="12" font-family="monospace">=TEXTE(MOYENNE(D2:D21);"0,00") &amp; " ± " &amp; TEXTE(ECARTYPE.STANDARD(D2:D21);"0,00") &amp; " kg/ha"</text>
+  <text x="50" y="445" fill="#3fae7a" font-size="12" font-weight="bold">Résultat généré pour mémoire : « 2428,25 ± 915,10 kg/ha » (Prêt pour insertion directe !)</text>
+</svg>

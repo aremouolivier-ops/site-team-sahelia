@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="wordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#wordGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">LA HIÉRARCHIE DES STYLES SOUS WORD · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Styles définis -->
+  <rect x="35" y="80" width="380" height="360" fill="#061a14" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="55" y="112" fill="#e8946a" font-size="14" font-weight="bold">1. CONFIGURATION DES STYLES (RUBAN ACCUEIL)</text>
+
+  <!-- Style Titre 1 -->
+  <rect x="55" y="130" width="340" height="50" fill="#0a2b24" stroke="#3fae7a" stroke-width="1.5" rx="6" />
+  <text x="70" y="152" fill="#3fae7a" font-size="13" font-weight="bold">Style : Titre 1 (Chapitre)</text>
+  <text x="70" y="170" fill="#88b3a4" font-size="11">Bricolage Grotesque · 18pt · Gras · Espace après 12pt</text>
+
+  <!-- Style Titre 2 -->
+  <rect x="55" y="195" width="340" height="50" fill="#0a2b24" stroke="#7fb0ee" stroke-width="1.5" rx="6" />
+  <text x="70" y="217" fill="#7fb0ee" font-size="13" font-weight="bold">Style : Titre 2 (Section)</text>
+  <text x="70" y="235" fill="#88b3a4" font-size="11">Figtree · 14pt · Gras · Espace après 6pt</text>
+
+  <!-- Style Titre 3 -->
+  <rect x="55" y="260" width="340" height="50" fill="#0a2b24" stroke="#e8946a" stroke-width="1.5" rx="6" />
+  <text x="70" y="282" fill="#e8946a" font-size="13" font-weight="bold">Style : Titre 3 (Sous-section)</text>
+  <text x="70" y="300" fill="#88b3a4" font-size="11">Figtree · 12pt · Italique / Semi-gras</text>
+
+  <!-- Style Normal -->
+  <rect x="55" y="325" width="340" height="50" fill="#0a2b24" stroke="#4a635a" stroke-width="1" rx="6" />
+  <text x="70" y="347" fill="#f4faf7" font-size="13" font-weight="bold">Style : Normal (Corps de texte)</text>
+  <text x="70" y="365" fill="#88b3a4" font-size="11">Figtree · 11.5pt · Interligne 1.25 · Justifié</text>
+
+  <text x="55" y="415" fill="#3fae7a" font-size="12">✓ Ne changez JAMAIS la police manuellement dans le texte !</text>
+
+  <!-- Flèche centrale -->
+  <path d="M 435 250 L 465 250 M 455 240 L 465 250 L 455 260" stroke="#3fae7a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Colonne Droite : Sommaire Automatique généré -->
+  <rect x="485" y="80" width="380" height="360" fill="#061a14" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="505" y="112" fill="#e8946a" font-size="14" font-weight="bold">2. SOMMAIRE AUTOMATIQUE (EN 1 CLIC)</text>
+
+  <rect x="505" y="130" width="340" height="245" fill="#09261f" stroke="#1b4d3e" rx="6" />
+  <text x="520" y="160" fill="#f4faf7" font-size="13" font-weight="bold">TABLE DES MATIÈRES</text>
+
+  <text x="520" y="195" fill="#3fae7a" font-size="12" font-weight="bold">1. INTRODUCTION GÉNÉRALE</text>
+  <text x="810" y="195" fill="#88b3a4" font-size="12">........ 1</text>
+
+  <text x="535" y="225" fill="#7fb0ee" font-size="11">1.1 Contexte et justification de l'étude</text>
+  <text x="810" y="225" fill="#88b3a4" font-size="11">........ 3</text>
+
+  <text x="535" y="250" fill="#7fb0ee" font-size="11">1.2 Objectifs de recherche</text>
+  <text x="810" y="250" fill="#88b3a4" font-size="11">........ 5</text>
+
+  <text x="520" y="285" fill="#3fae7a" font-size="12" font-weight="bold">2. MATÉRIEL ET MÉTHODES</text>
+  <text x="810" y="285" fill="#88b3a4" font-size="12">........ 8</text>
+
+  <text x="535" y="315" fill="#7fb0ee" font-size="11">2.1 Description du milieu d'étude (Parakou)</text>
+  <text x="810" y="315" fill="#88b3a4" font-size="11">........ 9</text>
+
+  <text x="535" y="340" fill="#7fb0ee" font-size="11">2.2 Dispositif expérimental en blocs</text>
+  <text x="810" y="340" fill="#88b3a4" font-size="11">....... 12</text>
+
+  <text x="505" y="415" fill="#7fb0ee" font-size="12">Mise à jour automatique : Clic droit > Mettre à jour les champs</text>
+</svg>

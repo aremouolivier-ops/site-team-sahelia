@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="statGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#statGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">CONDITIONS DE L'ANOVA &amp; ARBRE DÉCISIONNEL STATISTIQUE · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Les 2 Tests Préalables Obligatoires -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">Les 2 Conditions Impératives</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Ne JAMAIS lancer d'ANOVA sans tester ses résidus !</text>
+
+  <!-- Condition 1 : Normalité -->
+  <rect x="50" y="145" width="370" height="105" fill="#0d352b" stroke="#7fb0ee" rx="6" />
+  <text x="65" y="168" fill="#f4faf7" font-size="13" font-weight="bold">1. Normalité des Résidus (Shapiro-Wilk)</text>
+  <text x="65" y="190" fill="#3fae7a" font-size="12" font-family="monospace">shapiro.test(residuals(modele))</text>
+  <text x="65" y="210" fill="#88b3a4" font-size="11">• Si p-value &gt; 0.05 : Hypothèse H0 acceptée (Distribution Normale ✓)</text>
+  <text x="65" y="228" fill="#ff7b72" font-size="11">• Si p-value &lt; 0.05 : Distribution anormale (Asymétrie ou outliers ❌)</text>
+
+  <!-- Condition 2 : Homoscédasticité -->
+  <rect x="50" y="260" width="370" height="105" fill="#0d352b" stroke="#e8946a" rx="6" />
+  <text x="65" y="283" fill="#f4faf7" font-size="13" font-weight="bold">2. Égalité des Variances (Bartlett / Levene)</text>
+  <text x="65" y="305" fill="#e8946a" font-size="12" font-family="monospace">bartlett.test(Rendement ~ Traitement)</text>
+  <text x="65" y="325" fill="#88b3a4" font-size="11">• Si p-value &gt; 0.05 : Variances homogènes entre groupes ✓</text>
+  <text x="65" y="343" fill="#ff7b72" font-size="11">• Si p-value &lt; 0.05 : Hétéroscédasticité (Dispersion inégale ❌)</text>
+
+  <!-- Remarque Rigueur -->
+  <rect x="50" y="375" width="370" height="60" fill="#06100c" rx="6" />
+  <text x="65" y="398" fill="#f4faf7" font-size="11" font-weight="bold">Q-Q Plot Visuel :</text>
+  <text x="65" y="416" fill="#88b3a4" font-size="10">qqnorm(residuals(modele)) ; qqline(residuals(modele))</text>
+  <text x="65" y="428" fill="#7fb0ee" font-size="9">Les points doivent s'aligner sur la droite à 45°.</text>
+
+  <!-- Colonne Droite : L'Arbre Décisionnel -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">Arbre Décisionnel du Biostatisticien</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Quelle méthode statistique choisir selon les résultats ?</text>
+
+  <!-- Voie Verte Paramétrique -->
+  <rect x="480" y="145" width="370" height="120" fill="#09291b" stroke="#3fae7a" stroke-width="1.5" rx="6" />
+  <text x="495" y="168" fill="#3fae7a" font-size="13" font-weight="bold">CAS 1 : Les 2 p-values sont &gt; 0.05 (Conditions Remplies)</text>
+  <text x="495" y="190" fill="#f4faf7" font-size="11" font-weight="bold">➜ VOIE PARAMÉTRIQUE OFFICIELLE :</text>
+  <text x="495" y="210" fill="#3fae7a" font-size="11" font-family="monospace">modele &lt;- aov(Rendement ~ Traitement, data = essai)</text>
+  <text x="495" y="230" fill="#7fb0ee" font-size="11" font-family="monospace">summary(modele)  # Tableau ANOVA de Fisher</text>
+  <text x="495" y="250" fill="#f4faf7" font-size="11">Post-Hoc : Test HSD de Tukey (Lettres a, b, c)</text>
+
+  <!-- Voie Orange / Rouge Non-Paramétrique -->
+  <rect x="480" y="280" width="370" height="155" fill="#241508" stroke="#e8946a" stroke-width="1.2" rx="6" />
+  <text x="495" y="303" fill="#e8946a" font-size="12" font-weight="bold">CAS 2 : Une p-value est &lt; 0.05 (Violation des Conditions)</text>
+  <text x="495" y="325" fill="#88b3a4" font-size="11">Étape 1 : Tenter une transformation mathématique</text>
+  <text x="515" y="343" fill="#7fb0ee" font-size="10" font-family="monospace">mutate(Log_Rdt = log(Rendement))  # Relancer Shapiro</text>
+  <text x="495" y="365" fill="#f4faf7" font-size="11" font-weight="bold">Étape 2 : Si toujours non conforme ➜ VOIE NON-PARAMÉTRIQUE :</text>
+  <text x="515" y="385" fill="#e8946a" font-size="11" font-family="monospace">kruskal.test(Rendement ~ Traitement, data = essai)</text>
+  <text x="495" y="415" fill="#ff7b72" font-size="10">Ne jamais forcer une ANOVA sur des données non conformes !</text>
+</svg>

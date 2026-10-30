@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="vibeGrad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#vibeGrad6)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">CYCLE COMPLET DE VIBE CODING PROFESSIONNEL &amp; PRODUCTION · TEAM SAHÉLIA</text>
+
+  <!-- Cycle en 4 Étapes Connectées -->
+
+  <!-- Étape 1 : Conception C.R.E.D. -->
+  <rect x="35" y="80" width="195" height="230" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="6" />
+  <text x="45" y="105" fill="#7fb0ee" font-size="12" font-weight="bold">1. Spécification C.R.E.D.</text>
+  <text x="45" y="122" fill="#88b3a4" font-size="10">Le Cadre d'Intention</text>
+  
+  <rect x="45" y="135" width="175" height="70" fill="#0d2538" rx="4" />
+  <text x="55" y="155" fill="#f4faf7" font-size="10">• Contexte agronomique</text>
+  <text x="55" y="175" fill="#f4faf7" font-size="10">• Formules précises</text>
+  <text x="55" y="195" fill="#3fae7a" font-size="10">• Zéro dépendance</text>
+
+  <text x="45" y="225" fill="#7fb0ee" font-size="10" font-weight="bold">Livrable :</text>
+  <text x="45" y="242" fill="#f4faf7" font-size="9">Prompt structuré prêt</text>
+  <text x="45" y="258" fill="#f4faf7" font-size="9">pour Cursor ou Claude</text>
+
+  <!-- Flèche 1 -> 2 -->
+  <polygon points="235,190 250,195 235,200" fill="#3fae7a" />
+
+  <!-- Étape 2 : Génération Modulaire -->
+  <rect x="255" y="80" width="195" height="230" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="6" />
+  <text x="265" y="105" fill="#3fae7a" font-size="12" font-weight="bold">2. Génération Modulaire</text>
+  <text x="265" y="122" fill="#88b3a4" font-size="10">Pilotage par Composants</text>
+
+  <rect x="265" y="135" width="175" height="70" fill="#09291b" rx="4" />
+  <text x="275" y="155" fill="#f4faf7" font-size="10">• state.js (Données)</text>
+  <text x="275" y="175" fill="#f4faf7" font-size="10">• calculs.js (Logique)</text>
+  <text x="275" y="195" fill="#3fae7a" font-size="10">• ui.js (Rendu mobile)</text>
+
+  <text x="265" y="225" fill="#3fae7a" font-size="10" font-weight="bold">Livrable :</text>
+  <text x="265" y="242" fill="#f4faf7" font-size="9">Code source modulaire</text>
+  <text x="265" y="258" fill="#f4faf7" font-size="9">propre et documenté</text>
+
+  <!-- Flèche 2 -> 3 -->
+  <polygon points="455,190 470,195 455,200" fill="#3fae7a" />
+
+  <!-- Étape 3 : Audit Humain & Sécurité -->
+  <rect x="475" y="80" width="195" height="230" fill="#061a14" stroke="#d89f3c" stroke-width="1.5" rx="6" />
+  <text x="485" y="105" fill="#d89f3c" font-size="12" font-weight="bold">3. Audit Humain Critique</text>
+  <text x="485" y="122" fill="#88b3a4" font-size="10">Chasse aux Hallucinations</text>
+
+  <rect x="485" y="135" width="175" height="70" fill="#0d2e24" rx="4" />
+  <text x="495" y="155" fill="#3fae7a" font-size="10">• Test DevTools F12</text>
+  <text x="495" y="175" fill="#d89f3c" font-size="10">• Test cas limites (0, négatif)</text>
+  <text x="495" y="195" fill="#e86a6a" font-size="10">• Validation formules métier</text>
+
+  <text x="485" y="225" fill="#d89f3c" font-size="10" font-weight="bold">Livrable :</text>
+  <text x="485" y="242" fill="#f4faf7" font-size="9">Certification humaine</text>
+  <text x="485" y="258" fill="#f4faf7" font-size="9">de fiabilité 100 %</text>
+
+  <!-- Flèche 3 -> 4 -->
+  <polygon points="675,190 690,195 675,200" fill="#3fae7a" />
+
+  <!-- Étape 4 : Déploiement & Impact -->
+  <rect x="695" y="80" width="170" height="230" fill="#061a14" stroke="#e86a6a" stroke-width="1.5" rx="6" />
+  <text x="705" y="105" fill="#e86a6a" font-size="12" font-weight="bold">4. Déploiement Public</text>
+  <text x="705" y="122" fill="#88b3a4" font-size="10">GitHub Pages &amp; Terrain</text>
+
+  <rect x="705" y="135" width="150" height="70" fill="#1f1113" rx="4" />
+  <text x="715" y="155" fill="#f4faf7" font-size="9">Git push main</text>
+  <text x="715" y="175" fill="#f4faf7" font-size="9">HTTPS sécurisé</text>
+  <text x="715" y="195" fill="#3fae7a" font-size="9">Fonctionne hors-ligne</text>
+
+  <text x="705" y="225" fill="#e86a6a" font-size="10" font-weight="bold">Impact :</text>
+  <text x="705" y="242" fill="#3fae7a" font-size="9">Outil utilisé par les</text>
+  <text x="705" y="258" fill="#3fae7a" font-size="9">paysans et techniciens !</text>
+
+  <!-- Bandeau Inférieur : La Philosophie Fondamentale TEAM Sahélia -->
+  <rect x="35" y="325" width="830" height="125" fill="#06100c" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="50" y="350" fill="#3fae7a" font-size="14" font-weight="bold">LE SERMENT DU VIBE CODER RESPONSABLE TEAM SAHÉLIA :</text>
+
+  <text x="50" y="375" fill="#f4faf7" font-size="11">« Je ne suis pas un copieur de code passif. Je suis le concepteur, l'architecte et le garant moral de l'outil. »</text>
+  <text x="50" y="398" fill="#d89f3c" font-size="11">« Je vérifie chaque ligne, j'audite chaque calcul, je protège la vie privée de mes utilisateurs et je crée pour servir. »</text>
+  <text x="50" y="420" fill="#3fae7a" font-size="11" font-weight="bold">TEAM Sahélia · Apprendre. Créer. Innover.</text>
+</svg>

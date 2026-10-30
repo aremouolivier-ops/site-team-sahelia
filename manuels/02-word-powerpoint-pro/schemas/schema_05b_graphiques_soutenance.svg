@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="chartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#chartGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">VISUALISATION SCIENTIFIQUE &amp; GRAPHIQUES DE SOUTENANCE · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Mauvaise pratique à bannir -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#e05252" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#ff7b72" font-size="15" font-weight="bold">❌ À Bannir : Le Graphique Confus</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Fatigue le jury (35 à 45 secondes d'effort de déchiffrage)</text>
+
+  <!-- Exemple Mauvais Graphique -->
+  <rect x="50" y="145" width="370" height="190" fill="#240c0c" stroke="#e05252" stroke-width="1" rx="6" />
+  <!-- Quadrillage lourd -->
+  <line x1="70" y1="180" x2="390" y2="180" stroke="#441a1a" stroke-dasharray="3,3" />
+  <line x1="70" y1="220" x2="390" y2="220" stroke="#441a1a" stroke-dasharray="3,3" />
+  <line x1="70" y1="260" x2="390" y2="260" stroke="#441a1a" stroke-dasharray="3,3" />
+  <!-- Barres multicolores criardes sans focus -->
+  <rect x="90" y="230" width="40" height="70" fill="#f59e0b" />
+  <rect x="160" y="210" width="40" height="90" fill="#8b5cf6" />
+  <rect x="230" y="170" width="40" height="130" fill="#ec4899" />
+  <rect x="300" y="240" width="40" height="60" fill="#06b6d4" />
+  <!-- Légende microscopique déportée -->
+  <rect x="90" y="310" width="280" height="18" fill="#150808" />
+  <text x="95" y="323" fill="#888" font-size="9">Légende : ■ Série 1  ■ Série 2  ■ Série 3  ■ Série 4</text>
+
+  <!-- Critiques -->
+  <text x="50" y="360" fill="#ff7b72" font-size="11" font-weight="bold">• Effet 3D déformant la perception des hauteurs</text>
+  <text x="50" y="380" fill="#ffaaaa" font-size="11">• Absence de chiffres au-dessus des barres</text>
+  <text x="50" y="400" fill="#ffaaaa" font-size="11">• Couleurs criardes sans hiérarchie scientifique</text>
+  <text x="50" y="425" fill="#e8946a" font-size="11" font-weight="bold">Résultat : Le jury lit au lieu d'écouter votre voix !</text>
+
+  <!-- Colonne Droite : Standard Sahélia Haute Lisibilité -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">✓ Standard Sahélia : Compréhension 3s</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Contraste sélectif &amp; étiquetage direct orienté conclusion</text>
+
+  <!-- Exemple Bon Graphique -->
+  <rect x="480" y="145" width="370" height="190" fill="#09291b" stroke="#3fae7a" stroke-width="1.2" rx="6" />
+  <!-- Barres secondaires en gris neutre -->
+  <rect x="520" y="235" width="45" height="65" fill="#475569" rx="3" />
+  <text x="525" y="225" fill="#94a3b8" font-size="11">1.2 t</text>
+  <text x="525" y="315" fill="#94a3b8" font-size="10">T0 Témoin</text>
+
+  <rect x="590" y="210" width="45" height="90" fill="#475569" rx="3" />
+  <text x="595" y="200" fill="#94a3b8" font-size="11">1.8 t</text>
+  <text x="595" y="315" fill="#94a3b8" font-size="10">T1 NPK</text>
+
+  <!-- Traitement Gagnant Focus Émeraude -->
+  <rect x="660" y="165" width="55" height="135" fill="#3fae7a" rx="4" />
+  <text x="660" y="155" fill="#3fae7a" font-size="13" font-weight="bold">2.85 t/ha</text>
+  <text x="660" y="315" fill="#3fae7a" font-size="10" font-weight="bold">T2 Compost</text>
+
+  <rect x="740" y="245" width="45" height="55" fill="#475569" rx="3" />
+  <text x="745" y="235" fill="#94a3b8" font-size="11">1.1 t</text>
+  <text x="745" y="315" fill="#94a3b8" font-size="10">T3 Paysan</text>
+
+  <!-- Badge Gain Clé -->
+  <rect x="660" y="175" width="55" height="20" fill="#06100c" rx="3" />
+  <text x="665" y="189" fill="#3fae7a" font-size="10" font-weight="bold">+38%</text>
+
+  <!-- Règles Clés -->
+  <text x="480" y="360" fill="#3fae7a" font-size="11" font-weight="bold">• 2D Flat Design : Zéro déformation d'angle</text>
+  <text x="480" y="380" fill="#88b3a4" font-size="11">• Étiquette directe : Valeur lisible à 10 mètres de distance</text>
+  <text x="480" y="400" fill="#88b3a4" font-size="11">• Focus visuel sélectif : L'œil va directement au résultat clé</text>
+  <text x="480" y="425" fill="#7fb0ee" font-size="11" font-weight="bold">Gain : Décision et adhésion unanime du jury en 3 secondes</text>
+</svg>

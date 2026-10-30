@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="vibeGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#vibeGrad2)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">L'INGÉNIERIE DU PROMPT MÉTHODIQUE (C.R.E.D. &amp; FEW-SHOT) · VIBE CODING</text>
+
+  <!-- Colonne Gauche : Les 4 Piliers C.R.E.D. -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#d89f3c" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#d89f3c" font-size="15" font-weight="bold">1. La Matrice de Prompting C.R.E.D.</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Comment ordonner à un LLM sans subir de dérives</text>
+
+  <!-- Pilier C -->
+  <rect x="50" y="145" width="370" height="60" fill="#0d2538" stroke="#7fb0ee" stroke-width="1" rx="4" />
+  <text x="60" y="165" fill="#7fb0ee" font-size="11" font-weight="bold">C - CONTEXTE (Qui êtes-vous et où opérez-vous ?) :</text>
+  <text x="60" y="185" fill="#f4faf7" font-size="10">"Étudiant agronome à l'Université de Parakou, zone Borgou..."</text>
+
+  <!-- Pilier R -->
+  <rect x="50" y="212" width="370" height="60" fill="#09291b" stroke="#3fae7a" stroke-width="1" rx="4" />
+  <text x="60" y="232" fill="#3fae7a" font-size="11" font-weight="bold">R - RÔLE (Quelle posture d'autorité technique adopter ?) :</text>
+  <text x="60" y="252" fill="#f4faf7" font-size="10">"Agis comme un architecte logiciel senior expert en Vanilla JS..."</text>
+
+  <!-- Pilier E -->
+  <rect x="50" y="279" width="370" height="65" fill="#0d2e24" stroke="#d89f3c" stroke-width="1" rx="4" />
+  <text x="60" y="299" fill="#d89f3c" font-size="11" font-weight="bold">E - EXIGENCES (Quels calculs et fonctions réaliser ?) :</text>
+  <text x="60" y="318" fill="#f4faf7" font-size="10">"Calculateur d'engrais NPK/Urée, validation inputs, localStorage..."</text>
+
+  <!-- Pilier D -->
+  <rect x="50" y="351" width="370" height="85" fill="#1f1113" stroke="#e86a6a" stroke-width="1" rx="4" />
+  <text x="60" y="371" fill="#e86a6a" font-size="11" font-weight="bold">D - DÉLIMITATIONS (Ce qui est STRICTEMENT interdit) :</text>
+  <text x="60" y="391" fill="#f4faf7" font-size="10">"AUCUN framework (pas de React/Vue), AUCUN CDN distant."</text>
+  <text x="60" y="410" fill="#3fae7a" font-size="10" font-weight="bold">"Un seul fichier HTML autonome, 100% fonctionnel hors-ligne."</text>
+
+  <!-- Colonne Droite : Few-Shot & Chain-of-Thought -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">2. Few-Shot &amp; Chaîne de Pensée</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Guider le LLM par l'exemple et le raisonnement pas-à-pas</text>
+
+  <!-- Box Few Shot -->
+  <rect x="480" y="145" width="370" height="135" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="495" y="168" fill="#3fae7a" font-size="12" font-weight="bold">La Technique du 'Few-Shot' (Montrer 2 exemples) :</text>
+  <text x="495" y="190" fill="#88b3a4" font-size="10">Entrée : Surface = 2 ha, Culture = Maïs</text>
+  <text x="495" y="205" fill="#f4faf7" font-size="10">Sortie attendue : { npk: 300, uree: 200, sacsTotal: 10 }</text>
+  
+  <line x1="495" y1="215" x2="830" y2="215" stroke="#1b4d3e" stroke-width="1" />
+  <text x="495" y="232" fill="#88b3a4" font-size="10">Entrée : Surface = 1.5 ha, Culture = Soja</text>
+  <text x="495" y="247" fill="#f4faf7" font-size="10">Sortie attendue : { tsp: 150, sacsTotal: 3 }</text>
+  <text x="495" y="268" fill="#d89f3c" font-size="10" font-weight="bold">Le modèle comprend instantanément la structure exacte voulue !</text>
+
+  <!-- Box Chain of Thought -->
+  <rect x="480" y="295" width="370" height="140" fill="#09291b" stroke="#3fae7a" rx="6" />
+  <text x="495" y="318" fill="#7fb0ee" font-size="12" font-weight="bold">L'Injonction Magique : 'Pense étape par étape'</text>
+  <text x="495" y="340" fill="#f4faf7" font-size="11">Si vous écrivez : <tspan fill="#d89f3c">"Avant de coder, explique brièvement</tspan></text>
+  <text x="495" y="358" fill="#d89f3c">ta démarche logique en 3 étapes : formule, DOM, stockage"</text>
+  <text x="495" y="380" fill="#f4faf7" font-size="11">Le LLM alloue des tokens de réflexion interne et</text>
+  <text x="495" y="400" fill="#3fae7a" font-size="11" font-weight="bold">divise par 5 le taux de bogues logiques dans le script !</text>
+</svg>

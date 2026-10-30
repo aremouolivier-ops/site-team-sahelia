@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="xlsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#xlsGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">ARCHITECTURE DU FORMAT XLSFORM DANS EXCEL · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Les 3 Feuilles Obligatoires -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">Les 3 Feuilles du Fichier .xlsx</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Créer 100 questions en 15 minutes sans l'éditeur web</text>
+
+  <!-- Feuille survey -->
+  <rect x="50" y="145" width="370" height="80" fill="#0d352b" stroke="#3fae7a" rx="6" />
+  <text x="65" y="168" fill="#3fae7a" font-size="13" font-weight="bold">1. Feuille 'survey' (Le Cœur du Formulaire)</text>
+  <text x="65" y="188" fill="#f4faf7" font-size="11">Contient toutes les questions posées à l'enquêteur.</text>
+  <text x="65" y="206" fill="#88b3a4" font-size="10">Colonnes obligatoires : type | name | label</text>
+  <text x="65" y="218" fill="#88b3a4" font-size="10">Colonnes avancées : relevant | constraint | required</text>
+
+  <!-- Feuille choices -->
+  <rect x="50" y="235" width="370" height="75" fill="#0d352b" stroke="#7fb0ee" rx="6" />
+  <text x="65" y="258" fill="#7fb0ee" font-size="13" font-weight="bold">2. Feuille 'choices' (Les Listes de Réponses)</text>
+  <text x="65" y="278" fill="#f4faf7" font-size="11">Stocke les options des questions à choix uniques et multiples.</text>
+  <text x="65" y="296" fill="#88b3a4" font-size="10">Colonnes obligatoires : list_name | name | label</text>
+
+  <!-- Feuille settings -->
+  <rect x="50" y="320" width="370" height="65" fill="#0d352b" stroke="#e8946a" rx="6" />
+  <text x="65" y="343" fill="#e8946a" font-size="13" font-weight="bold">3. Feuille 'settings' (Métadonnées)</text>
+  <text x="65" y="363" fill="#f4faf7" font-size="11">Titre du formulaire, identifiant unique et numéro de version.</text>
+  <text x="65" y="377" fill="#88b3a4" font-size="10">form_title | form_id | version</text>
+
+  <text x="50" y="415" fill="#3fae7a" font-size="11" font-weight="bold">Règle : Noms d'onglets en minuscules strictes sans espace !</text>
+
+  <!-- Colonne Droite : Exemple Visuel de la Feuille Survey -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">Vue Réelle de la Feuille 'survey'</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Structure sous forme de matrice Excel professionnelle</text>
+
+  <!-- Tableau Excel Visuel -->
+  <rect x="480" y="145" width="370" height="185" fill="#06100c" stroke="#1b4d3e" rx="6" />
+
+  <!-- En-tête de colonnes -->
+  <rect x="480" y="145" width="370" height="28" fill="#0d352b" />
+  <text x="488" y="163" fill="#3fae7a" font-size="10" font-weight="bold">type</text>
+  <text x="575" y="163" fill="#7fb0ee" font-size="10" font-weight="bold">name</text>
+  <text x="650" y="163" fill="#f4faf7" font-size="10" font-weight="bold">label</text>
+  <text x="765" y="163" fill="#e8946a" font-size="10" font-weight="bold">relevant</text>
+
+  <!-- Ligne 1 -->
+  <line x1="480" y1="205" x2="850" y2="205" stroke="#1b4d3e" />
+  <text x="488" y="190" fill="#3fae7a" font-size="9" font-family="monospace">text</text>
+  <text x="575" y="190" fill="#7fb0ee" font-size="9" font-family="monospace">nom_resp</text>
+  <text x="650" y="190" fill="#f4faf7" font-size="9">Nom du producteur</text>
+  <text x="765" y="190" fill="#88b3a4" font-size="9">-</text>
+
+  <!-- Ligne 2 -->
+  <line x1="480" y1="240" x2="850" y2="240" stroke="#1b4d3e" />
+  <text x="488" y="225" fill="#3fae7a" font-size="9" font-family="monospace">select_one oui_non</text>
+  <text x="575" y="225" fill="#7fb0ee" font-size="9" font-family="monospace">a_engrais</text>
+  <text x="650" y="225" fill="#f4faf7" font-size="9">Apport d'engrais ?</text>
+  <text x="765" y="225" fill="#88b3a4" font-size="9">-</text>
+
+  <!-- Ligne 3 -->
+  <line x1="480" y1="275" x2="850" y2="275" stroke="#1b4d3e" />
+  <text x="488" y="260" fill="#3fae7a" font-size="9" font-family="monospace">decimal</text>
+  <text x="575" y="260" fill="#7fb0ee" font-size="9" font-family="monospace">dose_npk</text>
+  <text x="650" y="260" fill="#f4faf7" font-size="9">Dose NPK (kg/ha)</text>
+  <text x="765" y="260" fill="#e8946a" font-size="9" font-family="monospace">${a_engrais}='oui'</text>
+
+  <!-- Ligne 4 -->
+  <text x="488" y="295" fill="#3fae7a" font-size="9" font-family="monospace">geopoint</text>
+  <text x="575" y="295" fill="#7fb0ee" font-size="9" font-family="monospace">gps_champ</text>
+  <text x="650" y="295" fill="#f4faf7" font-size="9">Coordonnées GPS</text>
+  <text x="765" y="295" fill="#88b3a4" font-size="9">-</text>
+
+  <!-- Explication Gain -->
+  <rect x="480" y="340" width="370" height="95" fill="#09291b" stroke="#3fae7a" rx="6" />
+  <text x="495" y="362" fill="#3fae7a" font-size="12" font-weight="bold">Pourquoi adopter le format XLSForm ?</text>
+  <text x="495" y="380" fill="#f4faf7" font-size="11">✓ Copier-coller 50 questions d'un coup dans Excel.</text>
+  <text x="495" y="398" fill="#f4faf7" font-size="11">✓ Traduire le questionnaire en plusieurs langues (colonnes label::Bariba, label::Fon).</text>
+  <text x="495" y="416" fill="#88b3a4" font-size="10">✓ Téléversement direct sur KoboToolbox en 2 secondes.</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="siGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#siGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">L'ARBRE DÉCISIONNEL DE LA FONCTION =SI() DANS EXCEL · TEAM SAHÉLIA</text>
+
+  <!-- Nœud Initial : Le Test Logique (Losange) -->
+  <polygon points="450,90 600,160 450,230 300,160" fill="#061a14" stroke="#7fb0ee" stroke-width="2" />
+  <text x="390" y="150" fill="#7fb0ee" font-size="13" font-weight="bold">TEST LOGIQUE :</text>
+  <text x="370" y="175" fill="#f4faf7" font-size="12" font-family="monospace">Rendement &gt;= 3000</text>
+
+  <!-- Branche VRAI (Gauche) -->
+  <path d="M 300 160 L 180 160 L 180 270" stroke="#3fae7a" stroke-width="2.5" fill="none" stroke-linecap="round" />
+  <rect x="195" y="140" width="65" height="24" fill="#0d352b" rx="4" />
+  <text x="210" y="157" fill="#3fae7a" font-size="11" font-weight="bold">VRAI</text>
+
+  <rect x="70" y="270" width="220" height="90" fill="#0b382c" stroke="#3fae7a" stroke-width="2" rx="8" />
+  <text x="95" y="300" fill="#3fae7a" font-size="14" font-weight="bold">VALEUR SI VRAI :</text>
+  <text x="95" y="325" fill="#f4faf7" font-size="13" font-weight="bold">"Performance Haute"</text>
+  <text x="95" y="345" fill="#88b3a4" font-size="11">Eligible prime de rendement</text>
+
+  <!-- Branche FAUX (Droite) -->
+  <path d="M 600 160 L 720 160 L 720 270" stroke="#e8946a" stroke-width="2.5" fill="none" stroke-linecap="round" />
+  <rect x="640" y="140" width="65" height="24" fill="#2a1208" rx="4" />
+  <text x="655" y="157" fill="#e8946a" font-size="11" font-weight="bold">FAUX</text>
+
+  <rect x="610" y="270" width="220" height="90" fill="#1e1008" stroke="#e8946a" stroke-width="2" rx="8" />
+  <text x="630" y="300" fill="#e8946a" font-size="14" font-weight="bold">VALEUR SI FAUX :</text>
+  <text x="630" y="325" fill="#f4faf7" font-size="13" font-weight="bold">"À Améliorer"</text>
+  <text x="630" y="345" fill="#88b3a4" font-size="11">Appui technique requis</text>
+
+  <!-- Formule Complète en Bas -->
+  <rect x="35" y="390" width="830" height="70" fill="#0a2b24" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="50" y="415" fill="#e8946a" font-size="12" font-weight="bold">LA SYNTAXE OFFICIELLE DE LA FORMULE :</text>
+  <text x="50" y="440" fill="#f4faf7" font-size="13" font-family="monospace">=SI(H2 &gt;= 3000 ; "Performance Haute" ; "À Améliorer")</text>
+  <text x="550" y="440" fill="#7fb0ee" font-size="11">Point-virgule (;) entre chaque argument</text>
+</svg>

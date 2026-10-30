@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="mediaGrad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#mediaGrad6)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">PROJET CAPSTONE : DÉPLOIEMENT D'UN KIT MÉDIA MULTICANAL COMPLET</text>
+
+  <!-- Colonne Gauche : Les 4 Déclinaisons de Format (35 à 440) -->
+  <rect x="35" y="75" width="410" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="14" font-weight="bold">1. Les 4 Formats Clés du Kit Média</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="11">Un contenu unique décliné selon les canaux de diffusion</text>
+
+  <!-- Format 1 : Carré 1:1 -->
+  <rect x="50" y="145" width="170" height="135" fill="#0d2538" stroke="#7fb0ee" rx="6" />
+  <rect x="65" y="155" width="50" height="50" fill="#1b4d3e" stroke="#3fae7a" rx="4" />
+  <text x="125" y="175" fill="#f4faf7" font-size="11" font-weight="bold">Carré 1:1</text>
+  <text x="125" y="195" fill="#88b3a4" font-size="9">1080 x 1080 px</text>
+  <text x="65" y="225" fill="#d89f3c" font-size="10" font-weight="bold">Feed Instagram / Facebook</text>
+  <text x="65" y="245" fill="#f4faf7" font-size="9">Affiche principale d'événement</text>
+  <text x="65" y="263" fill="#88b3a4" font-size="8">Format statuts WhatsApp universel</text>
+
+  <!-- Format 2 : Vertical 9:16 -->
+  <rect x="235" y="145" width="195" height="135" fill="#09291b" stroke="#3fae7a" rx="6" />
+  <rect x="245" y="155" width="30" height="55" fill="#1b4d3e" stroke="#3fae7a" rx="3" />
+  <text x="285" y="175" fill="#3fae7a" font-size="11" font-weight="bold">Vertical 9:16</text>
+  <text x="285" y="195" fill="#88b3a4" font-size="9">1080 x 1920 px</text>
+  <text x="245" y="225" fill="#d89f3c" font-size="10" font-weight="bold">Reels / Shorts / TikTok</text>
+  <text x="245" y="245" fill="#f4faf7" font-size="9">Vidéo courte dynamique (45s)</text>
+  <text x="245" y="263" fill="#88b3a4" font-size="8">Sous-titres karaoké intégrés</text>
+
+  <!-- Format 3 : Horizontal 16:9 & Format 4 : Carrousel PDF -->
+  <rect x="50" y="295" width="380" height="140" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="320" fill="#d89f3c" font-size="11" font-weight="bold">Bannière 16:9 &amp; Carrousel Technique LinkedIn (PDF) :</text>
+  <text x="65" y="342" fill="#f4faf7" font-size="10">• <tspan fill="#7fb0ee" font-weight="bold">Bannière Web (1200 x 628) :</tspan> Article de blog, en-tête d'e-mail et X/Twitter.</text>
+  <text x="65" y="364" fill="#f4faf7" font-size="10">• <tspan fill="#3fae7a" font-weight="bold">Carrousel Document PDF (A4 ou Carré) :</tspan> 5 à 7 diapositives éducatives.</text>
+  <text x="65" y="386" fill="#88b3a4" font-size="9">Très fort engagement B2B auprès des directeurs de projets et agronomes chefs.</text>
+  <text x="65" y="415" fill="#f4faf7" font-size="10" font-weight="bold">Homogénéité : Mêmes couleurs, mêmes typographies, même ton.</text>
+
+  <!-- Colonne Droite : Stratégie de Diffusion & Canaux Ouest-Africains (465 à 865) -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="14" font-weight="bold">2. Stratégie de Diffusion Ciblée</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="11">Adapter le message et le canal au public ouest-africain</text>
+
+  <!-- Canal 1 : WhatsApp & Groupes Coopératives -->
+  <rect x="480" y="145" width="370" height="85" fill="#0d352b" stroke="#3fae7a" rx="6" />
+  <text x="495" y="170" fill="#3fae7a" font-size="12" font-weight="bold">Canal WhatsApp (Le Roi du Terrain)</text>
+  <text x="495" y="190" fill="#f4faf7" font-size="10">• Vidéo compressée à moins de 16 Mo pour téléchargement rapide.</text>
+  <text x="495" y="208" fill="#f4faf7" font-size="10">• Message texte d'accompagnement court avec puces et liens cliquables.</text>
+  <text x="495" y="223" fill="#88b3a4" font-size="9">Cible : Producteurs, chefs de coopératives, agents de vulgarisation.</text>
+
+  <!-- Canal 2 : LinkedIn & Bailleurs de Fonds -->
+  <rect x="480" y="240" width="370" height="85" fill="#0d2538" stroke="#7fb0ee" rx="6" />
+  <text x="495" y="265" fill="#7fb0ee" font-size="12" font-weight="bold">Canal LinkedIn (Bailleurs, ONG &amp; Institutions)</text>
+  <text x="495" y="285" fill="#f4faf7" font-size="10">• Post analytique avec chiffres d'impact financier et agronomique.</text>
+  <text x="495" y="303" fill="#f4faf7" font-size="10">• Carrousel PDF téléchargeable (expertise méthodologique démontrée).</text>
+  <text x="495" y="318" fill="#88b3a4" font-size="9">Cible : Représentants GIZ, Enabel, BAD, Ministères, Chercheurs.</text>
+
+  <!-- Canal 3 : TikTok & Instagram -->
+  <rect x="480" y="335" width="370" height="100" fill="#06100c" stroke="#d89f3c" rx="6" />
+  <text x="495" y="360" fill="#d89f3c" font-size="12" font-weight="bold">Canal TikTok / Instagram (Jeunesse &amp; Agri-Tech)</text>
+  <text x="495" y="380" fill="#f4faf7" font-size="10">• Vidéo courte de 30-45 secondes avec hook dynamique et humour dosé.</text>
+  <text x="495" y="398" fill="#f4faf7" font-size="10">• Valorisation des métiers modernes de l'agronomie (drone, data, IA).</text>
+  <text x="495" y="418" fill="#3fae7a" font-size="10" font-weight="bold">Signature TEAM Sahélia · Apprendre. Créer. Innover.</text>
+</svg>

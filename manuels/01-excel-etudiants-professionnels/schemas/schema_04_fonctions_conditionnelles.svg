@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="condGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#condGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">MÉCANIQUE DES FONCTIONS CONDITIONNELLES DANS EXCEL · TEAM SAHÉLIA</text>
+
+  <!-- Bloc 1 : SOMME.SI (1 seul critère) -->
+  <rect x="35" y="80" width="400" height="260" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <rect x="35" y="80" width="400" height="35" fill="#0d352b" rx="8" />
+  <text x="50" y="103" fill="#7fb0ee" font-size="13" font-weight="bold">1. SOMME.SI (1 SEUL CRITÈRE)</text>
+
+  <text x="50" y="140" fill="#f4faf7" font-size="12" font-family="monospace">=SOMME.SI(Plage_Test ; Critère ; Plage_Somme)</text>
+  
+  <rect x="50" y="155" width="370" height="60" fill="#09261f" rx="6" />
+  <text x="60" y="178" fill="#e8946a" font-size="11" font-weight="bold">Exemple : Total récolte de Maïs</text>
+  <text x="60" y="200" fill="#3fae7a" font-size="11" font-family="monospace">=SOMME.SI(D2:D21 ; "Maïs" ; H2:H21)</text>
+
+  <text x="50" y="245" fill="#88b3a4" font-size="11">1. Regarde dans la colonne Culture (D2:D21)</text>
+  <text x="50" y="265" fill="#88b3a4" font-size="11">2. Si c'est écrit "Maïs", il retient la ligne</text>
+  <text x="50" y="285" fill="#88b3a4" font-size="11">3. Additionne les rendements correspondants (H2:H21)</text>
+  <text x="50" y="315" fill="#e8946a" font-size="11" font-weight="bold">⚠️ Piège : La plage à sommer est À LA FIN !</text>
+
+  <!-- Bloc 2 : SOMME.SI.ENS (Plusieurs critères) -->
+  <rect x="465" y="80" width="400" height="260" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <rect x="465" y="80" width="400" height="35" fill="#0d352b" rx="8" />
+  <text x="480" y="103" fill="#3fae7a" font-size="13" font-weight="bold">2. SOMME.SI.ENS (MULTI-CRITÈRES)</text>
+
+  <text x="480" y="140" fill="#f4faf7" font-size="12" font-family="monospace">=SOMME.SI.ENS(Plage_Somme ; Plage1 ; Crit1 ; ...)</text>
+
+  <rect x="480" y="155" width="370" height="60" fill="#09261f" rx="6" />
+  <text x="490" y="178" fill="#e8946a" font-size="11" font-weight="bold">Exemple : Maïs à Parakou avec NPK &gt; 200 kg</text>
+  <text x="490" y="200" fill="#3fae7a" font-size="10" font-family="monospace">=SOMME.SI.ENS(H2:H21 ; D2:D21 ; "Maïs" ; B2:B21 ; "Parakou")</text>
+
+  <text x="480" y="245" fill="#88b3a4" font-size="11">1. Filtre 1 : Culture = "Maïs"</text>
+  <text x="480" y="265" fill="#88b3a4" font-size="11">2. Filtre 2 : Commune = "Parakou"</text>
+  <text x="480" y="285" fill="#88b3a4" font-size="11">3. Additionne les cellules qui respectent TOUTES les règles</text>
+  <text x="480" y="315" fill="#3fae7a" font-size="11" font-weight="bold">🔥 ATTENTION : La plage à sommer passe AU DÉBUT !</text>
+
+  <!-- Bandeau Inférieur : Les 3 Règles d'Or des Critères -->
+  <rect x="35" y="360" width="830" height="95" fill="#0a2b24" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="50" y="388" fill="#e8946a" font-size="13" font-weight="bold">SYNTAXE STRICTE DES OPÉRATEURS LOGIQUES :</text>
+  <text x="50" y="415" fill="#f4faf7" font-size="12">1. Texte et opérateurs avec guillemets : <tspan fill="#3fae7a" font-weight="bold">"Maïs"</tspan>, <tspan fill="#7fb0ee" font-weight="bold">"&gt;2000"</tspan>, <tspan fill="#e8946a" font-weight="bold">"&lt;&gt;Coton"</tspan> (différent de Coton).</text>
+  <text x="50" y="440" fill="#f4faf7" font-size="12">2. Comparer à une cellule : Utilisez l'esperluette : <tspan fill="#3fae7a" font-weight="bold">"&gt;=" &amp; A1</tspan> (et JAMAIS "&gt;=A1" qui cherche le texte littéral "A1").</text>
+</svg>

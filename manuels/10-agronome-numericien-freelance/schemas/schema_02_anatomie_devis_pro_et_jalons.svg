@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="mediaGrad10_2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#mediaGrad10_2)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">ANATOMIE D'UN DEVIS DE CONSULTANT &amp; VERROUILLAGE DES PAIEMENTS</text>
+
+  <!-- Colonne Gauche : Structure Légale du Devis Pro (35 à 440) -->
+  <rect x="35" y="75" width="410" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="14" font-weight="bold">1. Les Mentions Obligatoires d'un Devis Pro</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="11">Rassurer le client et donner une valeur juridique opposable</text>
+
+  <!-- Box En-tête Prestataire -->
+  <rect x="50" y="145" width="380" height="70" fill="#0d2538" stroke="#7fb0ee" rx="6" />
+  <text x="65" y="168" fill="#7fb0ee" font-size="11" font-weight="bold">En-tête Consultant / Cabinet :</text>
+  <text x="65" y="188" fill="#f4faf7" font-size="10">Nom de l'expert, Titre pro (Agronome-Numéricien), Contact, Ville</text>
+  <text x="65" y="205" fill="#3fae7a" font-size="10" font-weight="bold">N° IFU (Identifiant Fiscal Unique au Bénin) : Indispensable pour ONG</text>
+
+  <!-- Box Délimitation du Périmètre -->
+  <rect x="50" y="225" width="380" height="85" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="248" fill="#d89f3c" font-size="11" font-weight="bold">Désignation Chirurgicale des Livrables :</text>
+  <text x="65" y="268" fill="#f4faf7" font-size="10">• Pas de libellé vague ("Aide cartographique").</text>
+  <text x="65" y="286" fill="#f4faf7" font-size="10">• Libellé précis : "Délimitation GPS de 12 parcelles + Atlas PDF A3 HD".</text>
+  <text x="65" y="303" fill="#88b3a4" font-size="9">Mention explicite : "Tout travail hors périmètre fera l'objet d'un avenant."</text>
+
+  <!-- Box Validité & Signature -->
+  <rect x="50" y="320" width="380" height="115" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="343" fill="#3fae7a" font-size="11" font-weight="bold">Conditions &amp; Bon pour Accord :</text>
+  <text x="65" y="363" fill="#f4faf7" font-size="10">• <tspan fill="#e86a6a" font-weight="bold">Validité de l'offre :</tspan> 30 jours à compter de l'émission.</text>
+  <text x="65" y="383" fill="#f4faf7" font-size="10">• <tspan fill="#d89f3c" font-weight="bold">Propriété intellectuelle :</tspan> Transférée uniquement après paiement intégral.</text>
+  <text x="65" y="403" fill="#f4faf7" font-size="10">• Mention manuscrite obligatoire : <tspan fill="#7fb0ee">"Bon pour accord et exécution"</tspan> + Date et cachet.</text>
+  <text x="65" y="422" fill="#88b3a4" font-size="9">La signature du devis vaut contrat de prestation de services.</text>
+
+  <!-- Colonne Droite : Le Modèle des Jalons de Paiement 50-30-20 (465 à 865) -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="14" font-weight="bold">2. Le Protocole des Jalons 50 - 30 - 20</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="11">Sécuriser sa trésorerie et bannir le travail non rémunéré</text>
+
+  <!-- Jalon 1 : 50% -->
+  <rect x="480" y="145" width="370" height="75" fill="#0d352b" stroke="#3fae7a" rx="6" />
+  <text x="495" y="170" fill="#3fae7a" font-size="13" font-weight="bold">JALON 1 : 50 % à la Signature (Acompte Déblocage)</text>
+  <text x="495" y="190" fill="#f4faf7" font-size="10">• Conditionne le déplacement sur le terrain et l'achat de carburant.</text>
+  <text x="495" y="208" fill="#d89f3c" font-size="10" font-weight="bold">RÈGLE D'OR : Zéro déplacement terrain avant encaissement de l'acompte.</text>
+
+  <!-- Jalon 2 : 30% -->
+  <rect x="480" y="230" width="370" height="75" fill="#0d2538" stroke="#7fb0ee" rx="6" />
+  <text x="495" y="255" fill="#7fb0ee" font-size="13" font-weight="bold">JALON 2 : 30 % à la Livraison Intermédiaire</text>
+  <text x="495" y="275" fill="#f4faf7" font-size="10">• Remise du rapport provisoire ou des données brutes traitées.</text>
+  <text x="495" y="293" fill="#f4faf7" font-size="10">• Déclenche la phase d'ajustement et de relecture client.</text>
+
+  <!-- Jalon 3 : 20% -->
+  <rect x="480" y="315" width="370" height="75" fill="#09291b" stroke="#d89f3c" rx="6" />
+  <text x="495" y="340" fill="#d89f3c" font-size="13" font-weight="bold">JALON 3 : 20 % au Solde Définitif</text>
+  <text x="495" y="360" fill="#f4faf7" font-size="10">• Validation du Procès-Verbal (PV) de recette finale.</text>
+  <text x="495" y="378" fill="#f4faf7" font-size="10">• Remise des fichiers sources (Shapefile QGIS, code R, originaux HD).</text>
+
+  <text x="480" y="415" fill="#f4faf7" font-size="10" font-weight="bold">Moyens de paiement acceptés :</text>
+  <text x="480" y="433" fill="#88b3a4" font-size="9">Virement bancaire (RIB) ou Mobile Money (MTN / Moov Bénin) avec frais à charge client.</text>
+</svg>

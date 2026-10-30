@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="droneGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#droneGrad3)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">SÉCURITÉ AÉRIENNE, LIMITATIONS MÉTÉO &amp; CHECKLIST PRÉ-VOL · BENIN ANAC</text>
+
+  <!-- Colonne Gauche : Espace Aérien & Réglementation -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#e86a6a" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#e86a6a" font-size="15" font-weight="bold">1. Espace Aérien &amp; Règles Légales (ANAC)</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Plafonds d'altitude, cône de visibilité et zones interdites</text>
+
+  <!-- Schéma Cône de Vol VLOS -->
+  <rect x="50" y="145" width="370" height="150" fill="#1f1113" stroke="#e86a6a" stroke-width="1" rx="6" />
+  
+  <!-- Ligne sol -->
+  <line x1="60" y1="265" x2="410" y2="265" stroke="#3fae7a" stroke-width="2" />
+  <text x="65" y="280" fill="#3fae7a" font-size="9">NIVEAU DU SOL (0 m)</text>
+
+  <!-- Plafond Légal 120m -->
+  <line x1="60" y1="165" x2="410" y2="165" stroke="#e86a6a" stroke-width="2" stroke-dasharray="6,4" />
+  <text x="65" y="160" fill="#e86a6a" font-size="10" font-weight="bold">PLAFOND LÉGAL MAXIMAL : 120 m SOL (400 ft AGL)</text>
+
+  <!-- Pilote au sol -->
+  <circle cx="110" cy="255" r="5" fill="#7fb0ee" />
+  <line x1="110" y1="260" x2="110" y2="265" stroke="#7fb0ee" stroke-width="2" />
+  <text x="90" y="278" fill="#7fb0ee" font-size="9">Télépilote</text>
+
+  <!-- Cône VLOS (Vol à vue) -->
+  <polygon points="110,255 350,175 350,265" fill="#7fb0ee" fill-opacity="0.15" stroke="#7fb0ee" stroke-dasharray="3,3" />
+  <circle cx="310" cy="190" r="8" fill="#3fae7a" />
+  <text x="280" y="180" fill="#3fae7a" font-size="10" font-weight="bold">Drone en vol</text>
+  <text x="180" y="240" fill="#7fb0ee" font-size="10">Vol à Vue (VLOS &lt; 500 m)</text>
+
+  <!-- Détails Réglementaires -->
+  <rect x="50" y="305" width="370" height="130" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="328" fill="#e86a6a" font-size="12" font-weight="bold">Zones Strictement Interdites au Vol :</text>
+  <text x="65" y="348" fill="#f4faf7" font-size="11">• Rayon de 5 km autour des aéroports (Cotonou, Parakou).</text>
+  <text x="65" y="368" fill="#f4faf7" font-size="11">• Survol de rassemblements de personnes, villes et marchés.</text>
+  <text x="65" y="388" fill="#f4faf7" font-size="11">• Camps militaires, gendarmeries, présidence, centrales SBEE.</text>
+  <text x="65" y="410" fill="#d89f3c" font-size="10" font-weight="bold">Autorisation ANAC Bénin obligatoire pour tout vol commercial.</text>
+
+  <!-- Colonne Droite : Météo & Checklist Pré-Vol -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">2. Seuils Météo &amp; Checklist en 12 Points</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Ce qu'il faut auditer impérativement avant d'armer les moteurs</text>
+
+  <!-- Tableau Météo -->
+  <rect x="480" y="145" width="370" height="110" fill="#09291b" stroke="#3fae7a" stroke-width="1" rx="6" />
+  <text x="495" y="165" fill="#3fae7a" font-size="11" font-weight="bold">Seuils Météo Critiques :</text>
+  <text x="495" y="185" fill="#f4faf7" font-size="11">• Vent max Cartographie : <tspan fill="#3fae7a" font-weight="bold">&lt; 8 m/s (28 km/h)</tspan></text>
+  <text x="495" y="205" fill="#f4faf7" font-size="11">• Vent max Pulvérisation : <tspan fill="#e86a6a" font-weight="bold">&lt; 3.5 m/s (Risque de dérive)</tspan></text>
+  <text x="495" y="225" fill="#f4faf7" font-size="11">• Température ambiante : <tspan fill="#d89f3c" font-weight="bold">&lt; 38°C (Surveillance batterie)</tspan></text>
+  <text x="495" y="245" fill="#f4faf7" font-size="11">• Indice Kp géomagnétique : <tspan fill="#7fb0ee" font-weight="bold">&lt; 4 (Stabilité compas)</tspan></text>
+
+  <!-- Checklist Pré-Vol -->
+  <rect x="480" y="265" width="370" height="170" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="495" y="288" fill="#d89f3c" font-size="12" font-weight="bold">Checklist Pré-Vol en 6 Points Vitaux :</text>
+  <text x="495" y="310" fill="#f4faf7" font-size="10">1. [ ] Hélices inspectées : zéro fissure, bien vissées et propres.</text>
+  <text x="495" y="330" fill="#f4faf7" font-size="10">2. [ ] Batterie verrouillée dans la baie, niveau &gt; 90 %.</text>
+  <text x="495" y="350" fill="#f4faf7" font-size="10">3. [ ] Carte microSD UHS-3 insérée, formatée et espace libre OK.</text>
+  <text x="495" y="370" fill="#f4faf7" font-size="10">4. [ ] Calibration compas effectuée loin de toute masse métallique.</text>
+  <text x="495" y="390" fill="#f4faf7" font-size="10">5. [ ] Verrouillage GNSS satellites &gt; 14 sats, Statut RTK Fixe.</text>
+  <text x="495" y="410" fill="#3fae7a" font-size="10" font-weight="bold">6. [ ] Altitude RTH configurée à 50 m &gt; Obstacles du site. Décollage !</text>
+</svg>

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="dollarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="500" fill="url(#dollarGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="470" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">LE SECRET DU SYMBOLE DOLLAR ($) DANS EXCEL · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Erreur Sans Dollar (Référence Relative) -->
+  <rect x="35" y="80" width="400" height="310" fill="#061a14" stroke="#e8946a" stroke-width="1.5" rx="8" />
+  <rect x="35" y="80" width="400" height="35" fill="#2a1208" rx="8" />
+  <text x="50" y="103" fill="#e8946a" font-size="13" font-weight="bold">❌ SANS DOLLAR : DÉCALAGE INDÉSIRABLE (=B2*E1)</text>
+
+  <!-- Cellule Fixe E1 -->
+  <rect x="50" y="130" width="170" height="30" fill="#0a2b24" stroke="#7fb0ee" rx="4" />
+  <text x="60" y="150" fill="#7fb0ee" font-size="12" font-weight="bold">E1 : Prix Sac = 25 000</text>
+
+  <!-- Ligne 1 -->
+  <text x="50" y="185" fill="#f4faf7" font-size="12">Ligne 2 : =B2*E1</text>
+  <text x="220" y="185" fill="#3fae7a" font-size="12">-> 2 sacs × 25 000 = 50 000</text>
+  <text x="380" y="185" fill="#3fae7a" font-size="12">✓ OK</text>
+
+  <!-- Ligne 2 : Erreur -->
+  <text x="50" y="225" fill="#f4faf7" font-size="12">Ligne 3 : =B3*<tspan fill="#e8946a" font-weight="bold">E2</tspan></text>
+  <text x="220" y="225" fill="#e8946a" font-size="12">-> E2 est VIDE ! Résultat : 0</text>
+  <text x="380" y="225" fill="#e8946a" font-size="12">❌ FAUX</text>
+
+  <!-- Ligne 3 : Erreur -->
+  <text x="50" y="265" fill="#f4faf7" font-size="12">Ligne 4 : =B4*<tspan fill="#e8946a" font-weight="bold">E3</tspan></text>
+  <text x="220" y="265" fill="#e8946a" font-size="12">-> E3 contient du texte !</text>
+  <text x="380" y="265" fill="#e8946a" font-size="12">#VALEUR!</text>
+
+  <rect x="50" y="300" width="370" height="75" fill="#140905" stroke="#e8946a" stroke-width="1" rx="6" />
+  <text x="60" y="325" fill="#e8946a" font-size="11" font-weight="bold">Le problème :</text>
+  <text x="60" y="345" fill="#88b3a4" font-size="11">En recopiant vers le bas, la référence E1 descend</text>
+  <text x="60" y="365" fill="#88b3a4" font-size="11">vers E2, E3, E4 qui sont des cellules vides ou invalides.</text>
+
+  <!-- Colonne Droite : Avec Dollar (Référence Absolue) -->
+  <rect x="465" y="80" width="400" height="310" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <rect x="465" y="80" width="400" height="35" fill="#0d352b" rx="8" />
+  <text x="480" y="103" fill="#3fae7a" font-size="13" font-weight="bold">✓ AVEC LE DOLLAR : CELLULE VERROUILLÉE (=B2*$E$1)</text>
+
+  <!-- Cellule Fixe $E$1 avec Cadenas -->
+  <rect x="480" y="130" width="220" height="30" fill="#0b382c" stroke="#3fae7a" stroke-width="2" rx="4" />
+  <text x="490" y="150" fill="#3fae7a" font-size="12" font-weight="bold">🔒 $E$1 : Fixe = 25 000 FCFA</text>
+
+  <!-- Ligne 1 -->
+  <text x="480" y="185" fill="#f4faf7" font-size="12">Ligne 2 : =B2*<tspan fill="#3fae7a" font-weight="bold">$E$1</tspan></text>
+  <text x="650" y="185" fill="#3fae7a" font-size="12">-> 2 × 25 000 = 50 000</text>
+  <text x="810" y="185" fill="#3fae7a" font-size="12">✓ OK</text>
+
+  <!-- Ligne 2 -->
+  <text x="480" y="225" fill="#f4faf7" font-size="12">Ligne 3 : =B3*<tspan fill="#3fae7a" font-weight="bold">$E$1</tspan></text>
+  <text x="650" y="225" fill="#3fae7a" font-size="12">-> 4 × 25 000 = 100 000</text>
+  <text x="810" y="225" fill="#3fae7a" font-size="12">✓ OK</text>
+
+  <!-- Ligne 3 -->
+  <text x="480" y="265" fill="#f4faf7" font-size="12">Ligne 4 : =B4*<tspan fill="#3fae7a" font-weight="bold">$E$1</tspan></text>
+  <text x="650" y="265" fill="#3fae7a" font-size="12">-> 3 × 25 000 = 75 000</text>
+  <text x="810" y="265" fill="#3fae7a" font-size="12">✓ OK</text>
+
+  <rect x="480" y="300" width="370" height="75" fill="#08221a" stroke="#3fae7a" stroke-width="1" rx="6" />
+  <text x="490" y="325" fill="#3fae7a" font-size="11" font-weight="bold">Le cadenas $ bloque la cible :</text>
+  <text x="490" y="345" fill="#f4faf7" font-size="11">La formule multiplie TOUJOURS par la cellule E1,</text>
+  <text x="490" y="365" fill="#f4faf7" font-size="11">même si vous recopiez la formule sur 5 000 lignes !</text>
+
+  <!-- Bandeau Inférieur : La touche magique F4 -->
+  <rect x="35" y="410" width="830" height="65" fill="#0a2b24" stroke="#25604d" stroke-width="1" rx="8" />
+  <text x="50" y="435" fill="#e8946a" font-size="13" font-weight="bold">LE RACCOURCI DU PRO : LA TOUCHE F4</text>
+  <text x="50" y="460" fill="#f4faf7" font-size="12">Dans la formule, cliquez sur E1 et appuyez sur <tspan fill="#3fae7a" font-weight="bold">F4</tspan> : Excel alterne automatiquement entre E1 -> $E$1 -> E$1 -> $E1.</text>
+</svg>

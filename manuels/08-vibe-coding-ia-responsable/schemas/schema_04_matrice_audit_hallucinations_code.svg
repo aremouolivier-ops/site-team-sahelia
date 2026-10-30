@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="vibeGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#vibeGrad4)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">DÉTECTION DES HALLUCINATIONS &amp; AUDIT CRITIQUE DU CODE IA · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Les 3 Hallucinations Courantes -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#e86a6a" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#e86a6a" font-size="15" font-weight="bold">1. Les 3 Hallucinations du Code IA</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Ce que le modèle invente avec aplomb mais qui est faux</text>
+
+  <!-- Box Hallucination 1 : Bibliothèques fantômes -->
+  <rect x="50" y="145" width="370" height="85" fill="#1f1113" stroke="#e86a6a" stroke-width="1" rx="6" />
+  <text x="65" y="168" fill="#e86a6a" font-size="12" font-weight="bold">1. Bibliothèques et Méthodes Fantômes :</text>
+  <text x="65" y="190" fill="#f4faf7" font-size="10" font-family="monospace">import { calculateDose } from 'agri-benin-lib';</text>
+  <text x="65" y="210" fill="#88b3a4" font-size="10">Ce package n'existe nulle part ! Le modèle l'a inventé par plausibilité.</text>
+
+  <!-- Box Hallucination 2 : Failles d'injection XSS -->
+  <rect x="50" y="240" width="370" height="85" fill="#1f1113" stroke="#d89f3c" stroke-width="1" rx="6" />
+  <text x="65" y="263" fill="#d89f3c" font-size="12" font-weight="bold">2. Faille d'Injection XSS (.innerHTML sauvage) :</text>
+  <text x="65" y="285" fill="#f4faf7" font-size="10" font-family="monospace">div.innerHTML = inputUtilisateur.value; // DANGER</text>
+  <text x="65" y="305" fill="#88b3a4" font-size="10">Permet à un hacker d'injecter du JavaScript malveillant dans la page.</text>
+
+  <!-- Box Hallucination 3 : Erreurs de Calcul Silencieuses -->
+  <rect x="50" y="335" width="370" height="95" fill="#1f1113" stroke="#7fb0ee" stroke-width="1" rx="6" />
+  <text x="65" y="358" fill="#7fb0ee" font-size="12" font-weight="bold">3. Bogues d'Arrondi Silencieux (Float Bug) :</text>
+  <text x="65" y="380" fill="#f4faf7" font-size="10" font-family="monospace">0.1 + 0.2 === 0.30000000000000004 // En JavaScript !</text>
+  <text x="65" y="402" fill="#88b3a4" font-size="10">Faute d'arrondi explicite (round / toFixed), les budgets sont faussés.</text>
+
+  <!-- Colonne Droite : Protocole d'Audit de l'Ingénieur Humain -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">2. Protocole d'Audit Humain en 4 Étapes</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Le rôle irremplaçable de l'agronome-auditeur</text>
+
+  <!-- Étape 1 -->
+  <rect x="480" y="145" width="370" height="60" fill="#09291b" stroke="#3fae7a" rx="4" />
+  <text x="495" y="168" fill="#3fae7a" font-size="11" font-weight="bold">Étape 1 : Audit des Dépendances &amp; Imports</text>
+  <text x="495" y="188" fill="#f4faf7" font-size="10">Vérifier qu'aucune URL externe inconnue n'a été insérée en douce.</text>
+
+  <!-- Étape 2 -->
+  <rect x="480" y="215" width="370" height="60" fill="#09291b" stroke="#3fae7a" rx="4" />
+  <text x="495" y="238" fill="#3fae7a" font-size="11" font-weight="bold">Étape 2 : Le Test des Cas Limites (Edge Cases)</text>
+  <text x="495" y="258" fill="#f4faf7" font-size="10">Tester avec : 0 ha, -5 ha, du texte dans un champ nombre, 100 000 ha.</text>
+
+  <!-- Étape 3 -->
+  <rect x="480" y="285" width="370" height="60" fill="#09291b" stroke="#3fae7a" rx="4" />
+  <text x="495" y="308" fill="#3fae7a" font-size="11" font-weight="bold">Étape 3 : Audit de la Console Navigateur (F12)</text>
+  <text x="495" y="328" fill="#f4faf7" font-size="10">Ouvrir la console DevTools : zéro message rouge d'erreur toléré.</text>
+
+  <!-- Étape 4 -->
+  <rect x="480" y="355" width="370" height="80" fill="#0d2e24" stroke="#d89f3c" rx="4" />
+  <text x="495" y="378" fill="#d89f3c" font-size="11" font-weight="bold">Étape 4 : Validation Croisée avec un Témoin</text>
+  <text x="495" y="398" fill="#f4faf7" font-size="10">Comparer le résultat avec un calcul manuel fait sur calculette</text>
+  <text x="495" y="415" fill="#3fae7a" font-size="10" font-weight="bold">ou sur votre tableau Excel de référence (Manuel 01).</text>
+</svg>

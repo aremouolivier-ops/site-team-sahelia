@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="droneGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#droneGrad4)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">PLAN DE VOL PHOTOGRAMMÉTRIQUE, RECOUVREMENT &amp; CALCUL GSD · QGIS 3</text>
+
+  <!-- Colonne Gauche : Trajectoire en Peigne & Recouvrements -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">1. Quadrillage en Peigne (Lawn-mower)</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Trajectoire autonome programmée dans DJI Pilot 2</text>
+
+  <!-- Schéma Visuel de Vol en Peigne -->
+  <rect x="50" y="145" width="370" height="150" fill="#0d2538" stroke="#7fb0ee" rx="6" />
+  
+  <!-- Contour de la parcelle -->
+  <polygon points="65,165 385,160 375,275 80,280" fill="#1b4d3e" fill-opacity="0.3" stroke="#3fae7a" stroke-dasharray="4,2" />
+  <text x="75" y="180" fill="#3fae7a" font-size="10">Parcelle agricole (20 ha)</text>
+
+  <!-- Lignes de vol en lacets -->
+  <path d="M 90 260 L 90 190 L 150 190 L 150 260 L 210 260 L 210 190 L 270 190 L 270 260 L 330 260 L 330 190" fill="none" stroke="#7fb0ee" stroke-width="2.5" />
+  
+  <!-- Points de déclenchement photo -->
+  <circle cx="90" cy="225" r="4" fill="#ffffff" />
+  <circle cx="90" cy="195" r="4" fill="#ffffff" />
+  <circle cx="150" cy="225" r="4" fill="#ffffff" />
+  <circle cx="210" cy="225" r="4" fill="#ffffff" />
+  <circle cx="270" cy="225" r="4" fill="#ffffff" />
+  <circle cx="330" cy="225" r="4" fill="#ffffff" />
+  <text x="180" y="275" fill="#ffffff" font-size="9">● Déclenchement photo à intervalle régulier</text>
+
+  <!-- Recouvrements -->
+  <rect x="50" y="305" width="370" height="130" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="328" fill="#7fb0ee" font-size="12" font-weight="bold">Règles d'Or du Chevauchement :</text>
+  <text x="65" y="350" fill="#f4faf7" font-size="11">• <tspan fill="#3fae7a" font-weight="bold">Recouvrement Longitudinal (Front) :</tspan> 75 % à 80 %.</text>
+  <text x="65" y="370" fill="#f4faf7" font-size="11">• <tspan fill="#7fb0ee" font-weight="bold">Recouvrement Latéral (Side) :</tspan> 70 % à 75 %.</text>
+  <text x="65" y="390" fill="#f4faf7" font-size="11">• Angle de caméra : <tspan fill="#d89f3c" font-weight="bold">-90° (Nadir pur vers le sol)</tspan>.</text>
+  <text x="65" y="412" fill="#88b3a4" font-size="10">Permet au logiciel de trouver des milliers de points homologues.</text>
+
+  <!-- Colonne Droite : Calcul du GSD & Cibles GCP -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">2. Résolution GSD &amp; Points de Calage (GCP)</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Garantir une précision métrique et centimétrique dans QGIS</text>
+
+  <!-- Formule GSD -->
+  <rect x="480" y="145" width="370" height="120" fill="#09291b" stroke="#3fae7a" stroke-width="1" rx="6" />
+  <text x="495" y="168" fill="#3fae7a" font-size="12" font-weight="bold">Calcul de la Résolution au Sol (GSD) :</text>
+  <rect x="495" y="178" width="340" height="30" fill="#06100c" rx="4" />
+  <text x="505" y="198" fill="#f4faf7" font-size="11" font-family="monospace">GSD = ( Hauteur_vol × Taille_pixel ) / Focale</text>
+  <text x="495" y="228" fill="#f4faf7" font-size="11">• À <tspan fill="#7fb0ee" font-weight="bold">60 m de hauteur</tspan> : GSD = <tspan fill="#3fae7a" font-weight="bold">1.6 cm / pixel</tspan> (Détail de chaque feuille).</text>
+  <text x="495" y="248" fill="#f4faf7" font-size="11">• À <tspan fill="#d89f3c" font-weight="bold">100 m de hauteur</tspan> : GSD = <tspan fill="#d89f3c" font-weight="bold">2.7 cm / pixel</tspan> (Vitesse de vol doublée).</text>
+
+  <!-- Cibles GCP au sol -->
+  <rect x="480" y="275" width="370" height="160" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="495" y="298" fill="#d89f3c" font-size="12" font-weight="bold">Cibles Photogrammétriques au Sol (GCP) :</text>
+  
+  <!-- Cible damier N&B -->
+  <rect x="495" y="315" width="40" height="40" fill="#ffffff" stroke="#333" />
+  <rect x="495" y="315" width="20" height="20" fill="#06100c" />
+  <rect x="515" y="335" width="20" height="20" fill="#06100c" />
+
+  <text x="545" y="330" fill="#f4faf7" font-size="11">Cibles damier 50 × 50 cm noir/blanc</text>
+  <text x="545" y="348" fill="#7fb0ee" font-size="11">Relevées au récepteur GNSS RTK</text>
+  <text x="495" y="380" fill="#88b3a4" font-size="10">Poser 5 cibles (4 coins + 1 centre) pour corriger les déformations 3D.</text>
+  <text x="495" y="405" fill="#3fae7a" font-size="11" font-weight="bold">Résultat : Orthomosaïque GeoTIFF prête pour QGIS 3 !</text>
+</svg>

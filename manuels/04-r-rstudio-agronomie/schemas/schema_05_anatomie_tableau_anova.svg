@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="aovGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#aovGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">ANATOMIE DU TABLEAU DE L'ANOVA DE FISHER DANS R · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Signification des 5 Colonnes Mathématiques -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">Les 5 Colonnes Mathématiques</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Ce qui se passe derrière l'écran lors du test F</text>
+
+  <!-- Df -->
+  <rect x="50" y="145" width="370" height="50" fill="#0d352b" rx="6" />
+  <text x="65" y="167" fill="#f4faf7" font-size="12" font-weight="bold">Df (Degrés de Liberté) :</text>
+  <text x="65" y="185" fill="#88b3a4" font-size="11">Traitement = k - 1 (ex: 4 - 1 = 3). Résidus = N - k (20 - 4 = 16).</text>
+
+  <!-- Sum Sq -->
+  <rect x="50" y="202" width="370" height="50" fill="#0d352b" rx="6" />
+  <text x="65" y="224" fill="#f4faf7" font-size="12" font-weight="bold">Sum Sq (Somme des Carrés) :</text>
+  <text x="65" y="242" fill="#88b3a4" font-size="11">Quantité totale de variabilité expliquée par l'engrais vs le hasard.</text>
+
+  <!-- Mean Sq -->
+  <rect x="50" y="259" width="370" height="50" fill="#0d352b" rx="6" />
+  <text x="65" y="281" fill="#f4faf7" font-size="12" font-weight="bold">Mean Sq (Carré Moyen = Variance) :</text>
+  <text x="65" y="299" fill="#88b3a4" font-size="11">Calcul : Sum Sq / Df. C'est la variance moyenne par groupe.</text>
+
+  <!-- F value -->
+  <rect x="50" y="316" width="370" height="50" fill="#0d352b" rx="6" />
+  <text x="65" y="338" fill="#e8946a" font-size="12" font-weight="bold">F value (Statistique de Fisher-Snedecor) :</text>
+  <text x="65" y="356" fill="#88b3a4" font-size="11">Rapport : Mean Sq(Traitement) / Mean Sq(Résidus). Plus il est grand, mieux c'est.</text>
+
+  <!-- Pr(>F) -->
+  <rect x="50" y="373" width="370" height="60" fill="#0d352b" stroke="#3fae7a" rx="6" />
+  <text x="65" y="395" fill="#3fae7a" font-size="12" font-weight="bold">Pr(&gt;F) (La p-value finale) :</text>
+  <text x="65" y="415" fill="#f4faf7" font-size="11">Si p &lt; 0.05 (***), l'effet engrais est scientifiquement prouvé !</text>
+
+  <!-- Colonne Droite : Sortie Réelle Console R -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">Sortie Réelle de summary(modele)</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Essai Maïs Parakou (4 Traitements x 5 Répétitions)</text>
+
+  <!-- Terminal R Box -->
+  <rect x="480" y="145" width="370" height="155" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="495" y="170" fill="#88b3a4" font-size="11" font-family="monospace">&gt; summary(aov(Rendement ~ Traitement))</text>
+  <text x="495" y="195" fill="#f4faf7" font-size="11" font-family="monospace">            Df  Sum Sq  Mean Sq F value   Pr(&gt;F)    </text>
+  <text x="495" y="215" fill="#3fae7a" font-size="11" font-family="monospace">Traitement   3 8452100 2817367   42.18 1.45e-07 ***</text>
+  <text x="495" y="235" fill="#88b3a4" font-size="11" font-family="monospace">Residuals   16 1068800   66800                     </text>
+  <text x="495" y="260" fill="#e8946a" font-size="10" font-family="monospace">--- Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05</text>
+
+  <!-- Décision et Conclusion pour le Mémoire -->
+  <rect x="480" y="315" width="370" height="120" fill="#09291b" stroke="#3fae7a" rx="6" />
+  <text x="495" y="338" fill="#3fae7a" font-size="12" font-weight="bold">RÉDACTION OFFICIELLE DANS LE MÉMOIRE :</text>
+  <text x="495" y="360" fill="#f4faf7" font-size="11">« L'analyse de variance révèle un effet hautement</text>
+  <text x="495" y="378" fill="#f4faf7" font-size="11">significatif du type de fertilisation sur le rendement</text>
+  <text x="495" y="396" fill="#f4faf7" font-size="11">en grains du maïs (F(3, 16) = 42,18 ; p &lt; 0,001). »</text>
+  <text x="495" y="420" fill="#88b3a4" font-size="10">-> Prochaine étape obligatoire : Test Post-Hoc de Tukey !</text>
+</svg>

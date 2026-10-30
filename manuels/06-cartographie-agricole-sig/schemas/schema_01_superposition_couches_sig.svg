@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="gisGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#gisGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">SUPERPOSITION DES COUCHES SIG SOUS QGIS · TEAM SAHÉLIA</text>
+
+  <!-- Illustration 3D Isométrique / Superposition -->
+  <!-- Couche 1 : Raster Satellite (Bas) -->
+  <polygon points="120,400 500,400 580,310 200,310" fill="#07221a" stroke="#1b4d3e" stroke-width="1.5" />
+  <text x="210" y="360" fill="#88b3a4" font-size="13" font-weight="bold">COUCHE 1 (RASTER) : FOND SATELLITE GOOGLE / SENTINEL</text>
+  <text x="620" y="360" fill="#7fb0ee" font-size="12" font-weight="bold">Pixels d'imagerie réelle</text>
+
+  <!-- Couche 2 : Polygone Parcelle (Milieu) -->
+  <polygon points="120,290 500,290 580,200 200,200" fill="#093126" stroke="#3fae7a" stroke-width="1.5" />
+  <!-- Polygone de parcelle sur la couche -->
+  <polygon points="280,265 420,270 460,225 330,220" fill="rgba(63, 174, 122, 0.35)" stroke="#3fae7a" stroke-width="2" />
+  <text x="210" y="245" fill="#3fae7a" font-size="13" font-weight="bold">COUCHE 2 (VECTEUR POLYGONE) : PARCELLE DÉLIMITÉE</text>
+  <text x="620" y="245" fill="#3fae7a" font-size="12" font-weight="bold">Calcul Surface : 4,85 ha</text>
+
+  <!-- Couche 3 : Points GPS (Haut) -->
+  <polygon points="120,180 500,180 580,90 200,90" fill="#0c3d30" stroke="#7fb0ee" stroke-width="1.5" />
+  <circle cx="280" cy="155" r="5" fill="#e8946a" stroke="#fff" stroke-width="1" />
+  <circle cx="420" cy="160" r="5" fill="#e8946a" stroke="#fff" stroke-width="1" />
+  <circle cx="460" cy="115" r="5" fill="#e8946a" stroke="#fff" stroke-width="1" />
+  <circle cx="330" cy="110" r="5" fill="#e8946a" stroke="#fff" stroke-width="1" />
+  <text x="210" y="135" fill="#7fb0ee" font-size="13" font-weight="bold">COUCHE 3 (VECTEUR POINTS) : SOMMETS GPS RELEVÉS</text>
+  <text x="620" y="135" fill="#e8946a" font-size="12" font-weight="bold">Points P1, P2, P3, P4</text>
+
+  <!-- Flèche verticale d'empilement -->
+  <path d="M 100 370 L 100 120 M 93 135 L 100 120 L 107 135" stroke="#3fae7a" stroke-width="2.5" stroke-linecap="round" />
+  <text x="45" y="250" fill="#3fae7a" font-size="11" font-weight="bold" transform="rotate(-90 45 250)">EMPILEMENT SIG</text>
+
+  <!-- Encadré Système de coordonnées en bas -->
+  <rect x="35" y="420" width="830" height="40" fill="#0d352b" rx="6" />
+  <text x="50" y="445" fill="#e8946a" font-size="13" font-weight="bold">RÈGLE DE PROJECTION AU BÉNIN :</text>
+  <text x="310" y="445" fill="#f4faf7" font-size="12">Toujours projeter en <tspan fill="#3fae7a" font-weight="bold">UTM Zone 31N (EPSG:32631)</tspan> pour que les mesures métriques ($area) soient exactes.</text>
+</svg>

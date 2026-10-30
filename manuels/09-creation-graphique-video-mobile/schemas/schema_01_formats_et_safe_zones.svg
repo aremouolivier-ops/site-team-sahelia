@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="designGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#designGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#e8946a" font-size="16" font-weight="bold" letter-spacing="1">LES FORMATS MAÎTRES &amp; LES ZONES DE SÉCURITÉ MOBILE · TEAM SAHÉLIA</text>
+
+  <!-- Format 1 : Carré 1:1 -->
+  <rect x="35" y="85" width="220" height="220" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="6" />
+  <text x="50" y="115" fill="#3fae7a" font-size="13" font-weight="bold">1. CARRÉ (1:1)</text>
+  <text x="50" y="135" fill="#88b3a4" font-size="11">1080 × 1080 px</text>
+  <text x="50" y="175" fill="#f4faf7" font-size="11">Usage : Post Facebook,</text>
+  <text x="50" y="195" fill="#f4faf7" font-size="11">WhatsApp direct, Web.</text>
+  <text x="50" y="240" fill="#3fae7a" font-size="11" font-weight="bold">✓ 100% visible partout.</text>
+  <text x="50" y="260" fill="#88b3a4" font-size="10">Le format standard universel.</text>
+
+  <!-- Format 2 : Portrait 4:5 -->
+  <rect x="280" y="85" width="220" height="275" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="6" />
+  <text x="295" y="115" fill="#7fb0ee" font-size="13" font-weight="bold">2. PORTRAIT (4:5)</text>
+  <text x="295" y="135" fill="#88b3a4" font-size="11">1080 × 1350 px</text>
+  <text x="295" y="175" fill="#f4faf7" font-size="11">Usage : Feed Instagram,</text>
+  <text x="295" y="195" fill="#f4faf7" font-size="11">LinkedIn mobile.</text>
+  <text x="295" y="240" fill="#7fb0ee" font-size="11" font-weight="bold">✓ +25% de visibilité</text>
+  <text x="295" y="260" fill="#88b3a4" font-size="10">sur l'écran du téléphone</text>
+  <text x="295" y="280" fill="#88b3a4" font-size="10">qu'un carré classique !</text>
+
+  <!-- Format 3 : Vertical 9:16 avec Safe Zones -->
+  <rect x="525" y="85" width="180" height="320" fill="#061a14" stroke="#e8946a" stroke-width="1.5" rx="6" />
+  <!-- Zone Danger Haut -->
+  <rect x="525" y="85" width="180" height="40" fill="rgba(232, 148, 106, 0.25)" rx="6" />
+  <text x="535" y="110" fill="#e8946a" font-size="10">Zone masquée (Haut)</text>
+
+  <!-- Zone Sûre Centre -->
+  <rect x="525" y="130" width="180" height="190" fill="#0a2b24" stroke="#3fae7a" stroke-width="1" />
+  <text x="540" y="160" fill="#3fae7a" font-size="12" font-weight="bold">ZONE SÉCURISÉE</text>
+  <text x="540" y="185" fill="#f4faf7" font-size="10">Placez ici :</text>
+  <text x="540" y="205" fill="#f4faf7" font-size="10">• Tous les Titres</text>
+  <text x="540" y="225" fill="#f4faf7" font-size="10">• Les Logos officiels</text>
+  <text x="540" y="245" fill="#f4faf7" font-size="10">• Les QR Codes</text>
+  <text x="540" y="265" fill="#f4faf7" font-size="10">• Boutons d'action</text>
+
+  <!-- Zone Danger Bas -->
+  <rect x="525" y="325" width="180" height="80" fill="rgba(232, 148, 106, 0.25)" rx="6" />
+  <text x="535" y="355" fill="#e8946a" font-size="10">Zone masquée (Bas)</text>
+  <text x="535" y="375" fill="#88b3a4" font-size="9">Boutons Like, Comms,</text>
+  <text x="535" y="390" fill="#88b3a4" font-size="9">Barre TikTok/Reels</text>
+
+  <text x="535" y="425" fill="#e8946a" font-size="11" font-weight="bold">3. VERTICAL 9:16 (1080×1920)</text>
+
+  <!-- Bloc Règles Graphiques à droite -->
+  <rect x="730" y="85" width="135" height="320" fill="#09261f" stroke="#1b4d3e" rx="6" />
+  <text x="740" y="115" fill="#e8946a" font-size="11" font-weight="bold">RÈGLE 60-30-10</text>
+  <rect x="740" y="130" width="115" height="50" fill="#0a2b24" stroke="#1b4d3e" rx="4" />
+  <text x="750" y="160" fill="#f4faf7" font-size="10">60% Fond sobre</text>
+  <rect x="740" y="190" width="115" height="40" fill="#3fae7a" rx="4" />
+  <text x="750" y="215" fill="#06100c" font-size="10" font-weight="bold">30% Structure</text>
+  <rect x="740" y="240" width="115" height="30" fill="#e8946a" rx="4" />
+  <text x="750" y="260" fill="#06100c" font-size="10" font-weight="bold">10% Accent</text>
+  <text x="740" y="300" fill="#88b3a4" font-size="10">2 polices max :</text>
+  <text x="740" y="320" fill="#f4faf7" font-size="9">1 Sans-Serif Titres</text>
+  <text x="740" y="335" fill="#f4faf7" font-size="9">1 Neutre Texte</text>
+</svg>

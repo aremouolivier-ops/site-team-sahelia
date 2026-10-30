@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="aiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#aiGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">LA BOUCLE VERTUEUSE DU VIBE CODING RESPONSABLE · TEAM SAHÉLIA</text>
+
+  <!-- Étape 1 : Le Pilote Humain (Intention) -->
+  <rect x="35" y="85" width="250" height="150" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <rect x="35" y="85" width="250" height="30" fill="#0d352b" rx="8" />
+  <text x="50" y="105" fill="#3fae7a" font-size="12" font-weight="bold">1. INTENTION &amp; CONTEXTE</text>
+  <text x="50" y="135" fill="#f4faf7" font-size="12" font-weight="bold">L'Humain au volant</text>
+  <text x="50" y="160" fill="#88b3a4" font-size="11">• Définition du besoin réel</text>
+  <text x="50" y="180" fill="#88b3a4" font-size="11">• Règle métier (ex: 200 kg NPK/ha)</text>
+  <text x="50" y="200" fill="#88b3a4" font-size="11">• Format de sortie désiré</text>
+  <text x="50" y="222" fill="#e8946a" font-size="10">Vous êtes le pilote, pas le passager.</text>
+
+  <!-- Flèche 1 -> 2 -->
+  <path d="M 295 160 L 325 160 M 315 150 L 325 160 L 315 170" stroke="#3fae7a" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Étape 2 : Le Prompt C.R.E.D. -->
+  <rect x="335" y="85" width="230" height="150" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <rect x="335" y="85" width="230" height="30" fill="#0d352b" rx="8" />
+  <text x="350" y="105" fill="#7fb0ee" font-size="12" font-weight="bold">2. PROMPT INGÉNIÉRIE</text>
+  <text x="350" y="135" fill="#f4faf7" font-size="12" font-weight="bold">Méthode C.R.E.D.</text>
+  <text x="350" y="160" fill="#88b3a4" font-size="11">• C - Contexte précis</text>
+  <text x="350" y="180" fill="#88b3a4" font-size="11">• R - Rôle de développeur senior</text>
+  <text x="350" y="200" fill="#88b3a4" font-size="11">• E - Exigence &amp; Délimitation</text>
+
+  <!-- Flèche 2 -> 3 -->
+  <path d="M 575 160 L 605 160 M 595 150 L 605 160 L 595 170" stroke="#7fb0ee" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Étape 3 : Génération IA -->
+  <rect x="615" y="85" width="250" height="150" fill="#061a14" stroke="#e8946a" stroke-width="1.5" rx="8" />
+  <rect x="615" y="85" width="250" height="30" fill="#0d352b" rx="8" />
+  <text x="630" y="105" fill="#e8946a" font-size="12" font-weight="bold">3. GÉNÉRATION DU CODE</text>
+  <text x="630" y="135" fill="#f4faf7" font-size="12" font-weight="bold">Modèle IA (Copilote)</text>
+  <text x="630" y="160" fill="#88b3a4" font-size="11">• Écrit le HTML, CSS, JavaScript</text>
+  <text x="630" y="180" fill="#88b3a4" font-size="11">• Assemble la logique de calcul</text>
+  <text x="630" y="200" fill="#88b3a4" font-size="11">• Explique comment déployer</text>
+
+  <!-- Grand Cadre Inférieur : Audit & Résultat -->
+  <rect x="35" y="260" width="830" height="190" fill="#061a14" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+  <rect x="35" y="260" width="830" height="35" fill="#09261f" rx="8" />
+  <text x="50" y="283" fill="#e8946a" font-size="13" font-weight="bold">ÉTAPE 4 : AUDIT HUMAIN STRICT &amp; DÉPLOIEMENT DE L'OUTIL FINAL</text>
+
+  <!-- Colonne Gauche : Audit -->
+  <rect x="50" y="310" width="370" height="120" fill="#0a2b24" stroke="#e8946a" stroke-width="1" rx="6" />
+  <text x="65" y="335" fill="#e8946a" font-size="13" font-weight="bold">L'AUDIT DE CONTRÔLE (NE JAMAIS CROIRE SUR PAROLE)</text>
+  <text x="65" y="360" fill="#f4faf7" font-size="11">• Exécuter le code dans le navigateur</text>
+  <text x="65" y="380" fill="#f4faf7" font-size="11">• Tester avec des valeurs extrêmes (ex: 0 ha, 1000 ha)</text>
+  <text x="65" y="400" fill="#f4faf7" font-size="11">• Détecter et éliminer les erreurs logiques</text>
+
+  <!-- Flèche Finale -->
+  <path d="M 435 370 L 465 370 M 455 360 L 465 370 L 455 380" stroke="#3fae7a" stroke-width="2.5" stroke-linecap="round" />
+
+  <!-- Colonne Droite : Succès -->
+  <rect x="480" y="310" width="370" height="120" fill="#0a2b24" stroke="#3fae7a" stroke-width="1" rx="6" />
+  <text x="495" y="335" fill="#3fae7a" font-size="13" font-weight="bold">OUTIL DIGITAL OPÉRATIONNEL</text>
+  <text x="495" y="360" fill="#f4faf7" font-size="11">• Un mini-outil utilisable sur le terrain au Bénin</text>
+  <text x="495" y="380" fill="#f4faf7" font-size="11">• Créé en 15 minutes sans avoir appris le code 3 ans</text>
+  <text x="495" y="400" fill="#7fb0ee" font-size="11" font-weight="bold">✓ La puissance du Vibe Coding maîtrisé et responsable !</text>
+</svg>

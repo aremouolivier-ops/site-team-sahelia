@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="wordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#wordGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">NORMES ACADÉMIQUES : LÉGENDES & TABLES DES FIGURES · TEAM SAHÉLIA</text>
+
+  <!-- 2 Grands Blocs : Règle Tableau vs Règle Figure -->
+  
+  <!-- BLOC GAUCHE : TABLEAU (LÉGENDE AU-DESSUS) -->
+  <rect x="35" y="80" width="395" height="320" fill="#061a14" stroke="#25604d" stroke-width="1" rx="8" />
+  <rect x="50" y="95" width="365" height="30" fill="#0a2b24" rx="4" />
+  <text x="60" y="115" fill="#7fb0ee" font-size="13" font-weight="bold">1. RÈGLE DES TABLEAUX : LÉGENDE AU-DESSUS</text>
+
+  <!-- Légende au-dessus -->
+  <rect x="55" y="140" width="355" height="28" fill="#0b2c3d" stroke="#7fb0ee" stroke-width="1" rx="4" />
+  <text x="65" y="159" fill="#7fb0ee" font-size="11" font-weight="bold">Tableau 1.1 : Caractéristiques physico-chimiques des sols (0-20 cm)</text>
+
+  <!-- Grille de tableau -->
+  <rect x="55" y="175" width="355" height="130" fill="#09261f" stroke="#1b4d3e" rx="4" />
+  <rect x="55" y="175" width="355" height="26" fill="#133d32" />
+  <text x="70" y="193" fill="#3fae7a" font-size="11" font-weight="bold">Horizon (cm)</text>
+  <text x="170" y="193" fill="#3fae7a" font-size="11" font-weight="bold">pH-eau</text>
+  <text x="260" y="193" fill="#3fae7a" font-size="11" font-weight="bold">Carbone (%)</text>
+  <text x="350" y="193" fill="#3fae7a" font-size="11" font-weight="bold">C/N</text>
+
+  <text x="70" y="222" fill="#d1e2d8" font-size="11">0 - 10</text>
+  <text x="170" y="222" fill="#d1e2d8" font-size="11">6.2</text>
+  <text x="260" y="222" fill="#d1e2d8" font-size="11">1.12</text>
+  <text x="350" y="222" fill="#d1e2d8" font-size="11">10.4</text>
+
+  <text x="70" y="250" fill="#d1e2d8" font-size="11">10 - 20</text>
+  <text x="170" y="250" fill="#d1e2d8" font-size="11">5.8</text>
+  <text x="260" y="250" fill="#d1e2d8" font-size="11">0.78</text>
+  <text x="350" y="250" fill="#d1e2d8" font-size="11">9.8</text>
+
+  <text x="55" y="325" fill="#88b3a4" font-size="10" font-style="italic">Source : Analyses laboratoire LASDEL / FA-UP (2025)</text>
+  <text x="55" y="375" fill="#e8946a" font-size="11">📌 Insérer > Références > « Insérer une légende » > Position : Au-dessus</text>
+
+  <!-- BLOC DROIT : FIGURE (LÉGENDE EN-DESSOUS) -->
+  <rect x="470" y="80" width="395" height="320" fill="#061a14" stroke="#25604d" stroke-width="1" rx="8" />
+  <rect x="485" y="95" width="365" height="30" fill="#0a2b24" rx="4" />
+  <text x="495" y="115" fill="#e8946a" font-size="13" font-weight="bold">2. RÈGLE DES FIGURES / CARTES : EN-DESSOUS</text>
+
+  <!-- Image/Carte simulée -->
+  <rect x="490" y="140" width="355" height="150" fill="#09261f" stroke="#1b4d3e" rx="4" />
+  <circle cx="580" cy="210" r="35" fill="#133d32" stroke="#3fae7a" stroke-width="1.5" />
+  <rect x="660" y="175" width="150" height="70" fill="#061a14" stroke="#25604d" rx="4" />
+  <text x="675" y="200" fill="#3fae7a" font-size="10" font-weight="bold">PARCELLE TEST A1</text>
+  <text x="675" y="220" fill="#88b3a4" font-size="10">Superficie : 1.24 ha</text>
+
+  <!-- Légende en-dessous -->
+  <rect x="490" y="300" width="355" height="28" fill="#2d1a0e" stroke="#e8946a" stroke-width="1" rx="4" />
+  <text x="500" y="319" fill="#e8946a" font-size="11" font-weight="bold">Figure 2.3 : Délimitation GPS et zonage de la station pilote de Parakou</text>
+
+  <text x="490" y="348" fill="#88b3a4" font-size="10" font-style="italic">Source : Enquête terrain QGIS TEAM Sahélia (2026)</text>
+  <text x="490" y="375" fill="#e8946a" font-size="11">📌 Insérer > Références > « Insérer une légende » > Position : En-dessous</text>
+
+  <!-- Bandeau bas : Renvois dynamiques -->
+  <rect x="35" y="420" width="830" height="35" fill="#0d352b" stroke="#3fae7a" stroke-width="1" rx="6" />
+  <text x="50" y="442" fill="#ffffff" font-size="12" font-weight="bold">L'ARME DU PRO : LE RENVOI DYNAMIQUE · </text>
+  <text x="320" y="442" fill="#a7f3d0" font-size="12">« comme illustré dans la </text>
+  <text x="465" y="442" fill="#e8946a" font-size="12" font-weight="bold">Figure 2.3</text>
+  <text x="535" y="442" fill="#a7f3d0" font-size="12">» se met à jour seul si une figure est ajoutée avant !</text>
+</svg>

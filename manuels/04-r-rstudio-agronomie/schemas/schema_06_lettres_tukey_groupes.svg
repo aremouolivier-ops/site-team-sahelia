@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="tukeyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#tukeyGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">TEST POST-HOC DE TUKEY (HSD) &amp; LETTRES STATISTIQUES · TEAM SAHÉLIA</text>
+
+  <!-- Colonne Gauche : Mécanisme du Test HSD -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">Comparaisons Multiples Deux à Deux</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Comment classer les engrais après l'ANOVA ?</text>
+
+  <!-- Code Box R -->
+  <rect x="50" y="145" width="370" height="85" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="168" fill="#e8946a" font-size="11" font-family="monospace">library(agricolae)</text>
+  <text x="65" y="188" fill="#f4faf7" font-size="11" font-family="monospace">test_tukey &lt;- HSD.test(modele, "Traitement")</text>
+  <text x="65" y="208" fill="#3fae7a" font-size="11" font-family="monospace">print(test_tukey$groups)</text>
+
+  <!-- Tableau des groupes de Tukey -->
+  <rect x="50" y="240" width="370" height="115" fill="#0d352b" rx="6" />
+  <text x="65" y="262" fill="#7fb0ee" font-size="12" font-weight="bold">Groupes Homogènes Générés :</text>
+  <text x="65" y="284" fill="#3fae7a" font-size="11" font-family="monospace">T2 (NPK + Compost) : 3850 kg/ha  ---  Groupe a</text>
+  <text x="65" y="304" fill="#f4faf7" font-size="11" font-family="monospace">T1 (NPK seul)      : 2950 kg/ha  ---  Groupe b</text>
+  <text x="65" y="324" fill="#f4faf7" font-size="11" font-family="monospace">T3 (Compost seul)  : 2700 kg/ha  ---  Groupe b</text>
+  <text x="65" y="344" fill="#ff7b72" font-size="11" font-family="monospace">T0 (Témoin)        : 1250 kg/ha  ---  Groupe c</text>
+
+  <!-- Règle d'or des lettres -->
+  <text x="50" y="380" fill="#e8946a" font-size="12" font-weight="bold">La Règle d'Or des Lettres :</text>
+  <text x="50" y="400" fill="#f4faf7" font-size="11">Deux modalités partageant la même lettre (ex: T1 et T3 ont "b")</text>
+  <text x="50" y="418" fill="#88b3a4" font-size="11">ne sont PAS significativement différentes au seuil de 5 % !</text>
+
+  <!-- Colonne Droite : Graphique de Publication Mémoire -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">Visualisation Officielle pour Mémoire</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Histogramme avec barres d'erreur et lettres de Tukey</text>
+
+  <!-- Zone du Graphe -->
+  <rect x="480" y="145" width="370" height="210" fill="#09261f" stroke="#1b4d3e" rx="6" />
+
+  <!-- Barre T2 (a) -->
+  <rect x="510" y="180" width="55" height="135" fill="#3fae7a" rx="3" />
+  <text x="532" y="172" fill="#3fae7a" font-size="16" font-weight="bold">a</text>
+  <text x="515" y="330" fill="#f4faf7" font-size="10">T2 (N+C)</text>
+
+  <!-- Barre T1 (b) -->
+  <rect x="590" y="215" width="55" height="100" fill="#7fb0ee" rx="3" />
+  <text x="612" y="207" fill="#7fb0ee" font-size="16" font-weight="bold">b</text>
+  <text x="600" y="330" fill="#f4faf7" font-size="10">T1 (NPK)</text>
+
+  <!-- Barre T3 (b) -->
+  <rect x="670" y="225" width="55" height="90" fill="#7fb0ee" rx="3" />
+  <text x="692" y="217" fill="#7fb0ee" font-size="16" font-weight="bold">b</text>
+  <text x="675" y="330" fill="#f4faf7" font-size="10">T3 (Comp)</text>
+
+  <!-- Barre T0 (c) -->
+  <rect x="750" y="275" width="55" height="40" fill="#475569" rx="3" />
+  <text x="772" y="267" fill="#94a3b8" font-size="16" font-weight="bold">c</text>
+  <text x="755" y="330" fill="#f4faf7" font-size="10">T0 (Tém)</text>
+
+  <!-- Ligne axe -->
+  <line x1="495" y1="315" x2="825" y2="315" stroke="#1b4d3e" stroke-width="2" />
+
+  <!-- Explication Mémoire -->
+  <text x="480" y="380" fill="#3fae7a" font-size="12" font-weight="bold">Recommandation Agronomique :</text>
+  <text x="480" y="400" fill="#f4faf7" font-size="11">La combinaison NPK + Compost (T2) surclasse tous les autres</text>
+  <text x="480" y="418" fill="#88b3a4" font-size="11">traitements avec un gain de rendement de +30% sur le NPK seul.</text>
+</svg>

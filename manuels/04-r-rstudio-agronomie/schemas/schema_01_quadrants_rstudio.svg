@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="rGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#rGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- En-tête -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#7fb0ee" font-size="16" font-weight="bold" letter-spacing="1">LES 4 QUADRANTS DE RSTUDIO · ANALYSE AGRONOMIQUE · TEAM SAHÉLIA</text>
+
+  <!-- Q1 : Haut Gauche - Script -->
+  <rect x="35" y="75" width="405" height="175" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="6" />
+  <rect x="35" y="75" width="405" height="30" fill="#0d352b" rx="6" />
+  <text x="50" y="95" fill="#3fae7a" font-size="12" font-weight="bold">1. ÉDITEUR DE SCRIPT (analyse_mais.R)</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="11" font-family="monospace"># Importation des parcelles de Parakou</text>
+  <text x="50" y="145" fill="#f4faf7" font-size="11" font-family="monospace">donnees &lt;- read.csv("parcelles.csv", sep=";")</text>
+  <text x="50" y="165" fill="#7fb0ee" font-size="11" font-family="monospace">summary(donnees$Rendement_kg_ha)</text>
+  <text x="50" y="190" fill="#88b3a4" font-size="11" font-family="monospace"># Exécuter : CTRL + ENTRÉE</text>
+  <text x="50" y="235" fill="#3fae7a" font-size="11" font-weight="bold">✓ C'est ici qu'on sauvegarde tout son travail reproductible.</text>
+
+  <!-- Q3 : Haut Droite - Environnement -->
+  <rect x="460" y="75" width="405" height="175" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="6" />
+  <rect x="460" y="75" width="405" height="30" fill="#0d352b" rx="6" />
+  <text x="475" y="95" fill="#7fb0ee" font-size="12" font-weight="bold">2. ENVIRONNEMENT (Mémoire vive)</text>
+  <text x="475" y="125" fill="#f4faf7" font-size="12" font-weight="bold">donnees : <tspan fill="#88b3a4" font-weight="normal">20 observations, 10 variables</tspan></text>
+  <text x="475" y="150" fill="#88b3a4" font-size="11">- ID_Parcelle : chr "P001" "P002" ...</text>
+  <text x="475" y="170" fill="#88b3a4" font-size="11">- Commune : Factor w/ 4 levels "Parakou", ...</text>
+  <text x="475" y="190" fill="#88b3a4" font-size="11">- Rendement : num 3200 1650 3800 ...</text>
+  <text x="475" y="235" fill="#7fb0ee" font-size="11" font-weight="bold">✓ Visualisez vos tableaux importés et vos modèles ANOVA.</text>
+
+  <!-- Q2 : Bas Gauche - Console -->
+  <rect x="35" y="265" width="405" height="185" fill="#061a14" stroke="#e8946a" stroke-width="1.5" rx="6" />
+  <rect x="35" y="265" width="405" height="30" fill="#0d352b" rx="6" />
+  <text x="50" y="285" fill="#e8946a" font-size="12" font-weight="bold">3. CONSOLE R (Moteur d'exécution)</text>
+  <text x="50" y="315" fill="#88b3a4" font-size="11" font-family="monospace">&gt; summary(donnees$Rendement_kg_ha)</text>
+  <text x="50" y="335" fill="#f4faf7" font-size="11" font-family="monospace">   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.</text>
+  <text x="50" y="355" fill="#3fae7a" font-size="11" font-family="monospace">   1100    1765    2325    2428    3225    4100</text>
+  <text x="50" y="380" fill="#88b3a4" font-size="11" font-family="monospace">&gt; |</text>
+  <text x="50" y="435" fill="#e8946a" font-size="11" font-weight="bold">✓ Affiche immédiatement les résultats de calculs et tests.</text>
+
+  <!-- Q4 : Bas Droite - Plots & Packages -->
+  <rect x="460" y="265" width="405" height="185" fill="#061a14" stroke="#1b4d3e" stroke-width="1.5" rx="6" />
+  <rect x="460" y="265" width="405" height="30" fill="#0d352b" rx="6" />
+  <text x="475" y="285" fill="#f4faf7" font-size="12" font-weight="bold">4. GRAPHES, FICHIERS &amp; AIDE (Plots)</text>
+  <rect x="480" y="305" width="365" height="105" fill="#09261f" rx="4" />
+  <path d="M 500 390 L 530 350 L 560 370 L 600 330 L 640 340 L 680 315 L 720 325" fill="none" stroke="#3fae7a" stroke-width="2.5" />
+  <circle cx="680" cy="315" r="4" fill="#e8946a" />
+  <text x="500" y="325" fill="#88b3a4" font-size="10">Histogrammes / Boxplots de rendements</text>
+  <text x="475" y="435" fill="#88b3a4" font-size="11">✓ Exportation d'illustrations haute définition (PNG, PDF, SVG).</text>
+</svg>

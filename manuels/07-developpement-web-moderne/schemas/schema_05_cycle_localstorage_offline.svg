@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="webGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#webGrad5)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">PERSISTANCE LOCALE (LOCALSTORAGE) &amp; MODE HORS-LIGNE (OFFLINE-FIRST)</text>
+
+  <!-- Colonne Gauche : L'API localStorage & Sérialisation JSON -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">1. L'API Native localStorage</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Conserver les données même après fermeture du navigateur</text>
+
+  <!-- Box Sauvegarde JSON -->
+  <rect x="50" y="145" width="370" height="135" fill="#0d2538" stroke="#7fb0ee" stroke-width="1" rx="6" />
+  <text x="65" y="168" fill="#7fb0ee" font-size="12" font-weight="bold">Sauvegarder un Tableau d'Enquêtes :</text>
+  <rect x="65" y="178" width="340" height="42" fill="#06100c" rx="4" />
+  <text x="75" y="196" fill="#3fae7a" font-size="10" font-family="monospace">const dataStr = JSON.stringify(listeParcelles);</text>
+  <text x="75" y="212" fill="#3fae7a" font-size="10" font-family="monospace">localStorage.setItem('parcelles_sahelia', dataStr);</text>
+
+  <text x="65" y="240" fill="#f4faf7" font-size="11">Restauration au démarrage de la page :</text>
+  <text x="65" y="258" fill="#d89f3c" font-size="10" font-family="monospace">const data = JSON.parse(localStorage.getItem('parcelles_sahelia')) || [];</text>
+
+  <!-- Les 4 Fonctions Clés -->
+  <rect x="50" y="295" width="370" height="140" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="320" fill="#3fae7a" font-size="12" font-weight="bold">Les 4 Méthodes à Retenir :</text>
+  <text x="65" y="342" fill="#f4faf7" font-size="11">• <tspan fill="#7fb0ee" font-family="monospace">setItem(cle, valeur)</tspan> : Enregistre une valeur texte.</text>
+  <text x="65" y="362" fill="#f4faf7" font-size="11">• <tspan fill="#3fae7a" font-family="monospace">getItem(cle)</tspan> : Récupère la valeur (ou null si absente).</text>
+  <text x="65" y="382" fill="#f4faf7" font-size="11">• <tspan fill="#d89f3c" font-family="monospace">removeItem(cle)</tspan> : Supprime une entrée spécifique.</text>
+  <text x="65" y="405" fill="#e86a6a" font-size="11">• <tspan font-family="monospace">clear()</tspan> : Vide intégralement l'espace local du site.</text>
+
+  <!-- Colonne Droite : Architecture Offline-First sur Smartphone -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#3fae7a" font-size="15" font-weight="bold">2. Architecture Terrain (Offline-First)</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Travailler en brousse rurale sans connexion internet active</text>
+
+  <!-- Cycle Offline / Online -->
+  <rect x="480" y="145" width="370" height="145" fill="#09291b" stroke="#3fae7a" stroke-width="1" rx="6" />
+  
+  <!-- État 1 : En Brousse -->
+  <rect x="495" y="160" width="160" height="55" fill="#1f1113" stroke="#e86a6a" rx="4" />
+  <text x="505" y="180" fill="#e86a6a" font-size="10" font-weight="bold">En Brousse (0 Réseau) :</text>
+  <text x="505" y="195" fill="#f4faf7" font-size="9">L'enquêteur saisit 20 fiches.</text>
+  <text x="505" y="208" fill="#3fae7a" font-size="9">Stockage 100% localStorage ✓</text>
+
+  <!-- État 2 : De retour au campement -->
+  <rect x="675" y="160" width="160" height="55" fill="#0d2538" stroke="#7fb0ee" rx="4" />
+  <text x="685" y="180" fill="#7fb0ee" font-size="10" font-weight="bold">Retour Wi-Fi / 4G :</text>
+  <text x="685" y="195" fill="#f4faf7" font-size="9">Bouton 'Exporter CSV'</text>
+  <text x="685" y="208" fill="#3fae7a" font-size="9">ou sync cloud en 1 clic !</text>
+
+  <!-- Détection Réseau -->
+  <rect x="495" y="225" width="340" height="55" fill="#06100c" rx="4" />
+  <text x="505" y="245" fill="#7fb0ee" font-size="10" font-family="monospace">window.addEventListener('online', () => alert('Réseau OK'));</text>
+  <text x="505" y="265" fill="#e86a6a" font-size="10" font-family="monospace">window.addEventListener('offline', () => modeHorsLigne());</text>
+
+  <!-- Avantages Clés -->
+  <rect x="480" y="305" width="370" height="130" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="495" y="328" fill="#d89f3c" font-size="12" font-weight="bold">Pourquoi c'est vital pour l'agronome :</text>
+  <text x="495" y="350" fill="#f4faf7" font-size="11">• Aucun plantage d'application en plein champ sans réseau.</text>
+  <text x="495" y="370" fill="#f4faf7" font-size="11">• L'application s'ouvre même en mode avion.</text>
+  <text x="495" y="390" fill="#3fae7a" font-size="11">• Zéro coût de serveur coûteux : le smartphone stocke tout.</text>
+  <text x="495" y="412" fill="#7fb0ee" font-size="10" font-weight="bold">C'est exactement ainsi que fonctionne le portail TEAM Sahélia !</text>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #06100c; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="supGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a2b24" />
+      <stop offset="100%" stop-color="#051410" />
+    </linearGradient>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="480" fill="url(#supGrad)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#1b4d3e" stroke-width="1.5" rx="8" />
+
+  <!-- Titre -->
+  <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">SUPERVISION QUALITÉ, AUDIT DES FRAUDES &amp; EXPORT PROPRE · KOBOTOOLBOX</text>
+
+  <!-- Colonne Gauche : Dashboard de Supervision & Détection des Fraudes -->
+  <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#e86a6a" stroke-width="1.5" rx="8" />
+  <text x="50" y="105" fill="#e86a6a" font-size="15" font-weight="bold">Contrôle Qualité &amp; Audit des Enquêteurs</text>
+  <text x="50" y="125" fill="#88b3a4" font-size="12">Comment repérer les fausses données avant de les analyser</text>
+
+  <!-- Box 1 : Fraude de Durée -->
+  <rect x="50" y="145" width="370" height="85" fill="#1f1113" stroke="#e86a6a" stroke-width="1" rx="6" />
+  <text x="65" y="168" fill="#e86a6a" font-size="13" font-weight="bold">⚠️ Alerte Durée Suspecte (Audit Log) :</text>
+  <text x="65" y="190" fill="#f4faf7" font-size="11">Enquêteur ID: ENQ_04 · Durée médiane normale = 38 min</text>
+  <text x="65" y="210" fill="#e86a6a" font-size="11" font-weight="bold">Fiche soumise en 4 min 12 s ➔ Enquête bâclée ou inventée !</text>
+
+  <!-- Box 2 : Fraude de Coordonnées GPS -->
+  <rect x="50" y="240" width="370" height="85" fill="#1f1113" stroke="#d89f3c" stroke-width="1" rx="6" />
+  <text x="65" y="263" fill="#d89f3c" font-size="13" font-weight="bold">📍 Alerte GPS Clones (Dédoublement spatial) :</text>
+  <text x="65" y="285" fill="#f4faf7" font-size="11">12 parcelles distinctes enregistrées avec les mêmes coordonnées</text>
+  <text x="65" y="305" fill="#d89f3c" font-size="11" font-weight="bold">Lat: 9.3512, Lon: 2.6145 (Enquêteur resté à l'auberge/maison)</text>
+
+  <!-- Box 3 : Métriques de Validation -->
+  <rect x="50" y="335" width="370" height="100" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="65" y="358" fill="#3fae7a" font-size="12" font-weight="bold">Protocole de Validation du Superviseur :</text>
+  <text x="65" y="380" fill="#f4faf7" font-size="11">1. Passer en revue les fiches sur la table Kobo web.</text>
+  <text x="65" y="400" fill="#f4faf7" font-size="11">2. Statuts : [Approuvé ✓] | [En attente ⏳] | [Rejeté ❌].</text>
+  <text x="65" y="420" fill="#3fae7a" font-size="10" font-weight="bold">Seules les fiches [Approuvé] seront exportées pour l'analyse.</text>
+
+  <!-- Colonne Droite : Le Pipeline d'Exportation & Passage vers R / QGIS -->
+  <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#7fb0ee" stroke-width="1.5" rx="8" />
+  <text x="480" y="105" fill="#7fb0ee" font-size="15" font-weight="bold">Exportation Propre &amp; Passerelle SIG / R</text>
+  <text x="480" y="125" fill="#88b3a4" font-size="12">Transformer les soumissions Kobo en datasets prêts pour QGIS et R</text>
+
+  <!-- Box Export Paramétré -->
+  <rect x="480" y="145" width="370" height="135" fill="#0d2538" stroke="#7fb0ee" stroke-width="1" rx="6" />
+  <text x="495" y="170" fill="#7fb0ee" font-size="13" font-weight="bold">⚙️ Paramètres d'Export Kobo Recommandés :</text>
+  <text x="495" y="193" fill="#f4faf7" font-size="11">• Format : <tspan fill="#3fae7a" font-weight="bold">CSV</tspan> ou <tspan fill="#3fae7a" font-weight="bold">XLSX</tspan> (encodage UTF-8 obligatoire)</text>
+  <text x="495" y="213" fill="#f4faf7" font-size="11">• Versions des étiquettes : <tspan fill="#d89f3c" font-weight="bold">Noms XML des variables</tspan></text>
+  <text x="495" y="233" fill="#f4faf7" font-size="11">• Questions à choix multiple : <tspan fill="#3fae7a" font-weight="bold">Colonnes séparées (0/1)</tspan></text>
+  <text x="495" y="253" fill="#f4faf7" font-size="11">• Coordonnées géographiques : <tspan fill="#7fb0ee" font-weight="bold">Séparer Lat / Lon / Alt</tspan></text>
+  <text x="495" y="271" fill="#88b3a4" font-size="10">Évite les cellules fusionnées qui bloquent RStudio.</text>
+
+  <!-- Passerelles R et QGIS -->
+  <rect x="480" y="290" width="370" height="145" fill="#06100c" stroke="#1b4d3e" rx="6" />
+  <text x="495" y="315" fill="#3fae7a" font-size="12" font-weight="bold">Connexions Directes vers Pôle 2 :</text>
+  
+  <rect x="495" y="325" width="340" height="45" fill="#0a2b24" rx="4" />
+  <text x="505" y="343" fill="#3fae7a" font-size="11" font-weight="bold">📊 Vers Manuel 04 (R / RStudio) :</text>
+  <text x="505" y="360" fill="#f4faf7" font-size="10" font-family="monospace">df &lt;- read_csv('kobo_parcelles_clean.csv') %&gt;% filter(...)</text>
+
+  <rect x="495" y="378" width="340" height="45" fill="#0d2538" rx="4" />
+  <text x="505" y="396" fill="#7fb0ee" font-size="11" font-weight="bold">🗺️ Vers Manuel 06 (QGIS 3) :</text>
+  <text x="505" y="413" fill="#f4faf7" font-size="10" font-family="monospace">Couche > Ajouter couche de texte délimité > X=lon, Y=lat</text>
+</svg>
