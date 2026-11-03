@@ -1,39 +1,43 @@
 const fs = require('fs');
 const path = require('path');
 
-const ROOT_DIR = path.resolve(__dirname, '..');
-const OUT_FILE = path.join(ROOT_DIR, 'js', 'formation-contenu.js');
+const baseDir = path.join(__dirname, '..');
+const catPath = path.join(baseDir, 'js', 'formation-catalogue.js');
+const contenuPath = path.join(baseDir, 'js', 'formation-contenu.js');
 
-const contenus = {};
+const code = fs.readFileSync(catPath, 'utf8');
+const fakeWindow = {};
+eval('(function(window){' + code + '})(fakeWindow)');
+const Cat = fakeWindow.SaheliaCatalogue;
 
-function scannerDossier(dir, prefixRelatif = '') {
-  const entrees = fs.readdirSync(dir, { withFileTypes: true });
-  for (const entree of entrees) {
-    const nom = entree.name;
-    const cheminAbs = path.join(dir, nom);
-    const cheminRel = prefixRelatif ? `${prefixRelatif}/${nom}` : nom;
+const cours = Cat.listerTous();
+const bundle = {};
 
-    if (entree.isDirectory()) {
-      scannerDossier(cheminAbs, cheminRel);
-    } else if (entree.isFile() && nom.endsWith('.md') && nom !== 'README.md') {
-      const contenu = fs.readFileSync(cheminAbs, 'utf8');
-      contenus[cheminRel] = contenu;
+let totalDocs = 0;
+
+cours.forEach(c => {
+  if (c.type === 'guide') {
+    const fullPath = path.join(baseDir, c.fichierSource);
+    if (fs.existsSync(fullPath)) {
+      bundle[c.fichierSource.replace(/\\/g, '/')] = fs.readFileSync(fullPath, 'utf8');
+      totalDocs++;
+    } else {
+      console.warn('Fichier manquant :', c.fichierSource);
     }
+  } else if (c.chapitres) {
+    c.chapitres.forEach(ch => {
+      const fullPath = path.join(baseDir, ch.fichier);
+      if (fs.existsSync(fullPath)) {
+        bundle[ch.fichier.replace(/\\/g, '/')] = fs.readFileSync(fullPath, 'utf8');
+        totalDocs++;
+      } else {
+        console.warn('Fichier chapitre manquant :', ch.fichier);
+      }
+    });
   }
-}
+});
 
-// Scanner guides/ et manuels/
-const dossierGuides = path.join(ROOT_DIR, 'guides');
-if (fs.existsSync(dossierGuides)) {
-  scannerDossier(dossierGuides, 'guides');
-}
-
-const dossierManuels = path.join(ROOT_DIR, 'manuels');
-if (fs.existsSync(dossierManuels)) {
-  scannerDossier(dossierManuels, 'manuels');
-}
-
-const sortieJs = `/**
+const out = `/**
  * TEAM Sahélia — Contenus Pédagogiques Embarqués (Mode Hybride Offline / file:// & Online)
  * Permet le chargement instantané sous file:/// sans blocage CORS du navigateur
  * Généré automatiquement le ${new Date().toISOString()}
@@ -42,11 +46,11 @@ const sortieJs = `/**
 (function () {
   'use strict';
 
-  window.SaheliaContenus = ${JSON.stringify(contenus, null, 2)};
+  window.SaheliaContenus = ${JSON.stringify(bundle, null, 2)};
 
-  console.log('✓ Contenus pédagogiques TEAM Sahélia chargés (${Object.keys(contenus).length} documents synchronisés).');
+  console.log('📖 Contenus pédagogiques TEAM Sahélia chargés (${totalDocs} documents synchronisés).');
 })();
 `;
 
-fs.writeFileSync(OUT_FILE, sortieJs, 'utf8');
-console.log(`✓ Fichier généré avec succès : ${OUT_FILE} (${Object.keys(contenus).length} fichiers embarqués, ${(fs.statSync(OUT_FILE).size / 1024).toFixed(1)} Ko)`);
+fs.writeFileSync(contenuPath, out, 'utf8');
+console.log(`✓ js/formation-contenu.js généré avec ${totalDocs} documents synchronisés !`);

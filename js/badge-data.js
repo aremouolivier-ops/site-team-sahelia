@@ -209,7 +209,13 @@
   const CONFIG_SITE_DEFAUT = {
     whatsappGroupe: 'https://chat.whatsapp.com/Gzp3bkauIIz8341VeMHOv7',
     whatsappNumero: '+229 40 73 84 69',
-    emailOfficiel: 'teamsahelia@gmail.com'
+    emailOfficiel: 'teamsahelia@gmail.com',
+    youtube: '',
+    tiktok: '',
+    instagram: '',
+    linkedin: '',
+    facebook: '',
+    twitter: ''
   };
 
   const ANNONCES_INIT = [
@@ -334,7 +340,7 @@
     attributions: chargerRegistre('attributions_db', ATTRIBUTIONS_INIT),
     activites: chargerRegistre('activites_db', ACTIVITES_INIT),
     annonces: chargerRegistre('annonces_db', ANNONCES_INIT),
-    configSite: chargerRegistre('config_site', CONFIG_SITE_DEFAUT),
+    configSite: Object.assign({}, CONFIG_SITE_DEFAUT, chargerRegistre('config_site', CONFIG_SITE_DEFAUT)),
 
     sauvegarderMembres() {
       sauvegarderRegistre('membres_db', this.membres);

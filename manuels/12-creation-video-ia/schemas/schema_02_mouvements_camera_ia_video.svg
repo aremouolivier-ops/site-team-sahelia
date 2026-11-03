@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #09090b; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="gradBg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b" />
+      <stop offset="100%" stop-color="#0c0a09" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="900" height="480" fill="url(#gradBg2)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#ec4899" stroke-width="1.5" rx="8" />
+  <rect x="15" y="15" width="870" height="45" fill="#831843" rx="8" />
+  <text x="35" y="44" fill="#f472b6" font-size="16" font-weight="bold" letter-spacing="1">LES 6 MOUVEMENTS DE CAMÉRA CINÉMATIQUES PAR IA · TEAM SAHÉLIA</text>
+
+  <!-- Grille 6 boîtes -->
+  <g transform="translate(35, 75)">
+    <!-- 1. PAN -->
+    <rect x="0" y="0" width="265" height="175" fill="#1e1b4b" stroke="#6366f1" stroke-width="1" rx="6" />
+    <text x="15" y="25" fill="#818cf8" font-size="14" font-weight="bold">1. PAN (Panoramique H.)</text>
+    <text x="15" y="45" fill="#94a3b8" font-size="11">Rotation horizontale sur axe fixe</text>
+    <line x1="30" y1="85" x2="235" y2="85" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4,4" />
+    <polygon points="240,85 228,80 228,90" fill="#38bdf8" />
+    <text x="15" y="120" fill="#cbd5e1" font-size="11">Prompt : <tspan fill="#fbbf24">"Pan right across the field"</tspan></text>
+    <text x="15" y="145" fill="#94a3b8" font-size="10">Idéal pour : Révéler un paysage agricole ou une installation.</text>
+
+    <!-- 2. TILT -->
+    <rect x="282" y="0" width="265" height="175" fill="#311042" stroke="#d946ef" stroke-width="1" rx="6" />
+    <text x="297" y="25" fill="#f472b6" font-size="14" font-weight="bold">2. TILT (Vertical)</text>
+    <text x="297" y="45" fill="#94a3b8" font-size="11">Basculement vertical haut / bas</text>
+    <line x1="414" y1="105" x2="414" y2="65" stroke="#ec4899" stroke-width="3" stroke-dasharray="4,4" />
+    <polygon points="414,60 409,72 419,72" fill="#ec4899" />
+    <text x="297" y="120" fill="#cbd5e1" font-size="11">Prompt : <tspan fill="#fbbf24">"Tilt up from roots to canopy"</tspan></text>
+    <text x="297" y="145" fill="#94a3b8" font-size="10">Idéal pour : Arbre, tige géante, tour météo, stature humaine.</text>
+
+    <!-- 3. ZOOM / DOLLY -->
+    <rect x="565" y="0" width="265" height="175" fill="#064e3b" stroke="#10b981" stroke-width="1" rx="6" />
+    <text x="580" y="25" fill="#34d399" font-size="14" font-weight="bold">3. DOLLY IN / ZOOM</text>
+    <text x="580" y="45" fill="#94a3b8" font-size="11">Avancement dans la scène</text>
+    <circle cx="712" cy="80" r="25" fill="none" stroke="#10b981" stroke-width="2" />
+    <circle cx="712" cy="80" r="10" fill="#10b981" />
+    <text x="580" y="120" fill="#cbd5e1" font-size="11">Prompt : <tspan fill="#fbbf24">"Slow push-in / dolly into subject"</tspan></text>
+    <text x="580" y="145" fill="#94a3b8" font-size="10">Idéal pour : Créer l'intimité, focaliser sur un détail clé.</text>
+
+    <!-- 4. ORBIT 360 -->
+    <rect x="0" y="190" width="265" height="185" fill="#431407" stroke="#f97316" stroke-width="1" rx="6" />
+    <text x="15" y="215" fill="#fb923c" font-size="14" font-weight="bold">4. ORBIT (Rotation Circulaire)</text>
+    <text x="15" y="235" fill="#94a3b8" font-size="11">Tour complet autour du sujet</text>
+    <ellipse cx="132" cy="270" rx="50" ry="20" fill="none" stroke="#f97316" stroke-width="2" stroke-dasharray="4,3" />
+    <circle cx="132" cy="270" r="8" fill="#fbbf24" />
+    <text x="15" y="315" fill="#cbd5e1" font-size="11">Prompt : <tspan fill="#fbbf24">"Orbit camera 360 around farmer"</tspan></text>
+    <text x="15" y="340" fill="#94a3b8" font-size="10">Idéal pour : Présentation de produit, machine agricole.</text>
+
+    <!-- 5. FPV DIVE / DRONE -->
+    <rect x="282" y="190" width="265" height="185" fill="#172554" stroke="#3b82f6" stroke-width="1" rx="6" />
+    <text x="297" y="215" fill="#60a5fa" font-size="14" font-weight="bold">5. FPV DRONE DIVE</text>
+    <text x="297" y="235" fill="#94a3b8" font-size="11">Descente rapide en piqué aérien</text>
+    <path d="M 320,250 Q 370,255 410,290" fill="none" stroke="#38bdf8" stroke-width="3" />
+    <polygon points="415,295 403,285 412,280" fill="#38bdf8" />
+    <text x="297" y="315" fill="#cbd5e1" font-size="11">Prompt : <tspan fill="#fbbf24">"Fast FPV drone flyover, cinematic"</tspan></text>
+    <text x="297" y="340" fill="#94a3b8" font-size="10">Idéal pour : Dynamisme, ouverture épique de vidéo.</text>
+
+    <!-- 6. MOTION BRUSH -->
+    <rect x="565" y="190" width="265" height="185" fill="#1c1917" stroke="#a8a29e" stroke-width="1" rx="6" />
+    <text x="580" y="215" fill="#e7e5e4" font-size="14" font-weight="bold">6. MOTION BRUSH (Masque)</text>
+    <text x="580" y="235" fill="#94a3b8" font-size="11">Animation ciblée sur zone peinte</text>
+    <rect x="630" y="250" width="120" height="35" fill="#7c2d12" opacity="0.6" rx="4" />
+    <text x="645" y="272" fill="#fdba74" font-size="10">[ Zone peinte animée ]</text>
+    <text x="580" y="315" fill="#cbd5e1" font-size="11">Fonction : <tspan fill="#fbbf24">Runway Gen-3 / Kling Motion</tspan></text>
+    <text x="580" y="340" fill="#94a3b8" font-size="10">Idéal pour : Animer l'eau, les feuilles, garder le visage fixe.</text>
+  </g>
+</svg>

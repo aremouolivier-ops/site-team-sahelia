@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #09090b; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="gradBg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b" />
+      <stop offset="100%" stop-color="#09090b" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="900" height="480" fill="url(#gradBg1)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#8b5cf6" stroke-width="1.5" rx="8" />
+  <rect x="15" y="15" width="870" height="45" fill="#2e1065" rx="8" />
+  <text x="35" y="44" fill="#c084fc" font-size="16" font-weight="bold" letter-spacing="1">ANATOMIE DU PROMPT IA VISUEL &amp; FORMULE C.R.E.D. · TEAM SAHÉLIA</text>
+
+  <!-- 4 Colonnes C.R.E.D. -->
+  <g transform="translate(35, 75)">
+    <!-- C: Contexte & Sujet -->
+    <rect x="0" y="0" width="195" height="220" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.5" rx="8" />
+    <text x="15" y="30" fill="#818cf8" font-size="16" font-weight="bold">C · Contexte &amp; Sujet</text>
+    <text x="15" y="55" fill="#cbd5e1" font-size="12" font-weight="bold">Qui / Quoi / Où ?</text>
+    <text x="15" y="80" fill="#94a3b8" font-size="11">• Sujet principal précis</text>
+    <text x="15" y="100" fill="#94a3b8" font-size="11">• Décor géographique réaliste</text>
+    <text x="15" y="120" fill="#94a3b8" font-size="11">• Actions et postures vivantes</text>
+    <rect x="10" y="145" width="175" height="60" fill="#0f172a" rx="4" />
+    <text x="15" y="165" fill="#a5b4fc" font-size="10">Exemple :</text>
+    <text x="15" y="182" fill="#e2e8f0" font-size="10">'Agronome africain inspectant</text>
+    <text x="15" y="197" fill="#e2e8f0" font-size="10">un champ de sorgho sahélien'</text>
+
+    <!-- R: Rendu & Style -->
+    <rect x="212" y="0" width="195" height="220" fill="#311042" stroke="#d946ef" stroke-width="1.5" rx="8" />
+    <text x="227" y="30" fill="#f472b6" font-size="16" font-weight="bold">R · Rendu &amp; Style</text>
+    <text x="227" y="55" fill="#cbd5e1" font-size="12" font-weight="bold">Médium &amp; Esthétique</text>
+    <text x="227" y="80" fill="#94a3b8" font-size="11">• Photojournalisme / National Geo</text>
+    <text x="227" y="100" fill="#94a3b8" font-size="11">• Rendu argentique 35mm</text>
+    <text x="227" y="120" fill="#94a3b8" font-size="11">• Typographie nette (Ideogram)</text>
+    <rect x="222" y="145" width="175" height="60" fill="#0f172a" rx="4" />
+    <text x="227" y="165" fill="#f472b6" font-size="10">Exemple :</text>
+    <text x="227" y="182" fill="#e2e8f0" font-size="10">'Documentary photography,</text>
+    <text x="227" y="197" fill="#e2e8f0" font-size="10">raw texture, crisp focus'</text>
+
+    <!-- E: Éclairage & Ambiance -->
+    <rect x="424" y="0" width="195" height="220" fill="#431407" stroke="#f97316" stroke-width="1.5" rx="8" />
+    <text x="439" y="30" fill="#fb923c" font-size="16" font-weight="bold">E · Éclairage &amp; Mood</text>
+    <text x="439" y="55" fill="#cbd5e1" font-size="12" font-weight="bold">Lumière &amp; Atmosphère</text>
+    <text x="439" y="80" fill="#94a3b8" font-size="11">• Heure dorée (Golden hour)</text>
+    <text x="439" y="100" fill="#94a3b8" font-size="11">• Lumière latérale contrastée</text>
+    <text x="439" y="120" fill="#94a3b8" font-size="11">• Volumetric haze, rayons doux</text>
+    <rect x="434" y="145" width="175" height="60" fill="#0f172a" rx="4" />
+    <text x="439" y="165" fill="#fb923c" font-size="10">Exemple :</text>
+    <text x="439" y="182" fill="#e2e8f0" font-size="10">'Warm sunset light, dust particles</text>
+    <text x="439" y="197" fill="#e2e8f0" font-size="10">illuminated in the air'</text>
+
+    <!-- D: Détails Caméra & Ratios -->
+    <rect x="635" y="0" width="195" height="220" fill="#064e3b" stroke="#10b981" stroke-width="1.5" rx="8" />
+    <text x="650" y="30" fill="#34d399" font-size="16" font-weight="bold">D · Détails &amp; Focale</text>
+    <text x="650" y="55" fill="#cbd5e1" font-size="12" font-weight="bold">Optique &amp; Paramètres</text>
+    <text x="650" y="80" fill="#94a3b8" font-size="11">• 85mm portrait / f/1.8 bokeh</text>
+    <text x="650" y="100" fill="#94a3b8" font-size="11">• Grand angle 24mm paysage</text>
+    <text x="650" y="120" fill="#94a3b8" font-size="11">• Paramètres : --ar 16:9 / 9:16</text>
+    <rect x="645" y="145" width="175" height="60" fill="#0f172a" rx="4" />
+    <text x="650" y="165" fill="#34d399" font-size="10">Exemple :</text>
+    <text x="650" y="182" fill="#e2e8f0" font-size="10">'Shot on Hasselblad 85mm,</text>
+    <text x="650" y="197" fill="#e2e8f0" font-size="10">f/2.8, shallow depth of field'</text>
+  </g>
+
+  <!-- Bannière Prompt Combiné Inférieur -->
+  <rect x="35" y="315" width="830" height="135" fill="#020617" stroke="#38bdf8" stroke-width="1.5" rx="8" />
+  <text x="55" y="340" fill="#38bdf8" font-size="14" font-weight="bold">SYNTHÈSE DU PROMPT ASSEMBLE (MIDJOURNEY / FLUX / IDEOGRAM) :</text>
+  <text x="55" y="365" fill="#f8fafc" font-size="12" font-family="monospace">"Cinematic photo of a West African female agricultural engineer examining digital crop sensor on corn leaves,</text>
+  <text x="55" y="385" fill="#f8fafc" font-size="12" font-family="monospace">warm late afternoon golden hour, soft dust glow, shot on 85mm lens f/2.0, natural skin texture, 8k --ar 16:9"</text>
+  <rect x="55" y="405" width="790" height="30" fill="#0f172a" rx="4" />
+  <text x="70" y="424" fill="#94a3b8" font-size="11">💡 <tspan fill="#fbbf24" font-weight="bold">Astuce de Pro :</tspan> Pour les affiches avec titre écrit, utilisez <tspan fill="#ec4899" font-weight="bold">Ideogram</tspan> en plaçant le texte exact entre guillemets doubles.</text>
+</svg>

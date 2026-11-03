@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="auto" style="background: #09090b; border-radius: 12px; font-family: 'Figtree', sans-serif;">
+  <defs>
+    <linearGradient id="gradBg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b" />
+      <stop offset="100%" stop-color="#0a0a0a" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="900" height="480" fill="url(#gradBg3)" rx="12" />
+  <rect x="15" y="15" width="870" height="450" fill="none" stroke="#10b981" stroke-width="1.5" rx="8" />
+  <rect x="15" y="15" width="870" height="45" fill="#064e3b" rx="8" />
+  <text x="35" y="44" fill="#6ee7b7" font-size="16" font-weight="bold" letter-spacing="1">CHAÎNE COMPLÈTE AUDIO, VOIX OFF IA &amp; AVATAR SYNCHRONISÉ · TEAM SAHÉLIA</text>
+
+  <!-- Étape 1 : Script & Nettoyage -->
+  <g transform="translate(35, 80)">
+    <rect x="0" y="0" width="185" height="280" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.5" rx="8" />
+    <text x="15" y="30" fill="#818cf8" font-size="15" font-weight="bold">1. Script &amp; Texte</text>
+    <text x="15" y="55" fill="#cbd5e1" font-size="11">• 140 à 160 mots/min</text>
+    <text x="15" y="75" fill="#cbd5e1" font-size="11">• Phrases courtes &amp; percutantes</text>
+    <text x="15" y="95" fill="#cbd5e1" font-size="11">• Ponctuation expressive</text>
+    <rect x="10" y="120" width="165" height="80" fill="#0f172a" rx="4" />
+    <text x="15" y="145" fill="#fbbf24" font-size="11" font-weight="bold">Règle des 3 secondes :</text>
+    <text x="15" y="165" fill="#e2e8f0" font-size="10">L'accroche (Hook) doit</text>
+    <text x="15" y="180" fill="#e2e8f0" font-size="10">capter dès les 3 premières</text>
+    <text x="15" y="195" fill="#e2e8f0" font-size="10">secondes de vidéo.</text>
+    <text x="15" y="240" fill="#94a3b8" font-size="10">Outils : ChatGPT / Claude</text>
+  </g>
+
+  <!-- Flèche 1 -> 2 -->
+  <polygon points="235,220 245,220 245,215 255,225 245,235 245,230 235,230" fill="#a855f7" />
+
+  <!-- Étape 2 : Synthèse Vocale ElevenLabs -->
+  <g transform="translate(265, 80)">
+    <rect x="0" y="0" width="185" height="280" fill="#4a044e" stroke="#d946ef" stroke-width="1.5" rx="8" />
+    <text x="15" y="30" fill="#f472b6" font-size="15" font-weight="bold">2. Voix IA ElevenLabs</text>
+    <text x="15" y="55" fill="#cbd5e1" font-size="11">• Modèle Multilingual v2</text>
+    <text x="15" y="75" fill="#cbd5e1" font-size="11">• Stability : 65% - 75%</text>
+    <text x="15" y="95" fill="#cbd5e1" font-size="11">• Clarity : 75% - 85%</text>
+    <text x="15" y="115" fill="#cbd5e1" font-size="11">• Style Exaggeration : 10%</text>
+    <rect x="10" y="135" width="165" height="75" fill="#0f172a" rx="4" />
+    <text x="15" y="155" fill="#38bdf8" font-size="10" font-weight="bold">Clonage Éthique :</text>
+    <text x="15" y="172" fill="#e2e8f0" font-size="10">Échantillon propre de 60s</text>
+    <text x="15" y="187" fill="#e2e8f0" font-size="10">sans écho ni réverbération</text>
+    <text x="15" y="202" fill="#e2e8f0" font-size="10">micro cravate USB.</text>
+    <text x="15" y="240" fill="#94a3b8" font-size="10">Format : WAV 24-bit 48kHz</text>
+  </g>
+
+  <!-- Flèche 2 -> 3 -->
+  <polygon points="465,220 475,220 475,215 485,225 475,235 475,230 465,230" fill="#a855f7" />
+
+  <!-- Étape 3 : Avatar Parlant HeyGen / D-ID -->
+  <g transform="translate(495, 80)">
+    <rect x="0" y="0" width="185" height="280" fill="#064e3b" stroke="#10b981" stroke-width="1.5" rx="8" />
+    <text x="15" y="30" fill="#34d399" font-size="15" font-weight="bold">3. Avatar Parlant</text>
+    <text x="15" y="55" fill="#cbd5e1" font-size="11">• HeyGen / D-ID</text>
+    <text x="15" y="75" fill="#cbd5e1" font-size="11">• Photo HD fond neutre</text>
+    <text x="15" y="95" fill="#cbd5e1" font-size="11">• Synchronisation labiale</text>
+    <text x="15" y="115" fill="#cbd5e1" font-size="11">• Regard caméra direct</text>
+    <rect x="10" y="135" width="165" height="75" fill="#0f172a" rx="4" />
+    <text x="15" y="155" fill="#34d399" font-size="10" font-weight="bold">Fond Vert (Green Screen) :</text>
+    <text x="15" y="172" fill="#e2e8f0" font-size="10">Permet l'incrustation directe</text>
+    <text x="15" y="187" fill="#e2e8f0" font-size="10">sur les décors de terrain</text>
+    <text x="15" y="202" fill="#e2e8f0" font-size="10">ou parcelles agricoles.</text>
+    <text x="15" y="240" fill="#94a3b8" font-size="10">Export : MP4 1080p 60fps</text>
+  </g>
+
+  <!-- Flèche 3 -> 4 -->
+  <polygon points="695,220 705,220 705,215 715,225 705,235 705,230 695,230" fill="#a855f7" />
+
+  <!-- Étape 4 : Post-Traitement & Normalisation -->
+  <g transform="translate(725, 80)">
+    <rect x="0" y="0" width="140" height="280" fill="#431407" stroke="#f97316" stroke-width="1.5" rx="8" />
+    <text x="10" y="30" fill="#fb923c" font-size="14" font-weight="bold">4. Mixage Audio</text>
+    <text x="10" y="55" fill="#cbd5e1" font-size="10">• Audacity gratuit</text>
+    <text x="10" y="75" fill="#cbd5e1" font-size="10">• Profil de bruit</text>
+    <text x="10" y="95" fill="#cbd5e1" font-size="10">• Compresseur 3:1</text>
+    <text x="10" y="115" fill="#cbd5e1" font-size="10">• Loudness -14 LUFS</text>
+    <rect x="8" y="145" width="124" height="80" fill="#0f172a" rx="4" />
+    <text x="12" y="165" fill="#f87171" font-size="9" font-weight="bold">Volume Musique :</text>
+    <text x="12" y="182" fill="#cbd5e1" font-size="9">Musique de fond à</text>
+    <text x="12" y="197" fill="#fbbf24" font-weight="bold" font-size="11">-20 dB à -24 dB</text>
+    <text x="12" y="212" fill="#cbd5e1" font-size="9">pour laisser la voix nette.</text>
+  </g>
+
+  <!-- Bandeau Inférieur -->
+  <rect x="35" y="380" width="830" height="70" fill="#020617" stroke="#38bdf8" stroke-width="1.5" rx="8" />
+  <text x="50" y="405" fill="#38bdf8" font-size="13" font-weight="bold">RÈGLE D'OR QUALITÉ TEAM SAHÉLIA :</text>
+  <text x="50" y="430" fill="#cbd5e1" font-size="12">Une vidéo avec une image médiocre mais un <tspan fill="#fbbf24" font-weight="bold">son parfait</tspan> est regardée jusqu'au bout. Une vidéo 4K avec un son pourri est quittée en 3 secondes.</text>
+</svg>

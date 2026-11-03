@@ -931,6 +931,78 @@
       ]
     },
 
+    'mn-12': {
+      id: 'mn-12',
+      type: 'manuel',
+      libre: false,
+      titre: 'Création Vidéo & Visuelle par IA : Des Prompts aux Logiciels Professionnels',
+      sousTitre: 'Formule C.R.E.D., génération vidéo I2V, voix ElevenLabs, montage CapCut et étalonnage DaVinci Resolve',
+      pole: POLES.COMMUNICATION_CARRIERE.nom,
+      poleId: POLES.COMMUNICATION_CARRIERE.id,
+      accentColor: '#ec4899',
+      niveau: 'Complet (Débutant à Créateur Pro)',
+      duree: '70 pages équivalent · 6 chapitres + Projet Capstone',
+      description: 'L\'art du prompting visuel C.R.E.D. pour affiches et posters scientifiques, génération vidéo Image-to-Video cohérente (Runway Gen-3, Kling AI), narration vocale et clonage éthique ElevenLabs, montage dynamique multipiste avec sous-titres animés sous CapCut, étalonnage cinéma et mixage audio -14 LUFS sous DaVinci Resolve.',
+      baseDir: 'manuels/12-creation-video-ia/',
+      badgeRequis: 'Membre Officiel ou Certifié TEAM Sahélia',
+      ressources: [
+        {
+          nom: 'Pack Schémas Vectoriels Vidéo IA & Post-Production (SVG)',
+          dossier: 'manuels/12-creation-video-ia/schemas/',
+          description: '6 schémas pédagogiques officiels haute définition.'
+        }
+      ],
+      chapitres: [
+        {
+          id: 'ch-01',
+          numero: 1,
+          titre: 'Chapitre 1 : L\'Art du Prompting Visuel & Génération d\'Images par IA',
+          fichier: 'manuels/12-creation-video-ia/chapitres/01_PROMPTING_VISUEL_ET_IMAGES_IA.md',
+          schema: 'schemas/schema_01_anatomie_prompt_ia_visuel.svg',
+          duree: '45 min'
+        },
+        {
+          id: 'ch-02',
+          numero: 2,
+          titre: 'Chapitre 2 : Les Modèles de Génération Vidéo par IA & Contrôle de Caméra',
+          fichier: 'manuels/12-creation-video-ia/chapitres/02_GENERATION_VIDEO_IA_ET_CAMERA.md',
+          schema: 'schemas/schema_02_mouvements_camera_ia_video.svg',
+          duree: '50 min'
+        },
+        {
+          id: 'ch-03',
+          numero: 3,
+          titre: 'Chapitre 3 : Voix Off de Synthèse, Clonage Éthique & Avatars Parlants',
+          fichier: 'manuels/12-creation-video-ia/chapitres/03_VOIX_OFF_SYNTHESE_ET_AVATARS_PARLANTS.md',
+          schema: 'schemas/schema_03_chaine_voix_et_avatar_ia.svg',
+          duree: '45 min'
+        },
+        {
+          id: 'ch-04',
+          numero: 4,
+          titre: 'Chapitre 4 : Montage Vidéo Dynamique sur Mobile & PC avec CapCut',
+          fichier: 'manuels/12-creation-video-ia/chapitres/04_MONTAGE_DYNAMIQUE_CAPCUT_PC_MOBILE.md',
+          schema: 'schemas/schema_04_timeline_montage_dynamique_capcut.svg',
+          duree: '50 min'
+        },
+        {
+          id: 'ch-05',
+          numero: 5,
+          titre: 'Chapitre 5 : Post-Production Professionnelle avec DaVinci Resolve',
+          fichier: 'manuels/12-creation-video-ia/chapitres/05_POST_PRODUCTION_DAVINCI_RESOLVE.md',
+          schema: 'schemas/schema_05_etalonnage_couleur_davinci_resolve.svg',
+          duree: '55 min'
+        },
+        {
+          id: 'ch-06',
+          numero: 6,
+          titre: 'Chapitre 6 : Projet Capstone · Mini-Documentaire Scientifique & Affiche Officielle',
+          fichier: 'manuels/12-creation-video-ia/chapitres/06_PROJET_CAPSTONE_DOCUMENTAIRE_ET_AFFICHE.md',
+          schema: 'schemas/schema_06_workflow_production_video_complete_ia.svg',
+          duree: '60 min'
+        }
+      ]
+    },
     'mn-10': {
       id: 'mn-10',
       type: 'manuel',

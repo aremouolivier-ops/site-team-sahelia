@@ -29,7 +29,7 @@ const Cat = fakeWindow.SaheliaCatalogue;
 
 assert(Cat !== undefined, 'Catalogue chargé avec succès');
 const tousLesCours = Cat.listerTous();
-assert(tousLesCours.length === 16, `Le catalogue contient exactement 16 cours (5 guides + 11 manuels), trouvé: ${tousLesCours.length}`);
+assert(tousLesCours.length === 17, `Le catalogue contient exactement 17 cours (5 guides + 12 manuels), trouvé: ${tousLesCours.length}`);
 
 // Vérifier les 5 mini-guides
 const guides = Cat.listerGuidesLibres();
@@ -41,7 +41,7 @@ guides.forEach((g) => {
 
 // Vérifier les 11 manuels protégés
 const manuels = Cat.listerManuelsProteges();
-assert(manuels.length === 11, 'Exactement 11 manuels stratégiques protégés');
+assert(manuels.length === 12, 'Exactement 12 manuels stratégiques protégés');
 manuels.forEach((m) => {
   assert(m.libre === false, `Le manuel ${m.id} est bien protégé`);
   const dossierManuel = path.join(BASE_DIR, m.baseDir);
@@ -150,6 +150,20 @@ for (let i = 1; i <= 6; i++) {
   const trouve = fichiers.some((f) => f.startsWith(`schema_0${i}_`) && f.endsWith('.svg'));
   assert(trouve, `Manuel 11 : Schéma vectoriel #${i} présent dans schemas/`);
 }
+
+// Vérifier particulièrement Manuel 12 (Création Vidéo & Visuelle par IA)
+const mn12 = Cat.obtenirCours('mn-12');
+assert(mn12 !== null, 'Manuel 12 trouvé');
+assert(mn12.chapitres.length === 6, `Manuel 12 possède 6 chapitres complets (avec Projet Capstone), trouvé: ${mn12.chapitres.length}`);
+
+// Vérifier les 6 schémas vectoriels SVG du Manuel 12
+for (let i = 1; i <= 6; i++) {
+  const schemasDir = path.join(BASE_DIR, 'manuels', '12-creation-video-ia', 'schemas');
+  const fichiers = fs.readdirSync(schemasDir);
+  const trouve = fichiers.some((f) => f.startsWith(`schema_0${i}_`) && f.endsWith('.svg'));
+  assert(trouve, `Manuel 12 : Schéma vectoriel #${i} présent dans schemas/`);
+}
+
 
 // Vérifier particulièrement Manuel 07 (Développement Web Moderne)
 const mn07 = Cat.obtenirCours('mn-07');
@@ -349,6 +363,10 @@ const adminHtmlPath = path.join(BASE_DIR, 'admin.html');
 assert(fs.existsSync(adminHtmlPath), 'La page dédiée admin.html existe sur le disque');
 assert(indexHtml.includes('formation.html?cours=mn-11'), 'index.html affiche bien la carte du Manuel 11 (Pilotage de Drones)');
 assert(formationHtml.includes('value="mn-11"'), 'formation.html inclut bien le Manuel 11 dans le sélecteur de cours');
+assert(indexHtml.includes('formation.html?cours=mn-12'), 'index.html affiche bien la carte du Manuel 12 (Création Vidéo & IA)');
+assert(formationHtml.includes('value="mn-12"'), 'formation.html inclut bien le Manuel 12 dans le sélecteur de cours');
+assert(fs.existsSync(path.join(BASE_DIR, 'DOCUMENTATION_UTILISATEUR.md')), 'La documentation utilisateur officielle DOCUMENTATION_UTILISATEUR.md existe');
+assert(fs.existsSync(path.join(BASE_DIR, 'ANNONCES_COMMUNAUTE_SAHELIA.md')), 'Le recueil officiel des 17 annonces ANNONCES_COMMUNAUTE_SAHELIA.md existe');
 assert(!formationHtml.includes('22900000000'), 'formation.html ne contient plus de faux numéro WhatsApp placeholder');
 
 const styleCss = fs.readFileSync(path.join(BASE_DIR, 'css', 'style.css'), 'utf8');
