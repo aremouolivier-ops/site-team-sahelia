@@ -1026,38 +1026,10 @@
   cursor: pointer;
 }
 
-/* Styles d'Impression (@media print) */
+/* Consultation exclusive en ligne sur la plateforme TEAM Sahélia */
 @media print {
   body {
-    background: white !important;
-    color: black !important;
-  }
-  .topbar-lecteur, .sidebar-gauche-navigation, .sidebar-droite-sommaire, .navigation-pied-cours, .btn-copier-code, .btn-agrandir-image {
     display: none !important;
-  }
-  .layout-grille-formation {
-    display: block !important;
-    padding: 0 !important;
-  }
-  .article-contenu-central {
-    background: white !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-  }
-  .titre-pedagogique-h1, .titre-pedagogique-h2, .titre-pedagogique-h3 {
-    color: black !important;
-  }
-  .corps-texte-rendu {
-    color: #111 !important;
-    font-size: 11pt !important;
-  }
-  .bloc-code-conteneur {
-    border: 1px solid #ccc !important;
-    background: #f8f9fa !important;
-  }
-  .bloc-code-pre {
-    color: black !important;
   }
 }
 

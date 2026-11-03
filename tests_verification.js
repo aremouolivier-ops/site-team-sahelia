@@ -221,9 +221,27 @@ eval(`(function(window, localStorage) { ${dbContent} })(fakeWindow, fakeWindow.l
 const DB = fakeWindow.SaheliaDB;
 
 assert(DB !== undefined, 'Registre SaheliaDB chargé avec succès');
+assert(Array.isArray(DB.membres) && DB.membres.length === 0, 'La base des membres démarre 100% vierge (aucun faux profil)');
+
+// Test d'enregistrement dynamique d'un membre officiel par la console admin
+const membreOfficiel = {
+  id: 'TS-MBR-2026-001',
+  matricule: 'TS-MBR-2026-001',
+  nom: 'Bio Sègla',
+  role: 'Coordonnateur Pôle Cartographie & SIG',
+  institution: 'Faculté d’Agronomie - UP',
+  sexe: 'homme',
+  statut: 'actif',
+  telephone: '+22997000001',
+  email: 'segla.bio@sahelia.org',
+  dateAdhesion: '2026-11-03'
+};
+DB.membres.push(membreOfficiel);
+DB.sauvegarderMembres(DB.membres);
+
 const membreTest = DB.trouverBadgeParId('TS-MBR-2026-001');
-assert(membreTest !== null, 'Membre TS-MBR-2026-001 trouvé dans le registre');
-assert(membreTest.beneficiaireNom === 'Sègla Bio KPEROU', 'Nom du titulaire conforme');
+assert(membreTest !== null, 'Membre officiel enregistré et retrouvé avec succès');
+assert(membreTest.beneficiaireNom === 'Bio Sègla', 'Nom du titulaire conforme');
 
 // Vérifier le comportement de contrôle d'accès
 const crypto = require('crypto');
@@ -284,7 +302,28 @@ let sessionAdminTest = {
   epoch: configSec.securityEpoch
 };
 assert(sessionAdminTest.isSuperAdmin === true, 'Le statut isSuperAdmin garantit le contournement du badge');
-assert(DB.trouverBadgeParId('TS-ADM-FONDATEUR') !== null, 'Le profil Fondateur TS-ADM-FONDATEUR est bien enregistré dans SaheliaDB');
+
+// Test G : Vérification du Validateur Sémantique Strict (SaheliaValidateur)
+const Validateur = fakeWindow.SaheliaValidateur;
+assert(Validateur !== undefined, 'SaheliaValidateur chargé avec succès');
+assert(Validateur.validerTelephone('+22997000000').valide === true, 'Numéro international béninois valide (+229)');
+assert(Validateur.validerTelephone('+33612345678').valide === true, 'Numéro international français valide (+33)');
+assert(Validateur.validerTelephone('97000000').valide === false, 'Numéro sans indicatif international (+) rejeté');
+assert(Validateur.validerTelephone('abc').valide === false, 'Numéro alphabétique rejeté');
+assert(Validateur.validerEmail('contact@sahelia.org').valide === true, 'Email conforme accepté');
+assert(Validateur.validerEmail('faux-email').valide === false, 'Email invalide rejeté');
+assert(Validateur.validerTexte('<script>alert(1)</script>', 'Test').valide === false, 'Balises HTML / tentative XSS rejetées');
+assert(Validateur.validerTexte('Texte propre et valide', 'Test').valide === true, 'Texte propre accepté');
+
+// Test H : Permaliens uniques et directs par cours
+assert(typeof Cat.obtenirLienPartage === 'function', 'SaheliaCatalogue dispose de la fonction de permalien');
+const permalienExcel = Cat.obtenirLienPartage('mn-01');
+assert(permalienExcel.includes('formation.html?cours=mn-01'), 'Le permalien direct du Manuel 01 est exact');
+const permalienDrone = Cat.obtenirLienPartage('mn-11');
+assert(permalienDrone.includes('formation.html?cours=mn-11'), 'Le permalien direct du Manuel 11 (Drones) est exact');
+
+// Test I : Modification du mot de passe Admin supportée
+assert(typeof Sec.changerMotDePasseAdmin === 'function', 'SaheliaSecurite supporte le changement de mot de passe admin');
 
 console.log('\n========================================================================');
 console.log('TEST 3 : VÉRIFICATION DU SERVEUR DE REDIRECTION DES FICHIERS MARKDOWN');

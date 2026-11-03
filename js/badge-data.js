@@ -8,82 +8,9 @@
   'use strict';
 
   // ---------------------------------------------------------------------------
-  // 1. RÉFÉRENTIEL DES MEMBRES OFFICIELS
+  // 1. RÉFÉRENTIEL DES MEMBRES OFFICIELS (Vierge pour démarrage en production)
   // ---------------------------------------------------------------------------
-  const MEMBRES_INIT = [
-    {
-      id: 'TS-ADM-FONDATEUR',
-      nom: 'Direction & Édition TEAM Sahélia',
-      sexe: 'M',
-      role: 'Fondateur & Éditeur en Chef',
-      institution: 'TEAM Sahélia · Campus de Parakou',
-      dateAdhesion: '01 Janvier 2026',
-      statut: 'actif',
-      photo: 'assets/avatars/segla_kperou.jpg',
-      slogan: 'Apprendre. Créer. Innover.',
-      tags: ['Administration', 'Édition', 'Superviseur'],
-    },
-    {
-      id: 'TS-MBR-2026-001',
-      nom: 'Sègla Bio KPEROU',
-      sexe: 'M',
-      role: 'Référent Cartographie SIG & Agronomie',
-      institution: 'Faculté d’Agronomie (FA-UP) · Parakou',
-      dateAdhesion: '15 Janvier 2026',
-      statut: 'actif',
-      photo: 'assets/avatars/segla_kperou.jpg',
-      slogan: 'L’agronomie de demain maîtrise la terre et la donnée.',
-      tags: ['QGIS', 'ArcGIS', 'GPS Smartphone', 'FA-UP'],
-    },
-    {
-      id: 'TS-MBR-2026-002',
-      nom: 'Olivier AREMOU',
-      sexe: 'M',
-      role: 'Coordinateur Pédagogique & Innovation',
-      institution: 'TEAM Sahélia · Parakou',
-      dateAdhesion: '15 Janvier 2026',
-      statut: 'actif',
-      photo: 'assets/avatars/oumar_traore.jpg',
-      slogan: 'Bâtir pour de vrai : des compétences solides pour la jeunesse.',
-      tags: ['Vibe Coding', 'Pédagogie', 'Innovation Logicielle'],
-    },
-    {
-      id: 'TS-MBR-2026-003',
-      nom: 'Mariam DIALLO',
-      sexe: 'F',
-      role: 'Communication & Vulgarisation Scientifique',
-      institution: 'TEAM Sahélia · Parakou',
-      dateAdhesion: '01 Février 2026',
-      statut: 'actif',
-      photo: 'assets/avatars/fatou_sow.jpg',
-      slogan: 'Rendre le numérique accessible à chaque étudiant sans jargon.',
-      tags: ['Vulgarisation', 'Design', 'Réseaux'],
-    },
-    {
-      id: 'TS-MBR-2026-004',
-      nom: 'Babatoundé Eric DOSSOU',
-      sexe: 'M',
-      role: 'Étudiant Agronome (Master Production Végétale)',
-      institution: 'FA-UP · Université de Parakou',
-      dateAdhesion: '10 Février 2026',
-      statut: 'actif',
-      photo: null,
-      slogan: 'La donnée parcellaire au service des rendements agricoles.',
-      tags: ['Agronomie', 'Production Végétale', 'Parcelles'],
-    },
-    {
-      id: 'TS-MBR-2026-005',
-      nom: 'Amina CHABI',
-      sexe: 'F',
-      role: 'Étudiante Agronome (L3 Économie Rurale)',
-      institution: 'FA-UP · Université de Parakou',
-      dateAdhesion: '12 Février 2026',
-      statut: 'actif',
-      photo: 'assets/avatars/aicha_diallo.jpg',
-      slogan: 'Collecte mobile et analyse d’enquêtes terrain fiables.',
-      tags: ['KoboToolbox', 'Enquêtes', 'Économie Rurale'],
-    },
-  ];
+  const MEMBRES_INIT = [];
 
   // ---------------------------------------------------------------------------
   // 2. RÉFÉRENTIEL DES FORMATIONS DU CATALOGUE
@@ -97,7 +24,7 @@
       duree: '30 heures (6 semaines)',
       niveauRequis: 'Étudiants FA-UP (L2 à Master)',
       description: 'Relevé GPS smartphone au champ, projection métrique UTM zone 31N, calcul de surface en hectares et export de cartes d’essais agronomiques.',
-      formateur: 'Sègla Bio KPEROU',
+      formateur: 'Référent Géomatique TEAM Sahélia',
     },
     {
       id: 'FOR-BUR-01',
@@ -107,7 +34,7 @@
       duree: '18 heures (3 semaines)',
       niveauRequis: 'Tout étudiant de fin de cycle',
       description: 'Styles hiérarchiques automatiques, pagination mixte (romains/arabes) et tableaux de données d’essais conformes aux jurys.',
-      formateur: 'Olivier AREMOU',
+      formateur: 'Conseil Pédagogique TEAM Sahélia',
     },
     {
       id: 'FOR-IA-01',
@@ -117,109 +44,24 @@
       duree: '24 heures (4 semaines)',
       niveauRequis: 'Agronomes et curieux du numérique',
       description: 'Prompts de recherche avec méthode C.R.E.D. sans hallucination bibliographique et génération de scripts d’analyse de données de récolte.',
-      formateur: 'Olivier AREMOU',
+      formateur: 'Pôle Innovation TEAM Sahélia',
     },
+    {
+      id: 'FOR-DRN-01',
+      titre: 'Pilotage de Drones & Agriculture de Précision',
+      pole: 'Drones & Télédétection',
+      accentColor: '#38bdf8',
+      duree: '35 heures',
+      niveauRequis: 'Agronomes et opérateurs terrain',
+      description: 'Pilotage Mode 2, plans de vol automatisés, photogrammétrie et pulvérisation calibrée.',
+      formateur: 'Unité Drones TEAM Sahélia',
+    }
   ];
 
   // ---------------------------------------------------------------------------
-  // 3. COHORTES & PARTICIPANTS RÉELS
+  // 3. COHORTES (Vierge pour démarrage en production)
   // ---------------------------------------------------------------------------
-  const COHORTES_INIT = [
-    {
-      id: 'COH-2026-QGIS-1',
-      formationId: 'FOR-SIG-01',
-      nom: 'Cohorte Alpha — FA-UP Parakou',
-      periode: '15 Octobre — 28 Novembre 2026',
-      lieu: 'Campus FA-UP & Parcelles d’Essais Parakou',
-      formateurPrincipal: 'Sègla Bio KPEROU (Référent SIG)',
-      participants: [
-        {
-          id: 'TS-FOR-2026-Q1-001',
-          nom: 'Babatoundé Eric DOSSOU',
-          sexe: 'M',
-          role: 'Étudiant Master FA-UP',
-          statut: 'termine', // termine | en_cours | inscrit
-          dateEmission: '28 Octobre 2026',
-          mention: 'Projet parcellaire validé avec mention Très Bien',
-        },
-        {
-          id: 'TS-FOR-2026-Q1-002',
-          nom: 'Amina CHABI',
-          sexe: 'F',
-          role: 'Étudiante L3 FA-UP',
-          statut: 'en_cours',
-          dateEmission: '15 Octobre 2026',
-          mention: 'Module QGIS 2 en cours · Présence 100%',
-          photo: 'assets/avatars/aicha_diallo.jpg',
-        },
-        {
-          id: 'TS-FOR-2026-Q1-003',
-          nom: 'Rodrigue K. HONVO',
-          sexe: 'M',
-          role: 'Étudiant L3 Agronomie',
-          statut: 'en_cours',
-          dateEmission: '15 Octobre 2026',
-          mention: 'Collecte GPS terrain effectuée avec succès',
-        },
-        {
-          id: 'TS-FOR-2026-Q1-004',
-          nom: 'Clarisse T. MEDEGAN',
-          sexe: 'F',
-          role: 'Doctorante FA-UP',
-          statut: 'termine',
-          dateEmission: '28 Octobre 2026',
-          mention: 'Carte d’essai expérimentale maïs validée',
-        },
-        {
-          id: 'TS-FOR-2026-Q1-005',
-          nom: 'Pascal A. BIO GOURA',
-          sexe: 'M',
-          role: 'Technicien de Recherche Agricole',
-          statut: 'inscrit',
-          dateEmission: '15 Octobre 2026',
-          mention: 'Dossier administratif confirmé',
-        },
-      ],
-    },
-    {
-      id: 'COH-2026-BUR-1',
-      formationId: 'FOR-BUR-01',
-      nom: 'Cohorte Urgence Mémoire — Novembre 2026',
-      periode: '03 Novembre — 24 Novembre 2026',
-      lieu: 'Laboratoire Informatique FA-UP & En ligne',
-      formateurPrincipal: 'Olivier AREMOU',
-      participants: [
-        {
-          id: 'TS-FOR-2026-B1-001',
-          nom: 'Amina CHABI',
-          sexe: 'F',
-          role: 'Étudiante L3 FA-UP',
-          statut: 'termine',
-          dateEmission: '26 Octobre 2026',
-          mention: 'Modèle de mémoire FA-UP structuré sans faille',
-          photo: 'assets/avatars/aicha_diallo.jpg',
-        },
-        {
-          id: 'TS-FOR-2026-B1-002',
-          nom: 'Rodrigue K. HONVO',
-          sexe: 'M',
-          role: 'Étudiant L3 Agronomie',
-          statut: 'en_cours',
-          dateEmission: '03 Novembre 2026',
-          mention: 'En cours d’apprentissage',
-        },
-        {
-          id: 'TS-FOR-2026-B1-003',
-          nom: 'Florentin B. KORA',
-          sexe: 'M',
-          role: 'Étudiant Master FA-UP',
-          statut: 'inscrit',
-          dateEmission: '03 Novembre 2026',
-          mention: 'Inscription confirmée',
-        },
-      ],
-    },
-  ];
+  const COHORTES_INIT = [];
 
   // ---------------------------------------------------------------------------
   // 4. RÉFÉRENTIEL DES COMPÉTENCES & DISPOSITIF D'ÉVALUATION
@@ -250,7 +92,7 @@
         'Génération et exécution d’un script Python de nettoyage d’un tableau d’essais agronomiques',
         'Vérification croisée des moyennes et détection d’aberrations sans hallucination de l’IA',
       ],
-      dispositif: 'Revue de code en direct sur un jeu de données réel de la Faculté d’Agronomie.',
+      dispositif: 'Revue de code en direct sur un jeu de données réel.',
     },
     {
       id: 'SKL-BUR-MEMOIRE',
@@ -263,105 +105,52 @@
         'Gestion de la pagination mixte (chiffres romains en liminaire, arabes pour le corps du mémoire)',
         'Mise en forme des tableaux statistiques avec répétition automatique de la ligne d’en-tête',
       ],
-      dispositif: 'Contrôle technique du fichier Word et export PDF avant impression finale.',
+      dispositif: 'Contrôle technique du fichier Word et validation académique.',
     },
+    {
+      id: 'SKL-DRONE-TERRAIN',
+      titre: 'Pilotage & Télédétection par Drone Agricole',
+      domaine: 'Drones & Agriculture de Précision',
+      accentColor: '#38bdf8',
+      niveaux: ['Pratique Validée', 'Avancé', 'Opérateur Agréé'],
+      criteres: [
+        'Check-list pré-vol et calibration compas/IMU en milieu rural',
+        'Pilotage manuel Mode 2 avec atterrissage de précision sur cible',
+        'Programmation de mission photogrammétrique avec GSD < 2,5 cm/px',
+        'Sécurité ANAC Bénin et calcul de dérive vent / downwash',
+      ],
+      dispositif: 'Vol de contrôle en conditions réelles supervisé par un instructeur.',
+    }
   ];
 
   // ---------------------------------------------------------------------------
-  // 5. ATTRIBUTIONS RÉELLES DE COMPÉTENCES (VALIDÉES PAR L'AUTORITÉ)
+  // 5. ATTRIBUTIONS RÉELLES DE COMPÉTENCES (Vierge pour démarrage en production)
   // ---------------------------------------------------------------------------
-  const ATTRIBUTIONS_INIT = [
-    {
-      id: 'TS-SKL-2026-001',
-      membreId: 'TS-MBR-2026-004',
-      beneficiaireNom: 'Babatoundé Eric DOSSOU',
-      beneficiaireRole: 'Étudiant Master FA-UP · Université de Parakou',
-      competenceId: 'SKL-SIG-PARCELLE',
-      titreCompetence: 'Délimitation & Cartographie Parcellaire QGIS',
-      niveau: 'Pratique Validée',
-      dateAttribution: '25 Octobre 2026',
-      validePar: 'Sègla Bio KPEROU (Référent SIG · FA-UP)',
-      statut: 'valide', // valide | revoque
-      preuveProjet: 'Parcelle expérimentale de maïs (Zone périurbaine de Parakou · 2,45 ha). Shapefile (.shp) et carte PDF vérifiés.',
-    },
-    {
-      id: 'TS-SKL-2026-002',
-      membreId: 'TS-MBR-2026-001',
-      beneficiaireNom: 'Sègla Bio KPEROU',
-      beneficiaireRole: 'Référent Cartographie SIG & Agronomie',
-      competenceId: 'SKL-SIG-PARCELLE',
-      titreCompetence: 'Délimitation & Cartographie Parcellaire QGIS',
-      niveau: 'Expert Terrain',
-      dateAttribution: '15 Janvier 2026',
-      validePar: 'Conseil Pédagogique TEAM Sahélia',
-      statut: 'valide',
-      preuveProjet: 'Formateur principal du programme géomatique et encadrement des sorties de terrain FA-UP.',
-    },
-    {
-      id: 'TS-SKL-2026-003',
-      membreId: 'TS-MBR-2026-002',
-      beneficiaireNom: 'Olivier AREMOU',
-      beneficiaireRole: 'Coordinateur Pédagogique & Innovation',
-      competenceId: 'SKL-VIBE-CLEANING',
-      titreCompetence: 'Vibe Coding : Automatisation & Nettoyage de Données',
-      niveau: 'Avancé',
-      dateAttribution: '18 Janvier 2026',
-      validePar: 'Comité Technique TEAM Sahélia',
-      statut: 'valide',
-      preuveProjet: 'Conception des modules pratiques et scripts de traitement automatique des relevés de parcelles.',
-    },
-    {
-      id: 'TS-SKL-2026-REVOKED',
-      membreId: null,
-      beneficiaireNom: 'Exemple Révocation Test',
-      beneficiaireRole: 'Auditeur Externe Non Certifié',
-      competenceId: 'SKL-SIG-PARCELLE',
-      titreCompetence: 'Délimitation & Cartographie Parcellaire QGIS',
-      niveau: 'Pratique Validée',
-      dateAttribution: '01 Février 2026',
-      validePar: 'Comité de Discipline',
-      statut: 'revoque',
-      motifRevocation: 'Dossier incomplet : les données de bornes GPS relevées étaient non conformes au protocole de vérification.',
-      preuveProjet: 'Données caduques.',
-    },
-  ];
+  const ATTRIBUTIONS_INIT = [];
 
   // ---------------------------------------------------------------------------
-  // 6. RÉFÉRENTIEL DES ACTIVITÉS & ACTUALITÉS DU SITE
+  // 6. RÉFÉRENTIEL DES ACTIVITÉS & ANNONCES PUBLIQUES DU SITE (Vierge en production)
   // ---------------------------------------------------------------------------
-  const ACTIVITES_INIT = [
-    {
-      id: 'act-01',
-      type: 'Lancement Officiel',
-      titre: 'Publication des 2 Vidéos d’Annonce',
-      date: 'Octobre 2026',
-      description: 'Diffusion de la vidéo Grand Public et de l’édition spéciale Étudiants FA-UP Parakou avec univers sonore calibré.',
-      statut: 'Diffusé',
-      couleur: '#5fd0a0',
-    },
-    {
-      id: 'act-02',
-      type: 'Atelier Pratique',
-      titre: 'Session Terrain : Relevés GPS & Cartographie QGIS',
-      date: 'En préparation',
-      description: 'Formation pas-à-pas pour les agronomes : importation des coordonnées d’essais et calcul de surface en hectares.',
-      statut: 'Inscriptions Ouvertes',
-      couleur: '#e8946a',
-    },
-    {
-      id: 'act-03',
-      type: 'Guide Pratique',
-      titre: 'Parution du Mini-Guide n°01 : Urgence Mémoire & Rapport',
-      date: 'Disponible',
-      description: 'Les 10 règles incontournables sous Word & Excel pour structurer un document académique sans stress.',
-      statut: 'Accès Libre',
-      couleur: '#7fb0ee',
-    },
-  ];
+  const ACTIVITES_INIT = [];
+  const ANNONCES_INIT = [];
 
   // ---------------------------------------------------------------------------
-  // 7. GESTION DU STOCKAGE PERSISTANT (LOCALSTORAGE SAFE)
+  // 7. GESTION DU STOCKAGE PERSISTANT (LOCALSTORAGE SAFE & PURGE FICTIVE)
   // ---------------------------------------------------------------------------
+  // Migration de version : purger immédiatement toute ancienne donnée de test/fictive
+  try {
+    if (typeof localStorage !== 'undefined') {
+      const dbVersion = localStorage.getItem('sahelia_db_production_ver');
+      if (dbVersion !== 'prod_v3_pure') {
+        localStorage.removeItem('sahelia_membres_db');
+        localStorage.removeItem('sahelia_cohortes_db');
+        localStorage.removeItem('sahelia_attributions_db');
+        localStorage.removeItem('sahelia_activites_db');
+        localStorage.setItem('sahelia_db_production_ver', 'prod_v3_pure');
+      }
+    }
+  } catch (e) {}
+
   function chargerRegistre(cle, fallback) {
     try {
       if (typeof localStorage === 'undefined') return fallback;
@@ -390,6 +179,7 @@
     competences: chargerRegistre('competences_db', COMPETENCES_INIT),
     attributions: chargerRegistre('attributions_db', ATTRIBUTIONS_INIT),
     activites: chargerRegistre('activites_db', ACTIVITES_INIT),
+    annonces: chargerRegistre('annonces_db', ANNONCES_INIT),
 
     sauvegarderMembres() {
       sauvegarderRegistre('membres_db', this.membres);
@@ -402,6 +192,9 @@
     },
     sauvegarderActivites() {
       sauvegarderRegistre('activites_db', this.activites);
+    },
+    sauvegarderAnnonces() {
+      sauvegarderRegistre('annonces_db', this.annonces);
     },
 
     // Inscrire un participant dans une cohorte
@@ -584,10 +377,10 @@
       }
 
       // 3. Chercher dans les membres de la communauté
-      const mem = this.membres.find((m) => m && String(m.id || '').trim().toUpperCase() === cleanId);
+      const mem = this.membres.find((m) => m && String(m.id || m.matricule || '').trim().toUpperCase() === cleanId);
       if (mem) {
         return {
-          id: mem.id,
+          id: mem.id || mem.matricule,
           type: 'membre',
           titre: 'Membre Officiel de la Communauté',
           beneficiaireNom: mem.nom,

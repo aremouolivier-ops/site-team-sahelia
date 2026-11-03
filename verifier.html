@@ -8,6 +8,20 @@
   <link rel="icon" type="image/svg+xml" href="assets/logo-sahelia.svg">
   <meta name="theme-color" content="#06120e">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/controle-acces.js"></script>
+  <script>
+    // Sécurité stricte : La vérification des badges est réservée exclusivement à l'administrateur
+    (function () {
+      try {
+        const session = window.SaheliaSecurite ? window.SaheliaSecurite.obtenirSessionValide() : null;
+        if (!session || !session.isSuperAdmin) {
+          window.location.replace('index.html');
+        }
+      } catch (e) {
+        window.location.replace('index.html');
+      }
+    })();
+  </script>
   <style>
     .page-verif {
       min-height: 100vh;
@@ -88,20 +102,19 @@
   <!-- En-tête fluide & scrollable -->
   <header class="site-entete">
     <div class="enveloppe site-entete-rang">
-      <a href="index.html" class="logo-lien" style="display: flex; align-items: center; gap: 0.75rem;">
+      <a href="admin.html" class="logo-lien" style="display: flex; align-items: center; gap: 0.75rem;">
         <img src="assets/logo-sahelia.svg" alt="TEAM Sahélia" style="height: 38px; width: auto;">
       </a>
 
       <nav class="site-nav" aria-label="Navigation principale">
-        <a href="index.html">← Accueil Vitrine</a>
-        <a href="index.html#badges" class="nav-pill-special">🪪 Studio de Badges</a>
+        <a href="admin.html" style="color: var(--marque); font-weight: 700;">👑 ← Retour Console Admin</a>
+        <a href="index.html">Accueil Vitrine</a>
         <a href="formation.html">📚 Espace Formation</a>
-        <a href="admin.html">👑 Console Admin</a>
       </nav>
 
       <div class="site-entete-actions">
-        <a href="index.html#badges" class="v-btn v-btn--or" style="min-height: 36px; padding: 0 0.9rem; font-size: 0.8rem;">
-          Créer un Badge
+        <a href="admin.html#tab-securite" class="v-btn v-btn--fantome" style="min-height: 36px; padding: 0 0.9rem; font-size: 0.8rem;">
+          🔐 Sécurité
         </a>
       </div>
     </div>
@@ -113,33 +126,16 @@
       <!-- Rempli dynamiquement -->
     </div>
 
-    <!-- Sélecteur rapide de test -->
+    <!-- Outil de recherche et d'audit pour l'Administrateur -->
     <div style="max-width: 780px; margin: 1.5rem auto 3rem; background: var(--surface-2); border: 1px solid var(--bordure); border-radius: 14px; padding: 1.25rem;">
-      <h4 style="font-size: 0.82rem; font-family: var(--police-mono); text-transform: uppercase; color: var(--texte-3); margin-bottom: 0.75rem;">
-        🔍 Tester un autre identifiant dans le registre officiel :
+      <h4 style="font-size: 0.85rem; font-family: var(--police-mono); text-transform: uppercase; color: var(--texte-3); margin-bottom: 0.75rem;">
+        🔍 Auditer un identifiant officiel de badge dans le registre central :
       </h4>
-      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.8rem;">
-        <button type="button" class="btn-test-id v-btn v-btn--fantome" data-id="TS-MBR-2026-001" style="min-height: 32px; padding: 0 0.8rem; font-size: 0.75rem;">
-          Membre (Sègla Bio)
-        </button>
-        <button type="button" class="btn-test-id v-btn v-btn--fantome" data-id="TS-FOR-2026-Q1-001" style="min-height: 32px; padding: 0 0.8rem; font-size: 0.75rem;">
-          Formation Terminée (Babatoundé)
-        </button>
-        <button type="button" class="btn-test-id v-btn v-btn--fantome" data-id="TS-FOR-2026-Q1-002" style="min-height: 32px; padding: 0 0.8rem; font-size: 0.75rem;">
-          Formation En Cours (Amina)
-        </button>
-        <button type="button" class="btn-test-id v-btn v-btn--fantome" data-id="TS-SKL-2026-001" style="min-height: 32px; padding: 0 0.8rem; font-size: 0.75rem;">
-          Compétence Validée (QGIS)
-        </button>
-        <button type="button" class="btn-test-id v-btn v-btn--fantome" data-id="TS-SKL-2026-REVOKED" style="min-height: 32px; padding: 0 0.8rem; font-size: 0.75rem; border-color: rgba(239,68,68,0.4); color: #f87171;">
-          Badge Révoqué (Test Sécurité)
-        </button>
-      </div>
 
       <form id="form-recherche-id" style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
-        <input type="text" id="input-search-id" placeholder="Entrez un identifiant (ex: TS-MBR-2026-001)" class="champ-saisie" style="font-family: var(--police-mono); flex: 1 1 220px;">
+        <input type="text" id="input-search-id" placeholder="Entrez un identifiant (ex: TS-MBR-... ou TS-FOR-...)" class="champ-saisie" style="font-family: var(--police-mono); flex: 1 1 220px;">
         <button type="submit" class="v-btn v-btn--vert" style="min-height: 42px; font-size: 0.85rem; padding: 0 1.2rem; flex: 0 0 auto;">
-          Vérifier
+          Vérifier l’authenticité
         </button>
       </form>
     </div>
@@ -174,7 +170,7 @@
 
       function obtenirIdDepuisUrl() {
         const params = new URLSearchParams(window.location.search);
-        return params.get('id') || 'TS-MBR-2026-001';
+        return params.get('id') || '';
       }
 
       function afficherVerification(badgeId) {
@@ -356,9 +352,6 @@
                 <button type="button" id="btn-copier-lien-verif" class="v-btn v-btn--fantome" style="min-height: 40px; font-size: 0.82rem;">
                   📋 Copier le lien
                 </button>
-                <button type="button" onclick="window.print()" class="v-btn v-btn--fantome" style="min-height: 40px; font-size: 0.82rem;">
-                  🖨️ Imprimer l’attestation
-                </button>
               </div>
             </div>
 
@@ -404,16 +397,15 @@
 
       // Initialisation
       const idInitial = obtenirIdDepuisUrl();
-      afficherVerification(idInitial);
-
-      // Boutons de test rapide
-      document.querySelectorAll('.btn-test-id').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const id = btn.dataset.id;
-          window.history.pushState({}, '', '?id=' + encodeURIComponent(id));
-          afficherVerification(id);
-        });
-      });
+      if (idInitial) {
+        afficherVerification(idInitial);
+      } else {
+        conteneur.innerHTML = `
+          <div class="carte-verif" style="text-align: center;">
+            <h2 style="font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--texte);">Module de Contrôle des Titres</h2>
+            <p style="color: var(--texte-2); font-size: 0.95rem;">Veuillez saisir un identifiant officiel de badge ci-dessous pour contrôler son authenticité et son statut.</p>
+          </div>`;
+      }
 
       // Recherche par formulaire
       const form = document.getElementById('form-recherche-id');

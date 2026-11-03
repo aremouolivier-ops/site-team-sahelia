@@ -295,7 +295,9 @@
 
       const correspondConfig =
         this._config &&
-        (hashSaisi === this._config.codeHash || hashSaisi === this._config.codeFallbackHash);
+        (hashSaisi === this._config.codeHash ||
+          hashSaisi === this._config.codeFallbackHash ||
+          hashSaisi === this._config.customAdminHash);
 
       const autorise = EMPREINTES_ADMIN_AUTORISEES.has(hashSaisi) || correspondConfig;
 
@@ -535,6 +537,54 @@
     },
 
     /**
+     * Modification du mot de passe Administrateur
+     * Vérifie l'ancien mot de passe puis hache et enregistre le nouveau mot de passe
+     */
+    async changerMotDePasseAdmin(ancienMdp, nouveauMdp) {
+      await this.init();
+      const ancPropre = String(ancienMdp || '').trim();
+      const nouvPropre = String(nouveauMdp || '').trim();
+
+      if (!ancPropre) {
+        return { succes: false, erreur: 'Veuillez saisir votre mot de passe administrateur actuel.' };
+      }
+      if (!nouvPropre || nouvPropre.length < 6) {
+        return { succes: false, erreur: 'Le nouveau mot de passe administrateur doit comporter au moins 6 caractères.' };
+      }
+
+      const ancHash = await sha256(ancPropre);
+      const estValide =
+        (this._config && (ancHash === this._config.customAdminHash || ancHash === this._config.codeHash)) ||
+        EMPREINTES_ADMIN_AUTORISEES.has(ancHash);
+
+      if (!estValide) {
+        return { succes: false, erreur: 'Le mot de passe administrateur actuel est incorrect.' };
+      }
+
+      const nouvHash = await sha256(nouvPropre);
+      this._config.customAdminHash = nouvHash;
+      this._config.derniereModifAdmin = new Date().toISOString();
+
+      if (!Array.isArray(this._config.historique)) {
+        this._config.historique = [];
+      }
+      this._config.historique.unshift({
+        date: new Date().toISOString(),
+        action: 'Modification mot de passe administrateur',
+        auteur: 'Direction',
+        epoch: this._config.securityEpoch || 1,
+        note: 'Clé d’accès administrateur mise à jour'
+      });
+
+      this._sauvegarderConfig();
+
+      return {
+        succes: true,
+        message: 'Votre mot de passe Administrateur a été modifié avec succès.'
+      };
+    },
+
+    /**
      * Récupère le journal d'audit de sécurité
      */
     obtenirJournalSecurite() {
@@ -547,4 +597,91 @@
   Securite.init().catch(console.error);
 
   window.SaheliaSecurite = Securite;
+
+  // =========================================================================
+  // SYSTÈME DE VALIDATION SÉMANTIQUE STRICTE (SAHELIA VALIDATEUR)
+  // =========================================================================
+  window.SaheliaValidateur = {
+    // Format international strict (+ indicatif pays de 1 à 3 chiffres puis 6 à 14 chiffres)
+    // Exemples : +22997000000 (Bénin), +33612345678 (France), +22507000000 (Côte d'Ivoire)
+    validerTelephone(tel, obligatoire = true) {
+      if (!tel || !String(tel).trim()) {
+        if (!obligatoire) return { valide: true, valeur: '' };
+        return { valide: false, message: 'Le numéro de téléphone est obligatoire.' };
+      }
+      const propre = String(tel).trim().replace(/[\s.-]/g, '');
+      const regex = /^\+[1-9]\d{7,14}$/;
+      if (!regex.test(propre)) {
+        return {
+          valide: false,
+          message: 'Format international obligatoire (+ et indicatif pays, ex: +22997000000).'
+        };
+      }
+      return { valide: true, valeur: propre };
+    },
+
+    // Nom & Prénoms : lettres alphabétiques, accents, tirets, espaces
+    validerNom(nom, libelle = 'Nom') {
+      if (!nom || !String(nom).trim()) {
+        return { valide: false, message: `Le champ « ${libelle} » est obligatoire.` };
+      }
+      const propre = String(nom).trim();
+      if (propre.length < 2 || propre.length > 70) {
+        return { valide: false, message: `Le champ « ${libelle} » doit comporter entre 2 et 70 caractères.` };
+      }
+      const regex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,70}$/;
+      if (!regex.test(propre)) {
+        return { valide: false, message: `Le champ « ${libelle} » contient des caractères non autorisés.` };
+      }
+      return { valide: true, valeur: propre };
+    },
+
+    // Email conforme standard RFC
+    validerEmail(email, obligatoire = false) {
+      if (!email || !String(email).trim()) {
+        if (!obligatoire) return { valide: true, valeur: '' };
+        return { valide: false, message: 'L’adresse email est obligatoire.' };
+      }
+      const propre = String(email).trim().toLowerCase();
+      const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!regex.test(propre)) {
+        return { valide: false, message: 'Adresse email invalide (ex: contact@domaine.com).' };
+      }
+      return { valide: true, valeur: propre };
+    },
+
+    // Texte général nettoyé de balises HTML
+    validerTexte(texte, libelle, min = 2, max = 255, obligatoire = true) {
+      if (!texte || !String(texte).trim()) {
+        if (!obligatoire) return { valide: true, valeur: '' };
+        return { valide: false, message: `Le champ « ${libelle} » est obligatoire.` };
+      }
+      const propre = String(texte).trim();
+      if (propre.length < min || propre.length > max) {
+        return { valide: false, message: `Le champ « ${libelle} » doit comporter entre ${min} et ${max} caractères.` };
+      }
+      if (/<[^>]*>/g.test(propre)) {
+        return { valide: false, message: `Le champ « ${libelle} » ne doit pas contenir de balises HTML.` };
+      }
+      return { valide: true, valeur: propre };
+    },
+
+    // URL sécurisée (http ou https)
+    validerUrl(url, obligatoire = false) {
+      if (!url || !String(url).trim()) {
+        if (!obligatoire) return { valide: true, valeur: '' };
+        return { valide: false, message: 'L’adresse web (URL) est obligatoire.' };
+      }
+      const propre = String(url).trim();
+      try {
+        const parsed = new URL(propre);
+        if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+          return { valide: false, message: 'L’URL doit débuter par http:// ou https://' };
+        }
+        return { valide: true, valeur: parsed.href };
+      } catch (e) {
+        return { valide: false, message: 'Format d’URL invalide (ex: https://exemple.com).' };
+      }
+    }
+  };
 })();

@@ -310,15 +310,48 @@
         await window.SaheliaSecurite.init();
       }
 
-      // 2. Écouteurs d'événements globaux (boutons de zoom, copies de code, tailles police)
+      // 2. Afficher la bannière d'annonces si active
+      this._initialiserBanniereAnnonces();
+
+      // 3. Écouteurs d'événements globaux (boutons de zoom, copies de code, tailles police)
       this._attacherEcouteursGlobaux();
 
-      // 3. Lire les paramètres de l'URL (?cours=mn-01&ch=ch-01)
+      // 4. Lire les paramètres de l'URL (?cours=mn-01&ch=ch-01)
       const params = new URLSearchParams(window.location.search);
       const coursId = params.get('cours') || 'guide-01';
       const chapitreId = params.get('ch') || null;
 
       await this.chargerCours(coursId, chapitreId);
+    },
+
+    _initialiserBanniereAnnonces() {
+      const conteneur = document.getElementById('banniere-annonces-sahelia');
+      if (!conteneur || !window.SaheliaDB) return;
+      const annonces = (window.SaheliaDB.annonces || []).filter((a) => a && a.actif);
+      if (annonces.length === 0) {
+        conteneur.style.display = 'none';
+        return;
+      }
+      const a = annonces[0];
+      const typeIcons = {
+        info: '📢 Information',
+        pub: '🌟 Annonce Partenaire',
+        alerte: '🚨 Flash Info',
+        partenariat: '🤝 Coopération'
+      };
+      const libelleType = typeIcons[a.type] || '📢 Annonce';
+      conteneur.style.display = 'block';
+      conteneur.innerHTML = `
+        <div style="background: linear-gradient(90deg, #0b2b24, #123e34); border-bottom: 1px solid var(--bordure); padding: 0.6rem 1rem; color: var(--texte); font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+            <span class="etiquette etiquette--or" style="font-size: 0.65rem;">${echapperHtml(libelleType)}</span>
+            <strong>${echapperHtml(a.titre)} :</strong>
+            <span>${echapperHtml(a.message)}</span>
+            ${a.lien ? `<a href="${echapperHtml(a.lien)}" target="_blank" rel="noopener noreferrer" style="color: var(--marque); text-decoration: underline; font-weight: bold;">En savoir plus →</a>` : ''}
+          </div>
+          <button type="button" onclick="document.getElementById('banniere-annonces-sahelia').style.display='none'" style="background: transparent; border: none; color: var(--texte-3); cursor: pointer; font-size: 1rem; padding: 0 0.4rem;" title="Masquer l’annonce">✕</button>
+        </div>
+      `;
     },
 
     _attacherEcouteursGlobaux() {
@@ -367,10 +400,29 @@
         });
       }
 
-      // Bouton impression
-      const btnImprimer = document.getElementById('btn-imprimer-cours');
-      if (btnImprimer) {
-        btnImprimer.addEventListener('click', () => window.print());
+      // Bouton Partage / Copie du lien direct unique
+      const btnPartager = document.getElementById('btn-partager-lien-cours');
+      if (btnPartager) {
+        btnPartager.addEventListener('click', async () => {
+          if (!this.coursActif) return;
+          const urlPartage = window.SaheliaCatalogue
+            ? window.SaheliaCatalogue.obtenirLienPartage(this.coursActif.id)
+            : window.location.href;
+          try {
+            await navigator.clipboard.writeText(urlPartage);
+            const texteOrig = btnPartager.innerHTML;
+            btnPartager.innerHTML = '✓ Copié !';
+            btnPartager.style.color = '#4ade80';
+            btnPartager.style.borderColor = '#4ade80';
+            setTimeout(() => {
+              btnPartager.innerHTML = texteOrig;
+              btnPartager.style.color = '';
+              btnPartager.style.borderColor = '';
+            }, 2500);
+          } catch (e) {
+            prompt('Lien direct de ce cours à copier :', urlPartage);
+          }
+        });
       }
 
       // Bouton Mode Zen (Plein Écran sans distractions)
@@ -845,8 +897,13 @@
         const cleNormalisee = String(cheminFichier || '').replace(/\\/g, '/').replace(/^\.\//, '');
         let texteMd = '';
 
-        // 1. Priorité aux contenus embarqués (Permet un fonctionnement immédiat sous le protocole file:///)
-        if (window.SaheliaContenus && typeof window.SaheliaContenus[cleNormalisee] === 'string') {
+        // 0. Si le cours a un contenu dynamique personnalisé (créé depuis l'administration)
+        if (this.chapitreActif && this.chapitreActif.contenuMarkdown) {
+          texteMd = this.chapitreActif.contenuMarkdown;
+        } else if (this.coursActif && this.coursActif.contenuMarkdown) {
+          texteMd = this.coursActif.contenuMarkdown;
+        } else if (window.SaheliaContenus && typeof window.SaheliaContenus[cleNormalisee] === 'string') {
+          // 1. Priorité aux contenus embarqués (Permet un fonctionnement immédiat sous le protocole file:///)
           texteMd = window.SaheliaContenus[cleNormalisee];
         } else {
           // 2. Repli réseau fetch standard (lorsque le site est servi via HTTP/HTTPS)

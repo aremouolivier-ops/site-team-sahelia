@@ -27,9 +27,6 @@
         <a href="index.html" class="v-btn v-btn--fantome" style="min-height: 34px; padding: 0 0.75rem; font-size: 0.78rem;">
           ← Vitrine
         </a>
-        <a href="verifier.html" class="v-btn v-btn--fantome" style="min-height: 34px; padding: 0 0.75rem; font-size: 0.78rem;">
-          🔍 Vérifier
-        </a>
       </div>
 
       <!-- Sélecteur rapide de cours -->
@@ -69,15 +66,17 @@
         <button type="button" id="btn-zen-mode" class="btn-outil-lecture" title="Basculer en mode lecture zen (plein écran)">
           ⛶ Zen
         </button>
-        <button type="button" id="btn-imprimer-cours" class="btn-outil-lecture" title="Imprimer ou enregistrer en PDF">
-          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-          PDF
+        <button type="button" id="btn-partager-lien-cours" class="btn-outil-lecture" title="Copier le lien direct unique de ce cours pour le partager">
+          🔗 Partager
         </button>
       </div>
     </div>
     <!-- Progression de lecture sticky -->
     <div id="barre-progression-lecture" class="barre-progression-fixe"></div>
   </header>
+
+  <!-- Bannière d'annonces et flash-infos (gérée dynamiquement) -->
+  <div id="banniere-annonces-sahelia" style="display: none;"></div>
 
   <!-- ========================================================================= -->
   <!-- 2. STRUCTURE PRINCIPALE DU LECTEUR                                        -->

@@ -512,46 +512,9 @@ a {
   border: 1px solid var(--bleu);
 }
 
-/* Zone d'impression A4 haute résolution */
-#zone-impression-badge {
-  display: none;
-}
-
+/* Consultation exclusive en ligne sur la plateforme TEAM Sahélia */
 @media print {
-  @page {
-    size: A4 portrait;
-    margin: 10mm;
-  }
   body {
-    background: #ffffff !important;
-    color: #000000 !important;
-  }
-  body > * {
     display: none !important;
-  }
-  #zone-impression-badge {
-    display: block !important;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: #ffffff;
-    color: #111111;
-    font-family: system-ui, sans-serif;
-  }
-  .print-page-a4 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    page-break-after: always;
-  }
-  .print-badge-cadre {
-    border: 1px dashed #888888;
-    padding: 8px;
-    border-radius: 8px;
-    position: relative;
-    display: inline-block;
   }
 }

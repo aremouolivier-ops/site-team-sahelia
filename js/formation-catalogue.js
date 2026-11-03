@@ -1005,6 +1005,19 @@
     }
   };
 
+  // Chargement des cours créés dynamiquement par l'administrateur
+  try {
+    if (typeof localStorage !== 'undefined') {
+      const rawCustom = localStorage.getItem('sahelia_cours_custom_db');
+      if (rawCustom) {
+        const customObj = JSON.parse(rawCustom);
+        Object.assign(CATALOGUE, customObj);
+      }
+    }
+  } catch (e) {
+    console.warn('Impossible de charger les cours personnalisés', e);
+  }
+
   window.SaheliaCatalogue = {
     POLES,
     CATALOGUE,
@@ -1027,6 +1040,39 @@
 
     listerParPole(poleId) {
       return Object.values(CATALOGUE).filter((c) => c.poleId === poleId);
+    },
+
+    /**
+     * Génère le lien direct unique pour un cours (existant ou futur)
+     */
+    obtenirLienPartage(coursId) {
+      const base = (typeof window !== 'undefined' && window.location)
+        ? window.location.href.split('?')[0].replace(/\/[^/]*$/, '')
+        : 'https://aremouolivier-ops.github.io/site-team-sahelia';
+      return `${base}/formation.html?cours=${encodeURIComponent(coursId)}`;
+    },
+
+    /**
+     * Enregistre un nouveau cours créé par l'administrateur
+     */
+    ajouterCours(coursObj) {
+      if (!coursObj || !coursObj.id) return { succes: false, erreur: 'ID de cours manquant' };
+      CATALOGUE[coursObj.id] = coursObj;
+      try {
+        if (typeof localStorage !== 'undefined') {
+          const rawCustom = localStorage.getItem('sahelia_cours_custom_db');
+          const customs = rawCustom ? JSON.parse(rawCustom) : {};
+          customs[coursObj.id] = coursObj;
+          localStorage.setItem('sahelia_cours_custom_db', JSON.stringify(customs));
+        }
+        return {
+          succes: true,
+          lien: this.obtenirLienPartage(coursObj.id),
+          cours: coursObj
+        };
+      } catch (e) {
+        return { succes: false, erreur: 'Erreur lors de la sauvegarde : ' + e.message };
+      }
     }
   };
 })();

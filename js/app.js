@@ -149,7 +149,38 @@
   // ---------------------------------------------------------------------------
   // 2. ACTUALISATION DE LA VITRINE PUBLIQUE
   // ---------------------------------------------------------------------------
+  function initialiserBanniereAnnonces() {
+    const conteneur = document.getElementById('banniere-annonces-sahelia');
+    if (!conteneur || !window.SaheliaDB) return;
+    const annonces = (window.SaheliaDB.annonces || []).filter((a) => a && a.actif);
+    if (annonces.length === 0) {
+      conteneur.style.display = 'none';
+      return;
+    }
+    const a = annonces[0];
+    const typeIcons = {
+      info: '📢 Information',
+      pub: '🌟 Annonce Partenaire',
+      alerte: '🚨 Flash Info',
+      partenariat: '🤝 Coopération'
+    };
+    const libelleType = typeIcons[a.type] || '📢 Annonce';
+    conteneur.style.display = 'block';
+    conteneur.innerHTML = `
+      <div style="background: linear-gradient(90deg, #0b2b24, #123e34); border-bottom: 1px solid var(--bordure); padding: 0.65rem 1rem; color: var(--texte); font-size: 0.88rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+          <span class="etiquette etiquette--or" style="font-size: 0.65rem;">${escapeHTML(libelleType)}</span>
+          <strong style="color: var(--texte);">${escapeHTML(a.titre)} :</strong>
+          <span style="color: var(--texte-2);">${escapeHTML(a.message)}</span>
+          ${a.lien ? `<a href="${escapeHTML(a.lien)}" target="_blank" rel="noopener noreferrer" style="color: var(--marque); text-decoration: underline; font-weight: bold;">En savoir plus →</a>` : ''}
+        </div>
+        <button type="button" onclick="document.getElementById('banniere-annonces-sahelia').style.display='none'" style="background: transparent; border: none; color: var(--texte-3); cursor: pointer; font-size: 1.1rem; padding: 0 0.4rem;" title="Masquer l’annonce">✕</button>
+      </div>
+    `;
+  }
+
   function actualiserVitrine() {
+    initialiserBanniereAnnonces();
     const DB = window.SaheliaDB;
 
     // Boutons WhatsApp (avec validation stricte du protocole http/https)
@@ -279,29 +310,48 @@
     // -------------------------------------------------------------------------
     function peuplerSelectMembres() {
       if (!selectMembrePreset) return;
-      const opts = DB.membres
-        .map(
-          (m, idx) =>
-            `<option value="${escapeHTML(m.id)}" ${idx === 0 ? 'selected' : ''}>${escapeHTML(m.nom)} (${escapeHTML(m.role)}) — ${escapeHTML(m.id)}</option>`
-        )
-        .join('');
-
-      selectMembrePreset.innerHTML = opts + `<option value="custom">➕ Saisie libre / Nouveau profil...</option>`;
-
-      etatApp.membreSelectionne = DB.membres[0] || null;
+      const membres = Array.isArray(DB.membres) ? DB.membres : [];
+      if (membres.length > 0) {
+        const opts = membres
+          .map(
+            (m, idx) =>
+              `<option value="${escapeHTML(m.id)}" ${idx === 0 ? 'selected' : ''}>${escapeHTML(m.nom)} (${escapeHTML(m.role)}) — ${escapeHTML(m.id)}</option>`
+          )
+          .join('');
+        selectMembrePreset.innerHTML = opts + `<option value="custom">➕ Saisie libre / Mon profil...</option>`;
+        etatApp.membreSelectionne = membres[0];
+      } else {
+        selectMembrePreset.innerHTML = `<option value="custom" selected>➕ Saisie libre / Mon profil...</option>`;
+        etatApp.membreSelectionne = null;
+      }
       synchroniserChampsMembre();
     }
 
     function synchroniserChampsMembre() {
       const m = etatApp.membreSelectionne;
-      if (!m) return;
+      const inputMembreTel = document.getElementById('membre-tel-input');
+      const inputMembreEmail = document.getElementById('membre-email-input');
+      const inputMembreSexe = document.getElementById('membre-sexe-input');
+      const inputMembreSlogan = document.getElementById('membre-slogan-input');
+
+      if (!m) {
+        if (inputMembreNom) inputMembreNom.value = '';
+        if (inputMembreRole) inputMembreRole.value = '';
+        if (inputMembreInst) inputMembreInst.value = '';
+        if (inputMembreTel) inputMembreTel.value = '';
+        if (inputMembreEmail) inputMembreEmail.value = '';
+        if (inputMembreId) inputMembreId.value = 'TS-MBR-2026-001';
+        if (inputMembreSexe) inputMembreSexe.value = 'M';
+        if (inputMembreSlogan) inputMembreSlogan.value = '';
+        return;
+      }
       if (inputMembreNom) inputMembreNom.value = m.nom || '';
       if (inputMembreRole) inputMembreRole.value = m.role || '';
       if (inputMembreInst) inputMembreInst.value = m.institution || '';
+      if (inputMembreTel) inputMembreTel.value = m.telephone || '';
+      if (inputMembreEmail) inputMembreEmail.value = m.email || '';
       if (inputMembreId) inputMembreId.value = m.id || '';
-      const inputMembreSexe = document.getElementById('membre-sexe-input');
       if (inputMembreSexe) inputMembreSexe.value = m.sexe || 'M';
-      const inputMembreSlogan = document.getElementById('membre-slogan-input');
       if (inputMembreSlogan) inputMembreSlogan.value = m.slogan || '';
     }
 
@@ -656,12 +706,79 @@
       });
     }
 
-    // Téléchargement Unique PNG HD (avec noms de fichiers sécurisés)
+    // Téléchargement Unique PNG HD (avec validation stricte des formulaires)
     if (btnTelecharger) {
       btnTelecharger.addEventListener('click', () => {
-        let nomFichier = 'Badge_TEAM_SAHELIA';
-        const type = etatApp.typeBadge;
+        const feedback = document.getElementById('badge-form-feedback');
+        const afficherErreur = (msg) => {
+          if (feedback) {
+            feedback.style.display = 'block';
+            feedback.style.background = 'rgba(239, 68, 68, 0.15)';
+            feedback.style.border = '1px solid #ef4444';
+            feedback.style.color = '#fca5a5';
+            feedback.textContent = '⚠️ ' + msg;
+          } else {
+            alert(msg);
+          }
+        };
 
+        const type = etatApp.typeBadge;
+        if (type === 'membre') {
+          const valNom = window.SaheliaValidateur
+            ? window.SaheliaValidateur.validerNom(inputMembreNom ? inputMembreNom.value : '', 'Nom & Prénom')
+            : { valide: true };
+          if (!valNom.valide) {
+            afficherErreur(valNom.message);
+            if (inputMembreNom) inputMembreNom.focus();
+            return;
+          }
+
+          const valRole = window.SaheliaValidateur
+            ? window.SaheliaValidateur.validerTexte(inputMembreRole ? inputMembreRole.value : '', 'Rôle / Titre', 2, 60)
+            : { valide: true };
+          if (!valRole.valide) {
+            afficherErreur(valRole.message);
+            if (inputMembreRole) inputMembreRole.focus();
+            return;
+          }
+
+          const valInst = window.SaheliaValidateur
+            ? window.SaheliaValidateur.validerTexte(inputMembreInst ? inputMembreInst.value : '', 'Institution / Faculté', 2, 80)
+            : { valide: true };
+          if (!valInst.valide) {
+            afficherErreur(valInst.message);
+            if (inputMembreInst) inputMembreInst.focus();
+            return;
+          }
+
+          const inputMembreTel = document.getElementById('membre-tel-input');
+          const valTel = window.SaheliaValidateur
+            ? window.SaheliaValidateur.validerTelephone(inputMembreTel ? inputMembreTel.value : '', true)
+            : { valide: true };
+          if (!valTel.valide) {
+            afficherErreur(valTel.message);
+            if (inputMembreTel) inputMembreTel.focus();
+            return;
+          }
+
+          const inputMembreEmail = document.getElementById('membre-email-input');
+          if (inputMembreEmail && inputMembreEmail.value.trim()) {
+            const valEmail = window.SaheliaValidateur
+              ? window.SaheliaValidateur.validerEmail(inputMembreEmail.value, false)
+              : { valide: true };
+            if (!valEmail.valide) {
+              afficherErreur(valEmail.message);
+              inputMembreEmail.focus();
+              return;
+            }
+          }
+        }
+
+        if (feedback) {
+          feedback.style.display = 'none';
+        }
+
+        let nomFichier = 'Badge_TEAM_SAHELIA';
         if (type === 'membre') {
           const nom = safeFileName(inputMembreNom ? inputMembreNom.value : 'Membre');
           const id = safeFileName(inputMembreId ? inputMembreId.value : 'TS-MBR');
@@ -682,46 +799,6 @@
         a.download = nomFichier;
         a.href = canvas.toDataURL('image/png');
         a.click();
-      });
-    }
-
-    // Impression / Export PDF (Planche A4 Recto + Verso)
-    if (btnImprimerPdf) {
-      btnImprimerPdf.addEventListener('click', () => {
-        const printImg = document.getElementById('print-badge-img');
-        const printVersoImg = document.getElementById('print-badge-verso-img');
-
-        if (printImg) {
-          // 1. Image Recto depuis le canvas actuel
-          printImg.src = canvas.toDataURL('image/png');
-
-          // 2. Génération dynamique du Verso officiel
-          if (printVersoImg && window.BadgeEngine.dessinerBadgeVerso) {
-            const cvsVerso = document.createElement('canvas');
-            let dataBadge = {};
-            if (etatApp.typeBadge === 'membre') {
-              dataBadge = { id: inputMembreId ? inputMembreId.value : 'TS-MBR' };
-            } else if (etatApp.typeBadge === 'formation') {
-              const part = etatApp.participantSelectionne || {};
-              dataBadge = { id: part.id || 'TS-FOR' };
-            } else if (etatApp.typeBadge === 'competence') {
-              const attr = etatApp.attributionSelectionnee || {};
-              dataBadge = { id: attr.id || 'TS-SKL' };
-            }
-
-            window.BadgeEngine.genererBadgeSurCanvas(cvsVerso, {
-              type: 'verso',
-              format: etatApp.formatBadge,
-              data: dataBadge,
-            });
-
-            printVersoImg.src = cvsVerso.toDataURL('image/png');
-          }
-
-          setTimeout(() => {
-            window.print();
-          }, 300);
-        }
       });
     }
 
