@@ -1,32 +1,9 @@
 [build]
   publish = "."
 
-[[redirects]]
-  from = "/manuels/*"
-  to = "/formation.html"
-  status = 302
-
-[[redirects]]
-  from = "/guides/*"
-  to = "/formation.html"
-  status = 302
-
-[[redirects]]
-  from = "/badges"
-  to = "/#badges"
-  status = 302
-
-[[redirects]]
-  from = "/formation"
-  to = "/formation.html"
-  status = 200
-
-[[redirects]]
-  from = "/verifier"
-  to = "/verifier.html"
-  status = 200
-
-[[redirects]]
-  from = "/admin"
-  to = "/admin.html"
-  status = 200
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"

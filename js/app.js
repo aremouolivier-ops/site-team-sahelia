@@ -43,9 +43,12 @@
   }
 
   // ---------------------------------------------------------------------------
-  // 1. ÉTAT GLOBAL DE L'APPLICATION
+  // 1. ÉTAT GLOBAL DE L'APPLICATION & COORDONNÉES OFFICIELLES
   // ---------------------------------------------------------------------------
-  const LIEN_WHATSAPP_DEFAUT = 'https://chat.whatsapp.com/G9L8vSahéliaOfficiel2026';
+  const LIEN_WHATSAPP_DEFAUT = 'https://chat.whatsapp.com/Gzp3bkauIIz8341VeMHOv7';
+  const EMAIL_OFFICIEL_SAHELIA = 'teamsahelia@gmail.com';
+  const NUMERO_WHATSAPP_SAHELIA = '+229 40 73 84 69';
+  const LIEN_WHATSAPP_DIRECT = 'https://wa.me/22940738469';
 
   const GUIDES_DETAILS = {
     'guide-01': {
@@ -131,7 +134,13 @@
   };
 
   const etatApp = {
-    lienWhatsApp: localStorage.getItem('sahelia_lien_whatsapp') || LIEN_WHATSAPP_DEFAUT,
+    lienWhatsApp: (function() {
+      const stored = localStorage.getItem('sahelia_lien_whatsapp');
+      if (!stored || stored.includes('SahéliaOfficiel2026') || stored.includes('G9L8v')) {
+        return LIEN_WHATSAPP_DEFAUT;
+      }
+      return stored;
+    })(),
     typeBadge: 'membre', // 'membre' | 'formation' | 'competence'
     formatBadge: 'paysage', // 'vertical' | 'carre' | 'paysage'
 
@@ -187,6 +196,16 @@
     const safeWaUrl = isSafeHttpUrl(etatApp.lienWhatsApp) ? etatApp.lienWhatsApp : LIEN_WHATSAPP_DEFAUT;
     document.querySelectorAll('.btn-lien-whatsapp').forEach((btn) => {
       btn.href = safeWaUrl;
+    });
+
+    // Liens contacts officiels
+    document.querySelectorAll('.lien-email-officiel').forEach((el) => {
+      el.href = 'mailto:' + EMAIL_OFFICIEL_SAHELIA;
+      if (el.dataset.autoTexte) el.textContent = EMAIL_OFFICIEL_SAHELIA;
+    });
+    document.querySelectorAll('.lien-tel-officiel').forEach((el) => {
+      el.href = LIEN_WHATSAPP_DIRECT;
+      if (el.dataset.autoTexte) el.textContent = NUMERO_WHATSAPP_SAHELIA;
     });
 
     // Grille auto-adaptative des membres (utilise SaheliaDB)

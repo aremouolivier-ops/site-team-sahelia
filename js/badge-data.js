@@ -132,7 +132,24 @@
   // 6. RÉFÉRENTIEL DES ACTIVITÉS & ANNONCES PUBLIQUES DU SITE (Vierge en production)
   // ---------------------------------------------------------------------------
   const ACTIVITES_INIT = [];
-  const ANNONCES_INIT = [];
+  const CONFIG_SITE_DEFAUT = {
+    whatsappGroupe: 'https://chat.whatsapp.com/Gzp3bkauIIz8341VeMHOv7',
+    whatsappNumero: '+229 40 73 84 69',
+    emailOfficiel: 'teamsahelia@gmail.com'
+  };
+
+  const ANNONCES_INIT = [
+    {
+      id: 'ann-bienvenue-sahelia',
+      titre: '🚀 Rejoignez la Communauté Officielle TEAM Sahélia !',
+      message: 'Le groupe WhatsApp officiel de TEAM Sahélia est ouvert. Rejoignez nos agronomes, chercheurs et innovateurs au Bénin.',
+      type: 'succes',
+      lien: 'https://chat.whatsapp.com/Gzp3bkauIIz8341VeMHOv7',
+      texteLien: 'Rejoindre le Groupe WhatsApp',
+      date: new Date().toLocaleDateString('fr-FR'),
+      actif: true
+    }
+  ];
 
   // ---------------------------------------------------------------------------
   // 7. GESTION DU STOCKAGE PERSISTANT (LOCALSTORAGE SAFE & PURGE FICTIVE)
@@ -180,6 +197,7 @@
     attributions: chargerRegistre('attributions_db', ATTRIBUTIONS_INIT),
     activites: chargerRegistre('activites_db', ACTIVITES_INIT),
     annonces: chargerRegistre('annonces_db', ANNONCES_INIT),
+    configSite: chargerRegistre('config_site', CONFIG_SITE_DEFAUT),
 
     sauvegarderMembres() {
       sauvegarderRegistre('membres_db', this.membres);
@@ -195,6 +213,9 @@
     },
     sauvegarderAnnonces() {
       sauvegarderRegistre('annonces_db', this.annonces);
+    },
+    sauvegarderConfigSite() {
+      sauvegarderRegistre('config_site', this.configSite);
     },
 
     // Inscrire un participant dans une cohorte

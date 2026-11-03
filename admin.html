@@ -314,6 +314,45 @@
       <!-- ONGLET 2 : ANNONCES, PUBLICITÉS & FLASH-INFOS                       -->
       <!-- =================================================================== -->
       <section id="panel-annonces" class="admin-panel-section">
+
+        <!-- Carte de configuration des coordonnées officielles -->
+        <div class="admin-card" style="margin-bottom: 2rem; border-color: rgba(34, 197, 94, 0.4); background: radial-gradient(circle at 100% 0%, rgba(23, 112, 74, 0.15), transparent 50%), var(--surface);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; flex-wrap: wrap; gap: 0.6rem;">
+            <h2 style="font-size: 1.2rem; font-weight: 800; color: var(--texte);">
+              📱 Coordonnées Officielles & Canaux de Contact
+            </h2>
+            <span class="etiquette etiquette--vert">SYNCHRONISATION SITE EN DIRECT</span>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--texte-2); margin-bottom: 1.25rem;">
+            Ces informations sont synchronisées instantanément sur l'ensemble de la plateforme officielle (boutons d'adhésion, en-tête, pied de page et espace de formation).
+          </p>
+
+          <form id="form-admin-contacts-officiels" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div class="grille-2-cols-responsive">
+              <div>
+                <label style="display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 0.35rem;">Lien d'Invitation au Groupe WhatsApp Officiel *</label>
+                <input type="url" id="adm-contact-wa-groupe" class="champ-saisie" style="font-family: var(--police-mono);" value="https://chat.whatsapp.com/Gzp3bkauIIz8341VeMHOv7" required>
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 0.35rem;">Numéro WhatsApp d'Assistance & Mentorat *</label>
+                <input type="text" id="adm-contact-wa-num" class="champ-saisie" style="font-family: var(--police-mono);" value="+229 40 73 84 69" required>
+              </div>
+            </div>
+
+            <div>
+              <label style="display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 0.35rem;">Email Officiel du Secrétariat TEAM Sahélia *</label>
+              <input type="email" id="adm-contact-email" class="champ-saisie" style="font-family: var(--police-mono);" value="teamsahelia@gmail.com" required>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem; flex-wrap: wrap; gap: 0.8rem;">
+              <span id="contact-form-feedback" style="font-size: 0.85rem; color: #4ade80; display: none;">✓ Coordonnées officielles enregistrées et publiées sur tout le site !</span>
+              <button type="submit" class="v-btn v-btn--vert" style="min-height: 42px; padding: 0 1.4rem; font-size: 0.88rem;">
+                💾 Enregistrer & Publier ces Coordonnées
+              </button>
+            </div>
+          </form>
+        </div>
+
         <div class="admin-card" style="margin-bottom: 2rem;">
           <h2 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.4rem;">Publier une Information ou Publicité</h2>
           <p style="font-size: 0.85rem; color: var(--texte-2); margin-bottom: 1.5rem;">
@@ -621,6 +660,7 @@
         rendreListeAnnonces();
         rendreCatalogueCours();
         rendreJournalSecurite();
+        initialiserChampsContacts();
       }
 
       // -----------------------------------------------------------------------
@@ -853,6 +893,55 @@
         DB.sauvegarderAnnonces();
         actualiserCockpit();
       };
+
+      // Coordonnées officielles du site
+      function initialiserChampsContacts() {
+        const DB = window.SaheliaDB;
+        const cfg = (DB && DB.configSite) || {};
+        const inputWa = document.getElementById('adm-contact-wa-groupe');
+        const inputNum = document.getElementById('adm-contact-wa-num');
+        const inputEmail = document.getElementById('adm-contact-email');
+        if (inputWa && cfg.whatsappGroupe) inputWa.value = cfg.whatsappGroupe;
+        if (inputNum && cfg.whatsappNumero) inputNum.value = cfg.whatsappNumero;
+        if (inputEmail && cfg.emailOfficiel) inputEmail.value = cfg.emailOfficiel;
+      }
+      initialiserChampsContacts();
+
+      const formContacts = document.getElementById('form-admin-contacts-officiels');
+      if (formContacts) {
+        formContacts.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const wa = document.getElementById('adm-contact-wa-groupe').value.trim();
+          const num = document.getElementById('adm-contact-wa-num').value.trim();
+          const email = document.getElementById('adm-contact-email').value.trim();
+          const fb = document.getElementById('contact-form-feedback');
+
+          const V = window.SaheliaValidateur;
+          if (V) {
+            const valWa = V.validerUrl(wa, true);
+            if (!valWa.valide) { alert('Lien WhatsApp invalide : ' + valWa.message); return; }
+            const valNum = V.validerTelephone(num, true);
+            if (!valNum.valide) { alert('Numéro de téléphone invalide : ' + valNum.message); return; }
+            const valEmail = V.validerEmail(email, true);
+            if (!valEmail.valide) { alert('Email invalide : ' + valEmail.message); return; }
+          }
+
+          const DB = window.SaheliaDB;
+          if (DB) {
+            DB.configSite = DB.configSite || {};
+            DB.configSite.whatsappGroupe = wa;
+            DB.configSite.whatsappNumero = num;
+            DB.configSite.emailOfficiel = email;
+            DB.sauvegarderConfigSite();
+          }
+          localStorage.setItem('sahelia_lien_whatsapp', wa);
+
+          if (fb) {
+            fb.style.display = 'inline-block';
+            setTimeout(() => { fb.style.display = 'none'; }, 3000);
+          }
+        });
+      }
 
       document.getElementById('form-admin-annonce').addEventListener('submit', (e) => {
         e.preventDefault();
