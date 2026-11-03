@@ -542,10 +542,10 @@
           titre: form.titre || 'Formation TEAM Sahélia',
           cohorteNom: coh.nom || 'Cohorte Pilote',
           periode: coh.periode || 'Octobre — Novembre 2026',
-          lieu: coh.lieu || 'Campus FA-UP Parakou',
+          lieu: coh.lieu || 'Terrain & En ligne',
           formateur: coh.formateurPrincipal || form.formateur,
           beneficiaireNom: part.nom || 'Participant',
-          beneficiaireRole: part.role || 'Étudiant FA-UP',
+          beneficiaireRole: part.role || 'Membre Apprenant',
           sexe: part.sexe || 'M',
           statut: part.statut || 'en_cours',
           mention: part.mention || '',
@@ -641,12 +641,12 @@
             id: 'TS-MBR-2026-CUSTOM',
             nom: '',
             role: '',
-            institution: 'FA-UP · Université de Parakou',
+            institution: 'Communauté TEAM Sahélia',
           };
           inputMembreId.value = 'TS-MBR-2026-NOUVEAU';
           inputMembreNom.value = '';
           inputMembreRole.value = '';
-          inputMembreInst.value = 'FA-UP · Université de Parakou';
+          inputMembreInst.value = 'Communauté TEAM Sahélia';
           inputMembreNom.focus();
         } else {
           etatApp.membreSelectionne = DB.membres.find((m) => m.id === id) || null;
@@ -1230,7 +1230,7 @@
       btnValiderPart.addEventListener('click', () => {
         const cohId = document.getElementById('admin-part-cohorte').value;
         const nom = document.getElementById('admin-part-nom').value.trim();
-        const role = document.getElementById('admin-part-role').value.trim() || 'Étudiant FA-UP';
+        const role = document.getElementById('admin-part-role').value.trim() || 'Membre Apprenant';
         const statut = document.getElementById('admin-part-statut').value;
 
         if (!nom) {

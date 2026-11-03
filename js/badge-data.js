@@ -22,7 +22,7 @@
       pole: 'Géomatique & Agronomie de Précision',
       accentColor: '#2563eb', // Bleu royal
       duree: '30 heures (6 semaines)',
-      niveauRequis: 'Étudiants FA-UP (L2 à Master)',
+      niveauRequis: 'Ouvert à tous (Étudiants, Chercheurs, Professionnels)',
       description: 'Relevé GPS smartphone au champ, projection métrique UTM zone 31N, calcul de surface en hectares et export de cartes d’essais agronomiques.',
       formateur: 'Référent Géomatique TEAM Sahélia',
     },

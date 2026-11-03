@@ -381,25 +381,6 @@
         }
       });
 
-      // Gestion de la taille de police
-      const btnFontMinus = document.getElementById('btn-font-minus');
-      const btnFontPlus = document.getElementById('btn-font-plus');
-      const conteneurLecture = document.getElementById('conteneur-article-pedagogique');
-
-      if (btnFontMinus && conteneurLecture) {
-        btnFontMinus.addEventListener('click', () => {
-          conteneurLecture.classList.remove('font-grand');
-          conteneurLecture.classList.toggle('font-petit');
-        });
-      }
-
-      if (btnFontPlus && conteneurLecture) {
-        btnFontPlus.addEventListener('click', () => {
-          conteneurLecture.classList.remove('font-petit');
-          conteneurLecture.classList.toggle('font-grand');
-        });
-      }
-
       // Bouton Partage / Copie du lien direct unique
       const btnPartager = document.getElementById('btn-partager-lien-cours');
       if (btnPartager) {

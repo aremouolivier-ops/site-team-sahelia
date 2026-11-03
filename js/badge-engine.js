@@ -751,7 +751,7 @@
     ctx.fillStyle = '#93c5fd';
     dessinerTexteAutoShrink(
       ctx,
-      `${data.periode || 'Octobre — Novembre 2026'}  ·  ${data.lieu || 'Campus FA-UP'}`,
+      `${data.periode || 'Octobre — Novembre 2026'}  ·  ${data.lieu || 'Terrain & En ligne'}`,
       W / 2,
       titY + 28,
       isCarre ? W - 160 : W - 100,
@@ -821,7 +821,7 @@
     ctx.fillStyle = '#cbd5e1';
     dessinerTexteAutoShrink(
       ctx,
-      data.beneficiaireRole || 'Étudiant FA-UP Parakou',
+      data.beneficiaireRole || 'Membre Apprenant',
       cx,
       partY + 30,
       isCarre ? W - 160 : W - 100,
@@ -1012,7 +1012,7 @@
     ctx.fillStyle = '#426354';
     dessinerTexteAutoShrink(
       ctx,
-      data.beneficiaireRole || 'Étudiant Master FA-UP Parakou',
+      data.beneficiaireRole || 'Apprenant Certifié',
       cx,
       benY + 66,
       isCarre ? W - 160 : W - 100,
@@ -1261,7 +1261,7 @@
     ctx.fillStyle = '#658577';
     ctx.font = '500 12px "Figtree", sans-serif';
     ctx.fillText('Ce titre est délivré sous la supervision du Conseil Académique de TEAM Sahélia.', W / 2, footY);
-    ctx.fillText('En cas de perte, merci de le retourner : contact@team-sahelia.org · Campus FA-UP Parakou', W / 2, footY + 18);
+    ctx.fillText('En cas de perte, merci de le retourner : teamsahelia@gmail.com · TEAM Sahélia', W / 2, footY + 18);
 
     // Vagues décoratives en bas
     dessinerVagues(ctx, W, H, '#040f0b', '#103829', '#e8946a');
@@ -1346,7 +1346,7 @@
       meta1 = { label: "Programme de Formation", val: data.titre || 'Bureautique Académique : Mémoires Word & Excel' };
       meta2 = { label: "Matricule Stagiaire", val: data.id || defaultBadgeId };
       meta3 = { label: "Cohorte Académique", val: data.cohorteNom || 'Cohorte Urgence Mémoire · Novembre 2026' };
-      meta4 = { label: "Décision du Jury", val: data.mention || 'Mémoire FA-UP validé sans faille' };
+      meta4 = { label: "Décision du Jury", val: data.mention || 'Mémoire & Projet validés avec mention' };
     } else if (type === 'competence') {
       bgGrad0 = '#131411';
       bgGrad1 = '#2b2214';
@@ -1591,7 +1591,7 @@
     ctx.textAlign = 'right';
     ctx.fillStyle = '#eaf4ee';
     ctx.font = '700 11px "Figtree", sans-serif';
-    ctx.fillText('Campus FA-UP Parakou · République du Bénin', W - 45, 448);
+    ctx.fillText('Communauté TEAM Sahélia · Bénin', W - 45, 448);
 
     ctx.fillStyle = '#5fd0a0';
     ctx.font = '700 10px "JetBrains Mono", monospace';
