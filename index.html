@@ -17,24 +17,26 @@
   <header class="site-entete">
     <div class="enveloppe site-entete-rang">
       <a href="#" class="logo-lien" style="display: flex; align-items: center; gap: 0.75rem;">
-        <img src="assets/logo-sahelia.svg" alt="TEAM Sahélia" style="height: 44px; width: auto;">
+        <img src="assets/logo-sahelia.svg" alt="TEAM Sahélia" style="height: 40px; width: auto;">
       </a>
 
-      <nav class="site-nav">
+      <nav class="site-nav" aria-label="Navigation principale">
         <a href="#mission">Manifeste</a>
         <a href="#agronomie">Agronomie FA-UP</a>
         <a href="#equipe">L’Équipe</a>
         <a href="#activites">Activités</a>
-        <a href="#badges">Générateur de Badges</a>
+        <a href="#badges" class="nav-pill-special">🪪 Studio Badges</a>
         <a href="#guides">Mini-Guides</a>
-        <a href="#manuels">Manuels Stratégiques</a>
+        <a href="#manuels">11 Manuels</a>
+        <a href="formation.html">📚 Espace Formation</a>
+        <a href="verifier.html">🔍 Vérifier</a>
       </nav>
 
-      <div style="display: flex; align-items: center; gap: 0.8rem;">
-        <a href="#badges" class="v-btn v-btn--or" style="min-height: 40px; padding: 0 1.1rem; font-size: 0.85rem;">
+      <div class="site-entete-actions">
+        <a href="#badges" class="v-btn v-btn--or" style="min-height: 38px; padding: 0 1rem; font-size: 0.82rem;">
           Mon Badge
         </a>
-        <a href="#" target="_blank" rel="noopener noreferrer" class="v-btn v-btn--vert btn-lien-whatsapp" style="min-height: 40px; padding: 0 1.1rem; font-size: 0.85rem;">
+        <a href="#" target="_blank" rel="noopener noreferrer" class="v-btn v-btn--vert btn-lien-whatsapp" style="min-height: 38px; padding: 0 1rem; font-size: 0.82rem;">
           WhatsApp
         </a>
       </div>
@@ -99,7 +101,7 @@
   <!-- ========================================================================= -->
   <section id="mission" style="padding: 5rem 0; border-bottom: 1px solid var(--bordure); background: #0a1c16;">
     <div class="enveloppe">
-      <div style="max-w: 36rem; margin-bottom: 3.5rem;">
+      <div style="max-width: 36rem; margin-bottom: 3.5rem;">
         <span class="etiquette etiquette--vert" style="margin-bottom: 0.8rem;">MANIFESTE</span>
         <h2 style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800;">Notre manière de penser</h2>
         <p style="color: var(--texte-2); margin-top: 0.6rem; font-size: 1.05rem;">
@@ -246,7 +248,7 @@
               <label style="display: block; font-size: 0.78rem; font-family: var(--police-mono); font-weight: 700; color: var(--texte-2); text-transform: uppercase; margin-bottom: 0.5rem;">
                 Format du Badge
               </label>
-              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem;">
+              <div class="grille-3-cols-responsive">
                 <button type="button" class="btn-format-toggle" data-format="vertical" style="padding: 0.7rem 0.3rem; border-radius: 8px; border: 1px solid var(--bordure); background: var(--fond); color: var(--texte-2); font-weight: 700; font-size: 0.8rem; cursor: pointer; text-align: center;">
                   🏷️ Tour de Cou
                 </button>
@@ -268,7 +270,7 @@
                 <!-- Rempli dynamiquement -->
               </select>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <div class="grille-2-cols-responsive" style="margin-bottom: 0.75rem;">
                 <div>
                   <label style="display: block; font-size: 0.75rem; color: var(--texte-3); margin-bottom: 0.3rem;">Nom & Prénom(s)</label>
                   <input type="text" id="membre-nom-input" class="champ-saisie">
@@ -279,7 +281,7 @@
                 </div>
               </div>
 
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <div class="grille-2-cols-responsive" style="margin-bottom: 0.75rem;">
                 <div>
                   <label style="display: block; font-size: 0.75rem; color: var(--texte-3); margin-bottom: 0.3rem;">Institution / Faculté</label>
                   <input type="text" id="membre-inst-input" class="champ-saisie">
@@ -427,7 +429,7 @@
 
           <!-- Colonne Aperçu Rendu en Direct -->
           <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <div style="max-width: 380px; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6); border: 2px solid var(--bordure); background: #000;">
+            <div style="max-width: 480px; width: 100%; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 60px rgba(0,0,0,0.6); border: 2px solid var(--bordure); background: #000;">
               <canvas id="badge-canvas" style="width: 100%; height: auto; display: block;"></canvas>
             </div>
             <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
@@ -564,9 +566,9 @@
     <div class="enveloppe">
       <div style="text-align: center; max-width: 48rem; margin: 0 auto 3.5rem;">
         <span class="etiquette etiquette--or" style="margin-bottom: 0.8rem;">BIBLIOTHÈQUE OFFICIELLE · 4 PÔLES MÉTIERS</span>
-        <h2 style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800;">Les 10 Manuels Stratégiques</h2>
+        <h2 style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800;">Les 11 Manuels Stratégiques</h2>
         <p style="color: var(--texte-2); margin-top: 0.8rem; font-size: 1.05rem;">
-          Des manuels de référence denses de 50 à 70 pages, conçus pour le terrain sahélien, avec schémas vectoriels officiels, datasets réels et projets capstone.
+          Des manuels de référence denses de 50 à 75 pages, conçus pour le terrain sahélien, avec schémas vectoriels officiels, datasets réels et projets capstone.
         </p>
         <div style="margin-top: 1.2rem; display: inline-flex; align-items: center; gap: 0.6rem; background: rgba(232, 148, 106, 0.12); border: 1px solid rgba(232, 148, 106, 0.35); padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.82rem; color: var(--terre);">
           <span>🔒</span>
@@ -713,6 +715,16 @@
           <a href="formation.html?cours=mn-10" class="v-btn v-btn--fantome" style="min-height: 38px; font-size: 0.82rem; width: 100%;">Consulter le Manuel →</a>
         </article>
 
+        <!-- Manuel 11 -->
+        <article style="background: var(--surface); border: 1px solid var(--bordure-active); border-radius: 14px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <span class="etiquette etiquette--bleu" style="font-size: 0.68rem; margin-bottom: 0.6rem;">MANUEL 11 · DRONES & PRÉCISION</span>
+            <h4 style="font-size: 1.1rem; font-weight: 700; color: var(--texte); margin-bottom: 0.5rem;">Pilotage de Drones & Drones Agricoles</h4>
+            <p style="font-size: 0.82rem; color: var(--texte-2); line-height: 1.5; margin-bottom: 1rem;">Anatomie des drones, pilotage Mode 2, réglementation ANAC Bénin, photogrammétrie GSD, pulvérisation calibrée (Downwash) et couplage QGIS.</p>
+          </div>
+          <a href="formation.html?cours=mn-11" class="v-btn v-btn--vert" style="min-height: 38px; font-size: 0.82rem; width: 100%;">Consulter le Manuel →</a>
+        </article>
+
       </div>
     </div>
   </section>
@@ -811,8 +823,8 @@
         </button>
       </div>
 
-      <!-- Navigation onglets admin -->
-      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--bordure); padding-bottom: 0.75rem;">
+      <!-- Navigation onglets admin (scrollable horizontalement sans débordement) -->
+      <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--bordure); padding-bottom: 0.75rem; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: thin;">
         <button type="button" class="admin-tab-btn actif" data-tab="membres" style="padding: 0.5rem 1rem; border-radius: 6px; border: none; background: var(--marque); color: #06100c; font-weight: 700; font-size: 0.85rem; cursor: pointer;">
           Membres de l'Équipe
         </button>
@@ -842,7 +854,7 @@
         <!-- Formulaire nouveau membre -->
         <div id="box-nouveau-membre" style="display: none; background: var(--fond); border: 1px solid var(--bordure); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
           <form id="form-nouveau-membre" style="display: flex; flex-direction: column; gap: 0.8rem;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+            <div class="grille-2-cols-responsive">
               <input type="text" id="admin-nom-input" placeholder="Prénom & Nom" class="champ-saisie">
               <input type="text" id="admin-role-input" placeholder="Rôle ou Spécialité" class="champ-saisie">
             </div>
@@ -874,11 +886,11 @@
         <!-- Formulaire nouvelle activité -->
         <div id="box-nouvelle-activite" style="display: none; background: var(--fond); border: 1px solid var(--bordure); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
           <form id="form-nouvelle-activite" style="display: flex; flex-direction: column; gap: 0.8rem;">
-            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.8rem;">
+            <div class="grille-2-cols-responsive">
               <input type="text" id="admin-act-titre" placeholder="Titre de l'activité ou de l'annonce" class="champ-saisie">
               <input type="text" id="admin-act-type" placeholder="Type (ex: Atelier Pratique, Publication)" class="champ-saisie">
             </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+            <div class="grille-2-cols-responsive">
               <input type="text" id="admin-act-date" placeholder="Date ou Période (ex: Novembre 2026)" class="champ-saisie">
               <input type="text" id="admin-act-statut" placeholder="Statut (ex: Inscriptions Ouvertes, Disponible)" class="champ-saisie">
             </div>
@@ -926,14 +938,14 @@
         <div id="box-nouvelle-certif" style="display: none; background: var(--fond); border: 1px solid var(--terre); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
           <h4 style="font-size: 0.95rem; color: var(--terre); margin-bottom: 0.8rem;">Délivrance d'une Attestation de Compétence</h4>
           <form id="form-nouvelle-certif" style="display: flex; flex-direction: column; gap: 0.8rem;">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+            <div class="grille-2-cols-responsive">
               <input type="text" id="admin-certif-nom" placeholder="Nom complet du titulaire" class="champ-saisie">
               <input type="text" id="admin-certif-role" placeholder="Rôle (ex: Étudiant Master FA-UP)" class="champ-saisie">
             </div>
             <select id="admin-certif-comp" class="champ-saisie">
               <!-- Rempli par app.js -->
             </select>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+            <div class="grille-2-cols-responsive">
               <select id="admin-certif-niveau" class="champ-saisie">
                 <option value="Pratique Validée">Niveau : Pratique Validée</option>
                 <option value="Avancé">Niveau : Avancé</option>
@@ -956,7 +968,7 @@
             <select id="admin-part-cohorte" class="champ-saisie">
               <!-- Rempli par app.js -->
             </select>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;">
+            <div class="grille-2-cols-responsive">
               <input type="text" id="admin-part-nom" placeholder="Nom de l'étudiant" class="champ-saisie">
               <input type="text" id="admin-part-role" placeholder="Promotion (ex: Étudiant L3 FA-UP)" class="champ-saisie">
             </div>

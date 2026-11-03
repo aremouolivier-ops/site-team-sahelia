@@ -32,6 +32,16 @@
     return String(str || '').replace(/[^A-Za-z0-9_-]/g, '');
   }
 
+  function isSafeHttpUrl(urlStr) {
+    if (!urlStr) return false;
+    try {
+      const parsed = new URL(urlStr, window.location.origin);
+      return parsed.protocol === 'https:' || parsed.protocol === 'http:';
+    } catch (e) {
+      return false;
+    }
+  }
+
   // ---------------------------------------------------------------------------
   // 1. ÉTAT GLOBAL DE L'APPLICATION
   // ---------------------------------------------------------------------------
@@ -142,9 +152,10 @@
   function actualiserVitrine() {
     const DB = window.SaheliaDB;
 
-    // Boutons WhatsApp
+    // Boutons WhatsApp (avec validation stricte du protocole http/https)
+    const safeWaUrl = isSafeHttpUrl(etatApp.lienWhatsApp) ? etatApp.lienWhatsApp : LIEN_WHATSAPP_DEFAUT;
     document.querySelectorAll('.btn-lien-whatsapp').forEach((btn) => {
-      btn.href = etatApp.lienWhatsApp;
+      btn.href = safeWaUrl;
     });
 
     // Grille auto-adaptative des membres (utilise SaheliaDB)
@@ -868,10 +879,20 @@
 
     if (!modal || !btnOuvrir) return;
 
-    btnOuvrir.addEventListener('click', () => {
-      const mdp = prompt('Accès réservé à l’éditeur de TEAM Sahélia.\nVeuillez saisir votre mot de passe administrateur :', '');
+    btnOuvrir.addEventListener('click', async () => {
+      const mdp = prompt('Accès réservé à l’éditeur de TEAM Sahélia.\nVeuillez saisir votre Clé Maître d’Administration :', '');
       if (mdp === null) return;
-      if (mdp === 'sahelia2026' || mdp === 'admin') {
+
+      let autorise = false;
+      let msgErreur = 'Mot de passe ou clé maître incorrecte.';
+
+      if (window.SaheliaSecurite && typeof window.SaheliaSecurite.authentifierAdmin === 'function') {
+        const res = await window.SaheliaSecurite.authentifierAdmin(mdp, true);
+        autorise = res.succes === true;
+        if (!autorise && res.erreur) msgErreur = res.erreur;
+      }
+
+      if (autorise) {
         modal.classList.add('ouvert');
         actualiserListeAdminMembres();
         actualiserListeAdminActivites();
@@ -882,7 +903,7 @@
         const inputWa = document.getElementById('admin-whatsapp-input');
         if (inputWa) inputWa.value = etatApp.lienWhatsApp;
       } else {
-        alert('Mot de passe incorrect.');
+        alert(msgErreur);
       }
     });
 
@@ -957,12 +978,15 @@
       });
     }
 
-    // Enregistrement du lien WhatsApp
+    // Enregistrement du lien WhatsApp (validation HTTPS/HTTP anti-XSS)
     const btnSaveWa = document.getElementById('btn-save-whatsapp');
     if (btnSaveWa) {
       btnSaveWa.addEventListener('click', () => {
         const url = document.getElementById('admin-whatsapp-input').value.trim();
-        if (!url) return;
+        if (!url || !isSafeHttpUrl(url)) {
+          alert('Veuillez saisir une adresse URL valide commençant par https:// ou http://');
+          return;
+        }
         etatApp.lienWhatsApp = url;
         localStorage.setItem('sahelia_lien_whatsapp', url);
         actualiserVitrine();
@@ -1138,12 +1162,16 @@
     const DB = window.SaheliaDB;
     const selectComp = document.getElementById('admin-certif-comp');
     if (selectComp && DB.competences) {
-      selectComp.innerHTML = DB.competences.map((c) => `<option value="${c.id}">${c.titre} (${c.domaine})</option>`).join('');
+      selectComp.innerHTML = DB.competences
+        .map((c) => `<option value="${escapeHTML(c.id)}">${escapeHTML(c.titre)} (${escapeHTML(c.domaine)})</option>`)
+        .join('');
     }
 
     const selectCoh = document.getElementById('admin-part-cohorte');
     if (selectCoh && DB.cohortes) {
-      selectCoh.innerHTML = DB.cohortes.map((c) => `<option value="${c.id}">${c.nom} (${c.periode})</option>`).join('');
+      selectCoh.innerHTML = DB.cohortes
+        .map((c) => `<option value="${escapeHTML(c.id)}">${escapeHTML(c.nom)} (${escapeHTML(c.periode)})</option>`)
+        .join('');
     }
   }
 

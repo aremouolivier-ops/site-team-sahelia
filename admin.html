@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Console d’Administration & Édition · TEAM Sahélia</title>
+  <meta name="description" content="Portail de supervision, d'édition pédagogique et de contrôle de sécurité de TEAM Sahélia.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-sahelia.svg">
+  <meta name="theme-color" content="#08130f">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(circle at 50% 0%, rgba(23, 112, 74, 0.2), transparent 60%), var(--fond);
+    }
+    .admin-card {
+      background: var(--surface);
+      border: 1px solid var(--bordure);
+      border-radius: 18px;
+      padding: clamp(1.25rem, 3vw, 2rem);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .admin-grid-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .stat-box {
+      background: var(--fond);
+      border: 1px solid var(--bordure);
+      border-radius: 14px;
+      padding: 1.2rem;
+      border-top: 3px solid var(--marque);
+    }
+    .cours-admin-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body class="admin-page-wrapper">
+
+  <!-- En-tête fluide & scrollable -->
+  <header class="site-entete">
+    <div class="enveloppe site-entete-rang">
+      <a href="index.html" class="logo-lien" style="display: flex; align-items: center; gap: 0.75rem;">
+        <img src="assets/logo-sahelia.svg" alt="TEAM Sahélia" style="height: 38px; width: auto;">
+      </a>
+
+      <nav class="site-nav" aria-label="Navigation administration">
+        <a href="index.html">← Vitrine Publique</a>
+        <a href="formation.html">📚 Lecteur de Formation</a>
+        <a href="verifier.html">🔍 Portail Vérification</a>
+        <a href="#sec-cours" class="nav-pill-special">👑 16 Cours & Manuels</a>
+        <a href="#sec-securite">🔐 Sécurité & Codes</a>
+        <a href="#sec-registre">🪪 Registre Badges</a>
+      </nav>
+
+      <div class="site-entete-actions" id="admin-header-session">
+        <a href="index.html#badges" class="v-btn v-btn--or" style="min-height: 36px; padding: 0 0.9rem; font-size: 0.8rem;">
+          Studio Badges
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="enveloppe" style="flex: 1; padding: 2.5rem 0 4rem;">
+
+    <!-- ÉCRAN DE CONNEXION ADMIN SI NON AUTHENTIFIÉ -->
+    <section id="admin-login-box" class="admin-card" style="max-width: 520px; margin: 2rem auto; text-align: center;">
+      <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(232, 148, 106, 0.15); border: 2px solid var(--terre); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; font-size: 1.6rem;">
+        👑
+      </div>
+      <span class="etiquette etiquette--or" style="margin-bottom: 0.6rem;">ESPACE DIRECTION & ÉDITION</span>
+      <h1 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem;">Console Super-Administrateur</h1>
+      <p style="font-size: 0.9rem; color: var(--texte-2); margin-bottom: 1.5rem;">
+        Authentifiez-vous avec votre Clé Maître pour déverrouiller les 16 cours sans badge, gérer le code d'accès fondation et superviser le registre officiel.
+      </p>
+
+      <div id="admin-login-erreur" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #fca5a5; padding: 0.75rem; border-radius: 8px; font-size: 0.85rem; margin-bottom: 1rem;"></div>
+
+      <form id="form-login-admin" style="display: flex; flex-direction: column; gap: 1rem; text-align: left;">
+        <div>
+          <label for="input-cle-admin" style="display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 0.35rem;">Clé Maître d'Administration & Édition :</label>
+          <input type="password" id="input-cle-admin" class="champ-saisie" placeholder="Saisissez votre clé maître..." required autocomplete="current-password">
+        </div>
+        <button type="submit" id="btn-submit-admin" class="v-btn v-btn--vert" style="width: 100%;">
+          👑 Ouvrir la Console Super-Administrateur
+        </button>
+      </form>
+    </section>
+
+    <!-- TABLEAU DE BORD COMPLET (VISIBLE UNE FOIS AUTHENTIFIÉ) -->
+    <div id="admin-dashboard-content" style="display: none;">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+        <div>
+          <span class="etiquette etiquette--vert" style="margin-bottom: 0.4rem;">SESSION SUPER-ADMIN ACTIVE</span>
+          <h1 style="font-size: clamp(1.6rem, 3.5vw, 2.3rem); font-weight: 800;">Tableau de Bord Fondateur & Éditeur</h1>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+          <a href="formation.html?cours=mn-01" class="v-btn v-btn--vert" style="min-height: 40px; font-size: 0.85rem;">
+            📖 Ouvrir le Lecteur (Accès Direct)
+          </a>
+          <button type="button" id="btn-logout-admin" class="v-btn v-btn--fantome" style="min-height: 40px; font-size: 0.85rem; border-color: #ef4444; color: #f87171;">
+            ✕ Déconnexion
+          </button>
+        </div>
+      </div>
+
+      <!-- Statistiques rapides -->
+      <div class="admin-grid-stats">
+        <div class="stat-box">
+          <span style="font-size: 0.72rem; font-family: var(--police-mono); color: var(--texte-3); text-transform: uppercase;">Catalogue Pédagogique</span>
+          <div style="font-size: 1.8rem; font-weight: 800; color: var(--marque); margin-top: 0.2rem;">16 Cours</div>
+          <small style="font-size: 0.78rem; color: var(--texte-2);">11 Manuels + 5 Mini-Guides</small>
+        </div>
+        <div class="stat-box" style="border-top-color: var(--terre);">
+          <span style="font-size: 0.72rem; font-family: var(--police-mono); color: var(--texte-3); text-transform: uppercase;">Époque de Sécurité</span>
+          <div id="dash-epoch" style="font-size: 1.8rem; font-weight: 800; color: var(--terre); margin-top: 0.2rem;">#1</div>
+          <small id="dash-rotation-date" style="font-size: 0.78rem; color: var(--texte-2);">Protection SHA-256 active</small>
+        </div>
+        <div class="stat-box" style="border-top-color: var(--bleu);">
+          <span style="font-size: 0.72rem; font-family: var(--police-mono); color: var(--texte-3); text-transform: uppercase;">Membres Officiels</span>
+          <div id="dash-nb-membres" style="font-size: 1.8rem; font-weight: 800; color: var(--bleu); margin-top: 0.2rem;">6</div>
+          <small style="font-size: 0.78rem; color: var(--texte-2);">Enregistrés dans SaheliaDB</small>
+        </div>
+        <div class="stat-box">
+          <span style="font-size: 0.72rem; font-family: var(--police-mono); color: var(--texte-3); text-transform: uppercase;">Attestations & Cohortes</span>
+          <div id="dash-nb-certifs" style="font-size: 1.8rem; font-weight: 800; color: var(--texte); margin-top: 0.2rem;">12</div>
+          <small style="font-size: 0.78rem; color: var(--texte-2);">Vérifiables par QR Code</small>
+        </div>
+      </div>
+
+      <!-- SECTION 1 : ACCÈS DIRECT AUX 16 COURS SANS BADGE -->
+      <section id="sec-cours" class="admin-card" style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.4rem;">📚 Accès Éditeur Direct aux 16 Cours (Sans Restrictions)</h2>
+        <p style="font-size: 0.88rem; color: var(--texte-2); margin-bottom: 1.25rem;">
+          Votre session Super-Administrateur vous permet d'inspecter instantanément chaque manuel stratégique et chaque mini-guide.
+        </p>
+        <div id="grille-admin-cours" class="cours-admin-grid">
+          <!-- Rempli dynamiquement -->
+        </div>
+      </section>
+
+      <!-- SECTION 2 : ROTATION DU CODE & RÉVOCATION -->
+      <section id="sec-securite" class="admin-card" style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 0.4rem;">🔐 Contrôle d'Accès Fondation & Révocation d'Urgence</h2>
+        <p style="font-size: 0.88rem; color: var(--texte-2); margin-bottom: 1.25rem;">
+          Modifiez le code secret partagé avec les membres certifiés ou invalidez instantanément toutes les sessions actives.
+        </p>
+
+        <div class="grille-2-cols-responsive" style="gap: 1.5rem; align-items: start;">
+          <div style="background: var(--fond); border: 1px solid var(--bordure); border-radius: 14px; padding: 1.25rem;">
+            <h3 style="font-size: 1rem; font-weight: 700; color: var(--marque); margin-bottom: 0.6rem;">🔑 Renouveler le Code d'Accès Fondation</h3>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              <input type="text" id="page-admin-nouveau-code" class="champ-saisie" placeholder="Nouveau code (min. 6 caractères, ex: SAHELIA-PROMO-2026)" style="font-family: var(--police-mono);">
+              <input type="text" id="page-admin-motif-code" class="champ-saisie" placeholder="Motif pour le journal d'audit">
+              <button type="button" id="page-admin-btn-code" class="v-btn v-btn--vert" style="min-height: 42px; font-size: 0.85rem;">
+                Mettre à jour le Code & Incrémenter l'Époque
+              </button>
+            </div>
+          </div>
+
+          <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 14px; padding: 1.25rem;">
+            <h3 style="font-size: 1rem; font-weight: 700; color: #f87171; margin-bottom: 0.6rem;">🛑 Révocation Générale Immédiate</h3>
+            <p style="font-size: 0.82rem; color: var(--texte-2); margin-bottom: 1rem;">
+              Incrémente immédiatement l'époque de sécurité et déconnecte tous les appareils connectés aux manuels stratégiques.
+            </p>
+            <button type="button" id="page-admin-btn-revoke" class="v-btn v-btn--fantome" style="border-color: #ef4444; color: #f87171; width: 100%; min-height: 42px; font-size: 0.85rem;">
+              Révoquer 100% des Sessions Actives
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 3 : REGISTRE DES BADGES -->
+      <section id="sec-registre" class="admin-card">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <h2 style="font-size: 1.3rem; font-weight: 800;">🪪 Supervision du Registre Officiel des Badges</h2>
+            <p style="font-size: 0.85rem; color: var(--texte-2);">Vérifiez, révoquez ou réhabilitez les attestations en temps réel.</p>
+          </div>
+          <a href="index.html#badges" class="v-btn v-btn--or" style="min-height: 38px; font-size: 0.82rem;">
+            Ouvrir le Studio de Génération →
+          </a>
+        </div>
+        <div id="page-admin-liste-badges" style="display: flex; flex-direction: column; gap: 0.6rem;">
+          <!-- Rempli dynamiquement -->
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <footer style="padding: 2rem 0; border-top: 1px solid var(--bordure); background: #040a08; font-size: 0.82rem; color: var(--texte-3); text-align: center;">
+    <div class="enveloppe">
+      <p>© 2026 TEAM Sahélia · Console d’Administration & de Sécurité Pédagogique · République du Bénin</p>
+    </div>
+  </footer>
+
+  <script src="js/badge-data.js"></script>
+  <script src="js/formation-catalogue.js"></script>
+  <script src="js/controle-acces.js"></script>
+  <script>
+    (function () {
+      'use strict';
+
+      function escapeHTML(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      const loginBox = document.getElementById('admin-login-box');
+      const dashBox = document.getElementById('admin-dashboard-content');
+      const errBox = document.getElementById('admin-login-erreur');
+
+      function rafraichirInterface() {
+        const session = window.SaheliaSecurite ? window.SaheliaSecurite.obtenirSessionValide() : null;
+        if (session && session.isSuperAdmin) {
+          loginBox.style.display = 'none';
+          dashBox.style.display = 'block';
+          peuplerDashboard();
+        } else {
+          loginBox.style.display = 'block';
+          dashBox.style.display = 'none';
+        }
+      }
+
+      function peuplerDashboard() {
+        const DB = window.SaheliaDB;
+        const Cat = window.SaheliaCatalogue;
+        const Sec = window.SaheliaSecurite;
+
+        if (Sec) {
+          const st = Sec.obtenirStatutSecurite();
+          document.getElementById('dash-epoch').textContent = '#' + (st.epoch || 1);
+        }
+
+        if (DB) {
+          document.getElementById('dash-nb-membres').textContent = String((DB.membres || []).length);
+          const nbPart = (DB.cohortes || []).reduce((acc, c) => acc + ((c.participants || []).length), 0);
+          document.getElementById('dash-nb-certifs').textContent = String(((DB.attributions || []).length) + nbPart);
+        }
+
+        // Grille des 16 cours
+        const grilleCours = document.getElementById('grille-admin-cours');
+        if (grilleCours && Cat) {
+          const tous = Cat.listerTous();
+          grilleCours.innerHTML = tous.map((c) => `
+            <div style="background: var(--fond); border: 1px solid var(--bordure); border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem;">
+              <div>
+                <span class="etiquette ${c.libre ? 'etiquette--vert' : 'etiquette--or'}" style="font-size: 0.65rem; margin-bottom: 0.4rem;">
+                  ${escapeHTML(c.id.toUpperCase())} · ${c.libre ? 'GUIDE LIBRE' : 'MANUEL PROTÉGÉ'}
+                </span>
+                <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--texte);">${escapeHTML(c.titre)}</h4>
+                <p style="font-size: 0.76rem; color: var(--texte-3); margin-top: 0.25rem;">${escapeHTML(c.duree || '')}</p>
+              </div>
+              <a href="formation.html?cours=${encodeURIComponent(c.id)}" class="v-btn v-btn--fantome" style="min-height: 34px; font-size: 0.78rem; width: 100%;">
+                Ouvrir dans le Lecteur →
+              </a>
+            </div>
+          `).join('');
+        }
+
+        // Liste des badges
+        const listeBadges = document.getElementById('page-admin-liste-badges');
+        if (listeBadges && DB) {
+          listeBadges.innerHTML = (DB.attributions || []).map((a) => {
+            const estRevoque = a.statut === 'revoque';
+            const cleanId = String(a.id || '').replace(/[^A-Za-z0-9_-]/g, '');
+            return `
+              <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.85rem 1rem; background: var(--fond); border: 1px solid var(--bordure); border-radius: 10px;">
+                <div>
+                  <strong style="color: var(--texte); font-size: 0.9rem;">${escapeHTML(a.beneficiaireNom)} — ${escapeHTML(a.titreCompetence)}</strong>
+                  <div style="font-size: 0.75rem; font-family: var(--police-mono); color: var(--texte-3);">
+                    ID : ${escapeHTML(a.id)} · ${escapeHTML(a.niveau)} · Statut : <span style="color: ${estRevoque ? '#f87171' : '#4ade80'}; font-weight: bold;">${estRevoque ? 'RÉVOQUÉ' : 'VALIDE'}</span>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <a href="verifier.html?id=${encodeURIComponent(a.id)}" class="v-btn v-btn--fantome" style="min-height: 32px; padding: 0 0.75rem; font-size: 0.75rem;">Vérifier ↗</a>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      document.getElementById('form-login-admin').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const cle = document.getElementById('input-cle-admin').value.trim();
+        const res = await window.SaheliaSecurite.authentifierAdmin(cle, true);
+        if (res.succes) {
+          errBox.style.display = 'none';
+          rafraichirInterface();
+        } else {
+          errBox.textContent = res.erreur || 'Clé invalide.';
+          errBox.style.display = 'block';
+        }
+      });
+
+      document.getElementById('btn-logout-admin').addEventListener('click', () => {
+        window.SaheliaSecurite.deconnecter();
+        rafraichirInterface();
+      });
+
+      document.getElementById('page-admin-btn-code').addEventListener('click', async () => {
+        const code = document.getElementById('page-admin-nouveau-code').value.trim();
+        const motif = document.getElementById('page-admin-motif-code').value.trim() || 'Rotation depuis Console Admin';
+        const res = await window.SaheliaSecurite.mettreAJourCode(code, 'Fondateur', motif);
+        if (res.succes) {
+          // Reconnecter la session admin à la nouvelle époque
+          await window.SaheliaSecurite.authentifierAdmin(code, true);
+          alert('✓ ' + res.message);
+          document.getElementById('page-admin-nouveau-code').value = '';
+          peuplerDashboard();
+        } else {
+          alert(res.erreur);
+        }
+      });
+
+      document.getElementById('page-admin-btn-revoke').addEventListener('click', () => {
+        if (!confirm('Confirmer la révocation immédiate de toutes les sessions étudiantes ?')) return;
+        const res = window.SaheliaSecurite.revoquerTousLesAcces('Fondateur', 'Révocation générale');
+        if (res.succes) {
+          alert('✓ ' + res.message);
+          rafraichirInterface();
+        }
+      });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(rafraichirInterface, 80);
+      });
+    })();
+  </script>
+</body>
+</html>

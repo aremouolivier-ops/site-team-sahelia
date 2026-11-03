@@ -295,6 +295,26 @@ assert(fs.existsSync(serverFile), 'Fichier server.js présent');
 const serverCode = fs.readFileSync(serverFile, 'utf8');
 assert(serverCode.includes('REDIRECTIONS_MARKDOWN'), 'server.js contient les règles de redirection des mini-guides');
 assert(serverCode.includes('matchManuel'), 'server.js contient la redirection des manuels vers formation.html');
+assert(serverCode.includes('escapeHtml(pathname)'), 'server.js protège la page 404 contre le Reflected XSS');
+assert(serverCode.includes('FICHIERS_INTERDITS'), 'server.js bloque le téléchargement des scripts serveur et fichiers internes');
+assert(serverCode.includes('Content-Security-Policy'), 'server.js injecte les en-têtes de sécurité HTTP (CSP, X-Frame-Options, nosniff)');
+
+console.log('\n========================================================================');
+console.log('TEST 3B : VÉRIFICATION DU DESIGN RESPONSIVE, SCROLLABLE NAV & PAGES');
+console.log('========================================================================');
+
+const indexHtml = fs.readFileSync(path.join(BASE_DIR, 'index.html'), 'utf8');
+const formationHtml = fs.readFileSync(path.join(BASE_DIR, 'formation.html'), 'utf8');
+const verifierHtml = fs.readFileSync(path.join(BASE_DIR, 'verifier.html'), 'utf8');
+const adminHtmlPath = path.join(BASE_DIR, 'admin.html');
+assert(fs.existsSync(adminHtmlPath), 'La page dédiée admin.html existe sur le disque');
+assert(indexHtml.includes('formation.html?cours=mn-11'), 'index.html affiche bien la carte du Manuel 11 (Pilotage de Drones)');
+assert(formationHtml.includes('value="mn-11"'), 'formation.html inclut bien le Manuel 11 dans le sélecteur de cours');
+assert(!formationHtml.includes('22900000000'), 'formation.html ne contient plus de faux numéro WhatsApp placeholder');
+
+const styleCss = fs.readFileSync(path.join(BASE_DIR, 'css', 'style.css'), 'utf8');
+assert(styleCss.includes('overflow-x: auto'), 'css/style.css rend la barre de navigation horizontalement scrollable sans débordement');
+assert(!styleCss.includes('.site-nav {\n    display: none;\n  }'), 'css/style.css ne masque plus jamais la barre de menu sur mobile');
 
 console.log('\n========================================================================');
 console.log('TEST 4 : VÉRIFICATION DU RÉPERTOIRE PROJET-SAAS-PRESENCE');

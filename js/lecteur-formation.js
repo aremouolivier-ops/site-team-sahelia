@@ -257,6 +257,17 @@
   }
 
   /**
+   * Vérifie qu'une URL est sûre (bloque javascript:, data:, vbscript:)
+   */
+  function estUrlSecurisee(urlStr) {
+    const propre = String(urlStr || '').trim().toLowerCase();
+    if (propre.startsWith('javascript:') || propre.startsWith('vbscript:') || propre.startsWith('data:')) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * Formatage inline : gras, italique, code inline, liens
    */
   function parserFormatInline(texte) {
@@ -268,8 +279,11 @@
       .replace(/\*\*([^*]+)\*\*/g, '<strong class="texte-gras">$1</strong>')
       // Italique *texte*
       .replace(/\*([^*]+)\*/g, '<em class="texte-italique">$1</em>')
-      // Liens [texte](url)
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="lien-pedagogique">$1</a>');
+      // Liens [texte](url) avec filtrage strict des protocoles dangereux
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, label, href) => {
+        const cleanHref = estUrlSecurisee(href) ? echapperHtml(href.trim()) : '#';
+        return `<a href="${cleanHref}" target="_blank" rel="noopener noreferrer" class="lien-pedagogique">${echapperHtml(label)}</a>`;
+      });
   }
 
   function parserLignesEnParagraphes(texte) {
@@ -585,6 +599,17 @@
             'Grilles tarifaires adaptées au marché béninois et ouest-africain',
             'Rédaction de devis et propositions techniques convaincantes',
             'Fidélisation clients et livraison de prestations irréprochables'
+          ]
+        },
+        'mn-11': {
+          badgeImg: 'assets/Badge_TEAM_Sahelia_Competence_SIG.png',
+          badgeNom: 'Pilote de Drones & Agriculture de Précision',
+          badgeDesc: 'Cartographie photogrammétrique et pulvérisation agricole calibrée',
+          heroImg: 'assets/images/immersion_terrain_recherche.jpg',
+          objectifs: [
+            'Pilotage en Mode 2 et respect strict de la réglementation ANAC Bénin',
+            'Plans de vol en peigne, calcul du GSD et orthomosaïque photogrammétrique',
+            'Calibrage des atomiseurs rotatifs, maîtrise du Downwash et boucle drone-QGIS'
           ]
         }
       };
@@ -1055,6 +1080,10 @@
       if (tabApprenant) tabApprenant.onclick = () => basculerMode('apprenant');
       if (tabAdmin) tabAdmin.onclick = () => basculerMode('admin');
 
+      if (window.SaheliaSecurite && window.SaheliaSecurite._modeAdminSuggereParUrl) {
+        basculerMode('admin');
+      }
+
       // Pré-remplissage éventuel
       const inputBadge = document.getElementById('gk-input-badge-id');
       const feedbackBadge = document.getElementById('gk-feedback-badge');
@@ -1118,11 +1147,13 @@
       // Afficher l'indicateur de session active dans la topbar
       if (badgeSessionTop && session) {
         const estAdmin = session.isSuperAdmin === true;
+        const safeNom = echapperHtml(session.badgeNom || 'Membre');
+        const safeId = echapperHtml(session.badgeId || 'TS');
         badgeSessionTop.innerHTML = `
-          <div class="session-active-pill" style="${estAdmin ? 'border-color: #e8946a; background: rgba(232, 148, 106, 0.15);' : ''}" title="Connecté en tant que ${session.badgeNom}">
+          <div class="session-active-pill" style="${estAdmin ? 'border-color: #e8946a; background: rgba(232, 148, 106, 0.15);' : ''}" title="Connecté en tant que ${safeNom}">
             <span class="pastille-verte" style="${estAdmin ? 'background: #e8946a;' : ''}"></span>
-            <span class="session-nom" style="${estAdmin ? 'color: #e8946a; font-weight: bold;' : ''}">${estAdmin ? '👑 ' : ''}${session.badgeNom}</span>
-            <span class="session-badge-id">${session.badgeId}</span>
+            <span class="session-nom" style="${estAdmin ? 'color: #e8946a; font-weight: bold;' : ''}">${estAdmin ? '👑 ' : ''}${safeNom}</span>
+            <span class="session-badge-id">${safeId}</span>
             <button type="button" id="btn-deconnexion-session" class="btn-deconnexion-discret" title="Fermer cette session">✕</button>
           </div>
         `;

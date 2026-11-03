@@ -20,17 +20,20 @@
   <header class="topbar-lecteur">
     <div class="enveloppe topbar-conteneur">
       <!-- Logo et Retour Accueil -->
-      <div style="display: flex; align-items: center; gap: 1.25rem;">
+      <div class="topbar-gauche">
         <a href="index.html" class="logo-lien" style="display: flex; align-items: center; gap: 0.6rem; text-decoration: none;">
-          <img src="assets/logo-sahelia.svg" alt="TEAM Sahélia" style="height: 38px; width: auto;">
+          <img src="assets/logo-sahelia.svg" alt="TEAM Sahélia" style="height: 36px; width: auto;">
         </a>
-        <a href="index.html" class="v-btn v-btn--fantome" style="min-height: 34px; padding: 0 0.8rem; font-size: 0.8rem;">
-          ← Accueil Vitrine
+        <a href="index.html" class="v-btn v-btn--fantome" style="min-height: 34px; padding: 0 0.75rem; font-size: 0.78rem;">
+          ← Vitrine
+        </a>
+        <a href="verifier.html" class="v-btn v-btn--fantome" style="min-height: 34px; padding: 0 0.75rem; font-size: 0.78rem;">
+          🔍 Vérifier
         </a>
       </div>
 
       <!-- Sélecteur rapide de cours -->
-      <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <div class="topbar-centre-cours">
         <label for="select-navigation-cours" style="font-size: 0.78rem; color: var(--texte-3); display: none;">Cours :</label>
         <select id="select-navigation-cours" class="selecteur-cours-select" aria-label="Choisir un cours ou manuel">
           <optgroup label="📚 Les 5 Mini-Guides Libres (100% Gratuits)">
@@ -40,7 +43,7 @@
             <option value="guide-04">04 · Collecte Numérique Terrain KoboToolbox</option>
             <option value="guide-05">05 · Création Visuelle & Affiches Pro</option>
           </optgroup>
-          <optgroup label="🔒 Les 10 Manuels Stratégiques (Membres & Formations)">
+          <optgroup label="🔒 Les 11 Manuels Stratégiques (Membres & Formations)">
             <option value="mn-01">Manuel 01 · Excel Pro Étudiants & Professionnels (Complet)</option>
             <option value="mn-02">Manuel 02 · Word & PowerPoint Pro (Mémoires)</option>
             <option value="mn-03">Manuel 03 · 50 Astuces & Raccourcis PC</option>
@@ -51,6 +54,7 @@
             <option value="mn-08">Manuel 08 · Vibe Coding & IA Responsable</option>
             <option value="mn-09">Manuel 09 · Création Graphique & Vidéo Mobile</option>
             <option value="mn-10">Manuel 10 · Agronome-Numéricien Indépendant</option>
+            <option value="mn-11">Manuel 11 · Pilotage de Drones & Drones Agricoles</option>
           </optgroup>
         </select>
         <span id="topbar-statut-acces"></span>
@@ -138,7 +142,7 @@
 
       <div class="gk-actions-secondaires">
         <a href="index.html#badges">Vous n'avez pas de badge ? Obtenir mon badge →</a>
-        <a href="https://wa.me/22900000000" target="_blank" rel="noopener noreferrer">Demander le code au fondateur →</a>
+        <a href="https://chat.whatsapp.com/G9L8vSahéliaOfficiel2026" class="lien-whatsapp-dynamique" target="_blank" rel="noopener noreferrer">Demander le code sur le canal officiel →</a>
       </div>
     </section>
 
@@ -168,7 +172,7 @@
         <div class="support-communaute-box" style="margin-top: 1.5rem; padding: 1rem; background: rgba(255,255,255,0.02); border: 1px solid var(--bordure); border-radius: 10px; font-size: 0.78rem;">
           <div style="font-weight: 700; color: var(--texte); margin-bottom: 0.3rem;">🤝 Mentorat TEAM Sahélia</div>
           <p style="color: var(--texte-3); margin-bottom: 0.6rem;">Un doute sur un calcul ou un code ? Échangez directement sur le canal d'entraide des certifiés.</p>
-          <a href="https://wa.me/22900000000" target="_blank" rel="noopener noreferrer" style="color: var(--marque); font-weight: 600; text-decoration: none;">Canal Entraide WhatsApp →</a>
+          <a href="https://chat.whatsapp.com/G9L8vSahéliaOfficiel2026" class="lien-whatsapp-dynamique" target="_blank" rel="noopener noreferrer" style="color: var(--marque); font-weight: 600; text-decoration: none;">Canal Entraide WhatsApp →</a>
         </div>
       </aside>
 
@@ -273,8 +277,17 @@
   <script src="js/lecteur-formation.js"></script>
 
   <script>
-    // Synchronisation du menu déroulant supérieur avec le cours chargé
+    // Synchronisation du menu déroulant supérieur avec le cours chargé + liens WhatsApp dynamiques
     document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const waCustom = localStorage.getItem('sahelia_lien_whatsapp');
+        if (waCustom && (waCustom.startsWith('https://') || waCustom.startsWith('http://'))) {
+          document.querySelectorAll('.lien-whatsapp-dynamique').forEach((el) => {
+            el.href = waCustom;
+          });
+        }
+      } catch (e) {}
+
       const select = document.getElementById('select-navigation-cours');
       if (select) {
         const params = new URLSearchParams(window.location.search);

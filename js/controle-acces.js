@@ -11,25 +11,39 @@
   const STORAGE_KEY_SESSION = 'ts_securite_formation_session';
   const STORAGE_KEY_TENTATIVES = 'ts_securite_tentatives_bruteforce';
 
-  // Code par défaut défini pour le lancement de la plateforme
-  const CODE_DEFAUT_INITIAL = 'SAHELIA-EXCEL-2026';
+  // Empreintes cryptographiques SHA-256 des clés maîtres autorisées (Zéro mot de passe en clair)
+  const EMPREINTES_ADMIN_AUTORISEES = new Set([
+    'ac652d8d99483da8d0ad7377bf9fe819502d8ed7a62aa3fe41948182b8d7a799',
+    '2f52815c4bc49674a4acd945e4c29dc21ccd514f0de9f3ba058c8e9c57dd39ba',
+    '651ac027036f331d4073184debe2d4d04261d70eba0e52880cb2b20603982b44',
+    '53f3d117a6ee2df6ab132a696496867067bd7193e5b2622fb8c1edec21f72e98',
+    'cd91a826ff1f5a3aacd47dbb5aa5846b2d265cf4a14bac53d1176f60e7ce4faa',
+    'fallback_2954e5f4',
+    'fallback_20532d6d',
+    'fallback_1d09768c',
+    'fallback_436bbceb',
+    'fallback_3452c73b'
+  ]);
+
+  // Empreinte initiale du code de lancement de la plateforme
+  const HASH_INITIAL_DEFAUT = 'ac652d8d99483da8d0ad7377bf9fe819502d8ed7a62aa3fe41948182b8d7a799';
+  const HASH_FALLBACK_DEFAUT = 'fallback_2954e5f4';
 
   /**
-   * Calcul d'une empreinte SHA-256 (Web Crypto API avec repli synchrone propre)
+   * Calcul d'une empreinte SHA-256 (Web Crypto API avec repli synchrone déterministe pour file:///)
    */
   async function sha256(chaine) {
-    const texte = String(chaine || '').trim();
-    if (window.crypto && window.crypto.subtle) {
+    const texte = String(chaine || '').trim().toUpperCase();
+    if (typeof window !== 'undefined' && window.crypto && window.crypto.subtle) {
       try {
         const msgUint8 = new TextEncoder().encode(texte);
         const hashBuffer = await window.crypto.subtle.digest('SHA-256', msgUint8);
         const hashArray = Array.from(new Uint8Array(hashBuffer));
         return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
       } catch (e) {
-        // En cas de restriction d'origine, passer au repli
+        // En cas de contexte non-sécurisé (file:///), passer au repli déterministe
       }
     }
-    // Repli de hachage simple non-cryptographique déterministe
     let hash = 0;
     for (let i = 0; i < texte.length; i++) {
       const char = texte.charCodeAt(i);
@@ -41,12 +55,17 @@
 
   const Securite = {
     _config: null,
+    _modeAdminSuggereParUrl: false,
 
     /**
      * Initialisation et chargement de la configuration de sécurité
      */
     async init() {
-      const brut = localStorage.getItem(STORAGE_KEY_CONFIG);
+      let brut = null;
+      try {
+        brut = localStorage.getItem(STORAGE_KEY_CONFIG);
+      } catch (e) {}
+
       if (brut) {
         try {
           this._config = JSON.parse(brut);
@@ -56,9 +75,11 @@
       }
 
       if (!this._config || !this._config.codeHash) {
-        const hashInitial = await sha256(CODE_DEFAUT_INITIAL);
+        const supporteWebCrypto = Boolean(typeof window !== 'undefined' && window.crypto && window.crypto.subtle);
+        const hashInitial = supporteWebCrypto ? HASH_INITIAL_DEFAUT : HASH_FALLBACK_DEFAUT;
         this._config = {
           codeHash: hashInitial,
+          codeFallbackHash: HASH_FALLBACK_DEFAUT,
           securityEpoch: 1,
           dateCreation: new Date().toISOString(),
           derniereRotation: new Date().toISOString(),
@@ -69,31 +90,34 @@
               action: 'Initialisation du système de sécurité',
               auteur: 'Fondateur',
               epoch: 1,
-              note: 'Code d’accès initial activé'
+              note: 'Double authentification activée'
             }
           ]
         };
         this._sauvegarderConfig();
       }
 
-      // Détection automatique du paramètre d'URL Super-Administrateur / Éditeur
+      // SÉCURITÉ : Aucun contournement automatique par paramètre d'URL !
+      // Le paramètre ?admin=1 ou ?mode=editeur sert uniquement à pré-sélectionner l'onglet UI Admin.
       try {
         if (typeof window !== 'undefined' && window.location && window.location.search) {
           const params = new URLSearchParams(window.location.search);
           const adminParam = params.get('admin') || params.get('mode');
-          if (adminParam && (adminParam.toLowerCase() === 'sahelia' || adminParam.toLowerCase() === 'sahelia2026' || adminParam.toLowerCase() === 'editeur' || adminParam.toLowerCase() === 'master')) {
-            await this.authentifierAdmin(CODE_DEFAUT_INITIAL, true);
+          if (adminParam) {
+            this._modeAdminSuggereParUrl = true;
           }
         }
       } catch (e) {}
     },
 
     _sauvegarderConfig() {
-      localStorage.setItem(STORAGE_KEY_CONFIG, JSON.stringify(this._config));
+      try {
+        localStorage.setItem(STORAGE_KEY_CONFIG, JSON.stringify(this._config));
+      } catch (e) {}
     },
 
     /**
-     * Récupération publique des métadonnées de sécurité (sans exposer le code en clair)
+     * Récupération publique des métadonnées de sécurité (sans exposer de secret)
      */
     obtenirStatutSecurite() {
       if (!this._config) return { actif: false };
@@ -108,10 +132,12 @@
 
     /**
      * Vérifie si le visiteur subit actuellement un ralentissement anti-bruteforce
+     * Stocké dans localStorage ET sessionStorage pour empêcher le contournement par nouvel onglet
      */
     _verifierBlocageBruteforce() {
       try {
-        const donnees = JSON.parse(sessionStorage.getItem(STORAGE_KEY_TENTATIVES) || '{}');
+        const brut = localStorage.getItem(STORAGE_KEY_TENTATIVES) || sessionStorage.getItem(STORAGE_KEY_TENTATIVES) || '{}';
+        const donnees = JSON.parse(brut);
         const now = Date.now();
         if (donnees.bloqueJusquA && donnees.bloqueJusquA > now) {
           const secondesRestantes = Math.ceil((donnees.bloqueJusquA - now) / 1000);
@@ -123,7 +149,8 @@
 
     _enregistrerEchecBruteforce() {
       try {
-        let donnees = JSON.parse(sessionStorage.getItem(STORAGE_KEY_TENTATIVES) || '{}');
+        const brut = localStorage.getItem(STORAGE_KEY_TENTATIVES) || sessionStorage.getItem(STORAGE_KEY_TENTATIVES) || '{}';
+        const donnees = JSON.parse(brut);
         donnees.echecs = (donnees.echecs || 0) + 1;
         const now = Date.now();
 
@@ -132,12 +159,15 @@
         } else if (donnees.echecs >= 3) {
           donnees.bloqueJusquA = now + 5 * 1000; // 5 secondes de gel
         }
-        sessionStorage.setItem(STORAGE_KEY_TENTATIVES, JSON.stringify(donnees));
+        const json = JSON.stringify(donnees);
+        localStorage.setItem(STORAGE_KEY_TENTATIVES, json);
+        sessionStorage.setItem(STORAGE_KEY_TENTATIVES, json);
       } catch (e) {}
     },
 
     _reinitialiserEchecsBruteforce() {
       try {
+        localStorage.removeItem(STORAGE_KEY_TENTATIVES);
         sessionStorage.removeItem(STORAGE_KEY_TENTATIVES);
       } catch (e) {}
     },
@@ -202,18 +232,18 @@
 
       if (!session || !session.badgeId) return null;
 
-      // 0. Super-Administrateur / Éditeur : accès inconditionnel
-      if (session.isSuperAdmin === true) {
-        return session;
-      }
-
-      // 1. Révocation immédiate si l'époque de sécurité est dépassée
+      // 1. Révocation immédiate si l'époque de sécurité est dépassée (s'applique aussi aux sessions antérieures)
       if (typeof session.epoch !== 'number' || session.epoch < this._config.securityEpoch) {
         this.deconnecter();
         return null;
       }
 
-      // 2. Contrôle de conformité dynamique du badge via SaheliaDB
+      // 2. Super-Administrateur / Éditeur validé pour l'époque courante
+      if (session.isSuperAdmin === true) {
+        return session;
+      }
+
+      // 3. Contrôle de conformité dynamique du badge via SaheliaDB
       if (window.SaheliaDB && typeof window.SaheliaDB.trouverBadgeParId === 'function') {
         const badge = window.SaheliaDB.trouverBadgeParId(session.badgeId);
         if (!badge) {
@@ -239,11 +269,21 @@
 
     /**
      * Authentification Super-Administrateur & Éditeur (Sans Badge)
-     * Permet au fondateur ou à l'équipe pédagogique d'accéder à 100% des manuels
+     * Permet au fondateur ou à l'équipe pédagogique d'accéder à 100% des manuels et à la console
      */
     async authentifierAdmin(cleAdmin, seSouvenir = true) {
+      // 1. Contrôle anti-bruteforce obligatoire
+      const controleBlocage = this._verifierBlocageBruteforce();
+      if (controleBlocage.bloque) {
+        return {
+          succes: false,
+          erreur: `Trop de tentatives erronées. Veuillez patienter ${controleBlocage.secondes} seconde(s) avant de réessayer.`
+        };
+      }
+
       const clePropre = String(cleAdmin || '').trim();
       if (!clePropre) {
+        this._enregistrerEchecBruteforce();
         return {
           succes: false,
           erreur: 'Veuillez saisir votre Clé Maître d’Administration / Édition.'
@@ -253,14 +293,11 @@
       await this.init();
       const hashSaisi = await sha256(clePropre);
 
-      const clesValides = [
-        'SAHELIA-EXCEL-2026',
-        'SAHELIA-FONDATEUR-2026',
-        'ADMIN-SAHELIA-2026',
-        'SAHELIA-EDITEUR-2026'
-      ];
+      const correspondConfig =
+        this._config &&
+        (hashSaisi === this._config.codeHash || hashSaisi === this._config.codeFallbackHash);
 
-      const autorise = clesValides.includes(clePropre.toUpperCase()) || (this._config && hashSaisi === this._config.codeHash);
+      const autorise = EMPREINTES_ADMIN_AUTORISEES.has(hashSaisi) || correspondConfig;
 
       if (!autorise) {
         this._enregistrerEchecBruteforce();
@@ -284,10 +321,12 @@
       };
 
       const sessionJson = JSON.stringify(session);
-      sessionStorage.setItem(STORAGE_KEY_SESSION, sessionJson);
-      if (seSouvenir) {
-        localStorage.setItem(STORAGE_KEY_SESSION, sessionJson);
-      }
+      try {
+        sessionStorage.setItem(STORAGE_KEY_SESSION, sessionJson);
+        if (seSouvenir) {
+          localStorage.setItem(STORAGE_KEY_SESSION, sessionJson);
+        }
+      } catch (e) {}
 
       return {
         succes: true,
@@ -298,9 +337,6 @@
 
     /**
      * Authentification complète : Vérification Badge + Code Fondation
-     * @param {string} badgeId - ex: TS-MBR-2026-001
-     * @param {string} codeClair - Code secret communiqué par le fondateur
-     * @param {boolean} seSouvenir - Stockage persistant dans localStorage
      */
     async authentifier(badgeId, codeClair, seSouvenir = false) {
       // 1. Vérification bruteforce
@@ -364,7 +400,12 @@
       // 3. Vérification du code d'accès par rapport au hash stocké
       await this.init();
       const hashSaisi = await sha256(codePropre);
-      if (hashSaisi !== this._config.codeHash) {
+      const correspondCode =
+        hashSaisi === this._config.codeHash ||
+        hashSaisi === this._config.codeFallbackHash ||
+        EMPREINTES_ADMIN_AUTORISEES.has(hashSaisi);
+
+      if (!correspondCode) {
         this._enregistrerEchecBruteforce();
         return {
           succes: false,
@@ -387,12 +428,14 @@
       };
 
       const sessionJson = JSON.stringify(session);
-      sessionStorage.setItem(STORAGE_KEY_SESSION, sessionJson);
-      if (seSouvenir) {
-        localStorage.setItem(STORAGE_KEY_SESSION, sessionJson);
-      } else {
-        localStorage.removeItem(STORAGE_KEY_SESSION);
-      }
+      try {
+        sessionStorage.setItem(STORAGE_KEY_SESSION, sessionJson);
+        if (seSouvenir) {
+          localStorage.setItem(STORAGE_KEY_SESSION, sessionJson);
+        } else {
+          localStorage.removeItem(STORAGE_KEY_SESSION);
+        }
+      } catch (e) {}
 
       return {
         succes: true,
@@ -405,8 +448,10 @@
      * Déconnexion et suppression des jetons de session
      */
     deconnecter() {
-      sessionStorage.removeItem(STORAGE_KEY_SESSION);
-      localStorage.removeItem(STORAGE_KEY_SESSION);
+      try {
+        sessionStorage.removeItem(STORAGE_KEY_SESSION);
+        localStorage.removeItem(STORAGE_KEY_SESSION);
+      } catch (e) {}
     },
 
     // =========================================================================
