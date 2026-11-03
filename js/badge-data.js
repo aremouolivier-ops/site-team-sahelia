@@ -63,70 +63,144 @@
   // ---------------------------------------------------------------------------
   const COHORTES_INIT = [];
 
-  // ---------------------------------------------------------------------------
-  // 4. RÉFÉRENTIEL DES COMPÉTENCES & DISPOSITIF D'ÉVALUATION
+    // ---------------------------------------------------------------------------
+  // 4. RÉFÉRENTIEL DES 4 BADGES OFFICIELS OPEN BADGES 3.0 & CRITÈRES DE TERRAIN
   // ---------------------------------------------------------------------------
   const COMPETENCES_INIT = [
     {
+      id: 'SKL-MBR-PIONNIER',
+      code: 'pionnier',
+      titre: 'Membre Pionnier · Communauté TEAM Sahélia',
+      domaine: 'Engagement Communautaire & Citoyenneté Numérique',
+      niveau: 'Bronze · Foundation',
+      formeGeometrique: 'pentagone',
+      accentColor: '#cd7f32',
+      niveaux: ['Bronze · Foundation'],
+      criteres: [
+        'Adhésion officielle et inscription validée au registre officiel TEAM Sahélia',
+        'Participation active aux canaux collaboratifs et entraide communautaire WhatsApp',
+        'Engagement formel envers la charte d’éthique et de partage libre des savoirs'
+      ],
+      dispositif: 'Enregistrement validé par la coordination générale de TEAM Sahélia.',
+      validateur: 'Olivier AREMOU (Coordinateur Général)'
+    },
+    {
       id: 'SKL-SIG-PARCELLE',
-      titre: 'Délimitation & Cartographie Parcellaire QGIS',
+      code: 'sig',
+      titre: 'Praticien SIG & Cartographie Parcellaire (QGIS & GPS)',
       domaine: 'Géomatique Appliquée à l’Agronomie',
-      accentColor: '#e8946a', // Terracotta / or
-      niveaux: ['Pratique Validée', 'Avancé', 'Expert Terrain'],
+      niveau: 'Argent · Practitioner',
+      formeGeometrique: 'hexagone',
+      accentColor: '#94a3b8',
+      niveaux: ['Argent · Practitioner', 'Expert Terrain'],
       criteres: [
         'Relevé de 4 sommets minimum au GPS smartphone avec pause stabilisée (précision < 4m)',
         'Import CSV sous QGIS et projection métrique UTM zone 31N (EPSG:32631)',
         'Numérisation vectorielle du polygone et calcul de surface en hectares ($area / 10000)',
-        'Export d’une carte d’essai normalisée avec flèche Nord, échelle graphique et fond satellite',
+        'Export d’une carte d’essai normalisée 300 DPI avec flèche Nord, échelle graphique et fond satellite'
       ],
-      dispositif: 'Évaluation sur livrable de terrain réel validée par le référent SIG de TEAM Sahélia.',
-    },
-    {
-      id: 'SKL-VIBE-CLEANING',
-      titre: 'Vibe Coding : Automatisation & Nettoyage de Données',
-      domaine: 'Informatique & Intelligence Artificielle',
-      accentColor: '#5fd0a0', // Vert émeraude
-      niveaux: ['Pratique Validée', 'Avancé'],
-      criteres: [
-        'Rédaction d’un prompt structuré selon la méthode C.R.E.D. (Contexte, Rôle, Exigence, Délimitation)',
-        'Génération et exécution d’un script Python de nettoyage d’un tableau d’essais agronomiques',
-        'Vérification croisée des moyennes et détection d’aberrations sans hallucination de l’IA',
-      ],
-      dispositif: 'Revue de code en direct sur un jeu de données réel.',
-    },
-    {
-      id: 'SKL-BUR-MEMOIRE',
-      titre: 'Structuration Avancée de Document Académique',
-      domaine: 'Méthodologie de Recherche',
-      accentColor: '#7fb0ee', // Bleu ciel
-      niveaux: ['Pratique Validée'],
-      criteres: [
-        'Mise en place de styles hiérarchiques avec numérotation automatique sans sauts de lignes vides',
-        'Gestion de la pagination mixte (chiffres romains en liminaire, arabes pour le corps du mémoire)',
-        'Mise en forme des tableaux statistiques avec répétition automatique de la ligne d’en-tête',
-      ],
-      dispositif: 'Contrôle technique du fichier Word et validation académique.',
+      dispositif: 'Évaluation sur livrable de terrain réel validée par le référent SIG selon les normes CAMES.',
+      validateur: 'Ségla Bio KPEROU (Référent SIG · TEAM Sahélia)'
     },
     {
       id: 'SKL-DRONE-TERRAIN',
-      titre: 'Pilotage & Télédétection par Drone Agricole',
+      code: 'drone',
+      titre: 'Opérateur Drone & Télédétection Agricole',
       domaine: 'Drones & Agriculture de Précision',
-      accentColor: '#38bdf8',
-      niveaux: ['Pratique Validée', 'Avancé', 'Opérateur Agréé'],
+      niveau: 'Or · Specialist',
+      formeGeometrique: 'ecusson',
+      accentColor: '#e8946a',
+      niveaux: ['Or · Specialist', 'Opérateur Agréé'],
       criteres: [
-        'Check-list pré-vol et calibration compas/IMU en milieu rural',
+        'Check-list pré-vol, calibration compas/IMU et conformité réglementaire ANAC Bénin',
         'Pilotage manuel Mode 2 avec atterrissage de précision sur cible',
-        'Programmation de mission photogrammétrique avec GSD < 2,5 cm/px',
-        'Sécurité ANAC Bénin et calcul de dérive vent / downwash',
+        'Programmation de mission photogrammétrique automatisée (GSD < 2,5 cm/px)',
+        'Génération d’orthomosaïque et calcul d’indices de végétation multispectrale NDVI'
       ],
-      dispositif: 'Vol de contrôle en conditions réelles supervisé par un instructeur.',
+      dispositif: 'Vol de contrôle en conditions réelles et traitement photogrammétrique complet.',
+      validateur: 'Olivier AREMOU & Unité Drones TEAM Sahélia'
+    },
+    {
+      id: 'SKL-VIBE-CLEANING',
+      code: 'vibe',
+      titre: 'Vibe Coding & Ingénieur Solutions IA',
+      domaine: 'Génie Logiciel & Intelligence Artificielle Appliquée',
+      niveau: 'Platine · Architect',
+      formeGeometrique: 'octogone',
+      accentColor: '#7fb0ee',
+      niveaux: ['Platine · Architect', 'Maître d’Œuvre'],
+      criteres: [
+        'Prompt engineering avancé selon la méthode C.R.E.D. sans hallucination bibliographique',
+        'Conception, sécurisation et déploiement d’un outil web ou script d’automatisation en production',
+        'Résolution d’un cas d’usage concret de terrain au bénéfice de la communauté',
+        'Revue de code, architecture logicielle propre et tests fonctionnels vérifiés'
+      ],
+      dispositif: 'Revue de code et audit de l’application déployée en direct.',
+      validateur: 'Pôle Innovation TEAM Sahélia'
     }
   ];
 
+    // ---------------------------------------------------------------------------
+  // 5. ATTRIBUTIONS RÉELLES DE COMPÉTENCES & CERTIFICATIONS FONDATEURS
   // ---------------------------------------------------------------------------
-  // 5. ATTRIBUTIONS RÉELLES DE COMPÉTENCES (Vierge pour démarrage en production)
-  // ---------------------------------------------------------------------------
-  const ATTRIBUTIONS_INIT = [];
+  const ATTRIBUTIONS_INIT = [
+    {
+      id: 'TS-SKL-2026-001',
+      membreId: 'TS-MBR-2026-001',
+      beneficiaireNom: 'Olivier AREMOU',
+      beneficiaireRole: 'Fondateur & Ingénieur Tech',
+      competenceId: 'SKL-VIBE-CLEANING',
+      titreCompetence: 'Vibe Coding & Ingénieur Solutions IA',
+      niveau: 'Platine · Architect',
+      dateAttribution: '15 Janvier 2026',
+      validePar: 'Pôle Innovation TEAM Sahélia',
+      statut: 'valide',
+      preuveProjet: 'Architecture, développement et déploiement de la plateforme officielle TEAM Sahélia.',
+      slogan: 'Apprendre aujourd’hui. Construire demain.'
+    },
+    {
+      id: 'TS-SKL-2026-002',
+      membreId: 'TS-MBR-2026-002',
+      beneficiaireNom: 'Ségla Bio KPEROU',
+      beneficiaireRole: 'Référent SIG & Données de Terrain',
+      competenceId: 'SKL-SIG-PARCELLE',
+      titreCompetence: 'Praticien SIG & Cartographie Parcellaire (QGIS & GPS)',
+      niveau: 'Argent · Practitioner',
+      dateAttribution: '20 Janvier 2026',
+      validePar: 'Ségla Bio KPEROU (Référent SIG · TEAM Sahélia)',
+      statut: 'valide',
+      preuveProjet: 'Cartographie parcellaire UTM 31N et encadrement des protocoles GPS KoboToolbox.',
+      slogan: 'Le terrain d’abord : la donnée géographique au service de la terre.'
+    },
+    {
+      id: 'TS-SKL-2026-003',
+      membreId: 'TS-MBR-2026-003',
+      beneficiaireNom: 'Mariam DIALLO',
+      beneficiaireRole: 'Chargée de Communauté & Partenariats',
+      competenceId: 'SKL-MBR-PIONNIER',
+      titreCompetence: 'Membre Pionnier · Communauté TEAM Sahélia',
+      niveau: 'Bronze · Foundation',
+      dateAttribution: '01 Février 2026',
+      validePar: 'Olivier AREMOU (Coordinateur Général)',
+      statut: 'valide',
+      preuveProjet: 'Animation du réseau d’adhérents et organisation des cycles d’entraide.',
+      slogan: 'L’entraide et le réseau font grandir les compétences.'
+    },
+    {
+      id: 'TS-SKL-2026-004',
+      membreId: 'TS-MBR-2026-004',
+      beneficiaireNom: 'Amina CHABI',
+      beneficiaireRole: 'Référente Pédagogique & Méthodologie',
+      competenceId: 'SKL-MBR-PIONNIER',
+      titreCompetence: 'Membre Pionnier · Communauté TEAM Sahélia',
+      niveau: 'Bronze · Foundation',
+      dateAttribution: '10 Février 2026',
+      validePar: 'Olivier AREMOU (Coordinateur Général)',
+      statut: 'valide',
+      preuveProjet: 'Conception des fiches mémo et contrôle qualité des manuels méthodologiques.',
+      slogan: 'Rigueur scientifique, clarté méthodologique et impact concret.'
+    }
+  ];
 
   // ---------------------------------------------------------------------------
   // 6. RÉFÉRENTIEL DES ACTIVITÉS & ANNONCES PUBLIQUES DU SITE (Vierge en production)
@@ -189,7 +263,70 @@
   }
 
   // État singleton de la base
+    // ---------------------------------------------------------------------------
+  // 1B. RÉFÉRENTIEL DES MEMBRES FONDATEURS RÉELS (Pour presets & trombinoscope)
+  // ---------------------------------------------------------------------------
+  const MEMBRES_FONDATEURS_REELS = [
+    {
+      id: 'TS-MBR-2026-001',
+      matricule: 'TS-MBR-2026-001',
+      nom: 'Olivier AREMOU',
+      role: 'Fondateur & Coordinateur Général',
+      institution: 'Communauté TEAM Sahélia · Bénin',
+      sexe: 'M',
+      dateAdhesion: '15 Janvier 2026',
+      slogan: 'Apprendre aujourd’hui. Construire demain.',
+      tags: ['Vibe Coding', 'Drones', 'Innovation Logicielle', 'Coordination'],
+      statut: 'actif',
+      email: 'teamsahelia@gmail.com',
+      tel: '+229 40 73 84 69'
+    },
+    {
+      id: 'TS-MBR-2026-002',
+      matricule: 'TS-MBR-2026-002',
+      nom: 'Ségla Bio KPEROU',
+      role: 'Référent SIG & Cartographie de Terrain',
+      institution: 'Communauté TEAM Sahélia · Bénin',
+      sexe: 'M',
+      dateAdhesion: '20 Janvier 2026',
+      slogan: 'Le terrain d’abord : la donnée géographique au service de la terre.',
+      tags: ['QGIS 3', 'GPS Smartphone', 'KoboToolbox', 'Agronomie'],
+      statut: 'actif',
+      email: 'teamsahelia@gmail.com',
+      tel: '+229 40 73 84 69'
+    },
+    {
+      id: 'TS-MBR-2026-003',
+      matricule: 'TS-MBR-2026-003',
+      nom: 'Mariam DIALLO',
+      role: 'Chargée de Communauté & Partenariats',
+      institution: 'Communauté TEAM Sahélia · Bénin',
+      sexe: 'F',
+      dateAdhesion: '01 Février 2026',
+      slogan: 'L’entraide et le réseau font grandir les compétences.',
+      tags: ['Animation Réseau', 'Partenariats', 'Coordination Terrain'],
+      statut: 'actif',
+      email: 'teamsahelia@gmail.com',
+      tel: '+229 40 73 84 69'
+    },
+    {
+      id: 'TS-MBR-2026-004',
+      matricule: 'TS-MBR-2026-004',
+      nom: 'Amina CHABI',
+      role: 'Référente Pédagogique & Méthodologie',
+      institution: 'Communauté TEAM Sahélia · Bénin',
+      sexe: 'F',
+      dateAdhesion: '10 Février 2026',
+      slogan: 'Rigueur scientifique, clarté méthodologique et impact concret.',
+      tags: ['Méthodologie', 'Rédaction Scientifique', 'Analyse RStudio'],
+      statut: 'actif',
+      email: 'teamsahelia@gmail.com',
+      tel: '+229 40 73 84 69'
+    }
+  ];
+
   const DB = {
+    membresFondateurs: MEMBRES_FONDATEURS_REELS,
     membres: chargerRegistre('membres_db', MEMBRES_INIT),
     formations: chargerRegistre('formations_db', FORMATIONS_INIT),
     cohortes: chargerRegistre('cohortes_db', COHORTES_INIT),
@@ -398,7 +535,10 @@
       }
 
       // 3. Chercher dans les membres de la communauté
-      const mem = this.membres.find((m) => m && String(m.id || m.matricule || '').trim().toUpperCase() === cleanId);
+      let mem = this.membres.find((m) => m && String(m.id || m.matricule || '').trim().toUpperCase() === cleanId);
+      if (!mem && Array.isArray(this.membresFondateurs)) {
+        mem = this.membresFondateurs.find((m) => m && String(m.id || m.matricule || '').trim().toUpperCase() === cleanId);
+      }
       if (mem) {
         return {
           id: mem.id || mem.matricule,

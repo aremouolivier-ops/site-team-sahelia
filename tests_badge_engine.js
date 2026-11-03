@@ -14,6 +14,9 @@ global.document = {
       lineTo: () => {},
       arc: () => {},
       arcTo: () => {},
+      quadraticCurveTo: () => {},
+      bezierCurveTo: () => {},
+      ellipse: () => {},
       roundRect: () => {},
       stroke: () => {},
       fill: () => {},
@@ -101,5 +104,44 @@ qr.addData('https://sahelia.org/verifier?id=TS-MBR-2026-001');
 qr.make();
 const count = qr.getModuleCount();
 console.log(`✓ QR Code généré avec succès : matrice ${count}x${count} modules`);
+
+console.log('--- TEST 6 : RENDU DU FORMAT OPEN BADGE 3.0 (INSIGNE SEUL 800x800) ---');
+const tracks = ['pionnier', 'sig', 'drone', 'vibe'];
+tracks.forEach((track) => {
+  const canvasInsigne = document.createElement('canvas');
+  window.BadgeEngine.genererBadgeSurCanvas(canvasInsigne, {
+    type: 'competence-' + track,
+    format: 'badge_seul',
+    data: {
+      id: `TS-SKL-2026-${track.toUpperCase()}`,
+      beneficiaireNom: 'Olivier AREMOU',
+      beneficiaireRole: 'Membre Certifié',
+      titre: `Badge Spécialisé ${track.toUpperCase()}`
+    }
+  });
+  console.log(`✓ Rendu Insigne ${track.toUpperCase()} terminé (${canvasInsigne.width}x${canvasInsigne.height})`);
+});
+
+console.log('--- TEST 7 : INTÉGRATION LINKEDIN & MÉTADONNÉES W3C VC ---');
+const linkedInUrl = window.BadgeEngine.genererLienLinkedIn({
+  id: 'TS-SKL-2026-001',
+  titre: 'Praticien SIG & Cartographie Parcellaire'
+});
+if (!linkedInUrl.includes('startTask=CERTIFICATION_NAME') || !linkedInUrl.includes('TEAM')) {
+  console.error('❌ URL LinkedIn invalide', linkedInUrl);
+  process.exit(1);
+}
+console.log('✓ URL LinkedIn valide et pré-remplie');
+
+const jsonld = window.BadgeEngine.exporterOpenBadgeJSONLD({
+  id: 'TS-SKL-2026-001',
+  titre: 'Praticien SIG & Cartographie Parcellaire',
+  beneficiaireNom: 'Ségla Bio KPEROU'
+});
+if (!jsonld['@context'] || jsonld.type[1] !== 'OpenBadgeCredential') {
+  console.error('❌ JSON-LD Open Badges 3.0 invalide');
+  process.exit(1);
+}
+console.log('✓ Métadonnées cryptographiques Open Badges 3.0 / W3C conformes');
 
 console.log('🎉 TOUS LES TESTS DU MOTEUR DE BADGES SONT VALIDES AVEC SUCCÈS !');

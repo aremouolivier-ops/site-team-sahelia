@@ -581,19 +581,19 @@
         },
         'mn-06': {
           badgeImg: 'assets/Badge_TEAM_Sahelia_Competence_SIG.png',
-          badgeNom: 'Expert Cartographie & SIG',
-          badgeDesc: 'Délimitation parcellaire et télédétection Sentinel QGIS',
+          badgeNom: 'Praticien SIG & Cartographie Parcellaire (Argent)',
+          badgeDesc: 'Hexagone Open Badges 3.0 · Délimitation parcellaire QGIS et GPS de terrain',
           heroImg: 'assets/images/immersion_terrain_recherche.jpg',
           objectifs: [
             'Systèmes de coordonnées et projection UTM 31N WGS84',
             'Calcul d’aires exactes en hectares sur polygones GPS',
-            'Mise en page de cartes officielles pour rapports d’expertise'
+            'Mise en page de cartes officielles conformes aux normes CAMES'
           ]
         },
         'mn-07': {
           badgeImg: 'assets/Badge_TEAM_Sahelia_Competence_VibeCoding.png',
-          badgeNom: 'Développement Web Moderne',
-          badgeDesc: 'HTML5, CSS3 responsive et manipulation JavaScript',
+          badgeNom: 'Vibe Coding & Ingénieur Solutions IA (Platine)',
+          badgeDesc: 'Octogone Open Badges 3.0 · Développement Web Moderne & Architecture IA',
           heroImg: 'assets/images/hero_terrain_agronomie.jpg',
           objectifs: [
             'Architecture web sémantique et responsive mobile',
@@ -603,8 +603,8 @@
         },
         'mn-08': {
           badgeImg: 'assets/Badge_TEAM_Sahelia_Competence_VibeCoding.png',
-          badgeNom: 'Vibe Coding & Ingénierie IA',
-          badgeDesc: 'Création d’outils métiers pilotés par l’IA responsable',
+          badgeNom: 'Vibe Coding & Ingénieur Solutions IA (Platine)',
+          badgeDesc: 'Octogone Open Badges 3.0 · Création d’outils métiers pilotés par l’IA',
           heroImg: 'assets/images/hero_terrain_agronomie.jpg',
           objectifs: [
             'Spécification rigoureuse et orchestration de code par LLM',
@@ -614,8 +614,8 @@
         },
         'mn-09': {
           badgeImg: 'assets/Badge_TEAM_Sahelia_Membre_Officiel.png',
-          badgeNom: 'Création Graphique & Vidéo Mobile',
-          badgeDesc: 'Affiches professionnelles et montage vidéo smartphone',
+          badgeNom: 'Membre Pionnier · Création Graphique & Vidéo (Bronze)',
+          badgeDesc: 'Pentagone Open Badges 3.0 · Affiches professionnelles et vulgarisation mobile',
           heroImg: 'assets/images/hero_terrain_agronomie.jpg',
           objectifs: [
             'Règles d’or de composition visuelle et psychologie des couleurs',
@@ -625,8 +625,8 @@
         },
         'mn-10': {
           badgeImg: 'assets/Badge_TEAM_Sahelia_Membre_Officiel.png',
-          badgeNom: 'Consultant & Freelance Sahélia',
-          badgeDesc: 'Monétisation des compétences auprès des ONG et projets',
+          badgeNom: 'Membre Pionnier · Consultant & Numéricien (Bronze)',
+          badgeDesc: 'Pentagone Open Badges 3.0 · Monétisation des compétences auprès des ONG et projets',
           heroImg: 'assets/images/immersion_terrain_recherche.jpg',
           objectifs: [
             'Grilles tarifaires adaptées au marché béninois et ouest-africain',
@@ -636,8 +636,8 @@
         },
         'mn-11': {
           badgeImg: 'assets/Badge_TEAM_Sahelia_Competence_SIG.png',
-          badgeNom: 'Pilote de Drones & Agriculture de Précision',
-          badgeDesc: 'Cartographie photogrammétrique et pulvérisation agricole calibrée',
+          badgeNom: 'Opérateur Drone & Télédétection Agricole (Or)',
+          badgeDesc: 'Écusson Open Badges 3.0 · Cartographie photogrammétrique et indices NDVI',
           heroImg: 'assets/images/immersion_terrain_recherche.jpg',
           objectifs: [
             'Pilotage en Mode 2 et respect strict de la réglementation ANAC Bénin',

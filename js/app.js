@@ -142,7 +142,7 @@
       return stored;
     })(),
     typeBadge: 'membre', // 'membre' | 'formation' | 'competence'
-    formatBadge: 'paysage', // 'vertical' | 'carre' | 'paysage'
+    formatBadge: 'badge_seul', // 'vertical' | 'carre' | 'paysage'
 
     // Sélection active
     membreSelectionne: null,
@@ -512,7 +512,7 @@
     // -------------------------------------------------------------------------
     // B. Moteur de Rendu en Direct sur Canvas
     // -------------------------------------------------------------------------
-    function actualiserApercuBadge() {
+        function actualiserApercuBadge() {
       let dataBadge = {};
       const type = etatApp.typeBadge;
       const format = etatApp.formatBadge;
@@ -522,15 +522,17 @@
         const inputMembreSexe = document.getElementById('membre-sexe-input');
         const inputMembreSlogan = document.getElementById('membre-slogan-input');
         dataBadge = {
-          id: inputMembreId ? inputMembreId.value : m.id,
-          beneficiaireNom: inputMembreNom ? inputMembreNom.value : m.nom,
-          beneficiaireRole: inputMembreRole ? inputMembreRole.value : m.role,
-          institution: inputMembreInst ? inputMembreInst.value : m.institution,
+          id: inputMembreId ? inputMembreId.value : (m.id || 'TS-MBR-2026-001'),
+          titre: 'Membre Pionnier · Communauté TEAM Sahélia',
+          beneficiaireNom: inputMembreNom && inputMembreNom.value ? inputMembreNom.value : (m.nom || 'Olivier AREMOU'),
+          beneficiaireRole: inputMembreRole && inputMembreRole.value ? inputMembreRole.value : (m.role || 'Fondateur & Coordinateur Général'),
+          institution: inputMembreInst && inputMembreInst.value ? inputMembreInst.value : (m.institution || 'Communauté TEAM Sahélia · Bénin'),
           sexe: inputMembreSexe ? inputMembreSexe.value : (m.sexe || 'M'),
-          slogan: (inputMembreSlogan && inputMembreSlogan.value) ? inputMembreSlogan.value : (m.slogan || 'L’agronomie de demain maîtrise la terre et la donnée.'),
+          slogan: (inputMembreSlogan && inputMembreSlogan.value) ? inputMembreSlogan.value : (m.slogan || 'Apprendre aujourd’hui. Construire demain.'),
           dateAdhesion: m.dateAdhesion || '15 Janvier 2026',
           photoImg: etatApp.photoMembreTemp,
-          accentColor: '#5fd0a0',
+          accentColor: '#cd7f32',
+          code: 'pionnier'
         };
       } else if (type === 'formation') {
         const form = etatApp.formationSelectionnee || {};
@@ -552,23 +554,44 @@
           slogan: part.slogan || 'Bâtir pour de vrai : des compétences solides pour la jeunesse.',
           accentColor: form.accentColor || '#2563eb',
         };
-      } else if (type === 'competence') {
-        const attr = etatApp.attributionSelectionnee || {};
+      } else {
+        // Compétence & Spécialités Open Badges 3.0
+        const attr = etatApp.attributionSelectionnee || DB.attributions[0] || {};
         const comp = DB.competences.find((c) => c.id === attr.competenceId) || {};
+
+        let titreComp = attr.titreCompetence || comp.titre || 'Praticien SIG & Cartographie Parcellaire';
+        let accColor = comp.accentColor || '#94a3b8';
+        let codeTrack = 'sig';
+
+        if (type === 'competence-drone' || (attr.competenceId && attr.competenceId.includes('DRONE'))) {
+          titreComp = 'Opérateur Drone & Télédétection Agricole';
+          accColor = '#e8946a';
+          codeTrack = 'drone';
+        } else if (type === 'competence-vibe' || (attr.competenceId && attr.competenceId.includes('VIBE'))) {
+          titreComp = 'Vibe Coding & Ingénieur Solutions IA';
+          accColor = '#7fb0ee';
+          codeTrack = 'vibe';
+        } else if (type === 'competence-sig' || (attr.competenceId && attr.competenceId.includes('SIG'))) {
+          titreComp = 'Praticien SIG & Cartographie Parcellaire (QGIS & GPS)';
+          accColor = '#94a3b8';
+          codeTrack = 'sig';
+        }
 
         dataBadge = {
           id: attr.id || 'TS-SKL-2026-001',
-          titre: attr.titreCompetence || 'Délimitation & Cartographie Parcellaire QGIS',
-          niveau: attr.niveau || 'Pratique Validée',
-          beneficiaireNom: attr.beneficiaireNom || 'Titulaire',
-          beneficiaireRole: attr.beneficiaireRole || 'Étudiant Agronome',
+          titre: titreComp,
+          titreCompetence: titreComp,
+          niveau: attr.niveau || comp.niveau || 'Pratique Validée',
+          beneficiaireNom: attr.beneficiaireNom || 'Ségla Bio KPEROU',
+          beneficiaireRole: attr.beneficiaireRole || 'Référent SIG & Cartographie',
           sexe: attr.sexe || 'M',
-          validePar: attr.validePar || 'Référent SIG',
-          dateEmission: attr.dateAttribution || '25 Octobre 2026',
-          slogan: attr.slogan || 'Le terrain d’abord : des compétences opérationnelles.',
+          validePar: attr.validePar || comp.validateur || 'Ségla Bio KPEROU (Référent SIG · TEAM Sahélia)',
+          dateEmission: attr.dateAttribution || '20 Janvier 2026',
+          slogan: attr.slogan || 'Le terrain d’abord : la donnée géographique au service de la terre.',
           criteres: comp.criteres || [],
           domaine: comp.domaine || 'Géomatique Appliquée à l’Agronomie',
-          accentColor: comp.accentColor || '#d97706',
+          accentColor: accColor,
+          code: codeTrack
         };
       }
 
@@ -577,6 +600,35 @@
         format,
         data: dataBadge,
       });
+
+      // Synchroniser le bouton LinkedIn
+      const btnLinkedIn = document.getElementById('btn-partager-linkedin');
+      if (btnLinkedIn && window.BadgeEngine.genererLienLinkedIn) {
+        btnLinkedIn.href = window.BadgeEngine.genererLienLinkedIn(dataBadge);
+      }
+
+      // Synchroniser le bouton Copie JSON-LD Open Badges 3.0
+      const btnCopierJsonLd = document.getElementById('btn-copier-jsonld');
+      if (btnCopierJsonLd) {
+        btnCopierJsonLd.onclick = async () => {
+          if (!window.BadgeEngine.exporterOpenBadgeJSONLD) return;
+          const json = window.BadgeEngine.exporterOpenBadgeJSONLD(dataBadge);
+          try {
+            await navigator.clipboard.writeText(JSON.stringify(json, null, 2));
+            const feedback = document.getElementById('badge-form-feedback');
+            if (feedback) {
+              feedback.style.display = 'block';
+              feedback.style.background = 'rgba(34, 197, 94, 0.15)';
+              feedback.style.color = '#86efac';
+              feedback.style.border = '1px solid #22c55e';
+              feedback.textContent = '✓ Métadonnées W3C / Open Badges 3.0 copiées dans le presse-papier !';
+              setTimeout(() => { feedback.style.display = 'none'; }, 4000);
+            }
+          } catch (e) {
+            alert('Métadonnées W3C générées avec succès !');
+          }
+        };
+      }
 
       // Mettre à jour le lien de vérification direct
       if (btnLienVerif && dataBadge.id) {
@@ -587,7 +639,7 @@
     // -------------------------------------------------------------------------
     // C. Écouteurs d'Événements & Interactions
     // -------------------------------------------------------------------------
-    // Changement de Type de Badge
+        // Changement de Type de Badge (4 Paliers Open Badges 3.0)
     document.querySelectorAll('.btn-type-badge').forEach((btn) => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.btn-type-badge').forEach((b) => {
@@ -603,12 +655,29 @@
 
         // Afficher le bon panneau de formulaire
         document.querySelectorAll('.panneau-type-form').forEach((p) => (p.style.display = 'none'));
-        const panel = document.getElementById(`panneau-type-${etatApp.typeBadge}`);
-        if (panel) panel.style.display = 'block';
+        if (etatApp.typeBadge === 'membre') {
+          const panel = document.getElementById('panneau-type-membre');
+          if (panel) panel.style.display = 'block';
+        } else {
+          // Afficher le panneau compétences pour les badges de spécialités
+          const panel = document.getElementById('panneau-type-competence');
+          if (panel) panel.style.display = 'block';
 
-        // Afficher ou masquer le bouton de lot cohorte
-        if (boxActionBatch) {
-          boxActionBatch.style.display = etatApp.typeBadge === 'formation' ? 'block' : 'none';
+          // Présélectionner l'attribution adéquate
+          let matchAttr = null;
+          if (etatApp.typeBadge === 'competence-sig') {
+            matchAttr = DB.attributions.find((a) => a.competenceId === 'SKL-SIG-PARCELLE');
+          } else if (etatApp.typeBadge === 'competence-drone') {
+            matchAttr = DB.attributions.find((a) => a.competenceId === 'SKL-DRONE-TERRAIN') || DB.attributions[2];
+          } else if (etatApp.typeBadge === 'competence-vibe') {
+            matchAttr = DB.attributions.find((a) => a.competenceId === 'SKL-VIBE-CLEANING') || DB.attributions[0];
+          }
+
+          if (matchAttr && selectAttribution) {
+            selectAttribution.value = matchAttr.id;
+            etatApp.attributionSelectionnee = matchAttr;
+            synchroniserVueAttribution();
+          }
         }
 
         actualiserApercuBadge();
@@ -649,7 +718,8 @@
           inputMembreInst.value = 'Communauté TEAM Sahélia';
           inputMembreNom.focus();
         } else {
-          etatApp.membreSelectionne = DB.membres.find((m) => m.id === id) || null;
+          const tous = (DB.membresFondateurs || []).concat(DB.membres || []);
+          etatApp.membreSelectionne = tous.find((m) => m.id === id) || null;
           synchroniserChampsMembre();
         }
         actualiserApercuBadge();

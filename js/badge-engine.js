@@ -253,7 +253,187 @@
       ctx.stroke();
       ctx.restore();
     },
+
+    // 🚁 Drone quadricoptère (Télédétection & Agriculture de Précision)
+    drone(ctx, cx, cy, size, color) {
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = Math.max(1.8, size * 0.08);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      const s = size * 0.45;
+      // Bras croisés
+      ctx.beginPath();
+      ctx.moveTo(cx - s, cy - s * 0.6);
+      ctx.lineTo(cx + s, cy + s * 0.6);
+      ctx.moveTo(cx + s, cy - s * 0.6);
+      ctx.lineTo(cx - s, cy + s * 0.6);
+      ctx.stroke();
+
+      // Corps central du drone
+      ctx.beginPath();
+      ctx.arc(cx, cy, s * 0.35, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Lentille capteur centrale
+      ctx.fillStyle = '#061711';
+      ctx.beginPath();
+      ctx.arc(cx, cy, s * 0.16, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 4 rotors avec hélices
+      ctx.fillStyle = color;
+      const rotors = [
+        [cx - s, cy - s * 0.6],
+        [cx + s, cy - s * 0.6],
+        [cx - s, cy + s * 0.6],
+        [cx + s, cy + s * 0.6]
+      ];
+      rotors.forEach(([rx, ry]) => {
+        ctx.beginPath();
+        ctx.arc(rx, ry, s * 0.12, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.ellipse(rx, ry, s * 0.28, s * 0.08, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      });
+
+      // Ondes de scan multispectral vers le bas
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.arc(cx, cy + s * 0.5, s * 0.6, Math.PI * 0.25, Math.PI * 0.75);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cx, cy + s * 0.7, s * 0.9, Math.PI * 0.28, Math.PI * 0.72);
+      ctx.stroke();
+
+      ctx.restore();
+    },
+
+    // ⚡ IA & Puce Microprocesseur (Vibe Coding & Solutions IA)
+    ia(ctx, cx, cy, size, color) {
+      ctx.save();
+      ctx.strokeStyle = color;
+      ctx.fillStyle = color;
+      ctx.lineWidth = Math.max(1.8, size * 0.08);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      const s = size * 0.42;
+
+      // Puce carrée centrale
+      ctx.beginPath();
+      ctx.roundRect(cx - s * 0.65, cy - s * 0.65, s * 1.3, s * 1.3, s * 0.15);
+      ctx.stroke();
+
+      // Broches / Connecteurs (4 côtés)
+      const pinLength = s * 0.3;
+      [-0.35, 0, 0.35].forEach((offset) => {
+        // Haut et Bas
+        ctx.beginPath();
+        ctx.moveTo(cx + offset * s, cy - s * 0.65);
+        ctx.lineTo(cx + offset * s, cy - s * 0.65 - pinLength);
+        ctx.moveTo(cx + offset * s, cy + s * 0.65);
+        ctx.lineTo(cx + offset * s, cy + s * 0.65 + pinLength);
+        ctx.stroke();
+
+        // Gauche et Droite
+        ctx.beginPath();
+        ctx.moveTo(cx - s * 0.65, cy + offset * s);
+        ctx.lineTo(cx - s * 0.65 - pinLength, cy + offset * s);
+        ctx.moveTo(cx + s * 0.65, cy + offset * s);
+        ctx.lineTo(cx + s * 0.65 + pinLength, cy + offset * s);
+        ctx.stroke();
+      });
+
+      // Balises de code central </>
+      const cw = s * 0.35;
+      const ch = s * 0.3;
+      ctx.beginPath();
+      ctx.moveTo(cx - cw * 0.3, cy - ch);
+      ctx.lineTo(cx - cw * 0.9, cy);
+      ctx.lineTo(cx - cw * 0.3, cy + ch);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(cx + cw * 0.3, cy - ch);
+      ctx.lineTo(cx + cw * 0.9, cy);
+      ctx.lineTo(cx + cw * 0.3, cy + ch);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(cx + cw * 0.2, cy - ch * 1.1);
+      ctx.lineTo(cx - cw * 0.2, cy + ch * 1.1);
+      ctx.stroke();
+
+      ctx.restore();
+    },
   };
+
+  // ---------------------------------------------------------------------------
+  // 1B. FORMES GÉOMÉTRIQUES VECTORIELLES OPEN BADGES 3.0
+  // ---------------------------------------------------------------------------
+  const FormesGeometriques = {
+    // Pentagone régulier (Palier Bronze · Membre Pionnier)
+    pentagone(ctx, cx, cy, r) {
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        const angle = (i * 2 * Math.PI / 5) - (Math.PI / 2);
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    },
+
+    // Hexagone régulier (Palier Argent · Praticien SIG & Cartographie)
+    hexagone(ctx, cx, cy, r) {
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        const angle = (i * 2 * Math.PI / 6) - (Math.PI / 6);
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    },
+
+    // Écusson héraldique contemporain (Palier Or · Opérateur Drone)
+    ecusson(ctx, cx, cy, w, h) {
+      const x = cx - w / 2;
+      const y = cy - h / 2;
+      const r = w * 0.12;
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h * 0.58);
+      ctx.bezierCurveTo(x + w, y + h * 0.86, cx + w * 0.25, y + h, cx, y + h);
+      ctx.bezierCurveTo(cx - w * 0.25, y + h, x, y + h * 0.86, x, y + h * 0.58);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    },
+
+    // Octogone biseauté technique (Palier Platine · Vibe Coding & IA)
+    octogone(ctx, cx, cy, r) {
+      ctx.beginPath();
+      for (let i = 0; i < 8; i++) {
+        const angle = (i * 2 * Math.PI / 8) - (Math.PI / 8);
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+    }
+  };
+
 
   // ---------------------------------------------------------------------------
   // 2. INTÉGRATION QR CODE 100% SCANNABLE (VIA QRCODE.MIN.JS)
@@ -1601,6 +1781,208 @@
   // ---------------------------------------------------------------------------
   // 9. ROUTEUR GÉNÉRAL DE RENDU
   // ---------------------------------------------------------------------------
+  
+  // ---------------------------------------------------------------------------
+  // 8B. RENDU DE L'INSIGNE ISOLÉ OPEN BADGES 3.0 (FORMAT 800 × 800 HD)
+  // ---------------------------------------------------------------------------
+  function dessinerInsigneOpenBadge(ctx, W, H, type, data) {
+    const cx = W / 2;
+    const cy = H * 0.44;
+    const r = Math.min(W, H) * 0.35;
+
+    // Identifier la filière et la forme
+    const idLower = String(data.id || '').toLowerCase();
+    const titreLower = String(data.titre || data.titreCompetence || '').toLowerCase();
+
+    let track = 'bronze';
+    let forme = 'pentagone';
+    let metal0 = '#e8946a';
+    let metal1 = '#cd7f32';
+    let metal2 = '#78350f';
+    let bgInner = '#091c15';
+    let accent = '#5fd0a0';
+    let labelNiveau = 'MEMBRE PIONNIER';
+    let labelFiliere = 'COMMUNAUTÉ SAHÉLIA';
+    let badgeCode = 'BRONZE · FOUNDATION';
+
+    if (idLower.includes('sig') || titreLower.includes('sig') || titreLower.includes('carto') || type === 'competence-sig') {
+      track = 'argent';
+      forme = 'hexagone';
+      metal0 = '#f8fafc';
+      metal1 = '#cbd5e1';
+      metal2 = '#475569';
+      bgInner = '#061713';
+      accent = '#5fd0a0';
+      labelNiveau = 'PRATICIEN SIG & GPS';
+      labelFiliere = 'QGIS 3 · UTM 31N';
+      badgeCode = 'ARGENT · PRACTITIONER';
+    } else if (idLower.includes('drn') || idLower.includes('drone') || titreLower.includes('drone') || type === 'competence-drone') {
+      track = 'or';
+      forme = 'ecusson';
+      metal0 = '#fef08a';
+      metal1 = '#f59e0b';
+      metal2 = '#b45309';
+      bgInner = '#081410';
+      accent = '#fbbf24';
+      labelNiveau = 'OPÉRATEUR DRONE';
+      labelFiliere = 'TÉLÉDÉTECTION NDVI';
+      badgeCode = 'OR · SPECIALIST';
+    } else if (idLower.includes('vibe') || idLower.includes('ia') || titreLower.includes('vibe') || titreLower.includes('ia') || type === 'competence-vibe') {
+      track = 'platine';
+      forme = 'octogone';
+      metal0 = '#e0f2fe';
+      metal1 = '#38bdf8';
+      metal2 = '#0284c7';
+      bgInner = '#051410';
+      accent = '#7fb0ee';
+      labelNiveau = 'VIBE CODING & IA';
+      labelFiliere = 'SOLUTIONS ARCHITECT';
+      badgeCode = 'PLATINE · ARCHITECT';
+    }
+
+    // 1. Fond du Canvas
+    const bgRad = ctx.createRadialGradient(cx, cy, 50, cx, cy, W * 0.7);
+    bgRad.addColorStop(0, '#0c241b');
+    bgRad.addColorStop(0.65, '#05120d');
+    bgRad.addColorStop(1, '#020705');
+    ctx.fillStyle = bgRad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Grille de points subtils
+    ctx.fillStyle = 'rgba(95, 208, 160, 0.05)';
+    for (let gx = 40; gx < W; gx += 40) {
+      for (let gy = 40; gy < H; gy += 40) {
+        ctx.beginPath();
+        ctx.arc(gx, gy, 1.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // 2. Halo lumineux externe (Aura)
+    const aura = ctx.createRadialGradient(cx, cy, r * 0.6, cx, cy, r * 1.25);
+    aura.addColorStop(0, accent + '33');
+    aura.addColorStop(0.7, accent + '0d');
+    aura.addColorStop(1, 'transparent');
+    ctx.fillStyle = aura;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r * 1.25, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 3. Dessin de la Forme Géométrique Métallique Externe
+    function tracer(rayonMult, offset = 0) {
+      if (forme === 'hexagone') {
+        FormesGeometriques.hexagone(ctx, cx, cy + offset, r * rayonMult);
+      } else if (forme === 'ecusson') {
+        FormesGeometriques.ecusson(ctx, cx, cy + offset, r * 1.8 * rayonMult, r * 2.1 * rayonMult);
+      } else if (forme === 'octogone') {
+        FormesGeometriques.octogone(ctx, cx, cy + offset, r * rayonMult);
+      } else {
+        FormesGeometriques.pentagone(ctx, cx, cy + offset, r * rayonMult);
+      }
+    }
+
+    // Contour Métallique Externe (Biseau)
+    const gradMetal = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
+    gradMetal.addColorStop(0, metal0);
+    gradMetal.addColorStop(0.35, metal1);
+    gradMetal.addColorStop(0.7, metal2);
+    gradMetal.addColorStop(1, metal0);
+
+    ctx.save();
+    tracer(1.0);
+    ctx.fillStyle = gradMetal;
+    ctx.shadowColor = accent;
+    ctx.shadowBlur = 24;
+    ctx.fill();
+    ctx.restore();
+
+    // Bordure interne foncée
+    tracer(0.94);
+    ctx.fillStyle = bgInner;
+    ctx.fill();
+
+    // Liseré fin métallique intérieur
+    tracer(0.89);
+    ctx.strokeStyle = gradMetal;
+    ctx.lineWidth = 2.5;
+    ctx.stroke();
+
+    // 4. Icône vectorielle centrale & Décoration
+    if (track === 'argent') {
+      // Polygone parcellaire SIG
+      IconesVectorielles.sig(ctx, cx, cy - 25, 110, accent);
+    } else if (track === 'or') {
+      // Drone
+      IconesVectorielles.drone(ctx, cx, cy - 25, 120, accent);
+    } else if (track === 'platine') {
+      // Puce IA & Code
+      IconesVectorielles.ia(ctx, cx, cy - 25, 115, accent);
+    } else {
+      // Membre Pionnier (Agronomie & Monogramme)
+      IconesVectorielles.agronomie(ctx, cx, cy - 35, 110, accent);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = metal0;
+      ctx.font = '800 28px "Bricolage Grotesque", sans-serif';
+      ctx.fillText('TS', cx, cy + 28);
+    }
+
+    // 5. Inscriptions gravées sur l'insigne
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'alphabetic';
+
+    // Filière (haut de l'insigne)
+    ctx.fillStyle = metal0;
+    ctx.font = '800 13px "JetBrains Mono", monospace';
+    ctx.fillText(labelFiliere, cx, cy - r * 0.58);
+
+    // Ruban de Niveau (bas de l'insigne)
+    const rubanW = r * 1.55;
+    const rubanH = 34;
+    const rubanY = cy + r * 0.42;
+
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+    ctx.strokeStyle = gradMetal;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(cx - rubanW / 2, rubanY, rubanW, rubanH, 17);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '800 12.5px "Figtree", sans-serif';
+    ctx.fillText(labelNiveau, cx, rubanY + 22);
+
+    // Millésime & Pays
+    ctx.fillStyle = accent;
+    ctx.font = '700 10.5px "JetBrains Mono", monospace';
+    ctx.fillText('RÉPUBLIQUE DU BÉNIN · 2026', cx, cy + r * 0.74);
+
+    // 6. Section Récipient & Authentification (Sous l'insigne)
+    const nomTitulaire = (data.beneficiaireNom || data.nom || 'Olivier AREMOU').toUpperCase();
+    const idBadge = data.id || 'TS-SKL-2026-001';
+    const roleTitulaire = data.beneficiaireRole || data.institution || 'Communauté TEAM Sahélia';
+
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+    ctx.fillRect(cx - 160, H - 150, 320, 1);
+
+    ctx.fillStyle = '#ffffff';
+    dessinerTexteAutoShrink(ctx, nomTitulaire, cx, H - 118, W - 80, '"Bricolage Grotesque", sans-serif', 26, 18, '800');
+
+    ctx.fillStyle = '#a9c4b6';
+    ctx.font = '600 13px "Figtree", sans-serif';
+    ctx.fillText(roleTitulaire, cx, H - 94);
+
+    // Identifiant & Standard
+    ctx.fillStyle = accent;
+    ctx.font = '700 11.5px "JetBrains Mono", monospace';
+    ctx.fillText(`${badgeCode}  ·  ID : ${idBadge}`, cx, H - 72);
+
+    ctx.fillStyle = '#64748b';
+    ctx.font = '600 10px "JetBrains Mono", monospace';
+    ctx.fillText('OPEN BADGES 3.0 · W3C VERIFIABLE CREDENTIAL', cx, H - 52);
+  }
+
   function genererBadgeSurCanvas(canvas, options) {
     if (!canvas) return;
     const {
@@ -1610,12 +1992,15 @@
     } = options || {};
 
     const ctx = canvas.getContext('2d');
-    const W = format === 'carre' ? 1080 : (format === 'paysage' ? 1000 : 720);
-    const H = format === 'carre' ? 1080 : (format === 'paysage' ? 500 : 1150);
+        const isBadgeSeul = (format === 'badge_seul' || format === 'insigne');
+    const W = isBadgeSeul ? 800 : (format === 'carre' ? 1080 : (format === 'paysage' ? 1000 : 720));
+    const H = isBadgeSeul ? 800 : (format === 'carre' ? 1080 : (format === 'paysage' ? 500 : 1150));
     canvas.width = W;
     canvas.height = H;
 
-    if (type === 'verso') {
+    if (isBadgeSeul) {
+      dessinerInsigneOpenBadge(ctx, W, H, type, data);
+    } else if (type === 'verso') {
       dessinerBadgeVerso(ctx, W, H, format, data);
     } else if (type === 'formation') {
       dessinerBadgeFormation(ctx, W, H, format, data);
@@ -1627,7 +2012,60 @@
   }
 
   // Exposition globale
+  
+  // ---------------------------------------------------------------------------
+  // 10. INTÉGRATIONS LINKEDIN & OPEN BADGES 3.0 / W3C VERIFIABLE CREDENTIALS
+  // ---------------------------------------------------------------------------
+  function genererLienLinkedIn(data) {
+    const titre = encodeURIComponent(data.titre || data.titreCompetence || 'Certification TEAM Sahélia');
+    const certId = encodeURIComponent(data.id || 'TS-2026-001');
+    const baseUrl = 'https://aremouolivier-ops.github.io/site-team-sahelia';
+    const certUrl = encodeURIComponent(`${baseUrl}/verifier.html?id=${certId}`);
+    const orgName = encodeURIComponent('TEAM Sahélia');
+    return `https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=${titre}&organizationName=${orgName}&issueYear=2026&issueMonth=11&certUrl=${certUrl}&certId=${certId}`;
+  }
+
+  function exporterOpenBadgeJSONLD(data) {
+    const certId = data.id || 'TS-2026-001';
+    const baseUrl = 'https://aremouolivier-ops.github.io/site-team-sahelia';
+    return {
+      "@context": [
+        "https://www.w3.org/ns/credentials/v2",
+        "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+      ],
+      "id": `urn:uuid:${certId.toLowerCase()}`,
+      "type": ["VerifiableCredential", "OpenBadgeCredential"],
+      "issuer": {
+        "id": `${baseUrl}/issuers/team-sahelia.json`,
+        "type": ["Profile"],
+        "name": "Communauté TEAM Sahélia · République du Bénin",
+        "url": baseUrl,
+        "email": "teamsahelia@gmail.com"
+      },
+      "validFrom": "2026-11-03T00:00:00Z",
+      "name": data.titre || data.titreCompetence || "Certification TEAM Sahélia",
+      "description": data.description || "Micro-certification de compétence de terrain vérifiable délivrée par la communauté TEAM Sahélia.",
+      "credentialSubject": {
+        "id": `did:sahelia:${certId.toLowerCase()}`,
+        "type": ["AchievementSubject"],
+        "name": data.beneficiaireNom || data.nom || "Membre Certifié",
+        "achievement": {
+          "id": `${baseUrl}/achievements/${certId.toLowerCase()}.json`,
+          "type": ["Achievement"],
+          "name": data.titre || data.titreCompetence || "Compétence Validée",
+          "criteria": {
+            "narrative": (Array.isArray(data.criteres) && data.criteres.length) ? data.criteres.join(' ; ') : "Validation par livrable de terrain réel selon le protocole de référence de TEAM Sahélia."
+          }
+        }
+      }
+    };
+  }
+
   window.BadgeEngine = {
+    genererLienLinkedIn,
+    exporterOpenBadgeJSONLD,
+    dessinerInsigneOpenBadge,
+    FormesGeometriques,
     genererBadgeSurCanvas,
     dessinerBadgeMembre,
     dessinerBadgeFormation,
