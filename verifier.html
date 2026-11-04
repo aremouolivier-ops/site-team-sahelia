@@ -45,9 +45,19 @@
       color: #fca5a5;
     }
     .statut-revoque {
+      background: rgba(239, 68, 68, 0.2);
+      border: 2px solid #dc2626;
+      color: #fca5a5;
+    }
+    .statut-suspendu {
       background: rgba(249, 115, 22, 0.15);
       border: 2px solid #f97316;
       color: #fdba74;
+    }
+    .statut-inconnu {
+      background: rgba(245, 158, 11, 0.15);
+      border: 2px solid #f59e0b;
+      color: #fcd34d;
     }
     .statut-introuvable {
       background: rgba(234, 179, 8, 0.12);
@@ -291,8 +301,8 @@
           targetId = (credential.id || '').split('/').pop().replace('.json', '') || 'DOCUMENT-IMPORTE';
         }
 
-        // Vérifier le statut de révocation auprès du registre public
-        let statutRevocation = { revoque: false };
+        // Vérifier le statut de révocation auprès du registre public (Logique stricte à 3 états)
+        let statutRevocation = { statut: 'STATUT_INCONNU', revoque: null };
         if (window.BadgeCrypto && window.BadgeCrypto.verifierStatutRevocation) {
           statutRevocation = await window.BadgeCrypto.verifierStatutRevocation(targetId);
         }
@@ -302,7 +312,11 @@
         if (credential && credential.proof && window.BadgeCrypto && window.BadgeCrypto.verifierSignatureCredential) {
           auditCrypto = await window.BadgeCrypto.verifierSignatureCredential(credential);
         } else if (badgeData && !credential) {
-          auditCrypto = { valide: true, nonSigne: true };
+          auditCrypto = {
+            valide: false,
+            nonSigne: true,
+            erreur: "Ce titre figure dans le catalogue informatif local mais ne dispose pas d'un Verifiable Credential W3C signé numériquement."
+          };
         }
 
         // Consolidation des données affichées
@@ -357,29 +371,71 @@
       }
 
       function afficherResultat({ id, data, credential, auditCrypto, statutRevocation }) {
-        const estRevoque = statutRevocation && statutRevocation.revoque;
-        const signatureValide = auditCrypto && auditCrypto.valide;
-        const estFalsifie = auditCrypto && !auditCrypto.valide && credential && credential.proof;
+        const estRevoque = Boolean(statutRevocation && statutRevocation.statut === 'REVOQUE');
+        const estSuspendu = Boolean(statutRevocation && statutRevocation.statut === 'SUSPENDU');
+        const statutInconnu = Boolean(statutRevocation && statutRevocation.statut === 'STATUT_INCONNU');
+        const signatureValide = Boolean(auditCrypto && auditCrypto.valide);
+        const estNonSigne = Boolean(auditCrypto && auditCrypto.nonSigne);
+        const estFalsifie = Boolean(!signatureValide && !estNonSigne && credential && credential.proof);
 
-        let bandeauClass = 'statut-valide';
-        let iconeStatut = '✓';
-        let titreStatut = 'CERTIFICATION OFFICIELLE AUTHENTIFIÉE & CONFORME';
-        let descStatut = 'Ce titre a été contrôlé avec succès. L’identité du titulaire, les critères d’évaluation et l’intégrité du document sont confirmés.';
+        let bandeauClass = 'statut-introuvable';
+        let iconeStatut = '⚠️';
+        let titreStatut = 'STATUT DE CERTIFICATION NON CONFIRMÉ';
+        let descStatut = 'Les éléments fournis n’ont pas permis d’établir une certification valide.';
+        let pillHtml = '';
 
         if (estRevoque) {
           bandeauClass = 'statut-revoque';
           iconeStatut = '✕';
           titreStatut = 'CERTIFICATION OFFICIELLE RÉVOQUÉE';
           descStatut = `Ce titre a été formellement révoqué le ${escapeHTML(statutRevocation.date || 'récemment')} par TEAM Sahélia. Motif : ${escapeHTML(statutRevocation.motif || 'Non précisé')}.`;
+        } else if (estSuspendu) {
+          bandeauClass = 'statut-suspendu';
+          iconeStatut = '⏸';
+          titreStatut = 'CERTIFICATION TEMPORAIREMENT SUSPENDUE';
+          descStatut = `Ce titre fait l'objet d'une suspension administrative enregistrée le ${escapeHTML(statutRevocation.date || 'récemment')} par TEAM Sahélia. Motif : ${escapeHTML(statutRevocation.motif || 'En cours de réexamen administratif')}.`;
         } else if (estFalsifie) {
           bandeauClass = 'statut-invalide';
           iconeStatut = '⚠️';
           titreStatut = 'DOCUMENT ALTÉRÉ / SIGNATURE CRYPTOGRAPHIQUE INVALIDE';
-          descStatut = `Échec de l’audit de conformité : le contenu de ce document a été modifié après sa signature officielle. ${escapeHTML(auditCrypto.erreur || '')}`;
+          descStatut = `Échec de l’audit de conformité : le document ou ses métadonnées de preuve ont été altérés après émission, ou la clé de signature ne correspond pas à l'émetteur officiel. ${escapeHTML(auditCrypto.erreur || '')}`;
+        } else if (signatureValide && statutInconnu) {
+          bandeauClass = 'statut-inconnu';
+          iconeStatut = '⚠️';
+          titreStatut = 'SIGNATURE INTÈGRE · STATUT DE RÉVOCATION INDÉTERMINÉ (HORS-LIGNE)';
+          descStatut = `La signature cryptographique du document est mathématiquement valide, mais le registre officiel de révocation n'a pas pu être interrogé (${escapeHTML(statutRevocation.erreur || 'Réseau inaccessible')}). Le titre ne peut être certifié comme pleinement actif sans confirmation du registre.`;
+          pillHtml = `
+            <div class="crypto-pill" style="background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.4); color: #fcd34d;">
+              <span>⚠️</span>
+              <span>Signature ECDSA P-256 mathématiquement valide · Registre de révocation non joignable</span>
+            </div>
+          `;
+        } else if (signatureValide && statutRevocation && statutRevocation.statut === 'VALIDE') {
+          // SEUL ET UNIQUE CAS OÙ LE STATUT VERT EST ACCORDÉ (FAIL-CLOSED RIGOUREUX)
+          bandeauClass = 'statut-valide';
+          iconeStatut = '✓';
+          titreStatut = 'CERTIFICATION CRYPTOGRAPHIQUEMENT AUTHENTIFIÉE & ACTIVE';
+          descStatut = "Signature cryptographique et intégrité du document vérifiées. Le nom, la compétence et les preuves présentés correspondent aux déclarations signées par TEAM Sahélia. La vérification de l'identité physique du titulaire et la reconnaissance externe relèvent de contrôles distincts.";
+          pillHtml = `
+            <div class="crypto-pill">
+              <span>🔐</span>
+              <span>Signature ECDSA P-256 (RFC 7797 JWS détaché) + SHA-256 validée par Web Crypto API · Statut registre : Actif</span>
+            </div>
+          `;
+        } else if (estNonSigne) {
+          bandeauClass = 'statut-introuvable';
+          iconeStatut = 'ℹ️';
+          titreStatut = 'TITRE CATALOGUE SANS JUSTIFICATIF CRYPTOGRAPHIQUE';
+          descStatut = "Cet identifiant correspond à une entrée informative de notre catalogue, mais aucun document Verifiable Credential W3C signé n'a été émis ou attaché à cette fiche.";
+        } else {
+          bandeauClass = 'statut-invalide';
+          iconeStatut = '✕';
+          titreStatut = 'ÉCHEC DE L’AUTHENTIFICATION';
+          descStatut = escapeHTML(auditCrypto.erreur || 'Le document présenté ne remplit pas les critères cryptographiques requis.');
         }
 
         conteneur.innerHTML = `
-          <div class="carte-verif" ${estRevoque || estFalsifie ? 'role="alert"' : ''}>
+          <div class="carte-verif" ${estRevoque || estSuspendu || estFalsifie ? 'role="alert"' : ''}>
             
             <!-- Bandeau de Statut -->
             <div class="badge-statut-bandeau ${bandeauClass}">
@@ -387,12 +443,7 @@
               <div>
                 <h2 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.25rem;">${escapeHTML(titreStatut)}</h2>
                 <p style="font-size: 0.88rem; line-height: 1.4;">${escapeHTML(descStatut)}</p>
-                ${signatureValide && !estRevoque ? `
-                  <div class="crypto-pill">
-                    <span>🔐</span>
-                    <span>Signature ECDSA P-256 + SHA-256 validée par Web Crypto API</span>
-                  </div>
-                ` : ''}
+                ${pillHtml}
               </div>
             </div>
 
@@ -462,11 +513,16 @@
                 </ul>
               </div>` : ''}
 
-            <!-- Visualisation Officielle du Badge sur Canvas -->
+            <!-- Visualisation Illustrative du Badge sur Canvas (Distinction graphique / juridique) -->
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 1.5rem 0 2rem; background: var(--fond); padding: 1.5rem; border-radius: 14px; border: 1px solid var(--bordure);">
-              <span style="font-size: 0.72rem; font-family: var(--police-mono); text-transform: uppercase; color: var(--texte-3); margin-bottom: 0.8rem;">
-                Représentation Graphique Officielle :
-              </span>
+              <div style="text-align: center; margin-bottom: 0.85rem; max-width: 550px;">
+                <span style="font-size: 0.72rem; font-family: var(--police-mono); text-transform: uppercase; color: var(--texte-3); display: block; margin-bottom: 0.25rem;">
+                  Représentation Graphique Illustrative :
+                </span>
+                <p style="font-size: 0.78rem; color: var(--texte-3); line-height: 1.4; margin: 0;">
+                  Aperçu visuel produit à titre indicatif. Le titre officiel et juridiquement opposable est le document numérique <strong>Verifiable Credential W3C</strong> signé cryptographiquement ci-dessus.
+                </p>
+              </div>
               <div style="max-width: 480px; width: 100%; border-radius: 14px; overflow: hidden; border: 2px solid var(--bordure); box-shadow: 0 15px 35px rgba(0,0,0,0.5); background: #000;">
                 <canvas id="canvas-mini-apercu" style="width: 100%; height: auto; display: block;"></canvas>
               </div>
@@ -475,8 +531,8 @@
             <!-- Preuve Cryptographique & Actions Publiques -->
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--bordure);">
               <div style="font-size: 0.76rem; font-family: var(--police-mono); color: var(--texte-3);">
-                Émetteur : <strong>issuers/team-sahelia.json</strong><br>
-                Algorithme : <strong>ECDSA P-256 (secp256r1) · SHA-256</strong>
+                Émetteur : <strong>issuers/team-sahelia.json#key-1</strong><br>
+                Algorithme : <strong>ECDSA P-256 (RFC 7797 JWS détaché) · SHA-256</strong>
               </div>
               <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
                 <button type="button" id="btn-copier-lien-verif" class="v-btn v-btn--fantome" style="min-height: 38px; font-size: 0.8rem;">

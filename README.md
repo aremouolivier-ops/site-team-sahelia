@@ -37,8 +37,9 @@ Le système de certification de TEAM Sahélia repose sur les spécifications int
 
 ### 🔍 Portail Public de Vérification Décentralisée (`verifier.html`)
 * **Accès 100% public :** N'exige aucun compte administrateur ni mot de passe.
-* **Audit mathématique en temps réel :** Télécharge le document justificatif `credentials/{id}.json` et vérifie la signature numérique auprès de la clé publique officielle de TEAM Sahélia (`issuers/team-sahelia.json#cle-publique-2026`).
-* **Registre de révocation :** Contrôle instantané contre `status/revocations.json`.
+* **Audit mathématique en temps réel :** Télécharge le document justificatif `credentials/{id}.json` et vérifie la signature numérique auprès de la clé publique officielle de TEAM Sahélia (`issuers/team-sahelia.json#key-1`) au standard **W3C JsonWebSignature2020 / RFC 7797 Detached JWS**.
+* **Registre de révocation à 3 états (Fail-Closed) :** Contrôle instantané contre `status/revocations.json` (`VALIDE`, `REVOQUE`, `SUSPENDU`, `STATUT_INCONNU`). En cas de rupture réseau, la politique stricte de sécurité n'accorde jamais de statut vert permissif.
+* **Titre opposable & Représentation graphique :** Seul le document Verifiable Credential W3C signé fait juridiquement foi ; le rendu graphique (Canvas/PNG) constitue une représentation visuelle illustrative d'accompagnement.
 * **Audit hors-ligne :** Permet à tout recruteur ou institution de glisser-déposer un fichier Verifiable Credential (`.json`) pour en certifier l'intégrité sans transmission réseau.
 
 ---

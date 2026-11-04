@@ -159,17 +159,23 @@ Object.entries(ACHIEVEMENTS).forEach(([key, val]) => {
 });
 console.log('✓ achievements/ 4 compétences canoniques créées.');
 
-// 5. Registre public de révocation
+// 5. Registre public de révocation & suspension
 const revocationsList = {
   "@context": "https://www.w3.org/ns/credentials/v2",
   "id": `${BASE_URL}/status/revocations.json`,
   "type": "BitstringStatusList",
   "statusPurpose": "revocation",
   "derniereMiseAJour": "2026-11-04T00:00:00Z",
-  "revocations": []
+  "revocations": [],
+  "suspensions": []
 };
 fs.writeFileSync(path.join(statusDir, 'revocations.json'), JSON.stringify(revocationsList, null, 2), 'utf8');
 console.log('✓ status/revocations.json initialisé.');
+
+// Base64URL
+function base64urlEncode(octets) {
+  return Buffer.from(octets).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+}
 
 // Fonction de canonicalisation déterministe récursive
 function canonicaliserObjet(obj) {
@@ -186,24 +192,38 @@ function canonicaliserObjet(obj) {
   return trie;
 }
 
-// 6. Fonction de signature canonique pour les attestations individuelles
+// 6. Fonction de signature canonique pour les attestations individuelles (Format JWS détaché RFC 7797)
 function signerDocument(payload, privateKey) {
   const copie = JSON.parse(JSON.stringify(payload));
   delete copie.proof;
-  const objetCanonique = canonicaliserObjet(copie);
-  const canonicalString = JSON.stringify(objetCanonique);
-  const data = Buffer.from(canonicalString, 'utf8');
+  const docCanonique = JSON.stringify(canonicaliserObjet(copie));
+  const docHash = crypto.createHash('sha256').update(docCanonique).digest('hex');
+
+  const createdDate = new Date().toISOString();
+  const proofConfig = {
+    type: "JsonWebSignature2020",
+    created: createdDate,
+    verificationMethod: `${BASE_URL}/issuers/team-sahelia.json#key-1`,
+    proofPurpose: "assertionMethod"
+  };
+  const proofCanonique = JSON.stringify(canonicaliserObjet(proofConfig));
+  const proofHash = crypto.createHash('sha256').update(proofCanonique).digest('hex');
+
+  const payloadSigne = `${docHash}:${proofHash}`;
+  const header = { alg: "ES256", b64: false, crit: ["b64"] };
+  const headerB64 = base64urlEncode(Buffer.from(JSON.stringify(header)));
+  const donneesASigner = Buffer.from(`${headerB64}.${payloadSigne}`, 'utf8');
 
   // Signature ECDSA P-256 avec encodage IEEE P1363 (64 octets natif WebCrypto)
-  const signatureIeee = crypto.sign('sha256', data, { key: privateKey, dsaEncoding: 'ieee-p1363' });
-  const signatureHex = signatureIeee.toString('hex');
+  const signatureIeee = crypto.sign('sha256', donneesASigner, { key: privateKey, dsaEncoding: 'ieee-p1363' });
+  const jws = `${headerB64}..${base64urlEncode(signatureIeee)}`;
 
   copie.proof = {
     "type": "JsonWebSignature2020",
-    "created": new Date().toISOString(),
+    "created": createdDate,
     "verificationMethod": `${BASE_URL}/issuers/team-sahelia.json#key-1`,
     "proofPurpose": "assertionMethod",
-    "signatureValue": signatureHex
+    "jws": jws
   };
   return copie;
 }

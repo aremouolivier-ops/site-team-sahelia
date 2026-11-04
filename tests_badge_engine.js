@@ -172,7 +172,7 @@ if (!window.BadgeCrypto) {
     console.log(`✓ Signature authentique W3C VC validée pour ${id} (${cred.credentialSubject.name})`);
   }
 
-  // Test de falsification
+  // Test de falsification du contenu
   const credAlt = JSON.parse(fs.readFileSync(path.join(__dirname, 'credentials', 'TS-SKL-2026-001.json'), 'utf8'));
   credAlt.credentialSubject.name = 'Faux Bénéficiaire';
   const auditFaux = await window.BadgeCrypto.verifierSignatureCredential(credAlt);
@@ -180,7 +180,64 @@ if (!window.BadgeCrypto) {
     console.error('❌ La signature aurait dû échouer pour le document altéré !');
     process.exit(1);
   }
-  console.log('✓ Détection mathématique immédiate de tentative de falsification');
+  console.log('✓ Détection mathématique immédiate de tentative de falsification du corps du document');
+
+  // Test de falsification des métadonnées de preuve (created)
+  const credAltProof = JSON.parse(fs.readFileSync(path.join(__dirname, 'credentials', 'TS-SKL-2026-001.json'), 'utf8'));
+  credAltProof.proof.created = '2020-01-01T00:00:00.000Z';
+  const auditFauxProof = await window.BadgeCrypto.verifierSignatureCredential(credAltProof);
+  if (auditFauxProof.valide) {
+    console.error('❌ La signature aurait dû échouer pour les métadonnées de preuve altérées !');
+    process.exit(1);
+  }
+  console.log('✓ Détection mathématique de falsification des métadonnées de preuve (proof.created)');
+
+  // Test du registre de révocation à 3 états (Fail-Closed)
+  console.log('--- TEST 8B : AUDIT DE RÉVOCATION À 3 ÉTATS (FAIL-CLOSED) ---');
+  // 1. Titre valide non révoqué
+  global.fetch = async (url) => {
+    if (url === 'status/revocations.json') {
+      return {
+        ok: true,
+        json: async () => ({
+          derniereMiseAJour: '2026-11-04T00:00:00Z',
+          revocations: [{ id: 'TS-REV-001', motif: 'Test révocation', date: '2026-11-04' }],
+          suspensions: [{ id: 'TS-SUS-001', motif: 'Test suspension', date: '2026-11-04' }]
+        })
+      };
+    }
+    throw new Error('404 Not Found');
+  };
+
+  const stValide = await window.BadgeCrypto.verifierStatutRevocation('TS-SKL-2026-001');
+  if (stValide.statut !== 'VALIDE' || stValide.revoque !== false) {
+    console.error('❌ Statut VALIDE attendu pour TS-SKL-2026-001, reçu:', stValide);
+    process.exit(1);
+  }
+  console.log('✓ Contrôle registre : Titre actif certifié VALIDE (revoque: false)');
+
+  const stRevoque = await window.BadgeCrypto.verifierStatutRevocation('TS-REV-001');
+  if (stRevoque.statut !== 'REVOQUE' || stRevoque.revoque !== true) {
+    console.error('❌ Statut REVOQUE attendu pour TS-REV-001, reçu:', stRevoque);
+    process.exit(1);
+  }
+  console.log('✓ Contrôle registre : Titre révoqué formellement détecté REVOQUE (revoque: true)');
+
+  const stSuspendu = await window.BadgeCrypto.verifierStatutRevocation('TS-SUS-001');
+  if (stSuspendu.statut !== 'SUSPENDU' || stSuspendu.revoque !== true) {
+    console.error('❌ Statut SUSPENDU attendu pour TS-SUS-001, reçu:', stSuspendu);
+    process.exit(1);
+  }
+  console.log('✓ Contrôle registre : Titre suspendu formellement détecté SUSPENDU (revoque: true)');
+
+  // Test fail-closed en cas d'erreur réseau
+  global.fetch = async () => { throw new Error('Réseau inaccessible (offline)'); };
+  const stOffline = await window.BadgeCrypto.verifierStatutRevocation('TS-SKL-2026-001');
+  if (stOffline.statut !== 'STATUT_INCONNU' || stOffline.revoque !== null) {
+    console.error('❌ Statut STATUT_INCONNU attendu en cas d\'erreur réseau (Fail-Closed), reçu:', stOffline);
+    process.exit(1);
+  }
+  console.log('✓ Principe Fail-Closed respecté : Erreur réseau -> STATUT_INCONNU (revoque: null)');
 
   console.log('--- TEST 9 : CONTRÔLE STRICT D’ABSENCE DE RÉSIDUS PARAKOU / FA-UP ---');
   const badgeFiles = [
