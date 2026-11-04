@@ -340,6 +340,72 @@ assert(permalienDrone.includes('formation.html?cours=mn-11'), 'Le permalien dire
 assert(typeof Sec.changerMotDePasseAdmin === 'function', 'SaheliaSecurite supporte le changement de mot de passe admin');
 
 console.log('\n========================================================================');
+console.log('TEST 2B : CONTRÔLE DU CHIFFREMENT FORT DES MANUELS (AES-256-GCM + PBKDF2)');
+console.log('========================================================================');
+
+// Charger le bundle de contenus et le module cryptographique
+const contenuContent = fs.readFileSync(path.join(BASE_DIR, 'js', 'formation-contenu.js'), 'utf8');
+eval(`(function(window) { ${contenuContent} })(fakeWindow)`);
+
+const cryptoFormationContent = fs.readFileSync(path.join(BASE_DIR, 'js', 'crypto-formation.js'), 'utf8');
+eval(`(function(window) { ${cryptoFormationContent} })(fakeWindow)`);
+
+const CryptoForm = fakeWindow.SaheliaCryptoFormation;
+assert(CryptoForm !== undefined, 'Module SaheliaCryptoFormation opérationnel');
+assert(fakeWindow.SaheliaContenus !== undefined, 'Table des contenus libres SaheliaContenus chargée');
+assert(fakeWindow.SaheliaContenusChiffres !== undefined, 'Table des contenus chiffrés SaheliaContenusChiffres chargée');
+assert(fakeWindow.SaheliaKeyEnvelopes !== undefined, 'Table des enveloppes cryptographiques chargée');
+
+// 1. Zéro fuite de manuels protégés en clair dans SaheliaContenus
+assert(Object.keys(fakeWindow.SaheliaContenus).length === 5, 'Exactement 5 mini-guides libres dans SaheliaContenus');
+const clefsEnClair = Object.keys(fakeWindow.SaheliaContenus);
+const fuiteManuelDetectee = clefsEnClair.some(k => k.startsWith('manuels/'));
+assert(!fuiteManuelDetectee, 'AUCUN manuel protégé n’est présent en clair dans SaheliaContenus (Zéro fuite)');
+
+// 2. Exactement 80 sections de manuels chiffrées en AES-256-GCM
+const totalChiffres = Object.keys(fakeWindow.SaheliaContenusChiffres).length;
+assert(totalChiffres === 80, `Exactement 80 sections de cours chiffrées en AES-256-GCM (trouvé: ${totalChiffres})`);
+
+// 3. Vérification des enveloppes cryptographiques
+const hashesEnveloppes = Object.keys(fakeWindow.SaheliaKeyEnvelopes);
+assert(hashesEnveloppes.length >= 5, `Au moins 5 enveloppes de clés générées (trouvé: ${hashesEnveloppes.length})`);
+
+// 4. Test synchrone / asynchrone du déchiffrement cryptographique
+(async () => {
+  // Test 4A : Déverrouillage avec code étudiant officiel
+  const resEtudiant = await CryptoForm.deverrouillerAvecPassphrase('SAHELIA-EXCEL-2026');
+  assert(resEtudiant.succes === true, 'Déverrouillage cryptographique réussi avec le code étudiant (SAHELIA-EXCEL-2026)');
+
+  const chap1Dec = await CryptoForm.dechiffrerContenu('manuels/01-excel-etudiants-professionnels/chapitres/01_ANATOMIE_ET_HYGIENE_SAISIE.md');
+  assert(chap1Dec.includes('CHAPITRE 1 : ANATOMIE'), 'Déchiffrement AES-256-GCM du Chapitre 1 du Manuel 01 réussi et intègre');
+
+  // Test 4B : Verrouillage immédiat
+  CryptoForm.verrouiller();
+  assert(CryptoForm.estDeverrouille() === false, 'Verrouillage et effacement de la clé maîtresse en RAM confirmés');
+
+  // Test 4C : Déverrouillage avec clé maître Admin
+  const resAdmin = await CryptoForm.deverrouillerAvecPassphrase('ADMIN-SAHELIA-2026');
+  assert(resAdmin.succes === true, 'Déverrouillage cryptographique réussi avec la Clé Maître Admin (ADMIN-SAHELIA-2026)');
+
+  const chap2Dec = await CryptoForm.dechiffrerContenu('manuels/01-excel-etudiants-professionnels/chapitres/02_FORMULES_ARITHMETIQUES_ET_DOLLAR.md');
+  assert(chap2Dec.includes('CHAPITRE 2 : FORMULES'), 'Déchiffrement AES-256-GCM du Chapitre 2 du Manuel 01 réussi avec la clé Admin');
+
+  // Test 4D : Tentative de déverrouillage avec code faux -> Rejeté
+  CryptoForm.verrouiller();
+  const resFaux = await CryptoForm.deverrouillerAvecPassphrase('CODE-PIRATE-INVALIDE');
+  assert(resFaux.succes === false, 'Code invalide rejeté par le gestionnaire d’enveloppes de clés');
+
+  // Test 4E : Tentative de déchiffrement sans clé (PoC isSuperAdmin sans clé) -> Exception
+  let accesBloque = false;
+  try {
+    await CryptoForm.dechiffrerContenu('manuels/01-excel-etudiants-professionnels/chapitres/01_ANATOMIE_ET_HYGIENE_SAISIE.md');
+  } catch (err) {
+    accesBloque = true;
+  }
+  assert(accesBloque === true, 'PoC isSuperAdmin invalidé : Tentative d’accès sans clé cryptographique bloquée avec succès');
+})();
+
+console.log('\n========================================================================');
 console.log('TEST 3 : VÉRIFICATION DU SERVEUR DE REDIRECTION DES FICHIERS MARKDOWN');
 console.log('========================================================================');
 

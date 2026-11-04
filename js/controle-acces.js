@@ -240,6 +240,11 @@
 
       // 2. Super-Administrateur / Éditeur validé pour l'époque courante
       if (session.isSuperAdmin === true) {
+        // Sécurité anti-falsification : si un hash ou une clé est présente, vérifier sa conformité
+        if (session.passHash && !EMPREINTES_ADMIN_AUTORISEES.has(session.passHash) && (!this._config || session.passHash !== this._config.codeHash)) {
+          this.deconnecter();
+          return null;
+        }
         return session;
       }
 
@@ -311,6 +316,13 @@
 
       this._reinitialiserEchecsBruteforce();
 
+      // Déverrouillage cryptographique en mémoire vive des manuels stratégiques
+      if (typeof window !== 'undefined' && window.SaheliaCryptoFormation && typeof window.SaheliaCryptoFormation.deverrouillerAvecPassphrase === 'function') {
+        try {
+          await window.SaheliaCryptoFormation.deverrouillerAvecPassphrase(clePropre);
+        } catch (e) {}
+      }
+
       const session = {
         badgeId: 'TS-ADM-FONDATEUR',
         badgeNom: 'Direction & Édition TEAM Sahélia',
@@ -319,7 +331,9 @@
         statut: 'actif',
         isSuperAdmin: true,
         epoch: this._config ? this._config.securityEpoch : 1,
-        dateConnexion: new Date().toISOString()
+        dateConnexion: new Date().toISOString(),
+        cleDeverrouillage: clePropre,
+        passHash: hashSaisi
       };
 
       const sessionJson = JSON.stringify(session);
@@ -418,6 +432,13 @@
       // Réinitialisation des erreurs bruteforce en cas de succès
       this._reinitialiserEchecsBruteforce();
 
+      // Déverrouillage cryptographique en mémoire vive des manuels stratégiques
+      if (typeof window !== 'undefined' && window.SaheliaCryptoFormation && typeof window.SaheliaCryptoFormation.deverrouillerAvecPassphrase === 'function') {
+        try {
+          await window.SaheliaCryptoFormation.deverrouillerAvecPassphrase(codePropre);
+        } catch (e) {}
+      }
+
       // 4. Création de la session autorisée
       const session = {
         badgeId: badge.id,
@@ -426,7 +447,9 @@
         badgeType: badge.type,
         statut: badge.statut,
         epoch: this._config.securityEpoch,
-        dateConnexion: new Date().toISOString()
+        dateConnexion: new Date().toISOString(),
+        cleDeverrouillage: codePropre,
+        passHash: hashSaisi
       };
 
       const sessionJson = JSON.stringify(session);
@@ -453,6 +476,9 @@
       try {
         sessionStorage.removeItem(STORAGE_KEY_SESSION);
         localStorage.removeItem(STORAGE_KEY_SESSION);
+        if (typeof window !== 'undefined' && window.SaheliaCryptoFormation && typeof window.SaheliaCryptoFormation.verrouiller === 'function') {
+          window.SaheliaCryptoFormation.verrouiller();
+        }
       } catch (e) {}
     },
 

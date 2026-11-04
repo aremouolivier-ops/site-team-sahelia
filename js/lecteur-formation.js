@@ -884,10 +884,32 @@
         } else if (this.coursActif && this.coursActif.contenuMarkdown) {
           texteMd = this.coursActif.contenuMarkdown;
         } else if (window.SaheliaContenus && typeof window.SaheliaContenus[cleNormalisee] === 'string') {
-          // 1. Priorité aux contenus embarqués (Permet un fonctionnement immédiat sous le protocole file:///)
+          // 1. Guides libres ouverts (Plaintext pour SEO et accès instantané)
           texteMd = window.SaheliaContenus[cleNormalisee];
+        } else if (window.SaheliaContenusChiffres && window.SaheliaContenusChiffres[cleNormalisee]) {
+          // 2. Manuels stratégiques protégés : Déchiffrement AES-256-GCM en mémoire vive
+          if (!window.SaheliaCryptoFormation) {
+            throw new Error('Module de déchiffrement cryptographique indisponible.');
+          }
+
+          if (!window.SaheliaCryptoFormation.estDeverrouille()) {
+            const session = window.SaheliaSecurite ? window.SaheliaSecurite.obtenirSessionValide() : null;
+            if (session && session.cleDeverrouillage) {
+              const resDev = await window.SaheliaCryptoFormation.deverrouillerAvecPassphrase(session.cleDeverrouillage);
+              if (!resDev.succes) {
+                if (window.SaheliaSecurite) window.SaheliaSecurite.deconnecter();
+                throw new Error('Échec du déchiffrement : Clé d’accès invalide ou révoquée.');
+              }
+            } else {
+              // Tentative de bypass ou session forgée (PoC isSuperAdmin invalidé mathématiquement)
+              if (window.SaheliaSecurite) window.SaheliaSecurite.deconnecter();
+              throw new Error('Accès verrouillé : Ce manuel stratégique est chiffré en AES-256-GCM. Veuillez vous authentifier avec votre badge et un code d’accès valide.');
+            }
+          }
+
+          texteMd = await window.SaheliaCryptoFormation.dechiffrerContenu(cleNormalisee);
         } else {
-          // 2. Repli réseau fetch standard (lorsque le site est servi via HTTP/HTTPS)
+          // 3. Repli réseau fetch standard (lorsque le site est servi via HTTP/HTTPS)
           try {
             const rep = await fetch(cheminFichier);
             if (!rep.ok) {
