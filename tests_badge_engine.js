@@ -106,7 +106,7 @@ const count = qr.getModuleCount();
 console.log(`✓ QR Code généré avec succès : matrice ${count}x${count} modules`);
 
 console.log('--- TEST 6 : RENDU DU FORMAT OPEN BADGE 3.0 (INSIGNE SEUL 800x800) ---');
-const tracks = ['pionnier', 'sig', 'drone', 'vibe'];
+const tracks = ['pionnier', 'sig', 'drone', 'vibe', 'data', 'kobo', 'projet', 'mentor', 'formation'];
 tracks.forEach((track) => {
   const canvasInsigne = document.createElement('canvas');
   window.BadgeEngine.genererBadgeSurCanvas(canvasInsigne, {
@@ -114,8 +114,9 @@ tracks.forEach((track) => {
     format: 'badge_seul',
     data: {
       id: `TS-SKL-2026-${track.toUpperCase()}`,
+      track: track,
       beneficiaireNom: 'Olivier AREMOU',
-      beneficiaireRole: 'Membre Certifié',
+      beneficiaireRole: 'Praticien Certifié',
       titre: `Badge Spécialisé ${track.toUpperCase()}`
     }
   });

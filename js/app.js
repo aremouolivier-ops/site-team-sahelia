@@ -521,17 +521,28 @@
         const m = etatApp.membreSelectionne || {};
         const inputMembreSexe = document.getElementById('membre-sexe-input');
         const inputMembreSlogan = document.getElementById('membre-slogan-input');
+        const statutApp = m.statutAppartenance || m.categorie || 'Membre Officiel';
         dataBadge = {
           id: inputMembreId ? inputMembreId.value : (m.id || 'TS-MBR-2026-001'),
-          titre: 'Membre Pionnier · Communauté TEAM Sahélia',
+          titre: `${statutApp} · Communauté TEAM Sahélia`,
+          type: 'membre',
+          famille: 'appartenance',
+          track: 'pionnier',
+          statutAppartenance: statutApp,
+          formeGeometrique: 'pentagone',
           beneficiaireNom: inputMembreNom && inputMembreNom.value ? inputMembreNom.value : (m.nom || 'Olivier AREMOU'),
           beneficiaireRole: inputMembreRole && inputMembreRole.value ? inputMembreRole.value : (m.role || 'Fondateur & Coordinateur Général'),
-          institution: inputMembreInst && inputMembreInst.value ? inputMembreInst.value : (m.institution || 'Communauté TEAM Sahélia · Bénin'),
+          institution: inputMembreInst && inputMembreInst.value ? inputMembreInst.value : (m.institution || 'Communauté TEAM Sahélia · République du Bénin'),
           sexe: inputMembreSexe ? inputMembreSexe.value : (m.sexe || 'M'),
           slogan: (inputMembreSlogan && inputMembreSlogan.value) ? inputMembreSlogan.value : (m.slogan || 'Apprendre aujourd’hui. Construire demain.'),
           dateAdhesion: m.dateAdhesion || '15 Janvier 2026',
+          dateEmission: m.dateAdhesion || '15 Janvier 2026',
           photoImg: etatApp.photoMembreTemp,
-          accentColor: '#cd7f32',
+          accentColor: '#22c55e',
+          metal0: '#a7f3d0',
+          metal1: '#22c55e',
+          metal2: '#15803d',
+          bgInner: '#06170f',
           code: 'pionnier'
         };
       } else if (type === 'formation') {
@@ -541,57 +552,79 @@
 
         dataBadge = {
           id: part.id || 'TS-FOR-2026-Q1-001',
+          type: 'formation',
+          famille: 'formation',
+          track: 'formation',
           titre: form.titre || 'Formation TEAM Sahélia',
           cohorteNom: coh.nom || 'Cohorte Pilote',
-          periode: coh.periode || 'Octobre — Novembre 2026',
-          lieu: coh.lieu || 'Terrain & En ligne',
-          formateur: coh.formateurPrincipal || form.formateur,
-          beneficiaireNom: part.nom || 'Participant',
-          beneficiaireRole: part.role || 'Membre Apprenant',
+          periode: coh.periode || 'Janvier — Février 2026',
+          lieu: coh.lieu || 'Terrain & En ligne (Format Hybride)',
+          formateur: coh.formateurPrincipal || form.formateur || 'Ségla Bio KPEROU',
+          beneficiaireNom: part.nom || 'Participant Officiel',
+          beneficiaireRole: part.role || 'Apprenant de Cohorte',
           sexe: part.sexe || 'M',
-          statut: part.statut || 'en_cours',
-          mention: part.mention || '',
+          statut: part.statut || 'termine',
+          mention: part.mention || 'Excellence Technique',
+          dateEmission: part.dateValidation || coh.dateValidation || '28 Février 2026',
+          validFrom: '2026-02-28T00:00:00Z',
           slogan: part.slogan || 'Bâtir pour de vrai : des compétences solides pour la jeunesse.',
-          accentColor: form.accentColor || '#2563eb',
+          accentColor: form.accentColor || '#38bdf8',
+          formeGeometrique: 'hexagone',
+          volumeHoraire: form.volumeHoraire || '40 heures de travaux pratiques',
+          code: 'formation'
         };
       } else {
         // Compétence & Spécialités Open Badges 3.0
         const attr = etatApp.attributionSelectionnee || DB.attributions[0] || {};
-        const comp = DB.competences.find((c) => c.id === attr.competenceId) || {};
+        const comp = DB.competences.find((c) => c.id === attr.competenceId || c.track === attr.track) || {};
 
-        let titreComp = attr.titreCompetence || comp.titre || 'Praticien SIG & Cartographie Parcellaire';
+        let titreComp = attr.titreCompetence || comp.titre || 'Praticien SIG & Cartographie QGIS';
+        let codeTrack = comp.track || comp.code || attr.track || 'sig';
+        let formeGeo = comp.formeGeometrique || 'hexagone';
         let accColor = comp.accentColor || '#94a3b8';
-        let codeTrack = 'sig';
 
-        if (type === 'competence-drone' || (attr.competenceId && attr.competenceId.includes('DRONE'))) {
+        if (type === 'competence-drone' || (attr.competenceId && String(attr.competenceId).includes('DRONE'))) {
           titreComp = 'Opérateur Drone & Télédétection Agricole';
-          accColor = '#e8946a';
+          accColor = '#f59e0b';
           codeTrack = 'drone';
-        } else if (type === 'competence-vibe' || (attr.competenceId && attr.competenceId.includes('VIBE'))) {
+          formeGeo = 'ecusson';
+        } else if (type === 'competence-vibe' || (attr.competenceId && String(attr.competenceId).includes('VIBE'))) {
           titreComp = 'Vibe Coding & Ingénieur Solutions IA';
           accColor = '#7fb0ee';
           codeTrack = 'vibe';
-        } else if (type === 'competence-sig' || (attr.competenceId && attr.competenceId.includes('SIG'))) {
-          titreComp = 'Praticien SIG & Cartographie Parcellaire (QGIS & GPS)';
+          formeGeo = 'octogone';
+        } else if (type === 'competence-sig' || (attr.competenceId && String(attr.competenceId).includes('SIG'))) {
+          titreComp = 'Praticien SIG & Cartographie QGIS';
           accColor = '#94a3b8';
           codeTrack = 'sig';
+          formeGeo = 'hexagone';
         }
 
         dataBadge = {
           id: attr.id || 'TS-SKL-2026-001',
+          type: 'competence',
+          famille: comp.famille || attr.famille || 'competence',
           titre: titreComp,
           titreCompetence: titreComp,
           niveau: attr.niveau || comp.niveau || 'Pratique Validée',
           beneficiaireNom: attr.beneficiaireNom || 'Ségla Bio KPEROU',
           beneficiaireRole: attr.beneficiaireRole || 'Référent SIG & Cartographie',
           sexe: attr.sexe || 'M',
-          validePar: attr.validePar || comp.validateur || 'Ségla Bio KPEROU (Référent SIG · TEAM Sahélia)',
-          dateEmission: attr.dateAttribution || '20 Janvier 2026',
+          validePar: attr.validePar || comp.validateur || 'Pôle Géomatique & Formation Continue',
+          dateEmission: attr.dateAttribution || attr.dateEmission || '20 Janvier 2026',
+          validFrom: attr.validFrom || '2026-01-20T00:00:00Z',
+          preuveProjet: attr.preuveProjet || 'Évaluation sur livrable de terrain réel validée par les pairs.',
           slogan: attr.slogan || 'Le terrain d’abord : la donnée géographique au service de la terre.',
           criteres: comp.criteres || [],
           domaine: comp.domaine || 'Géomatique Appliquée à l’Agronomie',
           accentColor: accColor,
-          code: codeTrack
+          track: codeTrack,
+          code: codeTrack,
+          formeGeometrique: formeGeo,
+          metal0: comp.metal0 || '#f8fafc',
+          metal1: comp.metal1 || '#cbd5e1',
+          metal2: comp.metal2 || '#475569',
+          bgInner: comp.bgInner || '#061713'
         };
       }
 
@@ -860,6 +893,14 @@
               inputMembreEmail.focus();
               return;
             }
+          }
+        }
+
+        if (type === 'formation') {
+          const part = etatApp.participantSelectionne || {};
+          if (part.statut !== 'termine') {
+            afficherErreur(`L’attestation officielle de formation ne peut être délivrée tant que le parcours n’est pas validé. Statut actuel du participant : « ${part.statut === 'en_cours' ? 'En cours d’apprentissage' : (part.statut || 'Non terminé')} ». Seuls les apprenants ayant validé l'ensemble des modules peuvent télécharger leur attestation.`);
+            return;
           }
         }
 
