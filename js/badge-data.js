@@ -409,7 +409,7 @@
         titreCompetence: data.titreCompetence || 'Compétence Validée',
         niveau: data.niveau || 'Pratique Validée',
         dateAttribution: data.dateAttribution || new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }),
-        validePar: data.validePar || 'Sègla Bio KPEROU (Référent SIG · FA-UP)',
+        validePar: data.validePar || 'Ségla Bio KPEROU (Référent SIG & Drones · TEAM Sahélia)',
         statut: 'valide',
         preuveProjet: data.preuveProjet || 'Projet de terrain validé selon le protocole officiel.',
       };

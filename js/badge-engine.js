@@ -853,7 +853,7 @@
 
       ctx.fillStyle = '#5fd0a0';
       ctx.font = '700 14px "Bricolage Grotesque", sans-serif';
-      ctx.fillText('TEAM SAHÉLIA · PARAKOU · RÉP. DU BÉNIN', W / 2, 985);
+      ctx.fillText('TEAM SAHÉLIA · RÉPUBLIQUE DU BÉNIN', W / 2, 985);
     }
   }
 
@@ -899,7 +899,7 @@
 
     // Cartouche Cohorte dynamique (sans dépassement)
     const cohY = isCarre ? 230 : 215;
-    const cohText = (data.cohorteNom || 'Cohorte Pilote — FA-UP Parakou').toUpperCase();
+    const cohText = (data.cohorteNom || 'Cohorte Pionniers · TEAM Sahélia').toUpperCase();
     ctx.font = '800 13px "JetBrains Mono", monospace';
     const cohMaxW = isCarre ? W - 140 : W - 80;
     const cohRawW = ctx.measureText(`COHORTE : ${cohText}`).width + 40;
@@ -1304,7 +1304,7 @@
 
       ctx.fillStyle = '#0b5e3b';
       ctx.font = '700 14px "Bricolage Grotesque", sans-serif';
-      ctx.fillText('RÉFÉRENTIEL DE COMPÉTENCES · PARAKOU 2026', W / 2, 985);
+      ctx.fillText('RÉFÉRENTIEL DE COMPÉTENCES · 2026', W / 2, 985);
     }
   }
 
@@ -1510,7 +1510,7 @@
 
     let meta1 = { label: "Domaine d'Action", val: data.beneficiaireRole || data.role || 'Cartographie SIG & Agronomie' };
     let meta2 = { label: "Matricule Officiel", val: data.id || defaultBadgeId };
-    let meta3 = { label: "Institution d'Attache", val: data.institution || 'Faculté d’Agronomie (FA-UP)' };
+    let meta3 = { label: "Institution d'Attache", val: data.institution || 'TEAM Sahélia · Communauté Officielle' };
     let meta4 = { label: "Statut d'Adhésion", val: (data.dateEmission || data.dateAdhesion || '15 Janvier 2026') + ' · Actif' };
 
     if (type === 'formation') {
@@ -1581,7 +1581,7 @@
 
     ctx.fillStyle = '#a9c4b6';
     ctx.font = '500 11px "Figtree", sans-serif';
-    ctx.fillText('Faculté d’Agronomie (FA-UP) · Campus Parakou', 240, 62);
+    ctx.fillText('TEAM Sahélia · Pôle Pédagogique Panafricain', 240, 62);
 
     // QR Code 100% scannable en haut à droite
     const qrX = W - 148;

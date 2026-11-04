@@ -527,7 +527,7 @@
         'mn-01': {
           badgeImg: 'assets/Badge_TEAM_Sahelia_Competence_Agronomie.png',
           badgeNom: 'Compétence Agronomie & Données',
-          badgeDesc: 'Attribué après validation du Projet Capstone Parakou',
+          badgeDesc: 'Attribué après validation du Projet Capstone Certifiant',
           heroImg: 'assets/images/hero_terrain_agronomie.jpg',
           objectifs: [
             'Structure tabulaire stricte (0 cellule fusionnée)',
@@ -1070,57 +1070,15 @@
         erreurBox.textContent = '';
       }
 
-      // Mode d'accès : Apprenant VS Super-Administrateur / Éditeur
-      let modeActuel = 'apprenant';
-      const tabApprenant = document.getElementById('tab-mode-apprenant');
-      const tabAdmin = document.getElementById('tab-mode-admin');
+      // Formulaire d'accès apprenant certifié
       const groupeBadge = document.getElementById('gk-groupe-badge');
       const labelCode = document.getElementById('gk-label-code');
       const inputCode = document.getElementById('gk-input-code');
       const btnValider = document.getElementById('gk-btn-deverrouiller');
-
-      function basculerMode(mode) {
-        modeActuel = mode;
-        if (mode === 'admin') {
-          if (tabAdmin) {
-            tabAdmin.style.background = 'var(--marque)';
-            tabAdmin.style.color = '#06100c';
-            tabAdmin.style.fontWeight = '700';
-          }
-          if (tabApprenant) {
-            tabApprenant.style.background = 'transparent';
-            tabApprenant.style.color = 'var(--texte-2)';
-            tabApprenant.style.fontWeight = '600';
-          }
-          if (groupeBadge) groupeBadge.style.display = 'none';
-          if (labelCode) labelCode.textContent = 'Clé Maître d’Administration & Édition (Sans Badge) :';
-          if (inputCode) inputCode.placeholder = 'Entrez la clé maître (ex: SAHELIA-EXCEL-2026)';
-          if (btnValider) btnValider.textContent = '👑 Déverrouiller en Mode Administrateur & Éditeur';
-        } else {
-          if (tabApprenant) {
-            tabApprenant.style.background = 'var(--marque)';
-            tabApprenant.style.color = '#06100c';
-            tabApprenant.style.fontWeight = '700';
-          }
-          if (tabAdmin) {
-            tabAdmin.style.background = 'transparent';
-            tabAdmin.style.color = 'var(--texte-2)';
-            tabAdmin.style.fontWeight = '600';
-          }
-          if (groupeBadge) groupeBadge.style.display = 'block';
-          if (labelCode) labelCode.textContent = '2. Code d’Accès Fondation :';
-          if (inputCode) inputCode.placeholder = 'Code secret transmis par le fondateur';
-          if (btnValider) btnValider.textContent = 'Déverrouiller l’accès au Manuel';
-        }
-        if (erreurBox) erreurBox.style.display = 'none';
-      }
-
-      if (tabApprenant) tabApprenant.onclick = () => basculerMode('apprenant');
-      if (tabAdmin) tabAdmin.onclick = () => basculerMode('admin');
-
-      if (window.SaheliaSecurite && window.SaheliaSecurite._modeAdminSuggereParUrl) {
-        basculerMode('admin');
-      }
+      if (groupeBadge) groupeBadge.style.display = 'block';
+      if (labelCode) labelCode.textContent = '2. Code d’Accès Formation :';
+      if (inputCode) inputCode.placeholder = 'Code secret transmis aux membres';
+      if (btnValider) btnValider.textContent = 'Déverrouiller l’accès au Manuel';
 
       // Pré-remplissage éventuel
       const inputBadge = document.getElementById('gk-input-badge-id');
@@ -1151,15 +1109,10 @@
           btnValider.disabled = true;
           btnValider.textContent = 'Vérification en cours...';
 
-          let resultat;
-          if (modeActuel === 'admin') {
-            resultat = await window.SaheliaSecurite.authentifierAdmin(code, seSouvenir);
-          } else {
-            resultat = await window.SaheliaSecurite.authentifier(badgeId, code, seSouvenir);
-          }
+          const resultat = await window.SaheliaSecurite.authentifier(badgeId, code, seSouvenir);
 
           btnValider.disabled = false;
-          btnValider.textContent = modeActuel === 'admin' ? '👑 Déverrouiller en Mode Administrateur & Éditeur' : 'Déverrouiller l’accès au Manuel';
+          btnValider.textContent = 'Déverrouiller l’accès au Manuel';
 
           if (resultat.succes) {
             // Recharger le cours maintenant déverrouillé
@@ -1188,9 +1141,9 @@
         const safeNom = echapperHtml(session.badgeNom || 'Membre');
         const safeId = echapperHtml(session.badgeId || 'TS');
         badgeSessionTop.innerHTML = `
-          <div class="session-active-pill" style="${estAdmin ? 'border-color: #e8946a; background: rgba(232, 148, 106, 0.15);' : ''}" title="Connecté en tant que ${safeNom}">
-            <span class="pastille-verte" style="${estAdmin ? 'background: #e8946a;' : ''}"></span>
-            <span class="session-nom" style="${estAdmin ? 'color: #e8946a; font-weight: bold;' : ''}">${estAdmin ? '👑 ' : ''}${safeNom}</span>
+          <div class="session-active-pill" title="Session Membre : ${safeNom}">
+            <span class="pastille-verte"></span>
+            <span class="session-nom">${safeNom}</span>
             <span class="session-badge-id">${safeId}</span>
             <button type="button" id="btn-deconnexion-session" class="btn-deconnexion-discret" title="Fermer cette session">✕</button>
           </div>

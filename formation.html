@@ -68,7 +68,7 @@
         <button type="button" id="btn-partager-lien-cours" class="btn-outil-lecture" title="Copier le lien direct unique de ce cours pour le partager">
           🔗 Partager
         </button>
-        <a href="DOCUMENTATION_UTILISATEUR.md" target="_blank" rel="noopener noreferrer" class="btn-outil-lecture" style="text-decoration: none; display: inline-flex; align-items: center;" title="Consulter la documentation officielle de la plateforme">
+        <a href="documentation.html" target="_blank" rel="noopener noreferrer" class="btn-outil-lecture" style="text-decoration: none; display: inline-flex; align-items: center;" title="Consulter la documentation officielle de la plateforme">
           📘 Guide
         </a>
       </div>
@@ -105,21 +105,13 @@
         </ol>
       </div>
 
-      <!-- Sélecteur de Mode d'Accès : Apprenant VS Super-Administrateur / Éditeur -->
-      <div class="gk-mode-tabs" style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; background: rgba(0,0,0,0.25); padding: 0.35rem; border-radius: 10px; border: 1px solid var(--bordure);">
-        <button type="button" id="tab-mode-apprenant" class="gk-tab-btn actif" style="flex: 1; padding: 0.6rem 0.8rem; border: none; border-radius: 7px; background: var(--marque); color: #06100c; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;">
-          👨‍🎓 Espace Apprenant
-        </button>
-        <button type="button" id="tab-mode-admin" class="gk-tab-btn" style="flex: 1; padding: 0.6rem 0.8rem; border: none; border-radius: 7px; background: transparent; color: var(--texte-2); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: all 0.2s;">
-          👑 Accès Éditeur &amp; Fondateur
-        </button>
-      </div>
+      
 
       <div id="gatekeeper-message-erreur" class="gk-erreur-box" style="display: none; margin-bottom: 1.5rem;"></div>
 
       <form class="gatekeeper-formulaire" onsubmit="event.preventDefault();">
         <!-- Champ Badge (uniquement en mode apprenant) -->
-        <div class="gk-champ-groupe" id="gk-groupe-badge">
+        <div class="gk-champ-groupe" id="gk-groupe-badge" style="display: block;">
           <label for="gk-input-badge-id">1. Identifiant de votre Badge Officiel :</label>
           <input type="text" id="gk-input-badge-id" class="gk-input gk-input-mono" placeholder="Ex: TS-MBR-2026-001" autocomplete="off">
           <span id="gk-feedback-badge" class="gk-feedback neutre">Saisissez l'ID figurant sur votre carte ou badge</span>
@@ -186,12 +178,12 @@
         <!-- En-tête de la section : Bannière Hero Hybride avec Photographie de Terrain Réelle -->
         <header class="en-tete-article-cours">
           <div class="hero-banniere-hybride" id="hero-banniere-hybride">
-            <img src="assets/images/hero_terrain_agronomie.jpg" alt="Immersion Terrain Parakou" class="hero-banniere-fond" id="hero-image-fond">
+            <img src="assets/images/hero_terrain_agronomie.jpg" alt="Immersion Terrain TEAM Sahélia" class="hero-banniere-fond" id="hero-image-fond">
             <div class="hero-banniere-voile"></div>
             <div class="hero-banniere-contenu">
               <div class="hero-kicker-ligne">
                 <span id="cours-badge-pole" class="badge-pole-cours"></span>
-                <span class="hero-station-tag">📍 Centre Pilote Sahélia · Parakou / Bénin</span>
+                <span class="hero-station-tag">📍 Centre d’Excellence TEAM Sahélia · République du Bénin</span>
                 <span class="hero-qualite-tag">✓ Conforme Normes CAMES & FAO</span>
               </div>
               <h1 id="cours-titre-principal" class="titre-cours-h1"></h1>

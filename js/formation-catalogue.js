@@ -181,7 +181,7 @@
       badgeRequis: 'Membre Officiel ou Stagiaire Certifié TEAM Sahélia',
       ressources: [
         {
-          nom: 'Dataset Agronomique Parakou (CSV)',
+          nom: 'Dataset Agronomique de Référence (CSV)',
           fichier: 'manuels/01-excel-etudiants-professionnels/datasets/dataset_agronomique_parakou.csv',
           description: 'Fichier d’exercice réel contenant 20 parcelles d’essais avec rendements, doses d’engrais et dates de semis.'
         },
@@ -455,7 +455,7 @@
           description: '8 schémas pédagogiques officiels haute définition.'
         },
         {
-          nom: 'Dataset Essais Maïs Parakou (CSV)',
+          nom: "Dataset d'Essais Agronomiques (CSV)",
           fichier: 'manuels/01-excel-etudiants-professionnels/datasets/dataset_agronomique_parakou.csv',
           description: 'Jeu de données agronomiques réelles pour les ateliers R.'
         }
@@ -1098,6 +1098,18 @@
       return CATALOGUE[id] || null;
     },
 
+    
+    // Actualisation universelle automatique des compteurs sur n'importe quelle page HTML
+    actualiserCompteursDOM() {
+      if (typeof document === 'undefined') return;
+      const total = this.listerTous().length;
+      const manuels = this.listerManuelsProteges().length;
+      const guides = this.listerGuidesLibres().length;
+
+      document.querySelectorAll('.compteur-total-cours').forEach(el => el.textContent = total);
+      document.querySelectorAll('.compteur-manuels').forEach(el => el.textContent = manuels);
+      document.querySelectorAll('.compteur-guides').forEach(el => el.textContent = guides);
+    },
     listerTous() {
       return Object.values(CATALOGUE);
     },
@@ -1147,4 +1159,16 @@
       }
     }
   };
+
+  // Auto-actualisation automatique au chargement du DOM
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        if (window.SaheliaCatalogue) window.SaheliaCatalogue.actualiserCompteursDOM();
+      });
+    } else {
+      window.SaheliaCatalogue.actualiserCompteursDOM();
+    }
+  }
+
 })();

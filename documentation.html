@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide & Documentation Officielle · TEAM Sahélia</title>
+  <meta name="description" content="Guide d'utilisation officiel de la plateforme TEAM Sahélia : catalogue des formations, lecteur hors-ligne, certification Open Badges 3.0 et intégration LinkedIn.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-sahelia.svg">
+  <meta name="theme-color" content="#06100c">
+
+  <!-- Polices et Styles Officiels -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/formation.css">
+  <style>
+    :root {
+      --largeur-doc: 880px;
+    }
+    body {
+      background-color: var(--fond);
+      color: var(--texte);
+      font-family: var(--police-corps);
+      line-height: 1.7;
+    }
+    .doc-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem 5rem 1.5rem;
+    }
+    @media (max-width: 900px) {
+      .doc-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin: 1rem auto;
+      }
+      .doc-sidebar {
+        position: static !important;
+        margin-bottom: 1rem;
+      }
+    }
+    .doc-sidebar {
+      position: sticky;
+      top: 5.5rem;
+      align-self: start;
+      background: rgba(10, 26, 20, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--bordure);
+      border-radius: 14px;
+      padding: 1.25rem;
+      max-height: calc(100vh - 7rem);
+      overflow-y: auto;
+    }
+    .doc-sidebar-titre {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--marque);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .doc-sommaire-liste {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .doc-sommaire-lien {
+      display: block;
+      color: var(--texte-2);
+      font-size: 0.84rem;
+      text-decoration: none;
+      padding: 0.45rem 0.65rem;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      line-height: 1.3;
+    }
+    .doc-sommaire-lien:hover, .doc-sommaire-lien.actif {
+      background: rgba(34, 197, 94, 0.12);
+      color: #4ade80;
+      transform: translateX(3px);
+    }
+    .doc-contenu {
+      background: rgba(6, 16, 12, 0.6);
+      border: 1px solid var(--bordure);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    @media (max-width: 600px) {
+      .doc-contenu {
+        padding: 1.5rem;
+      }
+    }
+    .doc-contenu h1 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 900;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .doc-contenu h2 {
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+      font-weight: 800;
+      color: #fff;
+      margin-top: 2.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--bordure);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .doc-contenu h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--marque);
+      margin-top: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .doc-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--police-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .doc-card-info {
+      background: rgba(34, 197, 94, 0.05);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .doc-card-alerte {
+      background: rgba(234, 179, 8, 0.05);
+      border: 1px solid rgba(234, 179, 8, 0.25);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .doc-tableau {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.88rem;
+    }
+    .doc-tableau th {
+      background: rgba(255,255,255,0.04);
+      color: var(--texte);
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--bordure);
+      font-weight: 700;
+    }
+    .doc-tableau td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--bordure);
+      color: var(--texte-2);
+    }
+    .doc-tableau tr:hover td {
+      background: rgba(255,255,255,0.015);
+      color: var(--texte);
+    }
+    .doc-faq-item {
+      border: 1px solid var(--bordure);
+      border-radius: 8px;
+      margin-bottom: 0.75rem;
+      background: rgba(0,0,0,0.2);
+    }
+    .doc-faq-q {
+      padding: 1rem 1.25rem;
+      font-weight: 700;
+      color: var(--texte);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .doc-faq-r {
+      padding: 0 1.25rem 1rem 1.25rem;
+      font-size: 0.88rem;
+      color: var(--texte-2);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================= -->
+  <!-- EN-TÊTE OFFICIEL DE LA DOCUMENTATION                                     -->
+  <!-- ========================================================================= -->
+  <header style="border-bottom: 1px solid var(--bordure); background: rgba(6, 16, 12, 0.9); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100;">
+    <div class="enveloppe" style="display: flex; justify-content: space-between; align-items: center; height: 64px;">
+      <a href="index.html" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
+        <img src="assets/logo-sahelia.svg" alt="TEAM Sahélia" style="height: 34px; width: auto;">
+        <span style="font-weight: 800; color: #fff; font-size: 1.05rem; letter-spacing: -0.3px;">TEAM Sahélia <span style="color: var(--marque); font-weight: 400; font-size: 0.9rem;">· Documentation</span></span>
+      </a>
+
+      <div style="display: flex; align-items: center; gap: 0.8rem;">
+        <a href="index.html" class="v-btn v-btn--fantome" style="min-height: 36px; padding: 0 0.9rem; font-size: 0.82rem;">
+          ← Vitrine
+        </a>
+        <a href="formation.html" class="v-btn v-btn--vert" style="min-height: 36px; padding: 0 1rem; font-size: 0.82rem;">
+          📚 Espace Formations
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- STRUCTURE DU GUIDE : SIDEBAR SOMMAIRE + CONTENU STYLISÉ                   -->
+  <!-- ========================================================================= -->
+  <main class="doc-layout">
+
+    <!-- Volet Sommaire Flottant -->
+    <aside class="doc-sidebar">
+      <div class="doc-sidebar-titre">
+        <span>📑</span> Sommaire du Guide
+      </div>
+      <ul class="doc-sommaire-liste">
+        <li><a href="#a-propos" class="doc-sommaire-lien">1. À Propos de TEAM Sahélia</a></li>
+        <li><a href="#structure-navigation" class="doc-sommaire-lien">2. Structure &amp; Navigation</a></li>
+        <li><a href="#catalogue" class="doc-sommaire-lien">3. Le Catalogue (<span class="compteur-total-cours">17</span> Cours)</a></li>
+        <li><a href="#lecteur-hors-ligne" class="doc-sommaire-lien">4. Lecteur &amp; Mode Hors-Ligne</a></li>
+        <li><a href="#open-badges" class="doc-sommaire-lien">5. Open Badges 3.0 W3C</a></li>
+        <li><a href="#linkedin" class="doc-sommaire-lien">6. Ajout sur Profil LinkedIn</a></li>
+        <li><a href="#verification" class="doc-sommaire-lien">7. Vérification d'Insigne</a></li>
+        <li><a href="#communaute" class="doc-sommaire-lien">8. Communauté &amp; Mentorat</a></li>
+        <li><a href="#faq" class="doc-sommaire-lien">9. Questions Fréquentes (FAQ)</a></li>
+      </ul>
+
+      <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--bordure); font-size: 0.78rem; color: var(--texte-3);">
+        <p style="margin: 0 0 0.5rem 0;">Besoin d'aide directe ?</p>
+        <a href="https://chat.whatsapp.com/Gzp3bkauIIz8341VeMHOv7" target="_blank" rel="noopener noreferrer" style="color: #4ade80; text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 0.3rem;">
+          💬 Forum WhatsApp Officiel →
+        </a>
+      </div>
+    </aside>
+
+    <!-- Contenu Principal Documentaire -->
+    <article class="doc-contenu">
+
+      <div style="margin-bottom: 2rem;">
+        <span class="doc-badge-pill" style="background: rgba(34, 197, 94, 0.15); color: #4ade80;">Guide Officiel d'Utilisation · Édition 2026</span>
+        <h1>Documentation Complète de la Plateforme TEAM Sahélia</h1>
+        <p style="font-size: 1.05rem; color: var(--texte-2); margin-top: 0.5rem;">
+          Tout ce qu'un apprenant, chercheur, agronome ou professionnel doit savoir pour maîtriser la plateforme, étudier en ligne ou hors-ligne, valider ses compétences et certifier son profil professionnel.
+        </p>
+      </div>
+
+      <!-- Section 1 -->
+      <section id="a-propos">
+        <h2><span>🌍</span> 1. À Propos de TEAM Sahélia</h2>
+        <p>
+          <strong>TEAM Sahélia</strong> est une initiative et communauté technologique et agronomique ouverte, née en République du Bénin et rayonnant à l'échelle panafricaine.
+          Elle réunit des étudiants, des chercheurs, des ingénieurs agronomes, des télépilotes de drones et des développeurs engagés dans la transformation durable de nos territoires.
+        </p>
+        <div class="doc-card-info">
+          <strong style="color: #4ade80;">Notre Signature Pédagogique :</strong><br>
+          <em>« Apprendre aujourd’hui. Construire demain. »</em><br>
+          Nous privilégions la pratique de terrain directe, l'accès universel aux connaissances libres, la rigueur méthodologique et la souveraineté numérique.
+        </div>
+      </section>
+
+      <!-- Section 2 -->
+      <section id="structure-navigation">
+        <h2><span>🧭</span> 2. Structure de la Plateforme &amp; Navigation</h2>
+        <p>La plateforme est articulée autour de 3 espaces interconnectés :</p>
+        <ul>
+          <li><strong>La Vitrine d'Accueil (<a href="index.html" style="color: var(--marque);">index.html</a>) :</strong> Présente la vision de la communauté, les pôles d'excellence, le Studio interactif d'Open Badges et le catalogue unifié de formations.</li>
+          <li><strong>L'Espace Formations (<a href="formation.html" style="color: var(--marque);">formation.html</a>) :</strong> Le lecteur immersif plein écran où vous consultez l'intégralité des 17 formations (guides et manuels) avec table des matières interactive, schémas vectoriels et permaliens.</li>
+          <li><strong>Le Vérificateur Public (<a href="verifier.html" style="color: var(--marque);">verifier.html</a>) :</strong> Le registre public permettant à n'importe quel employeur ou institution de vérifier la validité d'une certification TEAM Sahélia en 1 seconde.</li>
+        </ul>
+      </section>
+
+      <!-- Section 3 -->
+      <section id="catalogue">
+        <h2><span>📚</span> 3. Le Catalogue Pédagogique (<span class="compteur-total-cours">17</span> Formations)</h2>
+        <p>
+          Le cursus comprend <strong class="compteur-total-cours">17</strong> formations réparties en deux formats complémentaires :
+        </p>
+
+        <h3>A. Les <span class="compteur-guides">5</span> Mini-Guides Pratiques (100 % Libres &amp; Gratuits)</h3>
+        <p>Accessibles immédiatement sans inscription pour débloquer une urgence de terrain ou académique :</p>
+        <table class="doc-tableau">
+          <thead>
+            <tr>
+              <th>Guide</th>
+              <th>Objectif Opérationnel</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Guide 01</strong></td>
+              <td>Urgence Mémoire &amp; Rapport (Word &amp; Excel) · Styles, sommaire et pagination</td>
+              <td><a href="formation.html?cours=guide-01" style="color: var(--marque);">Lire →</a></td>
+            </tr>
+            <tr>
+              <td><strong>Guide 02</strong></td>
+              <td>Tracer sa Parcelle au GPS Smartphone &amp; Cartographie QGIS Express</td>
+              <td><a href="formation.html?cours=guide-02" style="color: var(--marque);">Lire →</a></td>
+            </tr>
+            <tr>
+              <td><strong>Guide 03</strong></td>
+              <td>Prompts Recherche Universitaire &amp; Vibe Coding avec l'IA</td>
+              <td><a href="formation.html?cours=guide-03" style="color: var(--marque);">Lire →</a></td>
+            </tr>
+            <tr>
+              <td><strong>Guide 04</strong></td>
+              <td>Collecte de Données Terrain Mobile Hors-Ligne avec KoboToolbox</td>
+              <td><a href="formation.html?cours=guide-04" style="color: var(--marque);">Lire →</a></td>
+            </tr>
+            <tr>
+              <td><strong>Guide 05</strong></td>
+              <td>Création Visuelle, Infographies de Données &amp; Affiches Professionnelles</td>
+              <td><a href="formation.html?cours=guide-05" style="color: var(--marque);">Lire →</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>B. Les <span class="compteur-manuels">12</span> Manuels Stratégiques Complets</h3>
+        <p>Des cours approfondis de 50 à 75 pages équivalentes, structurés en chapitres avec schémas vectoriels SVG et Projets Capstones certifiants :</p>
+        <ul>
+          <li><strong>Manuel 01 :</strong> Excel Pro pour Étudiants &amp; Professionnels (De la saisie propre aux TCD et audit de dataset)</li>
+          <li><strong>Manuel 02 :</strong> Word &amp; PowerPoint pour Soutenances de Mémoire (Normes CAMES, Zotero et règle 6x6)</li>
+          <li><strong>Manuel 03 :</strong> 50 Astuces &amp; Raccourcis Informatiques (Productivité système et stratégie 3-2-1)</li>
+          <li><strong>Manuel 04 :</strong> R &amp; RStudio pour l'Agronomie &amp; Biostatistiques (dplyr, ggplot2, ANOVA, régressions)</li>
+          <li><strong>Manuel 05 :</strong> KoboToolbox Avancé &amp; XLSForm (Conditions logiques, GPS et contrôle qualité)</li>
+          <li><strong>Manuel 06 :</strong> Cartographie Agricole &amp; SIG avec QGIS (Sentinel-2, indices NDVI et cartes de décision)</li>
+          <li><strong>Manuel 07 :</strong> Développement Web Moderne (HTML5 sémantique, CSS3 responsive et JavaScript)</li>
+          <li><strong>Manuel 08 :</strong> Vibe Coding &amp; Intelligence Artificielle Responsable (Création d'outils avec l'IA)</li>
+          <li><strong>Manuel 09 :</strong> Création Graphique &amp; Vidéo Mobile de Terrain (Tournage smartphone et montage CapCut)</li>
+          <li><strong>Manuel 10 :</strong> L'Agronome-Numéricien &amp; Consultant Indépendant (Tarifs FCFA, devis protégés, TDR)</li>
+          <li><strong>Manuel 11 :</strong> Pilotage de Drones &amp; Drones Agricoles (Réglementation ANAC, photogrammétrie et pulvérisation)</li>
+          <li><strong>Manuel 12 :</strong> Création Vidéo &amp; Visuelle par IA (Prompts C.R.E.D., Runway/Kling I2V, ElevenLabs, CapCut et DaVinci Resolve)</li>
+        </ul>
+      </section>
+
+      <!-- Section 4 -->
+      <section id="lecteur-hors-ligne">
+        <h2><span>📖</span> 4. Le Lecteur Immersif &amp; Mode Hors-Ligne</h2>
+        <p>
+          Le lecteur accessible sur <code>formation.html</code> intègre des fonctionnalités avancées d'étude :
+        </p>
+        <ul>
+          <li><strong>Sélecteur Universel de Cours :</strong> Passez d'une formation à l'autre sans recharger l'interface.</li>
+          <li><strong>Permaliens Uniques :</strong> Chaque cours et chapitre dispose d'une URL directe (ex: <code>?cours=mn-12&amp;ch=ch-01</code>) facile à partager ou à sauvegarder en favori.</li>
+          <li><strong>Mode Zen (Plein Écran) :</strong> Cliquez sur le bouton <code>⛶ Zen</code> dans la barre supérieure pour masquer les éléments périphériques et vous consacrer pleinement à l'apprentissage.</li>
+          <li><strong>Technologie Hybride Hors-Ligne (file:///) :</strong>  
+            Tous les 85 documents de formation sont synchronisés dans <code>js/formation-contenu.js</code>. Si vous enregistrez le dossier du site sur un ordinateur ou une clé USB sans accès Internet, vous pouvez ouvrir <code>formation.html</code> : **tout fonctionne instantanément sans aucun blocage CORS !**
+          </li>
+        </ul>
+      </section>
+
+      <!-- Section 5 -->
+      <section id="open-badges">
+        <h2><span>🎖️</span> 5. Le Système Officiel d'Open Badges 3.0 W3C</h2>
+        <p>
+          TEAM Sahélia certifie vos compétences avec la norme mondiale <strong>Open Badges 3.0 (W3C Verifiable Credentials / 1EdTech)</strong>.
+          Chaque badge dispose d'une signature cryptographique SHA-256 infalsifiable.
+        </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+          <div style="background: rgba(180, 83, 9, 0.12); border: 1px solid #d97706; padding: 1rem; border-radius: 8px;">
+            <strong style="color: #fbbf24;">🪪 BRONZE</strong><br>
+            <span style="font-size: 0.82rem; color: var(--texte-2);">Membre Pionnier · Socle méthodologique &amp; bureautique</span>
+          </div>
+          <div style="background: rgba(148, 163, 184, 0.12); border: 1px solid #94a3b8; padding: 1rem; border-radius: 8px;">
+            <strong style="color: #cbd5e1;">🌿 ARGENT</strong><br>
+            <span style="font-size: 0.82rem; color: var(--texte-2);">Praticien SIG · Cartographie QGIS &amp; KoboToolbox</span>
+          </div>
+          <div style="background: rgba(234, 179, 8, 0.15); border: 1px solid #eab308; padding: 1rem; border-radius: 8px;">
+            <strong style="color: #fde047;">🚁 OR</strong><br>
+            <span style="font-size: 0.82rem; color: var(--texte-2);">Opérateur Drone · Pilotage, GSD &amp; Pulvérisation</span>
+          </div>
+          <div style="background: rgba(168, 85, 247, 0.15); border: 1px solid #a855f7; padding: 1rem; border-radius: 8px;">
+            <strong style="color: #d8b4fe;">⚡ PLATINE</strong><br>
+            <span style="font-size: 0.82rem; color: var(--texte-2);">Vibe Coding &amp; IA · Création d'Outils, Vidéo &amp; Code IA</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 6 -->
+      <section id="linkedin">
+        <h2><span>💼</span> 6. Ajouter sa Certification sur son Profil LinkedIn</h2>
+        <p>
+          Pour faire valoir votre certification TEAM Sahélia auprès des recruteurs et employeurs internationaux :
+        </p>
+        <ol>
+          <li>Générez votre badge dans le <strong>Studio de Badges</strong> sur la page d'accueil avec votre nom officiel.</li>
+          <li>Cliquez sur le bouton <strong>« 💼 Ajouter à mon Profil LinkedIn »</strong>.</li>
+          <li>LinkedIn s'ouvre avec le formulaire de certification officiel entièrement pré-rempli (Nom de la formation, Organisme émetteur TEAM Sahélia, Date, ID unique et URL de vérification).</li>
+          <li>Cliquez sur <strong>Enregistrer</strong> : votre badge apparaît immédiatement dans la rubrique <em>Licences &amp; Certifications</em> de votre profil.</li>
+        </ol>
+      </section>
+
+      <!-- Section 7 -->
+      <section id="verification">
+        <h2><span>🔍</span> 7. Vérification d'Insigne en Ligne</h2>
+        <p>
+          Les employeurs et partenaires peuvent authentifier votre certificat à tout moment :
+        </p>
+        <p>
+          Rendez-vous sur <a href="verifier.html" style="color: var(--marque);">verifier.html</a> et saisissez le numéro d'attribution unique (ex : <code>TS-2026-0001</code>) pour afficher le statut officiel certifié par TEAM Sahélia.
+        </p>
+      </section>
+
+      <!-- Section 8 -->
+      <section id="communaute">
+        <h2><span>🤝</span> 8. Communauté &amp; Mentorat</h2>
+        <p>L'équipe pédagogique et la communauté vous accompagnent pas à pas :</p>
+        <ul>
+          <li><strong>Groupe WhatsApp d'Entraide :</strong> Posez vos questions et échangez avec vos pairs : <a href="https://chat.whatsapp.com/Gzp3bkauIIz8341VeMHOv7" target="_blank" rel="noopener noreferrer" style="color: #4ade80;">Rejoindre le Groupe WhatsApp →</a></li>
+          <li><strong>Assistance &amp; Mentorat Direct :</strong> Écrivez au secrétariat : <a href="https://wa.me/22940738469" target="_blank" rel="noopener noreferrer" style="color: var(--texte-2);">+229 40 73 84 69</a></li>
+          <li><strong>Email Officiel :</strong> <a href="mailto:teamsahelia@gmail.com" style="color: var(--texte-2);">teamsahelia@gmail.com</a></li>
+        </ul>
+      </section>
+
+      <!-- Section 9 -->
+      <section id="faq">
+        <h2><span>❓</span> 9. Questions Fréquentes (FAQ)</h2>
+
+        <div class="doc-faq-item">
+          <div class="doc-faq-q">Les 5 Mini-Guides sont-ils totalement gratuits ? <span>+</span></div>
+          <div class="doc-faq-r">Oui. Les 5 Mini-Guides sont 100 % libres d'accès, gratuits et immédiatement consultables sans aucune inscription.</div>
+        </div>
+
+        <div class="doc-faq-item">
+          <div class="doc-faq-q">Le site fonctionne-t-il sur smartphone ? <span>+</span></div>
+          <div class="doc-faq-r">Parfaitement. Tout le site s'adapte automatiquement à la largeur de votre écran, avec une typographie fluide et des schémas vectoriels redimensionnables.</div>
+        </div>
+
+        <div class="doc-faq-item">
+          <div class="doc-faq-q">Comment valider mon projet Capstone ? <span>+</span></div>
+          <div class="doc-faq-r">À la fin de chaque manuel, réalisez les livrables du Chapitre Capstone et soumettez-les au mentorat sur le groupe WhatsApp officiel pour audit et attribution de votre Open Badge.</div>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- PIED DE PAGE                                                              -->
+  <!-- ========================================================================= -->
+  <footer style="border-top: 1px solid var(--bordure); padding: 2.5rem 0; background: #030806; font-size: 0.85rem; color: var(--texte-3); text-align: center;">
+    <div class="enveloppe">
+      <p style="margin: 0 0 0.5rem 0;">TEAM Sahélia · Communauté Panafricaine d'Agronomie, Technologies &amp; Innovation · 2026</p>
+      <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+        <a href="index.html" style="color: var(--texte-2); text-decoration: none;">Accueil</a>
+        <a href="formation.html" style="color: var(--marque); text-decoration: none;">Espace Formations</a>
+        <a href="verifier.html" style="color: var(--texte-2); text-decoration: none;">Vérifier un Badge</a>
+        <a href="https://chat.whatsapp.com/Gzp3bkauIIz8341VeMHOv7" target="_blank" rel="noopener noreferrer" style="color: #4ade80; text-decoration: none;">Groupe WhatsApp</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/formation-catalogue.js"></script>
+  <script>
+    // Synchronisation automatique des compteurs dans la documentation
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.SaheliaCatalogue) {
+        const Cat = window.SaheliaCatalogue;
+        const total = Cat.listerTous().length;
+        const manuels = Cat.listerManuelsProteges().length;
+        const guides = Cat.listerGuidesLibres().length;
+        document.querySelectorAll('.compteur-total-cours').forEach(el => el.textContent = total);
+        document.querySelectorAll('.compteur-manuels').forEach(el => el.textContent = manuels);
+        document.querySelectorAll('.compteur-guides').forEach(el => el.textContent = guides);
+      }
+    });
+  </script>
+</body>
+</html>
