@@ -1,0 +1,26 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "type": [
+    "Profile"
+  ],
+  "name": "TEAM Sahélia · Communauté Panafricaine d'Agronomie, Technologies & Innovation",
+  "url": "https://aremouolivier-ops.github.io/site-team-sahelia/",
+  "email": "teamsahelia@gmail.com",
+  "telephone": "+229 40 73 84 69",
+  "description": "Organisation communautaire œuvrant pour l'émancipation technique et scientifique de la jeunesse ouest-africaine en agronomie numérique, géomatique SIG, drones et génie logiciel.",
+  "publicKey": {
+    "id": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json#key-1",
+    "type": "JsonWebKey2020",
+    "controller": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+    "publicKeyJwk": {
+      "kty": "EC",
+      "x": "mZiMK_9HVI-ZBxgdciSK_TrO7aUzrVu5XBiLLxXBZTY",
+      "y": "bPaVtwZaWquSLXz1FDePI2Me_1fp--R8TudNQignUCs",
+      "crv": "P-256"
+    }
+  }
+}

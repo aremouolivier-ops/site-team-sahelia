@@ -5,7 +5,7 @@
 > **Auteur :** Olivier AGUIN & TEAM Sahélia  
 > **Temps d’apprentissage :** 45 minutes de lecture + 30 minutes de manipulation  
 > **Illustration associée :** `schemas/schema_07_graphique_scientifique.svg`  
-> **Jeu de données :** `../datasets/dataset_agronomique_parakou.csv`
+> **Jeu de données :** `../datasets/dataset_agronomique_sahelia.csv`
 
 ---
 

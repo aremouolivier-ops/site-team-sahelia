@@ -5,7 +5,7 @@
 > **Auteurs :** Sègla Bio KPEROU, Olivier AREMOU & TEAM Sahélia  
 > **Temps d’apprentissage :** 45 minutes de lecture active + 30 minutes de codage  
 > **Illustration associée :** `schemas/schema_03_anatomie_ggplot2.svg`  
-> **Jeu de données :** `../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_parakou.csv`
+> **Jeu de données :** `../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_sahelia.csv`
 
 ---
 

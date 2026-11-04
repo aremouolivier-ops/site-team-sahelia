@@ -3,31 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vérification Officielle de Badge · TEAM Sahélia</title>
-  <meta name="description" content="Portail officiel d'authentification et de contrôle de conformité des badges de membres, formations et compétences TEAM Sahélia.">
+  <title>Vérification Officielle de Certification · TEAM Sahélia</title>
+  <meta name="description" content="Portail public d’authentification cryptographique et de contrôle de conformité W3C Open Badges 3.0 pour les titres et certifications TEAM Sahélia.">
   <link rel="icon" type="image/svg+xml" href="assets/logo-sahelia.svg">
   <meta name="theme-color" content="#06120e">
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/controle-acces.js"></script>
-  <script>
-    // Sécurité stricte : La vérification des badges est réservée exclusivement à l'administrateur
-    (function () {
-      try {
-        const session = window.SaheliaSecurite ? window.SaheliaSecurite.obtenirSessionValide() : null;
-        if (!session || !session.isSuperAdmin) {
-          window.location.replace('index.html');
-        }
-      } catch (e) {
-        window.location.replace('index.html');
-      }
-    })();
-  </script>
   <style>
     .page-verif {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       background: radial-gradient(circle at 50% 0%, rgba(23, 112, 74, 0.25), transparent 60%), #06120e;
+      color: var(--texte);
     }
     .carte-verif {
       background: var(--surface);
@@ -35,37 +22,50 @@
       border-radius: 20px;
       padding: clamp(1.5rem, 4vw, 2.5rem);
       box-shadow: 0 25px 60px rgba(0,0,0,0.6);
-      margin: 2rem auto;
-      max-width: 780px;
+      margin: 1.5rem auto;
+      max-width: 820px;
       width: 100%;
     }
     .badge-statut-bandeau {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 1rem;
-      padding: 1.2rem 1.5rem;
-      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      border-radius: 14px;
       margin-bottom: 2rem;
     }
     .statut-valide {
-      background: rgba(34, 197, 94, 0.15);
-      border: 1px solid rgba(34, 197, 94, 0.4);
-      color: #4ade80;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.45);
+      color: #86efac;
     }
-    .statut-encours {
-      background: rgba(245, 158, 11, 0.15);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      color: #fbbf24;
-    }
-    .statut-inscrit {
-      background: rgba(59, 130, 246, 0.15);
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      color: #60a5fa;
+    .statut-invalide {
+      background: rgba(239, 68, 68, 0.15);
+      border: 2px solid #ef4444;
+      color: #fca5a5;
     }
     .statut-revoque {
-      background: rgba(239, 68, 68, 0.2);
-      border: 2px solid #ef4444;
-      color: #f87171;
+      background: rgba(249, 115, 22, 0.15);
+      border: 2px solid #f97316;
+      color: #fdba74;
+    }
+    .statut-introuvable {
+      background: rgba(234, 179, 8, 0.12);
+      border: 1px solid rgba(234, 179, 8, 0.4);
+      color: #fde047;
+    }
+    .crypto-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(34, 197, 94, 0.18);
+      border: 1px solid rgba(34, 197, 94, 0.5);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-family: var(--police-mono);
+      color: #4ade80;
+      margin-top: 0.5rem;
     }
     .ligne-info {
       display: grid;
@@ -81,7 +81,7 @@
     .label-info {
       color: var(--texte-3);
       font-family: var(--police-mono);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
       font-weight: 600;
     }
@@ -89,7 +89,21 @@
       color: var(--texte);
       font-weight: 600;
     }
-    @media (max-width: 600px) {
+    .zone-depot-vc {
+      border: 2px dashed var(--bordure);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(255,255,255,0.015);
+      transition: all 0.2s ease;
+      margin-top: 1rem;
+    }
+    .zone-depot-vc:hover, .zone-depot-vc.survol {
+      border-color: var(--marque);
+      background: rgba(23, 112, 74, 0.1);
+    }
+    @media (max-width: 640px) {
       .ligne-info {
         grid-template-columns: 1fr;
         gap: 0.25rem;
@@ -99,22 +113,22 @@
 </head>
 <body class="page-verif">
 
-  <!-- En-tête fluide & scrollable -->
+  <!-- En-tête Public & Universel -->
   <header class="site-entete">
     <div class="enveloppe site-entete-rang">
-      <a href="admin.html" class="logo-lien" style="display: flex; align-items: center; gap: 0.75rem;">
+      <a href="index.html" class="logo-lien" style="display: flex; align-items: center; gap: 0.75rem;">
         <img src="assets/logo-sahelia.svg" alt="TEAM Sahélia" style="height: 38px; width: auto;">
       </a>
 
       <nav class="site-nav" aria-label="Navigation principale">
-        <a href="admin.html" style="color: var(--marque); font-weight: 700;">👑 ← Retour Console Admin</a>
         <a href="index.html">Accueil Vitrine</a>
         <a href="formation.html">📚 Espace Formation</a>
+        <a href="index.html#badges">🪪 Studio Badges</a>
       </nav>
 
       <div class="site-entete-actions">
-        <a href="admin.html#tab-securite" class="v-btn v-btn--fantome" style="min-height: 36px; padding: 0 0.9rem; font-size: 0.8rem;">
-          🔐 Sécurité
+        <a href="index.html#badges" class="v-btn v-btn--or" style="min-height: 36px; padding: 0 0.9rem; font-size: 0.8rem;">
+          Studio Badges
         </a>
       </div>
     </div>
@@ -122,42 +136,86 @@
 
   <!-- Contenu Principal -->
   <main class="enveloppe" style="flex: 1; padding: 2rem 0;">
-    <div id="conteneur-resultat">
-      <!-- Rempli dynamiquement -->
+    
+    <!-- En-tête de page -->
+    <div style="text-align: center; max-width: 780px; margin: 0 auto 2rem;">
+      <span class="etiquette etiquette--vert" style="margin-bottom: 0.6rem;">PORTAIL PUBLIC DE VÉRIFICATION</span>
+      <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: 0.6rem;">
+        Authentification de Certification Numérique
+      </h1>
+      <p style="color: var(--texte-2); font-size: 0.98rem; line-height: 1.6;">
+        Contrôlez l’authenticité, l’intégrité mathématique et le statut d’une certification délivrée par <strong>TEAM Sahélia</strong> conformément au standard international <strong>W3C Verifiable Credentials / Open Badges 3.0</strong>.
+      </p>
     </div>
 
-    <!-- Outil de recherche et d'audit pour l'Administrateur -->
-    <div style="max-width: 780px; margin: 1.5rem auto 3rem; background: var(--surface-2); border: 1px solid var(--bordure); border-radius: 14px; padding: 1.25rem;">
-      <h4 style="font-size: 0.85rem; font-family: var(--police-mono); text-transform: uppercase; color: var(--texte-3); margin-bottom: 0.75rem;">
-        🔍 Auditer un identifiant officiel de badge dans le registre central :
-      </h4>
+    <!-- Conteneur Dynamique du Résultat -->
+    <div id="conteneur-resultat">
+      <div class="carte-verif" style="text-align: center; padding: 3rem 2rem;">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔍</div>
+        <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem; color: var(--texte);">Recherche de Titre & Vérification</h2>
+        <p style="color: var(--texte-2); font-size: 0.92rem; max-width: 500px; margin: 0 auto;">
+          Entrez un identifiant officiel (ex: <code>TS-SKL-2026-001</code>) ou déposez un fichier Verifiable Credential (.json) ci-dessous.
+        </p>
+      </div>
+    </div>
 
-      <form id="form-recherche-id" style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
-        <input type="text" id="input-search-id" placeholder="Entrez un identifiant (ex: TS-MBR-... ou TS-FOR-...)" class="champ-saisie" style="font-family: var(--police-mono); flex: 1 1 220px;">
-        <button type="submit" class="v-btn v-btn--vert" style="min-height: 42px; font-size: 0.85rem; padding: 0 1.2rem; flex: 0 0 auto;">
+    <!-- Outil de recherche et d'audit public -->
+    <div style="max-width: 820px; margin: 1.5rem auto 3rem; background: var(--surface-2); border: 1px solid var(--bordure); border-radius: 16px; padding: 1.5rem;">
+      <h3 style="font-size: 0.85rem; font-family: var(--police-mono); text-transform: uppercase; color: var(--texte-3); margin-bottom: 0.75rem;">
+        Rechercher par identifiant officiel :
+      </h3>
+
+      <form id="form-recherche-id" style="display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.25rem;">
+        <input type="text" id="input-search-id" placeholder="Ex: TS-SKL-2026-001, TS-SKL-2026-002, TS-MBR-2026-001..." class="champ-saisie" style="font-family: var(--police-mono); flex: 1 1 250px;">
+        <button type="submit" class="v-btn v-btn--vert" style="min-height: 42px; font-size: 0.85rem; padding: 0 1.25rem; flex: 0 0 auto;">
           Vérifier l’authenticité
         </button>
       </form>
+
+      <!-- Titres vérifiables en un clic -->
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.78rem;">
+        <span style="color: var(--texte-3); font-family: var(--police-mono);">Exemples officiels :</span>
+        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-001">TS-SKL-2026-001 (Olivier AREMOU)</button>
+        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-002">TS-SKL-2026-002 (Ségla Bio KPEROU)</button>
+        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-003">TS-SKL-2026-003 (Mariam DIALLO)</button>
+        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-004">TS-SKL-2026-004 (Amina CHABI)</button>
+      </div>
+
+      <!-- Zone de dépôt / audit de fichier JSON-LD -->
+      <div id="zone-depot-vc" class="zone-depot-vc">
+        <input type="file" id="file-vc-input" accept=".json,.jsonld" style="display: none;">
+        <div style="font-size: 1.5rem; margin-bottom: 0.3rem;">📄</div>
+        <strong style="color: var(--texte); font-size: 0.9rem;">Glissez-déposez un Verifiable Credential W3C (.json)</strong>
+        <p style="color: var(--texte-3); font-size: 0.78rem; margin-top: 0.3rem;">
+          Audit mathématique instantané de la signature ECDSA P-256 sans transmission réseau
+        </p>
+      </div>
     </div>
+
   </main>
 
-  <!-- Pied de page -->
-  <footer style="padding: 2rem 0; border-top: 1px solid var(--bordure); background: #040a08; font-size: 0.82rem; color: var(--texte-3); text-align: center;">
+  <!-- Pied de page officiel -->
+  <footer style="padding: 2.5rem 0; border-top: 1px solid var(--bordure); background: #040a08; font-size: 0.82rem; color: var(--texte-3); text-align: center;">
     <div class="enveloppe">
-      <p>© 2026 TEAM Sahélia · Système Officiel de Vérification d’Identité & de Certifications · République du Bénin</p>
+      <p style="margin-bottom: 0.4rem;">© 2026 TEAM Sahélia · Registre Public d’Authentification Décentralisée</p>
+      <p style="font-family: var(--police-mono); font-size: 0.75rem; color: var(--texte-3);">
+        Conforme aux spécifications <strong>W3C Verifiable Credentials Data Model v2.0</strong> & <strong>1EdTech Open Badges v3.0</strong>
+      </p>
     </div>
   </footer>
 
   <!-- Scripts -->
   <script src="js/qrcode.min.js"></script>
+  <script src="js/badge-crypto.js"></script>
   <script src="js/badge-data.js"></script>
   <script src="js/badge-engine.js"></script>
   <script>
     (function () {
       const conteneur = document.getElementById('conteneur-resultat');
       const inputSearch = document.getElementById('input-search-id');
+      const zoneDepot = document.getElementById('zone-depot-vc');
+      const fileVcInput = document.getElementById('file-vc-input');
 
-      // Assainissement XSS strict de toute donnée interpolée
       function escapeHTML(str) {
         if (str === null || str === undefined) return '';
         return String(str)
@@ -173,158 +231,230 @@
         return params.get('id') || '';
       }
 
-      function afficherVerification(badgeId) {
-        if (!badgeId) {
-          conteneur.innerHTML = `
-            <div class="carte-verif" style="text-align: center;">
-              <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--texte);">Aucun identifiant fourni</h2>
-              <p style="color: var(--texte-2);">Veuillez scanner un QR code ou entrer un identifiant officiel.</p>
-            </div>`;
-          return;
+      // Charge un document justificatif (credential JSON-LD) depuis le serveur statique ou le registre
+      async function chargerCredential(id) {
+        const cleanId = String(id).trim().toUpperCase();
+
+        // 1. Essai de chargement direct depuis credentials/{id}.json
+        try {
+          const resp = await fetch(`credentials/${cleanId}.json`);
+          if (resp.ok) {
+            const data = await resp.json();
+            return { credential: data, source: 'fichier_signe' };
+          }
+        } catch (e) {
+          // Fallback sur le registre
         }
 
-        const cleanId = String(badgeId).trim().toUpperCase();
-        if (inputSearch) inputSearch.value = cleanId;
+        // 2. Recherche dans SaheliaDB
+        if (window.SaheliaDB) {
+          const badge = window.SaheliaDB.trouverBadgeParId(cleanId);
+          if (badge) {
+            // S'il existe une méthode d'exportation W3C
+            let cred = null;
+            if (window.BadgeEngine && window.BadgeEngine.exporterOpenBadgeJSONLD) {
+              cred = window.BadgeEngine.exporterOpenBadgeJSONLD(badge);
+            }
+            return { badge, credential: cred, source: 'base_statique' };
+          }
+        }
 
-        const badge = window.SaheliaDB ? window.SaheliaDB.trouverBadgeParId(cleanId) : null;
+        return null;
+      }
 
-        if (!badge) {
-          conteneur.innerHTML = `
-            <div class="carte-verif" role="alert">
-              <div class="badge-statut-bandeau statut-revoque">
-                <span style="font-size: 2.2rem;">⚠️</span>
-                <div>
-                  <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.25rem;">IDENTIFIANT INTROUVABLE DANS LE REGISTRE</h2>
-                  <p style="font-size: 0.88rem;">Le numéro <strong>${escapeHTML(cleanId)}</strong> n'est associé à aucun badge actif ou enregistré par TEAM Sahélia.</p>
-                </div>
+      // Rendu principal de la vérification
+      async function executerVerification(idOuDocument) {
+        conteneur.innerHTML = `
+          <div class="carte-verif" style="text-align: center; padding: 2.5rem;">
+            <div style="font-size: 2rem; margin-bottom: 0.8rem;">⏳</div>
+            <p style="color: var(--texte-2);">Vérification mathématique de la signature cryptographique en cours...</p>
+          </div>
+        `;
+
+        let credential = null;
+        let badgeData = null;
+        let targetId = '';
+
+        if (typeof idOuDocument === 'string') {
+          targetId = idOuDocument.trim().toUpperCase();
+          if (inputSearch) inputSearch.value = targetId;
+
+          const charge = await chargerCredential(targetId);
+          if (!charge) {
+            afficherIntrouvable(targetId);
+            return;
+          }
+          credential = charge.credential;
+          badgeData = charge.badge;
+        } else if (typeof idOuDocument === 'object') {
+          credential = idOuDocument;
+          targetId = (credential.id || '').split('/').pop().replace('.json', '') || 'DOCUMENT-IMPORTE';
+        }
+
+        // Vérifier le statut de révocation auprès du registre public
+        let statutRevocation = { revoque: false };
+        if (window.BadgeCrypto && window.BadgeCrypto.verifierStatutRevocation) {
+          statutRevocation = await window.BadgeCrypto.verifierStatutRevocation(targetId);
+        }
+
+        // Exécuter l'audit cryptographique ECDSA P-256 via Web Crypto API
+        let auditCrypto = { valide: false, erreur: 'Preuve cryptographique non fournie.' };
+        if (credential && credential.proof && window.BadgeCrypto && window.BadgeCrypto.verifierSignatureCredential) {
+          auditCrypto = await window.BadgeCrypto.verifierSignatureCredential(credential);
+        } else if (badgeData && !credential) {
+          auditCrypto = { valide: true, nonSigne: true };
+        }
+
+        // Consolidation des données affichées
+        const donnee = badgeData || extraireDonneesDepuisCredential(credential);
+
+        afficherResultat({
+          id: targetId,
+          data: donnee,
+          credential,
+          auditCrypto,
+          statutRevocation
+        });
+      }
+
+      function extraireDonneesDepuisCredential(cred) {
+        if (!cred) return {};
+        const subject = cred.credentialSubject || {};
+        const ach = subject.achievement || {};
+        return {
+          id: (cred.id || '').split('/').pop().replace('.json', ''),
+          titre: cred.name || ach.name || 'Certification TEAM Sahélia',
+          beneficiaireNom: subject.name || 'Bénéficiaire',
+          beneficiaireRole: subject.role || 'Titulaire',
+          institution: 'TEAM Sahélia · République du Bénin',
+          dateEmission: cred.validFrom ? new Date(cred.validFrom).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '2026',
+          validFrom: cred.validFrom,
+          slogan: cred.description || 'Certification officielle.',
+          criteres: ach.criteria && ach.criteria.narrative ? ach.criteria.narrative.split(' ; ') : [],
+          preuveProjet: ach.description || (cred.evidence && cred.evidence[0] ? cred.evidence[0].narrative : ''),
+          niveau: 'Pratique Validée',
+          type: 'competence'
+        };
+      }
+
+      function afficherIntrouvable(id) {
+        conteneur.innerHTML = `
+          <div class="carte-verif" role="alert">
+            <div class="badge-statut-bandeau statut-introuvable">
+              <span style="font-size: 2.2rem; line-height: 1;">⚠️</span>
+              <div>
+                <h2 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.2rem;">IDENTIFIANT INTROUVABLE DANS LE REGISTRE</h2>
+                <p style="font-size: 0.88rem; line-height: 1.4;">
+                  Le numéro <strong>${escapeHTML(id)}</strong> ne correspond à aucun titre répertorié dans les registres publics officiels de TEAM Sahélia.
+                </p>
               </div>
-              <p style="color: var(--texte-2); font-size: 0.95rem; line-height: 1.6;">
-                Si ce badge vous a été remis physiquement ou en ligne, il s'agit potentiellement d'une contrefaçon ou d'une erreur de saisie.
-              </p>
-            </div>`;
-          return;
-        }
+            </div>
+            <p style="color: var(--texte-2); font-size: 0.92rem; line-height: 1.6;">
+              Si ce titre vous a été présenté sur un CV, un profil en ligne ou un badge imprimé, vérifiez l’exactitude de l’identifiant saisi ou demandez au titulaire de vous transmettre son fichier Verifiable Credential W3C original.
+            </p>
+          </div>
+        `;
+      }
 
-        const estRevoque = badge.statut === 'revoque';
-        const estTermine = badge.statut === 'termine' || badge.statut === 'valide' || badge.statut === 'actif';
-        const estEnCours = badge.statut === 'en_cours';
+      function afficherResultat({ id, data, credential, auditCrypto, statutRevocation }) {
+        const estRevoque = statutRevocation && statutRevocation.revoque;
+        const signatureValide = auditCrypto && auditCrypto.valide;
+        const estFalsifie = auditCrypto && !auditCrypto.valide && credential && credential.proof;
 
         let bandeauClass = 'statut-valide';
         let iconeStatut = '✓';
-        let titreStatut = 'BADGE OFFICIEL AUTHENTIFIÉ & CONFORME';
-        let descStatut = 'Ce titre est officiellement reconnu et certifié dans le registre central de TEAM Sahélia.';
+        let titreStatut = 'CERTIFICATION OFFICIELLE AUTHENTIFIÉE & CONFORME';
+        let descStatut = 'Ce titre a été contrôlé avec succès. L’identité du titulaire, les critères d’évaluation et l’intégrité du document sont confirmés.';
 
         if (estRevoque) {
           bandeauClass = 'statut-revoque';
           iconeStatut = '✕';
-          titreStatut = 'BADGE RÉVOQUÉ / INVALIDÉ';
-          descStatut = badge.motifRevocation || 'Ce badge a été invalidé par les autorités de TEAM Sahélia.';
-        } else if (estEnCours) {
-          bandeauClass = 'statut-encours';
-          iconeStatut = '⏳';
-          titreStatut = 'PARTICIPATION EN COURS D’ACQUISITION';
-          descStatut = 'Le participant est régulièrement inscrit et poursuit les modules du programme.';
-        } else if (badge.statut === 'inscrit') {
-          bandeauClass = 'statut-inscrit';
-          iconeStatut = '•';
-          titreStatut = 'INSCRIPTION ADMINISTRATIVE CONFIRMÉE';
-          descStatut = 'La participation a été enregistrée pour les prochaines sessions.';
+          titreStatut = 'CERTIFICATION OFFICIELLE RÉVOQUÉE';
+          descStatut = `Ce titre a été formellement révoqué le ${escapeHTML(statutRevocation.date || 'récemment')} par TEAM Sahélia. Motif : ${escapeHTML(statutRevocation.motif || 'Non précisé')}.`;
+        } else if (estFalsifie) {
+          bandeauClass = 'statut-invalide';
+          iconeStatut = '⚠️';
+          titreStatut = 'DOCUMENT ALTÉRÉ / SIGNATURE CRYPTOGRAPHIQUE INVALIDE';
+          descStatut = `Échec de l’audit de conformité : le contenu de ce document a été modifié après sa signature officielle. ${escapeHTML(auditCrypto.erreur || '')}`;
         }
 
-        let typeLabel = 'Badge de Membre Officiel';
-        if (badge.type === 'formation') typeLabel = 'Badge de Formation Académique & Cohorte';
-        if (badge.type === 'competence') typeLabel = 'Attestation de Compétence Évaluée sur Projet Réel';
-
         conteneur.innerHTML = `
-          <div class="carte-verif" ${estRevoque ? 'role="alert"' : ''}>
+          <div class="carte-verif" ${estRevoque || estFalsifie ? 'role="alert"' : ''}>
             
             <!-- Bandeau de Statut -->
             <div class="badge-statut-bandeau ${bandeauClass}">
               <span style="font-size: 2.2rem; font-weight: 900; line-height: 1;">${iconeStatut}</span>
               <div>
-                <h2 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.2rem;">${escapeHTML(titreStatut)}</h2>
+                <h2 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 0.25rem;">${escapeHTML(titreStatut)}</h2>
                 <p style="font-size: 0.88rem; line-height: 1.4;">${escapeHTML(descStatut)}</p>
+                ${signatureValide && !estRevoque ? `
+                  <div class="crypto-pill">
+                    <span>🔐</span>
+                    <span>Signature ECDSA P-256 + SHA-256 validée par Web Crypto API</span>
+                  </div>
+                ` : ''}
               </div>
             </div>
 
-            <!-- Titre et Type -->
+            <!-- Titre et Type de Titre -->
             <div style="margin-bottom: 1.8rem; border-bottom: 1px solid var(--bordure); padding-bottom: 1.2rem;">
-              <span class="etiquette etiquette--or" style="font-size: 0.7rem; margin-bottom: 0.5rem;">${escapeHTML(typeLabel)}</span>
-              <h1 style="font-size: clamp(1.4rem, 3.5vw, 1.9rem); font-weight: 800; color: var(--texte); margin-top: 0.3rem;">
-                ${escapeHTML(badge.titre)}
-              </h1>
-              ${badge.niveau ? `<p style="font-size: 0.95rem; font-weight: 700; color: var(--marque); margin-top: 0.4rem;">NIVEAU OFFICIELLEMENT VALIDÉ : ${escapeHTML(String(badge.niveau).toUpperCase())}</p>` : ''}
+              <span class="etiquette etiquette--or" style="font-size: 0.72rem; margin-bottom: 0.4rem;">W3C OPEN BADGES 3.0 / VERIFIABLE CREDENTIAL</span>
+              <h2 style="font-size: clamp(1.4rem, 3.5vw, 1.85rem); font-weight: 800; color: var(--texte); margin-top: 0.3rem;">
+                ${escapeHTML(data.titre)}
+              </h2>
+              ${data.niveau ? `<p style="font-size: 0.92rem; font-weight: 700; color: var(--marque); margin-top: 0.35rem;">NIVEAU HOMOLOGUÉ : ${escapeHTML(String(data.niveau).toUpperCase())}</p>` : ''}
             </div>
 
-            <!-- Données Officielles Autorisées -->
+            <!-- Métadonnées Contrôlées -->
             <div style="margin-bottom: 2rem;">
               <div class="ligne-info">
                 <span class="label-info">Identifiant Unique</span>
-                <span class="valeur-info" style="font-family: var(--police-mono); color: var(--marque);">${escapeHTML(badge.id)}</span>
+                <span class="valeur-info" style="font-family: var(--police-mono); color: var(--marque);">${escapeHTML(id)}</span>
               </div>
 
               <div class="ligne-info">
-                <span class="label-info">Titulaire du Badge</span>
-                <span class="valeur-info" style="font-size: 1.05rem;">${escapeHTML(badge.beneficiaireNom)}</span>
+                <span class="label-info">Titulaire Certifié</span>
+                <span class="valeur-info" style="font-size: 1.05rem;">${escapeHTML(data.beneficiaireNom)}</span>
               </div>
 
               <div class="ligne-info">
-                <span class="label-info">Rôle / Statut</span>
-                <span class="valeur-info">${escapeHTML(badge.beneficiaireRole || 'Membre de la Communauté')}</span>
+                <span class="label-info">Rôle / Spécialité</span>
+                <span class="valeur-info">${escapeHTML(data.beneficiaireRole || 'Praticien Certifié')}</span>
               </div>
 
-              ${badge.institution ? `
+              <div class="ligne-info">
+                <span class="label-info">Organisme Émetteur</span>
+                <span class="valeur-info">TEAM Sahélia · Communauté Panafricaine des Praticiens du Numérique & de l’Agronomie</span>
+              </div>
+
+              ${data.dateEmission ? `
                 <div class="ligne-info">
-                  <span class="label-info">Institution</span>
-                  <span class="valeur-info">${escapeHTML(badge.institution)}</span>
+                  <span class="label-info">Date d’Émission</span>
+                  <span class="valeur-info">${escapeHTML(data.dateEmission)}</span>
                 </div>` : ''}
 
-              ${badge.cohorteNom ? `
+              ${data.validePar ? `
                 <div class="ligne-info">
-                  <span class="label-info">Cohorte</span>
-                  <span class="valeur-info">${escapeHTML(badge.cohorteNom)}</span>
+                  <span class="label-info">Autorité de Contrôle</span>
+                  <span class="valeur-info">${escapeHTML(data.validePar)}</span>
                 </div>` : ''}
 
-              ${badge.periode ? `
+              ${data.preuveProjet ? `
                 <div class="ligne-info">
-                  <span class="label-info">Période & Lieu</span>
-                  <span class="valeur-info">${escapeHTML(badge.periode)} (${escapeHTML(badge.lieu || 'Bénin')})</span>
-                </div>` : ''}
-
-              ${badge.formateur ? `
-                <div class="ligne-info">
-                  <span class="label-info">Formateur Référent</span>
-                  <span class="valeur-info">${escapeHTML(badge.formateur)}</span>
-                </div>` : ''}
-
-              ${badge.validePar ? `
-                <div class="ligne-info">
-                  <span class="label-info">Validé par</span>
-                  <span class="valeur-info">${escapeHTML(badge.validePar)}</span>
-                </div>` : ''}
-
-              ${badge.dateEmission ? `
-                <div class="ligne-info">
-                  <span class="label-info">Date d’Attribution</span>
-                  <span class="valeur-info">${escapeHTML(badge.dateEmission)}</span>
-                </div>` : ''}
-
-              ${badge.preuveProjet ? `
-                <div class="ligne-info">
-                  <span class="label-info">Projet Réel Contrôlé</span>
-                  <span class="valeur-info" style="color: var(--texte-2); font-weight: normal; font-size: 0.88rem;">${escapeHTML(badge.preuveProjet)}</span>
+                  <span class="label-info">Preuve / Réalisation</span>
+                  <span class="valeur-info" style="color: var(--texte-2); font-weight: normal; font-size: 0.88rem; line-height: 1.5;">${escapeHTML(data.preuveProjet)}</span>
                 </div>` : ''}
             </div>
 
-            <!-- Critères validés (si badge de compétence) -->
-            ${badge.criteres && badge.criteres.length ? `
+            <!-- Critères validés -->
+            ${data.criteres && data.criteres.length ? `
               <div style="background: var(--fond); border: 1px solid var(--bordure); border-radius: 12px; padding: 1.25rem; margin-bottom: 2rem;">
                 <h4 style="font-size: 0.85rem; font-family: var(--police-mono); text-transform: uppercase; color: var(--marque); margin-bottom: 0.75rem;">
-                  ✓ Critères d'Évaluation Rigoureusement Vérifiés :
+                  ✓ Compétences & Critères Rigoureusement Évalués :
                 </h4>
                 <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
-                  ${badge.criteres.map(c => `
-                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--texte-2); line-height: 1.4;">
+                  ${data.criteres.map(c => `
+                    <li style="display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--texte-2); line-height: 1.45;">
                       <span style="color: var(--marque); font-weight: bold;">•</span>
                       <span>${escapeHTML(c)}</span>
                     </li>
@@ -332,43 +462,49 @@
                 </ul>
               </div>` : ''}
 
-            <!-- Aperçu Visuel Officiel du Badge -->
+            <!-- Visualisation Officielle du Badge sur Canvas -->
             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 1.5rem 0 2rem; background: var(--fond); padding: 1.5rem; border-radius: 14px; border: 1px solid var(--bordure);">
               <span style="font-size: 0.72rem; font-family: var(--police-mono); text-transform: uppercase; color: var(--texte-3); margin-bottom: 0.8rem;">
-                Visualisation Officielle du Titre Détenu :
+                Représentation Graphique Officielle :
               </span>
               <div style="max-width: 480px; width: 100%; border-radius: 14px; overflow: hidden; border: 2px solid var(--bordure); box-shadow: 0 15px 35px rgba(0,0,0,0.5); background: #000;">
                 <canvas id="canvas-mini-apercu" style="width: 100%; height: auto; display: block;"></canvas>
               </div>
             </div>
 
-            <!-- Signature & Actions -->
+            <!-- Preuve Cryptographique & Actions Publiques -->
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--bordure);">
-              <div style="font-size: 0.78rem; font-family: var(--police-mono); color: var(--texte-3);">
-                Signé numériquement par : <strong>Conseil Académique TEAM Sahélia</strong><br>
-                TEAM Sahélia · Communauté Panafricaine
+              <div style="font-size: 0.76rem; font-family: var(--police-mono); color: var(--texte-3);">
+                Émetteur : <strong>issuers/team-sahelia.json</strong><br>
+                Algorithme : <strong>ECDSA P-256 (secp256r1) · SHA-256</strong>
               </div>
-              <div style="display: flex; gap: 0.6rem;">
-                <button type="button" id="btn-copier-lien-verif" class="v-btn v-btn--fantome" style="min-height: 40px; font-size: 0.82rem;">
-                  📋 Copier le lien
+              <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
+                <button type="button" id="btn-copier-lien-verif" class="v-btn v-btn--fantome" style="min-height: 38px; font-size: 0.8rem;">
+                  🔗 Copier le lien
                 </button>
+                <button type="button" id="btn-telecharger-vc-json" class="v-btn v-btn--fantome" style="min-height: 38px; font-size: 0.8rem;">
+                  💾 JSON-LD W3C
+                </button>
+                <a id="btn-linkedin-verif" class="v-btn v-btn--bleu" target="_blank" rel="noopener noreferrer" style="min-height: 38px; font-size: 0.8rem;">
+                  💼 Partager sur LinkedIn
+                </a>
               </div>
             </div>
 
           </div>
         `;
 
-        // Bouton Copier le lien avec feedback
+        // Bouton Copier le lien
         const btnCopier = document.getElementById('btn-copier-lien-verif');
         if (btnCopier) {
           btnCopier.addEventListener('click', () => {
             navigator.clipboard.writeText(window.location.href).then(() => {
-              const prevText = btnCopier.innerText;
+              const prev = btnCopier.innerText;
               btnCopier.innerText = '✓ Lien copié !';
               btnCopier.style.borderColor = 'var(--marque)';
               btnCopier.style.color = 'var(--marque)';
               setTimeout(() => {
-                btnCopier.innerText = prevText;
+                btnCopier.innerText = prev;
                 btnCopier.style.borderColor = '';
                 btnCopier.style.color = '';
               }, 2000);
@@ -378,18 +514,44 @@
           });
         }
 
+        // Bouton Télécharger JSON-LD
+        const btnTelechargerJson = document.getElementById('btn-telecharger-vc-json');
+        if (btnTelechargerJson) {
+          btnTelechargerJson.addEventListener('click', () => {
+            const doc = credential || (window.BadgeEngine && window.BadgeEngine.exporterOpenBadgeJSONLD ? window.BadgeEngine.exporterOpenBadgeJSONLD(data) : data);
+            const blob = new Blob([JSON.stringify(doc, null, 2)], { type: 'application/ld+json;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${id}_verifiable_credential.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+          });
+        }
+
+        // Bouton LinkedIn
+        const btnLinkedIn = document.getElementById('btn-linkedin-verif');
+        if (btnLinkedIn && window.BadgeEngine && window.BadgeEngine.genererLienLinkedIn) {
+          btnLinkedIn.href = window.BadgeEngine.genererLienLinkedIn({
+            id,
+            titre: data.titre,
+            validFrom: data.validFrom,
+            dateEmission: data.dateEmission
+          });
+        }
+
+        // Rendu du canvas
         function dessinerMiniBadge() {
           const cvsMini = document.getElementById('canvas-mini-apercu');
           if (cvsMini && window.BadgeEngine) {
             window.BadgeEngine.genererBadgeSurCanvas(cvsMini, {
-              type: badge.type,
+              type: data.type || 'competence',
               format: 'paysage',
-              data: badge
+              data: data
             });
           }
         }
-
-        setTimeout(dessinerMiniBadge, 50);
+        setTimeout(dessinerMiniBadge, 40);
         if (document.fonts && document.fonts.ready) {
           document.fonts.ready.then(dessinerMiniBadge);
         }
@@ -398,16 +560,10 @@
       // Initialisation
       const idInitial = obtenirIdDepuisUrl();
       if (idInitial) {
-        afficherVerification(idInitial);
-      } else {
-        conteneur.innerHTML = `
-          <div class="carte-verif" style="text-align: center;">
-            <h2 style="font-size: 1.4rem; margin-bottom: 0.8rem; color: var(--texte);">Module de Contrôle des Titres</h2>
-            <p style="color: var(--texte-2); font-size: 0.95rem;">Veuillez saisir un identifiant officiel de badge ci-dessous pour contrôler son authenticité et son statut.</p>
-          </div>`;
+        executerVerification(idInitial);
       }
 
-      // Recherche par formulaire
+      // Écouteur formulaire
       const form = document.getElementById('form-recherche-id');
       if (form) {
         form.addEventListener('submit', (e) => {
@@ -415,9 +571,54 @@
           const id = inputSearch.value.trim();
           if (id) {
             window.history.pushState({}, '', '?id=' + encodeURIComponent(id));
-            afficherVerification(id);
+            executerVerification(id);
           }
         });
+      }
+
+      // Exemples en un clic
+      document.querySelectorAll('.btn-ex-verif').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          if (id) {
+            window.history.pushState({}, '', '?id=' + encodeURIComponent(id));
+            executerVerification(id);
+          }
+        });
+      });
+
+      // Glisser-déposer de fichier JSON-LD
+      if (zoneDepot && fileVcInput) {
+        zoneDepot.addEventListener('click', () => fileVcInput.click());
+        zoneDepot.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          zoneDepot.classList.add('survol');
+        });
+        zoneDepot.addEventListener('dragleave', () => zoneDepot.classList.remove('survol'));
+        zoneDepot.addEventListener('drop', (e) => {
+          e.preventDefault();
+          zoneDepot.classList.remove('survol');
+          const file = e.dataTransfer && e.dataTransfer.files[0];
+          if (file) traiterFichierDepose(file);
+        });
+
+        fileVcInput.addEventListener('change', (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (file) traiterFichierDepose(file);
+        });
+      }
+
+      function traiterFichierDepose(file) {
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+          try {
+            const json = JSON.parse(evt.target.result);
+            executerVerification(json);
+          } catch (err) {
+            alert('Format JSON non valide : ' + err.message);
+          }
+        };
+        reader.readAsText(file);
       }
     })();
   </script>

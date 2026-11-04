@@ -5,7 +5,7 @@
 > **Auteur :** Olivier AGUIN & TEAM Sahélia  
 > **Temps d’apprentissage :** 45 minutes de lecture + 30 minutes d'atelier pratique  
 > **Illustration associée :** `schemas/schema_04_fonctions_conditionnelles.svg`  
-> **Jeu de données :** `../datasets/dataset_agronomique_parakou.csv`
+> **Jeu de données :** `../datasets/dataset_agronomique_sahelia.csv`
 
 ---
 
@@ -91,7 +91,7 @@ Lorsque vous comparez des chiffres avec un seuil contenu dans une cellule :
 
 ## 6. Atelier Pratique : Le Tableau Comparatif des 4 Cultures
 
-Ouvrez `dataset_agronomique_parakou.csv`.  
+Ouvrez `dataset_agronomique_sahelia.csv`.  
 À droite de vos données (à partir de la colonne `Q`), construisez le tableau de synthèse suivant :
 
 | Culture | Nb Parcelles | Superficie Totale (ha) | Rendement Moyen (kg/ha) | Coût Total Engagé (FCFA) |

@@ -5,7 +5,7 @@
 > **Manuel Associé :** Manuel 01 — Excel pour les Étudiants & Professionnels  
 > **Norme de Certification :** Référentiel de Compétences TEAM Sahélia (Code : `TS-SKL-EXCEL-01`)  
 > **Durée estimée de l'épreuve :** 2 heures de travail autonome en conditions réelles  
-> **Fichier support :** `datasets/dataset_agronomique_parakou.csv`
+> **Fichier support :** `datasets/dataset_agronomique_sahelia.csv`
 
 ---
 

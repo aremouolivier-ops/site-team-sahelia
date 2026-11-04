@@ -21,7 +21,7 @@ Pour valider l'acquisition des compétences du **Manuel 12** et prétendre à la
 ### Thématique au Choix :
 - **Sujet A (Agronomie de Précision) :** *« Comment les drones et l'IA sauvent les cultures sahéliennes de la sécheresse. »*
 - **Sujet B (Vibe Coding & IA) :** *« Construire des applications web utiles pour sa communauté sans coder pendant 6 mois. »*
-- **Sujet C (Formation & Émancipation) :** *« La révolution des compétences numériques à l'Université de Parakou et au Bénin. »*
+- **Sujet C (Formation & Émancipation) :** *« La révolution des compétences numériques à l'TEAM Sahélia et au Bénin. »*
 
 ---
 

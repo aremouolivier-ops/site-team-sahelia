@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/vibe-coding-ia.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Vibe Coding & Ingénieur Solutions IA",
+  "description": "Conception, développement assisté par IA, sécurisation et déploiement en production d'une solution numérique résolvant un cas d'usage concret au bénéfice de l'agronomie ou de la communauté.",
+  "achievementType": "Certification",
+  "criteria": {
+    "narrative": "1. Prompt engineering avancé selon le standard C.R.E.D. avec vérification stricte des sources ; 2. Conception, sécurisation et déploiement d'un outil web ou script d'automatisation en production ; 3. Résolution d'un cas d'usage concret de terrain au bénéfice de la communauté ; 4. Revue de code, architecture logicielle propre et tests fonctionnels vérifiés."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "vibe",
+  "level": "Platine · Architect",
+  "shape": "octogone",
+  "accentColor": "#7fb0ee"
+}

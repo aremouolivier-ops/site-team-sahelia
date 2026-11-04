@@ -10,7 +10,7 @@
 
 ## 1. L'Épreuve du Plagiat et de la Rigueur Bibliographique
 
-Dans toutes les universités d'Afrique de l'Ouest (Université de Parakou, UAC Abomey-Calavi, 2iE Ouagadougou, etc.) et dans les réseaux CAMES, les mémoires et thèses sont désormais soumis à des logiciels anti-plagiat stricts (Turnitin, Compilatio).
+Dans toutes les universités d'Afrique de l'Ouest (TEAM Sahélia, UAC Abomey-Calavi, 2iE Ouagadougou, etc.) et dans les réseaux CAMES, les mémoires et thèses sont désormais soumis à des logiciels anti-plagiat stricts (Turnitin, Compilatio).
 
 La majorité des déconvenues d'étudiants ne proviennent pas d'une intention de tricher, mais d'une **négligence technique de citation** :
 - Une phrase recopiée d'un article sans mention de l'auteur entre parenthèses.

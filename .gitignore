@@ -6,3 +6,7 @@ Thumbs.db
 assets/badges/
 assets/apercu_3_types_badges.png
 
+
+# Clés cryptographiques privées d'émission (Strictement confidentiel)
+scripts/cles/
+scratch/

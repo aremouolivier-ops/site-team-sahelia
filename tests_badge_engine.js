@@ -58,7 +58,7 @@ window.BadgeEngine.genererBadgeSurCanvas(canvasMembre, {
     id: 'TS-MBR-2026-001',
     beneficiaireNom: 'Sègla Bio KPEROU',
     beneficiaireRole: 'Référent Cartographie SIG & Agronomie',
-    institution: 'Faculté d’Agronomie (FA-UP) · Parakou',
+    institution: 'TEAM Sahélia · Bénin',
     sexe: 'M',
     slogan: 'L’agronomie de demain maîtrise la terre et la donnée.'
   }
@@ -75,7 +75,7 @@ window.BadgeEngine.genererBadgeSurCanvas(canvasFormation, {
     beneficiaireNom: 'Amina CHABI',
     titre: 'Bureautique Académique : Mémoires Word & Excel',
     cohorteNom: 'Cohorte Urgence Mémoire · Novembre 2026',
-    mention: 'Mémoire FA-UP validé sans faille',
+    mention: 'Mémoire Pédagogique validé sans faille',
     sexe: 'F',
     slogan: 'Collecte mobile et analyse d’enquêtes terrain fiables.'
   }
@@ -144,4 +144,59 @@ if (!jsonld['@context'] || jsonld.type[1] !== 'OpenBadgeCredential') {
 }
 console.log('✓ Métadonnées cryptographiques Open Badges 3.0 / W3C conformes');
 
-console.log('🎉 TOUS LES TESTS DU MOTEUR DE BADGES SONT VALIDES AVEC SUCCÈS !');
+console.log('--- TEST 8 : VÉRIFICATION CRYPTOGRAPHIQUE W3C (ECDSA P-256) ---');
+// Charger Web Crypto pour Node.js
+const { webcrypto } = require('crypto');
+global.window.crypto = webcrypto;
+
+require('./js/badge-crypto.js');
+if (!window.BadgeCrypto) {
+  console.error('❌ BadgeCrypto non trouvé');
+  process.exit(1);
+}
+
+(async () => {
+  const credentialsIds = ['TS-SKL-2026-001', 'TS-SKL-2026-002', 'TS-SKL-2026-003', 'TS-SKL-2026-004'];
+  for (const id of credentialsIds) {
+    const credPath = path.join(__dirname, 'credentials', `${id}.json`);
+    if (!fs.existsSync(credPath)) {
+      console.error(`❌ Fichier ${credPath} manquant`);
+      process.exit(1);
+    }
+    const cred = JSON.parse(fs.readFileSync(credPath, 'utf8'));
+    const audit = await window.BadgeCrypto.verifierSignatureCredential(cred);
+    if (!audit.valide) {
+      console.error(`❌ Échec signature pour ${id} :`, audit.erreur);
+      process.exit(1);
+    }
+    console.log(`✓ Signature authentique W3C VC validée pour ${id} (${cred.credentialSubject.name})`);
+  }
+
+  // Test de falsification
+  const credAlt = JSON.parse(fs.readFileSync(path.join(__dirname, 'credentials', 'TS-SKL-2026-001.json'), 'utf8'));
+  credAlt.credentialSubject.name = 'Faux Bénéficiaire';
+  const auditFaux = await window.BadgeCrypto.verifierSignatureCredential(credAlt);
+  if (auditFaux.valide) {
+    console.error('❌ La signature aurait dû échouer pour le document altéré !');
+    process.exit(1);
+  }
+  console.log('✓ Détection mathématique immédiate de tentative de falsification');
+
+  console.log('--- TEST 9 : CONTRÔLE STRICT D’ABSENCE DE RÉSIDUS PARAKOU / FA-UP ---');
+  const badgeFiles = [
+    'js/badge-data.js',
+    'js/badge-engine.js',
+    'js/badge-crypto.js',
+    'verifier.html'
+  ];
+  for (const bf of badgeFiles) {
+    const text = fs.readFileSync(path.join(__dirname, bf), 'utf8');
+    if (/parakou/i.test(text) || /fa-up/i.test(text)) {
+      console.error(`❌ Résidu Parakou/FA-UP trouvé dans ${bf}`);
+      process.exit(1);
+    }
+    console.log(`✓ Zéro résidu institutionnel dans ${bf}`);
+  }
+
+  console.log('🎉 TOUS LES TESTS DU MOTEUR DE BADGES SONT VALIDES AVEC SUCCÈS (100% SUCCÈS) !');
+})();

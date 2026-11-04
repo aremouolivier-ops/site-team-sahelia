@@ -68,8 +68,8 @@ for (let i = 1; i <= 8; i++) {
 }
 
 // Vérifier le dataset CSV du Manuel 01
-const datasetCsv = path.join(BASE_DIR, 'manuels', '01-excel-etudiants-professionnels', 'datasets', 'dataset_agronomique_parakou.csv');
-assert(fs.existsSync(datasetCsv), 'Dataset CSV agronomique Parakou présent et prêt');
+const datasetCsv = path.join(BASE_DIR, 'manuels', '01-excel-etudiants-professionnels', 'datasets', 'dataset_agronomique_sahelia.csv');
+assert(fs.existsSync(datasetCsv), 'Dataset CSV agronomique Sahélia présent et prêt');
 const csvContent = fs.readFileSync(datasetCsv, 'utf8');
 assert(csvContent.includes('ID_Parcelle'), 'Le dataset CSV contient les colonnes attendues');
 
@@ -235,7 +235,7 @@ eval(`(function(window, localStorage) { ${dbContent} })(fakeWindow, fakeWindow.l
 const DB = fakeWindow.SaheliaDB;
 
 assert(DB !== undefined, 'Registre SaheliaDB chargé avec succès');
-assert(Array.isArray(DB.membres) && DB.membres.length === 0, 'La base des membres démarre 100% vierge (aucun faux profil)');
+assert(Array.isArray(DB.membres) && DB.membres.length >= 4, 'La base des membres contient les membres fondateurs réels');
 
 // Test d'enregistrement dynamique d'un membre officiel par la console admin
 const membreOfficiel = {
@@ -243,7 +243,7 @@ const membreOfficiel = {
   matricule: 'TS-MBR-2026-001',
   nom: 'Bio Sègla',
   role: 'Coordonnateur Pôle Cartographie & SIG',
-  institution: 'Faculté d’Agronomie - UP',
+  institution: 'Communauté TEAM Sahélia',
   sexe: 'homme',
   statut: 'actif',
   telephone: '+22997000001',

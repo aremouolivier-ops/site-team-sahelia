@@ -5,7 +5,7 @@
 > **Auteur :** Olivier AGUIN & TEAM Sahélia  
 > **Temps d’apprentissage :** 40 minutes de lecture active + 30 minutes d'atelier pratique  
 > **Illustration associée :** `schemas/schema_02_references_absolues_dollar.svg`  
-> **Jeu de données :** `../datasets/dataset_agronomique_parakou.csv`
+> **Jeu de données :** `../datasets/dataset_agronomique_sahelia.csv`
 
 ---
 
@@ -105,7 +105,7 @@ Quand Excel affiche un mot commençant par `#`, il ne faut pas paniquer. C’est
 
 ## 5. Atelier Pratique : Calcul de Rentabilité des 20 Parcelles de Parakou
 
-Ouvrez le fichier `datasets/dataset_agronomique_parakou.csv` dans Excel.
+Ouvrez le fichier `datasets/dataset_agronomique_sahelia.csv` dans Excel.
 
 ### Données fixes de l'étude (à placer en dehors du tableau principal) :
 Dans la feuille, placez dans les cellules isolées suivantes :

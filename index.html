@@ -27,7 +27,7 @@
         <a href="#activites">Activités</a>
         <a href="#badges" class="nav-pill-special">🪪 Studio Badges</a>
         <a href="#guides">Mini-Guides</a>
-        <a href="#manuels">16 Formations</a>
+        <a href="#manuels">Manuels Stratégiques</a>
         <a href="formation.html">📚 Espace Formation</a>
       </nav>
 
@@ -302,15 +302,18 @@
               <label style="display: block; font-size: 0.78rem; font-family: var(--police-mono); font-weight: 700; color: var(--texte-2); text-transform: uppercase; margin-bottom: 0.5rem;">
                 Format du Badge
               </label>
-              <div class="grille-3-cols-responsive">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem;">
+                <button type="button" class="btn-format-toggle" data-format="insigne" style="padding: 0.7rem 0.3rem; border-radius: 8px; border: 1px solid var(--bordure); background: var(--fond); color: var(--texte-2); font-weight: 700; font-size: 0.8rem; cursor: pointer; text-align: center;">
+                  🏅 Insigne 3.0 (800x800)
+                </button>
+                <button type="button" class="btn-format-toggle actif" data-format="paysage" style="padding: 0.7rem 0.3rem; border-radius: 8px; border: 1px solid var(--bordure); background: var(--surface-2); color: var(--texte); font-weight: 700; font-size: 0.8rem; cursor: pointer; text-align: center;">
+                  🪪 Paysage CR80
+                </button>
                 <button type="button" class="btn-format-toggle" data-format="vertical" style="padding: 0.7rem 0.3rem; border-radius: 8px; border: 1px solid var(--bordure); background: var(--fond); color: var(--texte-2); font-weight: 700; font-size: 0.8rem; cursor: pointer; text-align: center;">
                   🏷️ Tour de Cou
                 </button>
                 <button type="button" class="btn-format-toggle" data-format="carre" style="padding: 0.7rem 0.3rem; border-radius: 8px; border: 1px solid var(--bordure); background: var(--fond); color: var(--texte-2); font-weight: 700; font-size: 0.8rem; cursor: pointer; text-align: center;">
                   📸 Carré Réseaux
-                </button>
-                <button type="button" class="btn-format-toggle actif" data-format="paysage" style="padding: 0.7rem 0.3rem; border-radius: 8px; border: 1px solid var(--bordure); background: var(--surface-2); color: var(--texte); font-weight: 700; font-size: 0.8rem; cursor: pointer; text-align: center;">
-                  🪪 Paysage CR80
                 </button>
               </div>
             </div>
@@ -352,11 +355,8 @@
                   <input type="text" id="membre-inst-input" class="champ-saisie" placeholder="Ex: Agronome indépendant, Université, Entreprise, ONG...">
                 </div>
                 <div>
-                  <label style="display: block; font-size: 0.75rem; color: var(--texte-3); margin-bottom: 0.3rem;">Cadre Photo (Genre)</label>
-                  <select id="membre-sexe-input" class="champ-saisie">
-                    <option value="M">👨 Homme (Cadre Carré 16px)</option>
-                    <option value="F">👩 Femme (Cadre Cercle 50%)</option>
-                  </select>
+                  <label style="display: block; font-size: 0.75rem; color: var(--texte-3); margin-bottom: 0.3rem;">Cadre Photo Officiel</label>
+                  <input type="text" class="champ-saisie" readonly value="Bordure Métallique Dégradée (Standard)" style="font-size: 0.8rem; color: var(--texte-3);">
                 </div>
               </div>
 
@@ -466,11 +466,25 @@
               </div>
             </div>
 
-            <!-- Actions d'Exportation (Réservé au téléchargement d'image HD) -->
+            <!-- Actions d'Exportation & Certification Officielle -->
             <div style="padding-top: 1rem; border-top: 1px solid var(--bordure); display: flex; flex-direction: column; gap: 0.6rem;">
               <button type="button" id="btn-telecharger-badge" class="v-btn v-btn--vert" style="width: 100%; min-height: 48px; font-size: 0.95rem;">
                 📥 Télécharger mon Badge Officiel (PNG HD)
               </button>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem;">
+                <a id="btn-partager-linkedin" href="#" target="_blank" rel="noopener noreferrer" class="v-btn v-btn--bleu" style="min-height: 42px; font-size: 0.85rem; text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                  💼 Partager sur LinkedIn
+                </a>
+                <button type="button" id="btn-copier-jsonld" class="v-btn v-btn--fantome" style="min-height: 42px; font-size: 0.82rem;">
+                  📋 Copier JSON-LD W3C
+                </button>
+              </div>
+
+              <a id="btn-lien-verif-direct" href="verifier.html" target="_blank" class="v-btn v-btn--fantome" style="width: 100%; min-height: 40px; font-size: 0.82rem; text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                🔍 Page de Vérification Publique en Direct
+              </a>
+
               <div id="badge-form-feedback" style="display: none; font-size: 0.8rem; padding: 0.6rem 0.8rem; border-radius: 8px; margin-top: 0.3rem;"></div>
 
               <!-- Bouton Lot Cohorte (affiché si onglet formation) -->

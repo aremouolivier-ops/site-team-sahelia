@@ -4,7 +4,7 @@
 > **Collection :** Ressources Libres TEAM Sahélia · Édition Spéciale Terrain 2026  
 > **Signature :** *Apprendre aujourd’hui. Construire demain.*  
 > **Contexte de déploiement :** Enquêtes agronomiques, suivis d'exploitations, études socio-économiques et inventaires ruraux au Bénin et en Afrique de l'Ouest.  
-> **Public visé :** Étudiants en agronomie (FA-UP, FSA, EPAC...), élèves ingénieurs, enquêteurs de projets et jeunes chercheurs.  
+> **Public visé :** Étudiants en agronomie et jeunes professionnels, élèves ingénieurs, enquêteurs de projets et jeunes chercheurs.  
 > **Prérequis :** Un smartphone Android avec l'application gratuite KoboCollect et un accès à un navigateur web (ordinateur ou téléphone) pour concevoir le formulaire.
 
 ---

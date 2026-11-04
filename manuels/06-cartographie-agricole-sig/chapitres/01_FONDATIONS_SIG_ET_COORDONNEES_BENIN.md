@@ -74,7 +74,7 @@ Dans les anciennes versions, il fallait chercher des fichiers d'extension comple
 3. Dans la boîte de recherche, tapez `32631`.
 4. Sélectionnez **WGS 84 / UTM zone 31N** dans la liste et cliquez sur **OK**. Le projet est maintenant calé sur le système métrique du Bénin.
 5. Glissez la couche `Google Satellite` depuis l'explorateur vers la zone de carte.
-6. Zoomez avec la molette de la souris sur la ville de Parakou : vous observez le campus de l'Université de Parakou et les blocs de cultures avec une précision photographique.
+6. Zoomez avec la molette de la souris sur la ville de Parakou : vous observez le campus de l'TEAM Sahélia et les blocs de cultures avec une précision photographique.
 
 ---
 
@@ -84,7 +84,7 @@ Dans les anciennes versions, il fallait chercher des fichiers d'extension comple
 > 
 > 1. Ouvrez QGIS 3 et configurez le projet en `EPSG:32631`.
 > 2. Ajoutez le fond de carte satellite Google.
-> 3. Zoomez sur une zone agricole ou un site d'expérimentation que vous connaissez au Bénin (ex: la Faculté d'Agronomie de Parakou ou une ferme paysanne).
+> 3. Zoomez sur une zone agricole ou un site d'expérimentation que vous connaissez au Bénin (ex: la TEAM Sahélia · Bénin ou une ferme paysanne).
 > 4. Prenez une capture d'écran nette où l'on voit le fond satellite et le code `EPSG:32631` visible en bas à droite de l'écran.
 > 5. Postez-la sur le canal de la communauté avec la mention :  
 >    *« Défi Manuel 06 - Chapitre 1 SIG Validé ! »*.

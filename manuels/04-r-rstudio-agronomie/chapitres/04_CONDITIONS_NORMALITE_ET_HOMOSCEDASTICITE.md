@@ -5,7 +5,7 @@
 > **Auteurs :** Sègla Bio KPEROU, Olivier AREMOU & TEAM Sahélia  
 > **Temps d’apprentissage :** 40 minutes de lecture active + 30 minutes de travaux dirigés  
 > **Illustration associée :** `schemas/schema_04_arbre_decision_tests_statistiques.svg`  
-> **Jeu de données :** `../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_parakou.csv`
+> **Jeu de données :** `../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_sahelia.csv`
 
 ---
 

@@ -5,7 +5,7 @@
 > **Auteurs :** Sègla Bio KPEROU, Olivier AREMOU & TEAM Sahélia  
 > **Temps d’apprentissage :** 35 minutes de lecture active + 25 minutes de manipulation  
 > **Illustration associée :** `schemas/schema_01_quadrants_rstudio.svg`  
-> **Jeu de données :** `../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_parakou.csv`
+> **Jeu de données :** `../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_sahelia.csv`
 
 ---
 
@@ -55,14 +55,14 @@ Pour travailler, on installe d'abord R, puis on installe RStudio. **On n'ouvre j
 
 ## 5. Importer des Données Agronomiques sans Erreur
 
-Pour importer le fichier d'essais `dataset_agronomique_parakou.csv` situé dans le dossier de travail :
+Pour importer le fichier d'essais `dataset_agronomique_sahelia.csv` situé dans le dossier de travail :
 
 ```r
 # 1. Définir le dossier de travail (où se trouve le fichier)
 # Session > Set Working Directory > To Source File Location
 
 # 2. Importer le tableau avec read.csv
-essai <- read.csv("dataset_agronomique_parakou.csv", sep = ",", dec = ".", stringsAsFactors = TRUE)
+essai <- read.csv("dataset_agronomique_sahelia.csv", sep = ",", dec = ".", stringsAsFactors = TRUE)
 
 # 3. Vérifier les dimensions (Lignes x Colonnes)
 dim(essai)
@@ -88,7 +88,7 @@ Ouvrez un nouveau script R dans RStudio et tapez ce bloc de code :
 # ==============================================================================
 
 # Chargement des données
-donnees <- read.csv("dataset_agronomique_parakou.csv", sep = ",")
+donnees <- read.csv("dataset_agronomique_sahelia.csv", sep = ",")
 
 # Afficher les noms des colonnes
 names(donnees)

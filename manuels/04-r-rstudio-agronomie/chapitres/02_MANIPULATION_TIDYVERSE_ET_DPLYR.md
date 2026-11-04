@@ -5,7 +5,7 @@
 > **Auteurs :** Sègla Bio KPEROU, Olivier AREMOU & TEAM Sahélia  
 > **Temps d’apprentissage :** 40 minutes de lecture active + 30 minutes d'atelier pratique  
 > **Illustration associée :** `schemas/schema_02_pipeline_dplyr.svg`  
-> **Jeu de données :** `../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_parakou.csv`
+> **Jeu de données :** `../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_sahelia.csv`
 
 ---
 
@@ -121,7 +121,7 @@ Ouvrez RStudio et exécutez le script complet ci-dessous :
 library(dplyr)
 
 # 1. Chargement des parcelles
-df <- read.csv("dataset_agronomique_parakou.csv", stringsAsFactors = TRUE)
+df <- read.csv("dataset_agronomique_sahelia.csv", stringsAsFactors = TRUE)
 
 # 2. Pipeline complet : Filtrage, calcul et synthèse en 1 seul bloc
 synthese_parakou <- df %>%

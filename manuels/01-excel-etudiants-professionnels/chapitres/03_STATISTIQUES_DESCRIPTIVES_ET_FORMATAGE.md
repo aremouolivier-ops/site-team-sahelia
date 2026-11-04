@@ -5,7 +5,7 @@
 > **Auteur :** Olivier AGUIN & TEAM Sahélia  
 > **Temps d’apprentissage :** 40 minutes de lecture + 30 minutes d'atelier pratique  
 > **Illustration associée :** `schemas/schema_03_statistiques_agronomiques.svg`  
-> **Jeu de données :** `../datasets/dataset_agronomique_parakou.csv`
+> **Jeu de données :** `../datasets/dataset_agronomique_sahelia.csv`
 
 ---
 
@@ -98,7 +98,7 @@ Dans un tableau de mémoire, vous ne devez jamais coller deux colonnes séparée
 
 ## 6. Atelier Pratique : Bilan Statistique de l'Essai de Parakou
 
-Ouvrez `dataset_agronomique_parakou.csv` dans Excel.  
+Ouvrez `dataset_agronomique_sahelia.csv` dans Excel.  
 Sous le tableau de données, construisez le bloc de synthèse statistique suivant :
 
 | Ligne | Libellé de l'Indicateur | Formule Excel à taper | Résultat Attendu |

@@ -146,6 +146,6 @@ Vous disposez désormais de la boîte à outils numérique complète du chercheu
 ```text
 ================================================================================
 TEAM Sahélia · Apprendre. Créer. Innover.
-Faculté d'Agronomie (FA-UP) · Campus de Parakou · République du Bénin
+TEAM Sahélia · Communauté Panafricaine · République du Bénin
 ================================================================================
 ```

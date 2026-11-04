@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/membre-pionnier.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Membre Pionnier · Communauté TEAM Sahélia",
+  "description": "Reconnaissance d'engagement fondateur, de participation active aux travaux d'entraide communautaire et d'adhésion formelle à la charte de partage libre des savoirs scientifiques.",
+  "achievementType": "Membership",
+  "criteria": {
+    "narrative": "1. Inscription et identification officielle au registre TEAM Sahélia ; 2. Participation régulière aux sessions d'entraide et d'apprentissage ; 3. Respect de la charte d'éthique communautaire."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "pionnier",
+  "level": "Bronze · Foundation",
+  "shape": "pentagone",
+  "accentColor": "#cd7f32"
+}

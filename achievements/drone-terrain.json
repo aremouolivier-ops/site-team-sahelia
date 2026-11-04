@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/drone-terrain.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Opérateur Drone & Télédétection Agricole (Pratique Évaluée)",
+  "description": "Maîtrise pratique du pilotage de drone civil en Mode 2, exécution de plans de vol automatisés pour la photogrammétrie agricole, respect strict de la sécurité aérienne et traitement des orthomosaïques NDVI.",
+  "achievementType": "Certificate",
+  "criteria": {
+    "narrative": "1. Check-list pré-vol, calibration compas/IMU et respect des règles de sécurité aéronautique ; 2. Pilotage manuel Mode 2 avec atterrissage de précision sur cible ; 3. Programmation de mission photogrammétrique automatisée (GSD < 2,5 cm/px) ; 4. Génération d'orthomosaïque et calcul d'indices de végétation multispectrale NDVI."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "drone",
+  "level": "Or · Specialist",
+  "shape": "ecusson",
+  "accentColor": "#e8946a"
+}

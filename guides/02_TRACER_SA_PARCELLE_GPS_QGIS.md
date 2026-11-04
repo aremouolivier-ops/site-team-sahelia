@@ -4,7 +4,7 @@
 > **Collection :** Ressources Libres TEAM Sahélia · Édition Spéciale Agronomie 2026  
 > **Signature :** *Apprendre aujourd’hui. Construire demain.*  
 > **Contexte géographique :** République du Bénin (Fuseaux UTM 31N et 32N)  
-> **Public visé :** Étudiants en agronomie (FA-UP, FSA, EPAC, etc.), techniciens agricoles et stagiaires devant délimiter des parcelles d'essais ou d'exploitations.  
+> **Public visé :** Étudiants en agronomie et jeunes professionnels, techniciens agricoles et stagiaires devant délimiter des parcelles d'essais ou d'exploitations.  
 > **Prérequis :** Un smartphone Android/iOS ordinaire et un ordinateur avec QGIS 3 (logiciel libre et gratuit).
 
 ---
@@ -160,5 +160,5 @@ Dans QGIS, n'exportez jamais une simple capture d'écran de votre fenêtre de tr
 | Capture d'écran floue | Rendu amateur qui dégrade la note | Exporter en PDF vectoriel ou PNG à 300 DPI |
 
 ---
-**TEAM Sahélia · Faculté d'Agronomie & Géomatique**  
+**TEAM Sahélia · Pôle Agronomie & Géomatique TEAM Sahélia**  
 *Consultez nos tutoriels vidéo complémentaires et notre assistance technique sur notre plateforme officielle.*

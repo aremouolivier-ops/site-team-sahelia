@@ -182,7 +182,7 @@
       ressources: [
         {
           nom: 'Dataset Agronomique de Référence (CSV)',
-          fichier: 'manuels/01-excel-etudiants-professionnels/datasets/dataset_agronomique_parakou.csv',
+          fichier: 'manuels/01-excel-etudiants-professionnels/datasets/dataset_agronomique_sahelia.csv',
           description: 'Fichier d’exercice réel contenant 20 parcelles d’essais avec rendements, doses d’engrais et dates de semis.'
         },
         {
@@ -456,7 +456,7 @@
         },
         {
           nom: "Dataset d'Essais Agronomiques (CSV)",
-          fichier: 'manuels/01-excel-etudiants-professionnels/datasets/dataset_agronomique_parakou.csv',
+          fichier: 'manuels/01-excel-etudiants-professionnels/datasets/dataset_agronomique_sahelia.csv',
           description: 'Jeu de données agronomiques réelles pour les ateliers R.'
         }
       ],

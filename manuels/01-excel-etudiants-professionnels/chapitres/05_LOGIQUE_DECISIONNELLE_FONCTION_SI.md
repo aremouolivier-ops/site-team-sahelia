@@ -5,7 +5,7 @@
 > **Auteur :** Olivier AGUIN & TEAM Sahélia  
 > **Temps d’apprentissage :** 40 minutes de lecture + 30 minutes d'atelier pratique  
 > **Illustration associée :** `schemas/schema_05_arbre_decisionnel_si.svg`  
-> **Jeu de données :** `../datasets/dataset_agronomique_parakou.csv`
+> **Jeu de données :** `../datasets/dataset_agronomique_sahelia.csv`
 
 ---
 
@@ -97,7 +97,7 @@ Une fois vos statuts calculés, vous pouvez demander à Excel de colorer automat
 
 ## 6. Atelier Pratique : Barème d'Appui Agricole de Parakou
 
-Ouvrez `dataset_agronomique_parakou.csv`.  
+Ouvrez `dataset_agronomique_sahelia.csv`.  
 Ajoutez les deux colonnes d'analyse décisionnelle suivantes :
 
 ### A. Colonne P : `Appréciation_Technique`

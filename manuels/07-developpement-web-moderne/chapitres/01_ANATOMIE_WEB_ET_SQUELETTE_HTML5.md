@@ -104,7 +104,7 @@ Ouvrez un dossier sur votre bureau nommé `mon-site`, créez-y le fichier `index
 
   <div style="background: #0a2b24; border: 1px solid #3fae7a; border-radius: 12px; padding: 1.5rem; text-align: center;">
     <h1 style="color: #3fae7a; margin-bottom: 0.5rem;">Olivier AGUIN</h1>
-    <p style="color: #88b3a4; font-size: 0.9rem;">Agronome Numéricien · Université de Parakou</p>
+    <p style="color: #88b3a4; font-size: 0.9rem;">Agronome Numéricien · TEAM Sahélia</p>
     
     <hr style="border: 0; border-top: 1px solid #1b4d3e; margin: 1.5rem 0;">
 

@@ -1,0 +1,21 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/sig-parcelle.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Praticien SIG & Cartographie Parcellaire (QGIS & GPS)",
+  "description": "Capacité opérationnelle démontrée sur le terrain : acquisition GPS smartphone stabilisée, import et projection métrique UTM 31N sous QGIS, calcul vectoriel de superficie en hectares et production d'une carte d'essai conforme aux normes de publication.",
+  "achievementType": "Certificate",
+  "criteria": {
+    "narrative": "1. Relevé de 4 sommets minimum au GPS smartphone avec pause stabilisée (précision < 4m) ; 2. Import CSV sous QGIS et projection métrique UTM zone 31N (EPSG:32631) ; 3. Numérisation vectorielle du polygone et calcul de surface en hectares ($area / 10000) ; 4. Export d'une carte d'essai normalisée 300 DPI avec orientation Nord, échelle graphique et fond cartographique vérifié."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "sig",
+  "level": "Argent · Practitioner",
+  "shape": "hexagone",
+  "accentColor": "#94a3b8"
+}

@@ -4,7 +4,7 @@
 > **Manuel :** 01 — Excel pour les Étudiants & Professionnels  
 > **Auteur :** Olivier AGUIN & TEAM Sahélia  
 > **Temps d’apprentissage estimé :** 45 minutes de lecture active + 30 minutes d'atelier pratique  
-> **Fichiers associés :** `datasets/dataset_agronomique_parakou.csv` · `schemas/schema_01_anatomie_cellule.svg`
+> **Fichiers associés :** `datasets/dataset_agronomique_sahelia.csv` · `schemas/schema_01_anatomie_cellule.svg`
 
 ---
 
@@ -140,7 +140,7 @@ Vous venez de recevoir les notes de terrain du stagiaire responsable du suivi de
 
 > ### 🏆 Défi Hebdo n°01 : L'Audit du Fichier Agricole Corrompu
 > 
-> Rendez-vous dans le dossier `datasets/` et ouvrez le fichier `dataset_agronomique_parakou.csv`.
+> Rendez-vous dans le dossier `datasets/` et ouvrez le fichier `dataset_agronomique_sahelia.csv`.
 > 
 > **Votre Mission :**
 > 1. Créez une nouvelle colonne `Revenu_Brut_FCFA` calculée par la formule :  

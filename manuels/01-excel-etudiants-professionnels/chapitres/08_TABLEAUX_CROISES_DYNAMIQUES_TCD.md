@@ -5,7 +5,7 @@
 > **Auteur :** Olivier AGUIN & TEAM Sahélia  
 > **Temps d’apprentissage :** 50 minutes de lecture + 35 minutes de manipulation  
 > **Illustration associée :** `schemas/schema_08_anatomie_tcd.svg`  
-> **Jeu de données :** `../datasets/dataset_agronomique_parakou.csv`
+> **Jeu de données :** `../datasets/dataset_agronomique_sahelia.csv`
 
 ---
 
@@ -88,7 +88,7 @@ Les Segments transforment un tableau de chiffres ennuyeux en outil interactif mo
 
 ## 7. Atelier Pratique : Le Dashboard d'Exploitation Agricole
 
-À partir de `dataset_agronomique_parakou.csv` :
+À partir de `dataset_agronomique_sahelia.csv` :
 
 ### Mission de création :
 1. Créez un TCD sur une nouvelle feuille nommée `TCD_Synthese`.

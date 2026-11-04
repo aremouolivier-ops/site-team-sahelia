@@ -1,85 +1,81 @@
-# Plateforme Officielle & Espace Communauté · TEAM Sahélia
+# 🌾 TEAM Sahélia — Plateforme Officielle & Système de Badges Certifiés
 
-Bienvenue sur le projet web officiel et indépendant de **TEAM Sahélia**.
+> **Communauté Panafricaine des Praticiens du Numérique & de l’Agronomie**  
+> Formations professionnelles, manuels stratégiques, cartographie de précision et certification numérique décentralisée.
 
 ---
 
-## 🚀 Comment lancer et tester le site en local
+## 🚀 Démarrage Rapide
 
-1. **Ouverture immédiate (Sans installation ni serveur) :**
-   Double-cliquez simplement sur le fichier [`index.html`](file:///C:/Users/DELL/Desktop/site-team-sahelia/index.html) pour l'ouvrir dans votre navigateur (Chrome, Edge, Firefox).
-
-2. **Portail de Vérification des Badges :**
-   Ouvrez [`verifier.html`](file:///C:/Users/DELL/Desktop/site-team-sahelia/verifier.html) ou scannez directement le QR code d'un badge généré avec l'appareil photo de votre smartphone.
-
-3. **Avec un serveur local (Optionnel) :**
-   Si vous avez Python d'installé, ouvrez un terminal dans ce dossier et lancez :
+1. **Cloner ou ouvrir le projet :**
    ```bash
-   python -m http.server 8080
+   cd site-team-sahelia
+   ```
+
+2. **Lancer le serveur local de développement :**
+   ```bash
+   node server.js
    ```
    Puis rendez-vous sur : `http://localhost:8080`
 
 ---
 
-## 📇 Le Système de Badges Authentifiés (3 Types d'Usage Réel)
+## 📇 Système de Certification W3C Open Badges 3.0 (Verifiable Credentials)
 
-Le générateur ne se limite pas à des variantes graphiques : il est relié au registre officiel de TEAM Sahélia (`js/badge-data.js`).
+Le système de certification de TEAM Sahélia repose sur les spécifications internationales **W3C Verifiable Credentials Data Model v2.0** et **1EdTech Open Badges v3.0**, avec vérification cryptographique mathématique décentralisée exécutable directement dans le navigateur client via **Web Cryptography API (ECDSA P-256 / SHA-256)** sans dépendance de serveur payant ou base de données externe.
 
-### 1. 👤 Badge de Membre (Appartenance)
-* **Usage :** Identifie un membre actif de la communauté TEAM Sahélia.
-* **Visuel :** Fond vert profond d'appartenance (`#081a14`), signature émeraude et terracotta, anneau d'honneur pour la photo ou les initiales, 4 icônes vectorielles du manifeste (Agronomie, SIG, Tech, Communauté).
-* **Données réelles :** Nom, rôle, institution (`FA-UP Parakou`), date d'adhésion et identifiant unique stable (`TS-MBR-2026-001`).
-* **QR Code :** 100% scannable, ouvre la fiche officielle du membre sur `verifier.html`.
+### 4 Formats Déclaratifs Disponibles :
+1. **🏅 Insigne Open Badge 3.0 (800×800 px) :** Géométrie héraldique vectorielle pure (Pentagone, Hexagone, Écusson, Octogone), biseau métallique 3D or/argent/bronze/platine, icône métier et aura d'honneur.
+2. **🪪 Paysage CR80 (1000×500 px) :** Carte d'identité et attestation professionnelle avec photo/initiales, QR code scannable, puce d'état et critères.
+3. **🏷️ Tour de Cou Événementiel (720×1150 px) :** Badge vertical d'atelier ou de conférence avec repères et passe-cordon.
+4. **📸 Carré Réseaux Sociaux (1080×1080 px) :** Format optimisé pour les publications LinkedIn, WhatsApp, X et portfolios.
 
-### 2. 🎓 Badge de Formation & Cohorte
-* **Usage :** Certifie l'inscription ou la réussite d'un participant à une cohorte de formation précise.
-* **Visuel :** Accent bleu royal (`#2563eb`), cartouche de cohorte, période, pôle et icône de mortier académique.
-* **Données réelles :** Intitulé officiel du cours (ex: *Cartographie Parcellaire Smartphone & QGIS*), nom de la cohorte (*Cohorte Alpha FA-UP*), formateur référent (*Sègla Bio KPEROU*), et **statut explicite vérifié** :
-  - `✓ FORMATION COMPLÉTÉE · VALIDÉ` (coche verte)
-  - `⏳ APPRENTISSAGE EN COURS` (ambre)
-  - `• INSCRIT & CONFIRMÉ` (bleu ciel)
-* **Génération en série (Lot) :** Un clic sur **« ⚡ Générer le lot de la cohorte »** génère instantanément tous les badges individuels de la promotion et les télécharge dans un fichier `.zip` prêt à distribuer.
+### 3 Niveaux d'Usage Réel :
+* **👤 1. Badge de Membre (Appartenance) :** Identifie un membre actif ou pionnier de la communauté TEAM Sahélia.
+* **🎓 2. Badge de Formation & Cohorte :** Atteste du suivi ou de la complétion d'un programme de formation avec cohorte datée.
+* **🏆 3. Certification de Compétence Évaluée :** Certifie la maîtrise technique contrôlée sur projet réel de terrain (ex: *Cartographie Parcellaire QGIS*, *Opérateur Drone & Télédétection*, *Vibe Coding & Ingénieur Solutions IA*).
 
-### 3. 🏆 Badge de Compétence & Réalisation
-* **Usage :** Atteste d'une compétence pratique démontrée et évaluée sur projet de terrain réel.
-* **Visuel :** **Variante claire prestigieuse** (fond ivoire marbré, cadre or et vert forêt, médaille d'honneur vectorielle).
-* **Rigueur :** N'emploie le terme de validation que sur la base des critères officiels contrôlés :
-  - Relevé de 4 sommets stabilisés au GPS smartphone (< 4m)
-  - Import CSV et projection métrique UTM zone 31N (EPSG:32631)
-  - Calcul de superficie en hectares ($area / 10000) sous QGIS
-  - Export de carte normalisée aux normes académiques
-* **Sécurité :** Identifiant `TS-SKL-2026-001`. Comprend également un test de révocation démontrant qu'un badge invalidé (`TS-SKL-2026-REVOKED`) affiche explicitement une alerte rouge de non-conformité.
+### 🔍 Portail Public de Vérification Décentralisée (`verifier.html`)
+* **Accès 100% public :** N'exige aucun compte administrateur ni mot de passe.
+* **Audit mathématique en temps réel :** Télécharge le document justificatif `credentials/{id}.json` et vérifie la signature numérique auprès de la clé publique officielle de TEAM Sahélia (`issuers/team-sahelia.json#cle-publique-2026`).
+* **Registre de révocation :** Contrôle instantané contre `status/revocations.json`.
+* **Audit hors-ligne :** Permet à tout recruteur ou institution de glisser-déposer un fichier Verifiable Credential (`.json`) pour en certifier l'intégrité sans transmission réseau.
 
 ---
 
-## 🖨️ Export PNG HD & Fiche A4 Imprimable (PDF)
+## 📚 Espace Formation & Bibliothèque Stratégique
 
-* **PNG Haute Définition :** Fichier exporté au pixel près (720×1150 px vertical ou 1080×1080 px carré).
-* **Fiche Imprimable A4 (PDF) :** Le bouton **« 🖨️ Fiche A4 (PDF) »** prépare automatiquement une page d'impression normalisée au format A4 avec :
-  - Dimensions de tour de cou réelles (échelle 100%)
-  - Repères de découpe pointillés pour massicot ou ciseaux
-  - Consignes de scan officielles pour les jurys et évaluateurs
-
----
-
-## 📦 Organisation des Fichiers
-
-* **`index.html`** : Plateforme officielle, manifeste, vitrine de l'équipe, fil d'actualités et Studio de Badges à 3 onglets.
-* **`verifier.html`** : Portail officiel d'authentification et de contrôle de conformité des badges (cible des QR codes).
-* **`css/style.css`** : Design system officiel et règles d'impression A4 (`@media print`).
-* **`js/badge-data.js`** : Registre centralisé des membres, formations, cohortes, compétences et attributions.
-* **`js/badge-engine.js`** : Moteur Canvas 2D vectoriel pur (icônes dessinées au trait, vagues signatures, QR codes réels).
-* **`js/qrcode.min.js`** : Générateur autonome de matrice QR Code ISO/CEI 18004 (zéro dépendance externe).
-* **`js/jszip.min.js`** : Moteur de compression pour l'export en série des cohortes (.zip).
-* **`js/app.js`** : Contrôleur applicatif, persistance et console privée.
-* **`guides/`** : Les 3 mini-guides pratiques en libre accès (Word/Excel, GPS/QGIS, IA & Vibe Coding).
-* **`assets/`** : Logo vectoriel officiel et badges modèles.
+* **5 Mini-Guides Pratiques (Libres & Gratuits) :**
+  1. *Urgence Mémoire & Rapport Académique* (Word & Excel)
+  2. *Tracer sa Parcelle Agricole au GPS Smartphone & QGIS*
+  3. *Vibe Coding, IA & Prompts de Recherche*
+  4. *Collecte Mobile de Données de Terrain avec KoboToolbox*
+  5. *Création Graphique & Affiches Professionnelles*
+* **12 Manuels Stratégiques de Référence (4 Pôles Métiers) :**
+  - **Pôle Bureautique & Données :** Manuel 01 (Excel), Manuel 02 (Word/PowerPoint), Manuel 03 (50 Astuces Informatiques), Manuel 04 (R & RStudio).
+  - **Pôle Agronomie & SIG :** Manuel 05 (Collecte Mobile KoboToolbox), Manuel 06 (SIG & Cartographie), Manuel 11 (Pilotage de Drones & Télédétection Agricole).
+  - **Pôle Innovation & IA :** Manuel 07 (Développement Web Moderne), Manuel 08 (Vibe Coding & IA), Manuel 12 (Création Vidéo & IA).
+  - **Pôle Freelance & Entrepreneuriat :** Manuel 09 (Création Graphique & Vidéo Mobile), Manuel 10 (L’Agronome-Numéricien Indépendant).
 
 ---
 
-## 🔒 Accès à la Console Privée de l'Éditeur
+## 📦 Organisation des Fichiers Clés
 
-1. Descendez tout en bas de la page (pied de page).
-2. Cliquez sur la petite icône de cadenas 🔒 à droite.
-3. Saisissez le mot de passe éditeur : `sahelia2026`.
-4. Vous pouvez gérer les membres de l'équipe, réordonner le trombinoscope et modifier le lien d'invitation WhatsApp public.
+* **`index.html`** : Plateforme officielle, manifeste, équipe, fil d'actualités et Studio de Badges à 4 formats.
+* **`verifier.html`** : Portail public d'authentification cryptographique et de contrôle de conformité.
+* **`formation.html`** : Plateforme interactive de formation, lecture des guides libres et déverrouillage sécurisé des manuels.
+* **`achievements/`** : Définitions canoniques W3C des compétences (`membre-pionnier.json`, `sig-parcelle.json`, `drone-terrain.json`, `vibe-coding-ia.json`).
+* **`credentials/`** : Verifiable Credentials W3C signés mathématiquement (`TS-SKL-2026-001.json` à `004.json`).
+* **`issuers/`** : Profil d'émetteur officiel et clé publique ECDSA P-256 (`team-sahelia.json`).
+* **`status/`** : Registre public des révocations (`revocations.json`).
+* **`js/badge-crypto.js`** : Moteur de vérification cryptographique W3C via Web Crypto API.
+* **`js/badge-data.js`** : Registre déclaratif centralisé des membres, compétences et cohortes.
+* **`js/badge-engine.js`** : Moteur de rendu Canvas 2D vectoriel pour les 4 formats.
+* **`scripts/emettre_badge.js`** : Outil CLI d'émission et de signature cryptographique de nouvelles certifications.
+
+---
+
+## 🛡️ Sécurité & Confidentialité
+
+* **Clé Privée d'Émission :** Stockée localement dans `scripts/cles/private_key.json` et strictement exclue de git via `.gitignore`.
+* **Zero Tracker / Zero Server Cost :** Déployable à 100% sur GitHub Pages avec intégrité cryptographique garantie.

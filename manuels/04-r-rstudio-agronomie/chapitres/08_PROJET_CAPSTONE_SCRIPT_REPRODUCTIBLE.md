@@ -5,7 +5,7 @@
 > **Auteurs :** Sègla Bio KPEROU, Olivier AREMOU & TEAM Sahélia  
 > **Temps d’apprentissage :** 60 minutes d'atelier pratique  
 > **Illustration associée :** `schemas/schema_08_pipeline_complet_recherche_r.svg`  
-> **Jeu de données :** `../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_parakou.csv`
+> **Jeu de données :** `../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_sahelia.csv`
 
 ---
 
@@ -42,10 +42,10 @@ for (p in packages_requis) {
 # ------------------------------------------------------------------------------
 # 2. IMPORTATION DU JEU DE DONNÉES AGRONOMIQUES RÉELLES
 # ------------------------------------------------------------------------------
-fichier_csv <- "dataset_agronomique_parakou.csv"
+fichier_csv <- "dataset_agronomique_sahelia.csv"
 if (!file.exists(fichier_csv)) {
   # Chemin relatif vers le dataset du Manuel 01 si exécuté depuis chapitres/
-  fichier_csv <- "../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_parakou.csv"
+  fichier_csv <- "../../01-excel-etudiants-professionnels/datasets/dataset_agronomique_sahelia.csv"
 }
 
 donnees <- read.csv(fichier_csv, stringsAsFactors = TRUE)
@@ -115,7 +115,7 @@ graphe_publication <- ggplot(df_graphe, aes(x = reorder(Traitement, -Rendement_k
             vjust = -0.3, fontface = "bold", size = 4.2, color = "#06100c") +
   labs(
     title = "Efficacité des Formules de Fertilisation sur le Rendement du Maïs",
-    subtitle = "Essai agronomique en blocs complets randomisés · Faculté d'Agronomie de Parakou",
+    subtitle = "Essai agronomique en blocs complets randomisés · TEAM Sahélia · Bénin",
     x = "Traitement de Fertilisation",
     y = "Rendement Moyen en Grains (kg/ha)",
     caption = "Seuil de significativité : alpha = 0.05 · Lettres distinctes = différence significative (Tukey HSD)"
@@ -135,8 +135,8 @@ print(graphe_publication)
 # ------------------------------------------------------------------------------
 # 7. EXPORTATION HAUTE RÉSOLUTION (300 DPI)
 # ------------------------------------------------------------------------------
-ggsave("figure_officielle_soutenance_parakou.png", plot = graphe_publication, width = 9, height = 5.5, dpi = 300)
-cat("\n✓ Figure exportée avec succès : figure_officielle_soutenance_parakou.png (300 DPI)\n")
+ggsave("figure_officielle_soutenance_sahelia.png", plot = graphe_publication, width = 9, height = 5.5, dpi = 300)
+cat("\n✓ Figure exportée avec succès : figure_officielle_soutenance_sahelia.png (300 DPI)\n")
 ```
 
 ![Pipeline complet de recherche R et certification](../schemas/schema_08_pipeline_complet_recherche_r.svg)
@@ -158,7 +158,7 @@ Le **Badge de Compétence « Analyse Statistique R & Agronomie »** (`TS-SKL-202
 ```text
 ================================================================================
 TEAM Sahélia · Apprendre. Créer. Innover.
-Faculté d'Agronomie (FA-UP) · Campus de Parakou · République du Bénin
+TEAM Sahélia · Communauté Panafricaine · République du Bénin
 Badge Officiel : TS-SKL-2026-002 · Spécialité Biométrie & Recherche
 ================================================================================
 ```

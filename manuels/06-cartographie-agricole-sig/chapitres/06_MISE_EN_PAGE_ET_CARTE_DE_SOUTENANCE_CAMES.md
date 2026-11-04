@@ -41,7 +41,7 @@ Lors d'une soutenance de mémoire de Licence, Master ou Thèse d'agronomie, les 
    Préciser impérativement le Datum et la projection utilisée :  
    `Projection : WGS 84 / UTM Zone 31N (EPSG:32631)`. C'est la garantie légale que les superficies et distances affichées ont été calculées en mètres réels.
 6. **Le Cartouche des Sources et de l'Auteur :**  
-   Indiquer la provenance des données brutes (*Enquêtes de terrain TEAM Sahélia 2026, IGN Bénin, ESA Copernicus Sentinel-2*) ainsi que le nom du réalisateur et son institution (*Faculté d'Agronomie, Université de Parakou*).
+   Indiquer la provenance des données brutes (*Enquêtes de terrain TEAM Sahélia 2026, IGN Bénin, ESA Copernicus Sentinel-2*) ainsi que le nom du réalisateur et son institution (*Faculté d'Agronomie, TEAM Sahélia*).
 7. **Le Carton de Situation Régionale ou Nationale :**  
    Un petit encadré situant la zone d'étude au sein du territoire national du Bénin ou de l'Afrique de l'Ouest.
 
@@ -94,7 +94,7 @@ Cliquez sur **Ajouter une étiquette de texte** et insérez le bloc de métadonn
 ```text
 Système de coordonnées : WGS 84 / UTM Zone 31N (EPSG:32631)
 Sources : Données d'enquêtes terrain KoboToolbox 2026, IGN Bénin, ESA Sentinel-2
-Auteur : Sègla Bio KPEROU & Olivier AREMOU · Université de Parakou · TEAM Sahélia
+Auteur : Sègla Bio KPEROU & Olivier AREMOU · TEAM Sahélia · Communauté Panafricaine
 Date de réalisation : Octobre 2026
 ```
 
