@@ -461,7 +461,8 @@
       this._mettreAJourEnTeteCours(cours);
 
       // 2. Accès Libre Total : Masquer le Gatekeeper et ouvrir le contenu à tous
-      this.masquerGatekeeper(controle ? controle.session : null);
+      const session = window.SaheliaSecurite ? window.SaheliaSecurite.obtenirSessionValide() : null;
+      this.masquerGatekeeper(session);
 
       // 3. Déterminer le chapitre à afficher
       const chapitres = cours.chapitres || [];
