@@ -6,6 +6,7 @@
   <title>Vérification Officielle de Certification · TEAM Sahélia</title>
   <meta name="description" content="Portail public d’authentification cryptographique et de contrôle de conformité W3C Open Badges 3.0 pour les titres et certifications TEAM Sahélia.">
   <link rel="icon" type="image/svg+xml" href="assets/logo-sahelia.svg">
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#06120e">
   <link rel="stylesheet" href="css/style.css">
   <style>
@@ -133,7 +134,9 @@
       <nav class="site-nav" aria-label="Navigation principale">
         <a href="index.html">Accueil Vitrine</a>
         <a href="formation.html">📚 Espace Formation</a>
+        <a href="outils.html">🛠️ Boîte à Outils</a>
         <a href="index.html#badges">🪪 Studio Badges</a>
+        <a href="#espace-recruteurs">💼 Espace Recruteurs</a>
       </nav>
 
       <div class="site-entete-actions">
@@ -184,11 +187,13 @@
 
       <!-- Titres vérifiables en un clic -->
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; font-size: 0.78rem;">
-        <span style="color: var(--texte-3); font-family: var(--police-mono);">Exemples officiels :</span>
-        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-001">TS-SKL-2026-001 (Olivier AREMOU)</button>
-        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-002">TS-SKL-2026-002 (Ségla Bio KPEROU)</button>
-        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-003">TS-SKL-2026-003 (Mariam DIALLO)</button>
-        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-004">TS-SKL-2026-004 (Amina CHABI)</button>
+        <span style="color: var(--texte-3); font-family: var(--police-mono);">Titres en 1 clic :</span>
+        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-MBR-2026-001">🪪 Membre (TS-MBR-001)</button>
+        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-FOR-2026-P01">🎓 Formation (TS-FOR-P01)</button>
+        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-001">🏆 Vibe Coding (TS-SKL-001)</button>
+        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-002">🗺️ SIG &amp; QGIS (TS-SKL-002)</button>
+        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-003">📱 KoboToolbox (TS-SKL-003)</button>
+        <button type="button" class="btn-ex-verif sa-tag" data-id="TS-SKL-2026-004">🚁 Drone &amp; NDVI (TS-SKL-004)</button>
       </div>
 
       <!-- Zone de dépôt / audit de fichier JSON-LD -->
@@ -201,6 +206,114 @@
         </p>
       </div>
     </div>
+
+    <!-- ========================================================================= -->
+    <!-- ESPACE RECRUTEURS & ANNUAIRE DES TALENTS CERTIFIÉS                        -->
+    <!-- ========================================================================= -->
+    <section id="espace-recruteurs" style="max-width: 960px; margin: 4rem auto 2rem; padding: 2.5rem; background: linear-gradient(135deg, rgba(23, 112, 74, 0.15) 0%, rgba(6, 18, 14, 0.95) 100%); border: 1px solid rgba(95, 208, 160, 0.3); border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+      <div style="text-align: center; margin-bottom: 2.5rem;">
+        <span class="etiquette etiquette--or" style="margin-bottom: 0.5rem; font-family: var(--police-mono); letter-spacing: 0.08em;">💼 ESPACE RECRUTEURS &amp; PARTENAIRES</span>
+        <h2 style="font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; color: #ffffff; margin-bottom: 0.6rem;">
+          Annuaire des Talents &amp; Spécialistes Certifiés
+        </h2>
+        <p style="color: var(--texte-2); font-size: 0.95rem; max-width: 720px; margin: 0 auto; line-height: 1.6;">
+          Chaque profil listé ci-dessous a validé un parcours d’excellence et détient un titre numérique vérifiable par cryptographie asymétrique ECDSA P-256. Recrutez des profils directement opérationnels en agronomie numérique, SIG, collecte mobile et ingénierie logicielle.
+        </p>
+      </div>
+
+      <!-- Grille des Profils Certifiés -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+        <!-- Talent 1 -->
+        <div style="background: rgba(0,0,0,0.35); border: 1px solid var(--bordure); border-radius: 14px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+              <span class="etiquette etiquette--vert" style="font-size: 0.7rem;">INGÉNIERIE &amp; IA</span>
+              <span style="font-family: var(--police-mono); font-size: 0.72rem; color: var(--or);">TS-SKL-001</span>
+            </div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 0.3rem;">Olivier ARÉMOU</h3>
+            <p style="font-size: 0.82rem; color: var(--texte-3); margin-bottom: 0.8rem;">Pôle Ingénierie &amp; Logiciel · TEAM Sahélia Bénin</p>
+            <p style="font-size: 0.85rem; color: var(--texte-2); line-height: 1.5; margin-bottom: 1.25rem;">
+              Spécialiste Vibe Coding &amp; IA Responsable, architecture logicielle décentralisée et ingénierie pédagogique agronomique.
+            </p>
+          </div>
+          <button type="button" class="btn-ex-verif v-btn v-btn--fantome" data-id="TS-SKL-2026-001" style="width: 100%; min-height: 38px; font-size: 0.8rem; justify-content: center;">
+            🔐 Vérifier la Certification
+          </button>
+        </div>
+
+        <!-- Talent 2 -->
+        <div style="background: rgba(0,0,0,0.35); border: 1px solid var(--bordure); border-radius: 14px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+              <span class="etiquette etiquette--vert" style="font-size: 0.7rem;">SIG &amp; GÉOMATIQUE</span>
+              <span style="font-family: var(--police-mono); font-size: 0.72rem; color: var(--or);">TS-SKL-002</span>
+            </div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 0.3rem;">Amina CHABI</h3>
+            <p style="font-size: 0.82rem; color: var(--texte-3); margin-bottom: 0.8rem;">Pôle SIG &amp; Géomatique · TEAM Sahélia Bénin</p>
+            <p style="font-size: 0.85rem; color: var(--texte-2); line-height: 1.5; margin-bottom: 1.25rem;">
+              Praticienne SIG &amp; Cartographie Parcellaire QGIS, projection métrique UTM 31N/32N, sémiologie graphique et analyse spatiale.
+            </p>
+          </div>
+          <button type="button" class="btn-ex-verif v-btn v-btn--fantome" data-id="TS-SKL-2026-002" style="width: 100%; min-height: 38px; font-size: 0.8rem; justify-content: center;">
+            🔐 Vérifier la Certification
+          </button>
+        </div>
+
+        <!-- Talent 3 -->
+        <div style="background: rgba(0,0,0,0.35); border: 1px solid var(--bordure); border-radius: 14px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+              <span class="etiquette etiquette--vert" style="font-size: 0.7rem;">COLLECTE MOBILE &amp; DATA</span>
+              <span style="font-family: var(--police-mono); font-size: 0.72rem; color: var(--or);">TS-SKL-003</span>
+            </div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 0.3rem;">Sègla KPÉROU</h3>
+            <p style="font-size: 0.82rem; color: var(--texte-3); margin-bottom: 0.8rem;">Pôle SIG &amp; Géomatique · TEAM Sahélia Bénin</p>
+            <p style="font-size: 0.85rem; color: var(--texte-2); line-height: 1.5; margin-bottom: 1.25rem;">
+              Concepteur d’enquêtes KoboToolbox / XLSForm, relevés GNSS géoréférencés, nettoyage de données et traitement statistique R/Excel.
+            </p>
+          </div>
+          <button type="button" class="btn-ex-verif v-btn v-btn--fantome" data-id="TS-SKL-2026-003" style="width: 100%; min-height: 38px; font-size: 0.8rem; justify-content: center;">
+            🔐 Vérifier la Certification
+          </button>
+        </div>
+
+        <!-- Talent 4 -->
+        <div style="background: rgba(0,0,0,0.35); border: 1px solid var(--bordure); border-radius: 14px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+              <span class="etiquette etiquette--vert" style="font-size: 0.7rem;">DRONE &amp; TÉLÉDÉTECTION</span>
+              <span style="font-family: var(--police-mono); font-size: 0.72rem; color: var(--or);">TS-SKL-004</span>
+            </div>
+            <h3 style="font-size: 1.15rem; font-weight: 700; color: #ffffff; margin-bottom: 0.3rem;">Mariam DIALLO</h3>
+            <p style="font-size: 0.82rem; color: var(--texte-3); margin-bottom: 0.8rem;">Pôle SIG &amp; Géomatique · TEAM Sahélia Bénin</p>
+            <p style="font-size: 0.85rem; color: var(--texte-2); line-height: 1.5; margin-bottom: 1.25rem;">
+              Opératrice Drone &amp; Photogrammétrie, calcul d’indices de vigueur foliaire (NDVI), plans de vol automatiques et agronomie de précision.
+            </p>
+          </div>
+          <button type="button" class="btn-ex-verif v-btn v-btn--fantome" data-id="TS-SKL-2026-004" style="width: 100%; min-height: 38px; font-size: 0.8rem; justify-content: center;">
+            🔐 Vérifier la Certification
+          </button>
+        </div>
+      </div>
+
+      <!-- Contact Recruteurs & Partenariats -->
+      <div style="background: rgba(0,0,0,0.5); border: 1px dashed rgba(95, 208, 160, 0.4); border-radius: 14px; padding: 1.75rem; text-align: center;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: #ffffff; margin-bottom: 0.5rem;">
+          Vous recrutez pour un projet de développement agricole ou une mission d’ingénierie ?
+        </h3>
+        <p style="color: var(--texte-2); font-size: 0.88rem; max-width: 600px; margin: 0 auto 1.25rem; line-height: 1.5;">
+          TEAM Sahélia met en relation directe les partenaires institutionnels (ONG, Ministères, INRAB, bailleurs) avec des spécialistes formés selon les exigences les plus rigoureuses.
+        </p>
+        <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+          <a href="https://wa.me/22940738469?text=Bonjour%20TEAM%20Sahélia,%20nous%20souhaitons%20consulter%20des%20profils%20certifiés" target="_blank" rel="noopener noreferrer" class="v-btn v-btn--vert" style="min-height: 40px; font-size: 0.85rem; padding: 0 1.25rem;">
+            💬 Contacter le Bureau de Coordination (WhatsApp)
+          </a>
+          <a href="mailto:teamsahelia@gmail.com?subject=Demande%20de%20mise%20en%20relation%20-%20Profils%20Certifiés" class="v-btn v-btn--fantome" style="min-height: 40px; font-size: 0.85rem; padding: 0 1.25rem;">
+            ✉️ Écrire par Email Officiel
+          </a>
+        </div>
+      </div>
+    </section>
 
   </main>
 
@@ -334,20 +447,46 @@
       function extraireDonneesDepuisCredential(cred) {
         if (!cred) return {};
         const subject = cred.credentialSubject || {};
-        const ach = subject.achievement || {};
+        const ach = typeof subject.achievement === 'object' ? subject.achievement : {};
+        const cleanId = (cred.id || '').split('/').pop().replace('.json', '');
+        
+        let typeCalcule = 'competence';
+        if (cleanId.startsWith('TS-MBR')) typeCalcule = 'membre';
+        else if (cleanId.startsWith('TS-FOR')) typeCalcule = 'formation';
+
+        // Tentative de résolution des critères et métadonnées complètes
+        let criteresExtraits = ach.criteria && ach.criteria.narrative ? ach.criteria.narrative.split(' ; ') : [];
+        let niveauCalcule = ach.level || (typeCalcule === 'membre' ? 'Adhésion Validée' : (typeCalcule === 'formation' ? 'Complétion Validée' : 'Pratique Validée'));
+
+        if (criteresExtraits.length === 0 && window.BadgeData) {
+          if (typeCalcule === 'membre') {
+            criteresExtraits = [
+              "Adhésion officielle et inscription validée au registre TEAM Sahélia",
+              "Participation active aux canaux collaboratifs et entraide communautaire",
+              "Engagement formel envers la charte d'éthique et de partage libre des savoirs"
+            ];
+          } else if (typeCalcule === 'formation') {
+            criteresExtraits = [
+              "Complétion vérifiée de 100% des modules théoriques et pratiques du programme",
+              "Validation des travaux pratiques de terrain et projets de fin de parcours",
+              "Reconnaissance d'aptitude technique par l'instructeur référent"
+            ];
+          }
+        }
+
         return {
-          id: (cred.id || '').split('/').pop().replace('.json', ''),
+          id: cleanId,
           titre: cred.name || ach.name || 'Certification TEAM Sahélia',
           beneficiaireNom: subject.name || 'Bénéficiaire',
           beneficiaireRole: subject.role || 'Titulaire',
-          institution: 'TEAM Sahélia · République du Bénin',
+          institution: subject.institution || 'TEAM Sahélia · République du Bénin',
           dateEmission: cred.validFrom ? new Date(cred.validFrom).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '2026',
           validFrom: cred.validFrom,
-          slogan: cred.description || 'Certification officielle.',
-          criteres: ach.criteria && ach.criteria.narrative ? ach.criteria.narrative.split(' ; ') : [],
+          slogan: subject.slogan || cred.description || 'Apprendre aujourd’hui. Construire demain.',
+          criteres: criteresExtraits,
           preuveProjet: ach.description || (cred.evidence && cred.evidence[0] ? cred.evidence[0].narrative : ''),
-          niveau: 'Pratique Validée',
-          type: 'competence'
+          niveau: niveauCalcule,
+          type: typeCalcule
         };
       }
 

@@ -1,0 +1,22 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/mentor-leadership.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Mentor & Formateur Communautaire",
+  "description": "Encadrement régulier d'apprenants, animation technique d'ateliers, conception de ressources pédagogiques libres et audit des livrables de certification.",
+  "achievementType": "Certificate",
+  "criteria": {
+    "narrative": "1. Encadrement actif et tutorat d'au moins une cohorte de formation ; 2. Animation d'ateliers de résolution pratique de problèmes techniques ; 3. Production de supports méthodologiques réutilisables par la communauté ; 4. Évaluation impartiale des livrables de certification selon les grilles officielles."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "mentor-leadership",
+  "famille": "leadership",
+  "level": "N4 · Expertise & Référent",
+  "shape": "ecusson",
+  "accentColor": "#fb923c"
+}

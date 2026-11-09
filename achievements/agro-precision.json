@@ -1,0 +1,22 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/agro-precision.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Agronomie Numérique & Précision Parcellaire",
+  "description": "Mise en place de protocoles agronomiques de précision, intégration d'indices de végétation NDVI, calcul de fertilisation raisonnée et suivi des rendements.",
+  "achievementType": "Certificate",
+  "criteria": {
+    "narrative": "1. Conception d'un protocole expérimental en blocs complets randomisés (Fisher) ; 2. Suivi agrométéorologique et spatialisation des besoins hydriques ou fertilisants ; 3. Croisement des cartes d'indices NDVI avec les rendements réels de parcelles témoins ; 4. Rédaction d'une note technique de recommandations opérationnelles."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "agro-precision",
+  "famille": "competence",
+  "level": "N2 · Pratique Validée",
+  "shape": "pentagone",
+  "accentColor": "#4ade80"
+}

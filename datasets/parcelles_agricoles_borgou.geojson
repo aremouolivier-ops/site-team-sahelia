@@ -1,0 +1,168 @@
+{
+  "type": "FeatureCollection",
+  "name": "Parcelles_Essais_TEAM_Sahelia_Borgou",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "PARC-01",
+        "nom": "Parcelle Expérimentale Maïs N'Dali 1",
+        "commune": "N'Dali",
+        "exploitant": "CHABI Orou",
+        "culture": "Maïs DMR-ESR-W",
+        "surface_declaree_ha": 2.45,
+        "projection_recommandee": "EPSG:32631 (UTM 31N)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2.71452,
+              9.8512
+            ],
+            [
+              2.7178,
+              9.85135
+            ],
+            [
+              2.71795,
+              9.8489
+            ],
+            [
+              2.7146,
+              9.84875
+            ],
+            [
+              2.71452,
+              9.8512
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "PARC-02",
+        "nom": "Essai Soja Fa-UP Campus Parakou",
+        "commune": "Parakou",
+        "exploitant": "Ferme d'Application FA-UP",
+        "culture": "Soja TGX 1448-2E",
+        "surface_declaree_ha": 1.82,
+        "projection_recommandee": "EPSG:32631 (UTM 31N)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2.612,
+              9.345
+            ],
+            [
+              2.6148,
+              9.3452
+            ],
+            [
+              2.6146,
+              9.3428
+            ],
+            [
+              2.6118,
+              9.3426
+            ],
+            [
+              2.612,
+              9.345
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "PARC-03",
+        "nom": "Bassin Coton Tchaourou Sud",
+        "commune": "Tchaourou",
+        "exploitant": "BIAOU Sabi",
+        "culture": "Coton H-279-1",
+        "surface_declaree_ha": 3.75,
+        "projection_recommandee": "EPSG:32631 (UTM 31N)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              2.585,
+              8.891
+            ],
+            [
+              2.5895,
+              8.8914
+            ],
+            [
+              2.5892,
+              8.887
+            ],
+            [
+              2.5847,
+              8.8866
+            ],
+            [
+              2.585,
+              8.891
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "PARC-04-NIKKI",
+        "nom": "Parcelle Rizicole Bas-Fond Nikki",
+        "commune": "Nikki",
+        "exploitant": "BIO Gounou",
+        "culture": "Riz NERICA",
+        "surface_declaree_ha": 1.35,
+        "projection_recommandee": "EPSG:32632 (UTM 32N - Zone Est du 3°E)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              3.2105,
+              9.941
+            ],
+            [
+              3.2138,
+              9.9412
+            ],
+            [
+              3.2136,
+              9.9385
+            ],
+            [
+              3.2103,
+              9.9383
+            ],
+            [
+              3.2105,
+              9.941
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

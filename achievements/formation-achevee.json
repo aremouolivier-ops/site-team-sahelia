@@ -1,0 +1,22 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/formation-achevee.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Parcours de Formation Achevé · TEAM Sahélia",
+  "description": "Certifie que le titulaire a suivi 100% des modules théoriques et pratiques d'un parcours de formation TEAM Sahélia et validé les travaux pratiques associés.",
+  "achievementType": "Certificate",
+  "criteria": {
+    "narrative": "1. Assiduité et complétion de l'ensemble des modules du programme ; 2. Réalisation et validation des exercices pratiques de fin de chapitre ; 3. Participation aux ateliers d'application méthodologique."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "formation-achevee",
+  "famille": "formation",
+  "level": "N2 · Complétion Validée",
+  "shape": "hexagone",
+  "accentColor": "#3b82f6"
+}

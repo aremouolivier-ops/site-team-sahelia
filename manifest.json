@@ -1,0 +1,23 @@
+{
+  "name": "TEAM Sahélia · Agronomie Numérique & Innovation",
+  "short_name": "TEAM Sahélia",
+  "description": "Plateforme officielle d'agronomie numérique, cartographie SIG, collecte mobile et certifications vérifiables de TEAM Sahélia.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#08130f",
+  "theme_color": "#08130f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/logo-sahelia.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/Badge_TEAM_Sahelia_Membre_Officiel.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

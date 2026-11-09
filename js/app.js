@@ -334,13 +334,13 @@
         const opts = membres
           .map(
             (m, idx) =>
-              `<option value="${escapeHTML(m.id)}" ${idx === 0 ? 'selected' : ''}>${escapeHTML(m.nom)} (${escapeHTML(m.role)}) — ${escapeHTML(m.id)}</option>`
+              `<option value="${escapeHTML(m.id)}" ${idx === 0 ? 'selected' : ''}>✓ ${escapeHTML(m.nom)} (${escapeHTML(m.role)}) — ${escapeHTML(m.id)}</option>`
           )
           .join('');
-        selectMembrePreset.innerHTML = opts + `<option value="custom">➕ Saisie libre / Mon profil...</option>`;
+        selectMembrePreset.innerHTML = opts;
         etatApp.membreSelectionne = membres[0];
       } else {
-        selectMembrePreset.innerHTML = `<option value="custom" selected>➕ Saisie libre / Mon profil...</option>`;
+        selectMembrePreset.innerHTML = `<option value="" disabled selected>Aucun membre enregistré</option>`;
         etatApp.membreSelectionne = null;
       }
       synchroniserChampsMembre();
@@ -352,6 +352,10 @@
       const inputMembreEmail = document.getElementById('membre-email-input');
       const inputMembreSexe = document.getElementById('membre-sexe-input');
       const inputMembreSlogan = document.getElementById('membre-slogan-input');
+
+      // Verrouillage en lecture seule pour garantir l'intégrité institutionnelle
+      const champs = [inputMembreNom, inputMembreRole, inputMembreInst, inputMembreTel, inputMembreEmail, inputMembreId, inputMembreSlogan];
+      champs.forEach(c => { if (c) c.readOnly = true; });
 
       if (!m) {
         if (inputMembreNom) inputMembreNom.value = '';
@@ -1099,6 +1103,13 @@
     initialiserStudioMultiBadges();
     actualiserCompteursFormations();
     initialiserLecteurGuides();
+
+    // Enregistrement PWA Service Worker (Mode Hors-Ligne)
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      navigator.serviceWorker.register('sw.js').catch((err) => {
+        console.warn('PWA hors-ligne :', err);
+      });
+    }
   }
 
   if (document.readyState === 'loading') {

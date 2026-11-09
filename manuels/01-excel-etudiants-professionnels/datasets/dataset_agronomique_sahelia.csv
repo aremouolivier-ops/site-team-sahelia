@@ -1,21 +1,49 @@
-ID_Parcelle,Commune,Producteur,Culture,Variete,Superficie_ha,Dose_NPK_kg_ha,Rendement_kg_ha,Cout_Total_FCFA,Prix_Vente_kg_FCFA
-P001,Parakou,BIO Gounou Bio,Maïs,DMR-ESR-W,2.5,200,3200,285000,180
-P002,Parakou,ADAMOU Rachidatou,Soja,TGX 1448-2E,1.8,100,1650,160000,350
-P003,N'Dali,CHABI Orou,Maïs,2000 SYN EE-W,3.0,250,3800,340000,175
-P004,Tchaourou,BIAOU Sabi,Coton,H-279-1,4.2,250,1950,490000,300
-P005,Parakou,SIDI Alassane,Sorgho,Chabi-Gourou,1.5,50,1200,95000,200
-P006,Bembèrèkè,WOROU Issa,Maïs,DMR-ESR-W,2.0,200,2900,230000,180
-P007,N'Dali,KORA Mariam,Soja,TGX 1448-2E,2.2,100,1780,195000,350
-P008,Tchaourou,BONI Gado,Maïs,2000 SYN EE-W,1.5,150,2600,175000,175
-P009,Bembèrèkè,SEIDOU Baké,Coton,H-279-1,3.5,250,1850,410000,300
-P010,Parakou,TAMA Orou Seko,Maïs,DMR-ESR-W,2.8,200,3450,310000,180
-P011,N'Dali,BIO TAMOU Paul,Sorgho,Chabi-Gourou,1.2,50,1150,85000,200
-P012,Tchaourou,YAROU Fatou,Soja,TGX 1448-2E,2.0,100,1720,180000,350
-P013,Bembèrèkè,GOUNOU Alidou,Maïs,2000 SYN EE-W,3.2,250,4100,360000,175
-P014,Parakou,DJIBRIL Nassirou,Coton,H-279-1,2.5,200,1900,290000,300
-P015,N'Dali,MAMA Aïcha,Maïs,DMR-ESR-W,1.8,150,2750,205000,180
-P016,Tchaourou,SABI Bio,Soja,TGX 1448-2E,3.0,100,1850,260000,350
-P017,Bembèrèkè,ALASSANE Ousmane,Maïs,2000 SYN EE-W,2.4,200,3300,270000,175
-P018,Parakou,KOTO Chabi,Sorgho,Chabi-Gourou,1.0,50,1100,75000,200
-P019,N'Dali,SEKO Bio,Coton,H-279-1,4.0,250,2050,470000,300
-P020,Tchaourou,BAKARY Zoulé,Maïs,DMR-ESR-W,2.2,200,3150,250000,180
+ID_Parcelle,Bloc,Commune,Producteur,Culture,Variete,Traitement,Superficie_ha,Dose_NPK_kg_ha,Dose_Uree_kg_ha,Rendement_kg_ha,Cout_Total_FCFA,Prix_Vente_kg_FCFA
+P001,Bloc_1,Parakou,BIO Gounou,Soja,TGX 1448-2E,Témoin_Non_Fertilisé,1.7,0,0,846,161500,350
+P002,Bloc_1,Parakou,ADAMOU Rachidatou,Soja,TGX 1448-2E,NPK_Seul_150kg,2.4,150,0,1565,432000,350
+P003,Bloc_1,Parakou,CHABI Orou,Soja,TGX 1448-2E,NPK_200kg_Uree_100kg,3.1,200,100,2242,806000,350
+P004,Bloc_1,Parakou,BIAOU Sabi,Soja,TGX 1448-2E,Compost_5t_NPK_200kg_Uree_100kg,1.3,200,100,2665,422500,350
+P005,Bloc_1,N'Dali,SIDI Alassane,Sorgho,Chabi-Gourou,Témoin_Non_Fertilisé,2,0,0,752,190000,200
+P006,Bloc_1,N'Dali,WOROU Issa,Sorgho,Chabi-Gourou,NPK_Seul_150kg,2.7,150,0,1391,486000,200
+P007,Bloc_1,N'Dali,KORA Mariam,Sorgho,Chabi-Gourou,NPK_200kg_Uree_100kg,3.4,200,100,1993,884000,200
+P008,Bloc_1,N'Dali,BONI Gado,Sorgho,Chabi-Gourou,Compost_5t_NPK_200kg_Uree_100kg,1.6,200,100,2369,520000,200
+P009,Bloc_1,Tchaourou,SEIDOU Baké,Maïs,DMR-ESR-W,Témoin_Non_Fertilisé,2.3,0,0,1222,218500,180
+P010,Bloc_1,Tchaourou,TAMA Orou Seko,Maïs,DMR-ESR-W,NPK_Seul_150kg,3,150,0,2261,540000,180
+P011,Bloc_1,Tchaourou,BIO TAMOU Paul,Maïs,DMR-ESR-W,NPK_200kg_Uree_100kg,1.2,200,100,3238,312000,180
+P012,Bloc_1,Tchaourou,YAROU Fatou,Maïs,DMR-ESR-W,Compost_5t_NPK_200kg_Uree_100kg,1.9,200,100,3849,617500,180
+P013,Bloc_1,Bembèrèkè,GOUNOU Alidou,Soja,TGX 1448-2E,Témoin_Non_Fertilisé,2.6,0,0,846,247000,350
+P014,Bloc_1,Bembèrèkè,DJIBRIL Nassirou,Soja,TGX 1448-2E,NPK_Seul_150kg,3.3,150,0,1565,594000,350
+P015,Bloc_1,Bembèrèkè,MAMA Aïcha,Soja,TGX 1448-2E,NPK_200kg_Uree_100kg,1.5,200,100,2242,390000,350
+P016,Bloc_1,Bembèrèkè,SABI Bio,Soja,TGX 1448-2E,Compost_5t_NPK_200kg_Uree_100kg,2.2,200,100,2665,715000,350
+P017,Bloc_2,Parakou,ALASSANE Ousmane,Sorgho,Chabi-Gourou,Témoin_Non_Fertilisé,2.9,0,0,752,275500,200
+P018,Bloc_2,Parakou,KOTO Chabi,Sorgho,Chabi-Gourou,NPK_Seul_150kg,1.1,150,0,1391,198000,200
+P019,Bloc_2,Parakou,SEKO Bio,Sorgho,Chabi-Gourou,NPK_200kg_Uree_100kg,1.8,200,100,1993,468000,200
+P020,Bloc_2,Parakou,BAKARY Zoulé,Sorgho,Chabi-Gourou,Compost_5t_NPK_200kg_Uree_100kg,2.5,200,100,2369,812500,200
+P021,Bloc_2,N'Dali,CHABI Toko,Maïs,2000 SYN EE-W,Témoin_Non_Fertilisé,3.2,0,0,1222,304000,180
+P022,Bloc_2,N'Dali,MAMA Sanni,Maïs,2000 SYN EE-W,NPK_Seul_150kg,1.4,150,0,2261,252000,180
+P023,Bloc_2,N'Dali,KPEROU Bio,Maïs,2000 SYN EE-W,NPK_200kg_Uree_100kg,2.1,200,100,3238,546000,180
+P024,Bloc_2,N'Dali,DAOUDA Zénabou,Maïs,2000 SYN EE-W,Compost_5t_NPK_200kg_Uree_100kg,2.8,200,100,3849,910000,180
+P025,Bloc_2,Tchaourou,BIO Gounou,Soja,TGX 1448-2E,Témoin_Non_Fertilisé,1,0,0,846,95000,350
+P026,Bloc_2,Tchaourou,ADAMOU Rachidatou,Soja,TGX 1448-2E,NPK_Seul_150kg,1.7,150,0,1565,306000,350
+P027,Bloc_2,Tchaourou,CHABI Orou,Soja,TGX 1448-2E,NPK_200kg_Uree_100kg,2.4,200,100,2242,624000,350
+P028,Bloc_2,Tchaourou,BIAOU Sabi,Soja,TGX 1448-2E,Compost_5t_NPK_200kg_Uree_100kg,3.1,200,100,2665,1007500,350
+P029,Bloc_2,Bembèrèkè,SIDI Alassane,Sorgho,Chabi-Gourou,Témoin_Non_Fertilisé,1.3,0,0,752,123500,200
+P030,Bloc_2,Bembèrèkè,WOROU Issa,Sorgho,Chabi-Gourou,NPK_Seul_150kg,2,150,0,1391,360000,200
+P031,Bloc_2,Bembèrèkè,KORA Mariam,Sorgho,Chabi-Gourou,NPK_200kg_Uree_100kg,2.7,200,100,1993,702000,200
+P032,Bloc_2,Bembèrèkè,BONI Gado,Sorgho,Chabi-Gourou,Compost_5t_NPK_200kg_Uree_100kg,3.4,200,100,2369,1105000,200
+P033,Bloc_3,Parakou,SEIDOU Baké,Maïs,DMR-ESR-W,Témoin_Non_Fertilisé,1.6,0,0,1222,152000,180
+P034,Bloc_3,Parakou,TAMA Orou Seko,Maïs,DMR-ESR-W,NPK_Seul_150kg,2.3,150,0,2261,414000,180
+P035,Bloc_3,Parakou,BIO TAMOU Paul,Maïs,DMR-ESR-W,NPK_200kg_Uree_100kg,3,200,100,3238,780000,180
+P036,Bloc_3,Parakou,YAROU Fatou,Maïs,DMR-ESR-W,Compost_5t_NPK_200kg_Uree_100kg,1.2,200,100,3849,390000,180
+P037,Bloc_3,N'Dali,GOUNOU Alidou,Soja,TGX 1448-2E,Témoin_Non_Fertilisé,1.9,0,0,846,180500,350
+P038,Bloc_3,N'Dali,DJIBRIL Nassirou,Soja,TGX 1448-2E,NPK_Seul_150kg,2.6,150,0,1565,468000,350
+P039,Bloc_3,N'Dali,MAMA Aïcha,Soja,TGX 1448-2E,NPK_200kg_Uree_100kg,3.3,200,100,2242,858000,350
+P040,Bloc_3,N'Dali,SABI Bio,Soja,TGX 1448-2E,Compost_5t_NPK_200kg_Uree_100kg,1.5,200,100,2665,487500,350
+P041,Bloc_3,Tchaourou,ALASSANE Ousmane,Sorgho,Chabi-Gourou,Témoin_Non_Fertilisé,2.2,0,0,752,209000,200
+P042,Bloc_3,Tchaourou,KOTO Chabi,Sorgho,Chabi-Gourou,NPK_Seul_150kg,2.9,150,0,1391,522000,200
+P043,Bloc_3,Tchaourou,SEKO Bio,Sorgho,Chabi-Gourou,NPK_200kg_Uree_100kg,1.1,200,100,1993,286000,200
+P044,Bloc_3,Tchaourou,BAKARY Zoulé,Sorgho,Chabi-Gourou,Compost_5t_NPK_200kg_Uree_100kg,1.8,200,100,2369,585000,200
+P045,Bloc_3,Bembèrèkè,CHABI Toko,Maïs,DMR-ESR-W,Témoin_Non_Fertilisé,2.5,0,0,1222,237500,180
+P046,Bloc_3,Bembèrèkè,MAMA Sanni,Maïs,DMR-ESR-W,NPK_Seul_150kg,3.2,150,0,2261,576000,180
+P047,Bloc_3,Bembèrèkè,KPEROU Bio,Maïs,DMR-ESR-W,NPK_200kg_Uree_100kg,1.4,200,100,3238,364000,180
+P048,Bloc_3,Bembèrèkè,DAOUDA Zénabou,Maïs,DMR-ESR-W,Compost_5t_NPK_200kg_Uree_100kg,2.1,200,100,3849,682500,180

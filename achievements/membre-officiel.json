@@ -1,0 +1,22 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/membre-officiel.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Membre Officiel · TEAM Sahélia",
+  "description": "Atteste de l'adhésion formelle, de l'identité vérifiée et de l'appartenance active au réseau panafricain TEAM Sahélia pour l'émancipation scientifique et numérique.",
+  "achievementType": "Membership",
+  "criteria": {
+    "narrative": "1. Validation de l'inscription et délivrance de la carte de membre officielle ; 2. Respect de la charte de partage libre et d'entraide communautaire ; 3. Contribution aux dynamiques collectives."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "membre-officiel",
+  "famille": "appartenance",
+  "level": "N1 · Adhésion Validée",
+  "shape": "pentagone",
+  "accentColor": "#22c55e"
+}

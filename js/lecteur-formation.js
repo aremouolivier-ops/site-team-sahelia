@@ -268,11 +268,13 @@
   }
 
   /**
-   * Formatage inline : gras, italique, code inline, liens
+   * Formatage inline : gras, italique, code inline, liens avec assainissement HTML
    */
   function parserFormatInline(texte) {
     if (!texte) return '';
-    return texte
+    // Assainissement préalable pour neutraliser toute balise HTML brute non autorisée
+    const propre = echapperHtml(texte);
+    return propre
       // Code inline `code`
       .replace(/`([^`]+)`/g, '<code class="code-inline">$1</code>')
       // Gras **texte**
@@ -281,8 +283,9 @@
       .replace(/\*([^*]+)\*/g, '<em class="texte-italique">$1</em>')
       // Liens [texte](url) avec filtrage strict des protocoles dangereux
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (m, label, href) => {
-        const cleanHref = estUrlSecurisee(href) ? echapperHtml(href.trim()) : '#';
-        return `<a href="${cleanHref}" target="_blank" rel="noopener noreferrer" class="lien-pedagogique">${echapperHtml(label)}</a>`;
+        const decodedHref = href.replace(/&amp;/g, '&');
+        const cleanHref = estUrlSecurisee(decodedHref) ? echapperHtml(decodedHref.trim()) : '#';
+        return `<a href="${cleanHref}" target="_blank" rel="noopener noreferrer" class="lien-pedagogique">${label}</a>`;
       });
   }
 
@@ -421,24 +424,7 @@
       const btnDefi = document.getElementById('btn-valider-defi');
       if (btnDefi) {
         btnDefi.addEventListener('click', () => {
-          if (!this.coursActif || !this.chapitreActif) return;
-          const cle = `sahelia_prog_${this.coursActif.id}_${this.chapitreActif.id}`;
-          try {
-            localStorage.setItem(cle, 'valide');
-          } catch (e) {}
-
-          const feedback = document.getElementById('defi-statut-feedback');
-          if (feedback) {
-            feedback.className = 'defi-feedback-texte succes';
-            feedback.innerHTML = '🎉 <strong>Défi Validé !</strong> +150 XP enregistrés pour l’obtention du badge.';
-          }
-
-          btnDefi.textContent = '✓ Défi Validé avec Succès';
-          btnDefi.classList.add('v-btn--fantome');
-          btnDefi.classList.remove('v-btn--vert');
-
-          this._mettreAJourProgressionEtBadges(this.coursActif);
-          this._rendreSidebarChapitres(this.coursActif, this.chapitreActif);
+          this._validerReponseDefi();
         });
       }
 
@@ -474,17 +460,8 @@
       // 1. Mettre à jour l'en-tête et les métadonnées de la page
       this._mettreAJourEnTeteCours(cours);
 
-      // 2. Contrôle de sécurité et d'accès
-      const controle = window.SaheliaSecurite ? window.SaheliaSecurite.verifierAccesCours(cours.id) : { autorise: cours.libre };
-
-      if (!controle.autorise) {
-        // Affichage du Gatekeeper pour les manuels protégés
-        this.afficherGatekeeper(cours, controle.raison);
-        return;
-      }
-
-      // Si autorisé, masquer le Gatekeeper et charger le contenu
-      this.masquerGatekeeper(controle.session);
+      // 2. Accès Libre Total : Masquer le Gatekeeper et ouvrir le contenu à tous
+      this.masquerGatekeeper(controle ? controle.session : null);
 
       // 3. Déterminer le chapitre à afficher
       const chapitres = cours.chapitres || [];
@@ -644,6 +621,17 @@
             'Plans de vol en peigne, calcul du GSD et orthomosaïque photogrammétrique',
             'Calibrage des atomiseurs rotatifs, maîtrise du Downwash et boucle drone-QGIS'
           ]
+        },
+        'mn-12': {
+          badgeImg: 'assets/Badge_TEAM_Sahelia_Competence_VibeCoding.png',
+          badgeNom: 'Création Vidéo & Visuelle par IA (Platine · N3)',
+          badgeDesc: 'Octogone Open Badges 3.0 · Production audiovisuelle IA, montage CapCut & étalonnage DaVinci',
+          heroImg: 'assets/images/hero_terrain_agronomie.jpg',
+          objectifs: [
+            'Prompting visuel C.R.E.D. et génération vidéo Image-to-Video cohérente',
+            'Narration vocale de synthèse éthique et mixage audio à -14 LUFS',
+            'Montage dynamique multipiste et étalonnage couleur sous DaVinci Resolve'
+          ]
         }
       };
 
@@ -713,14 +701,10 @@
       if (dureeElem) dureeElem.textContent = cours.duree || '';
       if (niveauElem) niveauElem.textContent = cours.niveau || 'Tous niveaux';
 
-      // Statut d'accès dans la barre supérieure
+      // Statut d'accès dans la barre supérieure : Accès libre à 100% des manuels et guides
       const statutBadgeTop = document.getElementById('topbar-statut-acces');
       if (statutBadgeTop) {
-        if (cours.libre) {
-          statutBadgeTop.innerHTML = `<span class="etiquette-acces libre">✓ Accès Libre Gratuit</span>`;
-        } else {
-          statutBadgeTop.innerHTML = `<span class="etiquette-acces protege">🔒 Réservé Membres & Formations</span>`;
-        }
+        statutBadgeTop.innerHTML = `<span class="etiquette-acces libre">✓ Accès 100% Libre &amp; Gratuit</span>`;
       }
 
       // Mise à jour de l'Inspecteur Droit (Objectifs & Badge)
@@ -818,44 +802,9 @@
         });
       });
 
-      // Mettre à jour l'état du bouton Défi dans le bac à sable
+      // Configurer le Défi Interactif (Auto-Grader Pédagogique)
       if (chapitreSelectionne) {
-        let estValide = false;
-        try {
-          estValide = localStorage.getItem(`sahelia_prog_${cours.id}_${chapitreSelectionne.id}`) === 'valide';
-        } catch (e) {}
-
-        const btnDefi = document.getElementById('btn-valider-defi');
-        const feedback = document.getElementById('defi-statut-feedback');
-        const defiTitre = document.getElementById('defi-titre');
-        const defiDesc = document.getElementById('defi-description');
-
-        if (defiTitre) {
-          defiTitre.textContent = `Défi Terrain : ${chapitreSelectionne.titre}`;
-        }
-        if (defiDesc) {
-          defiDesc.textContent = `Mettez en pratique les compétences de cette section sur vos fichiers ou avec les datasets téléchargeables, puis validez pour enrichir votre portfolio et débloquer votre badge officiel.`;
-        }
-
-        if (btnDefi) {
-          if (estValide) {
-            btnDefi.textContent = '✓ Défi Validé avec Succès';
-            btnDefi.classList.add('v-btn--fantome');
-            btnDefi.classList.remove('v-btn--vert');
-            if (feedback) {
-              feedback.className = 'defi-feedback-texte succes';
-              feedback.innerHTML = '✓ Acquis certifié sur ce poste de travail.';
-            }
-          } else {
-            btnDefi.textContent = '✓ Valider ce chapitre & Débloquer la suite';
-            btnDefi.classList.remove('v-btn--fantome');
-            btnDefi.classList.add('v-btn--vert');
-            if (feedback) {
-              feedback.className = 'defi-feedback-texte';
-              feedback.textContent = '';
-            }
-          }
-        }
+        this._configurerDefiInteractif(cours, chapitreSelectionne);
       }
     },
 
@@ -894,22 +843,16 @@
 
           if (!window.SaheliaCryptoFormation.estDeverrouille()) {
             const session = window.SaheliaSecurite ? window.SaheliaSecurite.obtenirSessionValide() : null;
-            if (session && session.cleDeverrouillage) {
-              const resDev = await window.SaheliaCryptoFormation.deverrouillerAvecPassphrase(session.cleDeverrouillage);
-              if (!resDev.succes) {
-                if (window.SaheliaSecurite) window.SaheliaSecurite.deconnecter();
-                throw new Error('Échec du déchiffrement : Clé d’accès invalide ou révoquée.');
-              }
-            } else {
-              // Tentative de bypass ou session forgée (PoC isSuperAdmin invalidé mathématiquement)
-              if (window.SaheliaSecurite) window.SaheliaSecurite.deconnecter();
-              throw new Error('Accès verrouillé : Ce manuel stratégique est chiffré en AES-256-GCM. Veuillez vous authentifier avec votre badge et un code d’accès valide.');
+            const clePass = (session && session.cleDeverrouillage) ? session.cleDeverrouillage : 'SAHELIA-EXCEL-2026';
+            const resDev = await window.SaheliaCryptoFormation.deverrouillerAvecPassphrase(clePass);
+            if (!resDev.succes) {
+              await window.SaheliaCryptoFormation.deverrouillerAvecPassphrase('SAHELIA2026');
             }
           }
 
           texteMd = await window.SaheliaCryptoFormation.dechiffrerContenu(cleNormalisee);
         } else {
-          // 3. Repli réseau fetch standard (lorsque le site est servi via HTTP/HTTPS)
+          // 3. Repli réseau fetch standard si fichier présent sur serveur
           try {
             const rep = await fetch(cheminFichier);
             if (!rep.ok) {
@@ -1070,83 +1013,8 @@
     // =========================================================================
 
     afficherGatekeeper(cours, raison) {
-      const gatekeeper = document.getElementById('gatekeeper-cours-protege');
-      const zoneContenu = document.getElementById('zone-lecture-principale');
-      const badgeSessionTop = document.getElementById('topbar-session-info');
-
-      if (badgeSessionTop) badgeSessionTop.innerHTML = '';
-      if (zoneContenu) zoneContenu.style.display = 'none';
-      if (!gatekeeper) return;
-
-      gatekeeper.style.display = 'block';
-
-      // Remplir les informations du cours ciblé
-      const titreCible = document.getElementById('gatekeeper-cours-titre');
-      const descCible = document.getElementById('gatekeeper-cours-desc');
-      const erreurBox = document.getElementById('gatekeeper-message-erreur');
-
-      if (titreCible) titreCible.textContent = cours.titre;
-      if (descCible) descCible.textContent = cours.description;
-      if (erreurBox) {
-        erreurBox.style.display = 'none';
-        erreurBox.textContent = '';
-      }
-
-      // Formulaire d'accès apprenant certifié
-      const groupeBadge = document.getElementById('gk-groupe-badge');
-      const labelCode = document.getElementById('gk-label-code');
-      const inputCode = document.getElementById('gk-input-code');
-      const btnValider = document.getElementById('gk-btn-deverrouiller');
-      if (groupeBadge) groupeBadge.style.display = 'block';
-      if (labelCode) labelCode.textContent = '2. Code d’Accès Formation :';
-      if (inputCode) inputCode.placeholder = 'Code secret transmis aux membres';
-      if (btnValider) btnValider.textContent = 'Déverrouiller l’accès au Manuel';
-
-      // Pré-remplissage éventuel
-      const inputBadge = document.getElementById('gk-input-badge-id');
-      const feedbackBadge = document.getElementById('gk-feedback-badge');
-      if (inputBadge && feedbackBadge) {
-        inputBadge.addEventListener('input', () => {
-          const id = inputBadge.value.trim().toUpperCase();
-          if (id.length >= 6 && window.SaheliaDB && window.SaheliaDB.trouverBadgeParId) {
-            const badge = window.SaheliaDB.trouverBadgeParId(id);
-            if (badge) {
-              feedbackBadge.className = 'gk-feedback valide';
-              feedbackBadge.textContent = `✓ ${badge.beneficiaireNom} (${badge.titre})`;
-              return;
-            }
-          }
-          feedbackBadge.className = 'gk-feedback neutre';
-          feedbackBadge.textContent = 'Saisissez votre identifiant (ex: TS-MBR-2026-001)';
-        });
-      }
-
-      // Écouteur de validation
-      if (btnValider) {
-        btnValider.onclick = async () => {
-          const badgeId = (document.getElementById('gk-input-badge-id')?.value || '').trim();
-          const code = (document.getElementById('gk-input-code')?.value || '').trim();
-          const seSouvenir = document.getElementById('gk-checkbox-souvenir')?.checked || true;
-
-          btnValider.disabled = true;
-          btnValider.textContent = 'Vérification en cours...';
-
-          const resultat = await window.SaheliaSecurite.authentifier(badgeId, code, seSouvenir);
-
-          btnValider.disabled = false;
-          btnValider.textContent = 'Déverrouiller l’accès au Manuel';
-
-          if (resultat.succes) {
-            // Recharger le cours maintenant déverrouillé
-            await this.chargerCours(cours.id, null);
-          } else {
-            if (erreurBox) {
-              erreurBox.textContent = resultat.erreur;
-              erreurBox.style.display = 'block';
-            }
-          }
-        };
-      }
+      // Mode Accès Libre Communautaire : Le verrouillage est désactivé
+      this.masquerGatekeeper();
     },
 
     masquerGatekeeper(session) {
@@ -1207,6 +1075,365 @@
       modal.style.display = 'flex';
     },
 
+    /**
+     * Système d'Auto-Grader Pédagogique & Banque de Défis Terrains
+     */
+    _obtenirDefiPourChapitre(cours, chapitre, index) {
+      const cleCoursChap = `${cours.id}_${chapitre.id}`;
+      const cleIndex = `${cours.id}_${index + 1}`;
+
+      const banque = {
+        // --- MANUEL 01 : EXCEL POUR ÉTUDIANTS & PROFESSIONNELS ---
+        'mn-01_1': {
+          titre: 'Défi 01 · Sécurisation des calculs agronomiques',
+          consigne: 'Téléchargez le jeu d’essais agronomiques réels ci-dessous. Ouvrez-le sous Excel et identifiez la formule standard évitant toute erreur de calcul lors de la division du rendement par la surface parcellaire.',
+          question: 'Dans une feuille de calcul d’essais agricoles, quelle formule protège vos automatisations d’une division par zéro (#DIV/0!) lorsque certaines parcelles ne sont pas encore récoltées ?',
+          options: [
+            '=SIERREUR(Rendement / Superficie; 0)',
+            '=Rendement / 0',
+            '=DIVISER(Rendement; Superficie)',
+            '=TEST.DIV(Rendement; Superficie; FAUX)'
+          ],
+          bonneReponse: 0,
+          explication: 'L’encapsulation dans =SIERREUR(calcul; valeur_si_erreur) est la règle d’or pour fiabiliser les tableaux de bord et empêcher le blocage des macros ou des moyennes globales.',
+          ressources: [
+            { nom: 'dataset_agronomique_sahelia.csv (72 parcelles)', url: 'datasets/dataset_agronomique_sahelia.csv' }
+          ]
+        },
+        'mn-01_2': {
+          titre: 'Défi 02 · Références absolues et calcul de charges',
+          consigne: 'Vous devez multiplier une colonne de quantités d’engrais par le prix unitaire fixé en cellule $D$2. La formule doit être recopiée sur 72 lignes d’essais sans dérive.',
+          question: 'Quelle référence absolue garantit que la cellule D2 reste strictement figée en ligne et en colonne lors du glisser-déposer ?',
+          options: [
+            'D$2 (référence absolue sur la ligne uniquement)',
+            '$D$2 (référence absolue intégrale colonne et ligne)',
+            'D2$ (syntaxe non reconnue)',
+            '&D&2 (opérateur de concaténation)'
+          ],
+          bonneReponse: 1,
+          explication: 'Le double dollar ($D$2) fige à la fois la colonne et la ligne. C’est la référence absolue universelle indispensable pour appliquer un taux unique ou un prix pivot.',
+          ressources: [
+            { nom: 'dataset_agronomique_sahelia.csv', url: 'datasets/dataset_agronomique_sahelia.csv' }
+          ]
+        },
+        'mn-01_6': {
+          titre: 'Défi 06 · Nettoyage et curation de données d’enquêtes',
+          consigne: 'Téléchargez le fichier brut d’enquêtes de terrain contenant des doublons, des coquilles et des espaces parasites. Identifiez la fonction standard de nettoyage textuel.',
+          question: 'Quelle fonction Excel permet d’éliminer instantanément les espaces superflus au début, à la fin et les doubles espaces internes dans les noms de producteurs ou de communes ?',
+          options: [
+            '=EPURAGE(texte)',
+            '=SUPPRESPACE(texte)',
+            '=NETTOYER_ESPACES(texte)',
+            '=FORMAT.TEXTE(texte; "sans_espace")'
+          ],
+          bonneReponse: 1,
+          explication: 'La fonction =SUPPRESPACE(texte) (TRIM en anglais) élimine les espaces parasites générés lors des imports d’enquêtes mobiles Kobo ou ODK avant d’exécuter des jointures ou des TCD.',
+          ressources: [
+            { nom: 'dataset_brut_a_nettoyer_sahelia.csv (Données brutes)', url: 'datasets/dataset_brut_a_nettoyer_sahelia.csv' }
+          ]
+        },
+        'mn-01_9': {
+          titre: 'Défi 09 · Analyse de rentabilité agronomique',
+          consigne: 'À partir des coûts totaux et des recettes calculées par culture (Maïs, Soja, Sorgho), déterminez la relation comptable de la Marge Brute.',
+          question: 'Comment se calcule précisément la Marge Brute d’une parcelle agricole par hectare ?',
+          options: [
+            'Marge Brute = Chiffre d’Affaires Total - Charges Opérationnelles Variables',
+            'Marge Brute = Chiffre d’Affaires Total + Amortissement du matériel',
+            'Marge Brute = Coût des Semences / Rendement Total',
+            'Marge Brute = Bénéfice Net avant impôt'
+          ],
+          bonneReponse: 0,
+          explication: 'La Marge Brute agricole isole la performance intrinsèque de l’itinéraire technique en soustrayant uniquement les charges directement liées à la culture (semences, engrais, main-d’œuvre).',
+          ressources: [
+            { nom: 'dataset_agronomique_sahelia.csv', url: 'datasets/dataset_agronomique_sahelia.csv' }
+          ]
+        },
+
+        // --- MANUEL 06 : SIG & CARTOGRAPHIE AGRICOLE ---
+        'mn-06_1': {
+          titre: 'Défi 01 · Géodésie et projection UTM au Bénin',
+          consigne: 'Téléchargez le jeu de polygones d’essais agricoles du Borgou. Vous devez configurer votre projet QGIS pour des calculs de surfaces en mètres et hectares.',
+          question: 'Dans quel fuseau de projection métrique UTM officiel se situe la grande majorité du Bénin (notamment Parakou, Cotonou et Bohicon) ?',
+          options: [
+            'WGS 84 / UTM Zone 31N (EPSG:32631)',
+            'WGS 84 / UTM Zone 32N (EPSG:32632)',
+            'Lambert-93 (EPSG:2154)',
+            'RGF93 / CC49 (EPSG:3949)'
+          ],
+          bonneReponse: 0,
+          explication: 'Le Bénin s’étend entre 1° et 3°45’ Est, ce qui place l’essentiel de son territoire dans le fuseau 31 Nord (EPSG:32631). Seule la frange orientale (Nikki, Kalalé) bascule en 32N.',
+          ressources: [
+            { nom: 'parcelles_agricoles_borgou.geojson (Polygones)', url: 'datasets/parcelles_agricoles_borgou.geojson' }
+          ]
+        },
+        'mn-06_2': {
+          titre: 'Défi 02 · Formats de données spatiales ouvertes',
+          consigne: 'Examinez la structure du fichier spatial fourni et identifiez les formats modernes recommandés pour éviter les limites historiques du Shapefile (noms de champs limités à 10 caractères).',
+          question: 'Quels formats vectoriels modernes et ouverts remplacent avantageusement le vieux format ESRI Shapefile pour les parcellaires agricoles ?',
+          options: [
+            'GeoPackage (.gpkg) et GeoJSON (.geojson)',
+            'Fichier texte délimité (.csv) sans géométrie',
+            'Image matricielle TIFF non géoréférencée',
+            'Document PDF interactif'
+          ],
+          bonneReponse: 0,
+          explication: 'L’OGC préconise le standard ouvert OGC GeoPackage (.gpkg) basé sur SQLite et le GeoJSON (.geojson) qui supportent l’encodage UTF-8 universel et suppriment les limites de champs.',
+          ressources: [
+            { nom: 'parcelles_agricoles_borgou.geojson', url: 'datasets/parcelles_agricoles_borgou.geojson' }
+          ]
+        },
+        'mn-06_3': {
+          titre: 'Défi 03 · Calculateur de superficies parcellaires dans QGIS',
+          consigne: 'Dans la table d’attributs sous QGIS, vous devez calculer la superficie exacte en hectares de chaque polygone numérisé.',
+          question: 'Quelle expression de la calculatrice de champ QGIS renvoie la superficie en hectares pour une couche projetée en UTM (EPSG:32631) ?',
+          options: [
+            '$area / 10000',
+            '$area * 100',
+            '$perimeter / 4',
+            '$length / 1000'
+          ],
+          bonneReponse: 0,
+          explication: 'Dans un CRS projeté en mètres, $area renvoie la surface en m². Un hectare valant 10 000 m², la division par 10 000 ($area / 10000) donne directement le résultat en hectares.',
+          ressources: [
+            { nom: 'parcelles_agricoles_borgou.geojson', url: 'datasets/parcelles_agricoles_borgou.geojson' }
+          ]
+        },
+
+        // --- MANUEL 07 : COLLECTE MOBILE KOBOTOOLBOX ---
+        'mn-07_1': {
+          titre: 'Défi 01 · Spécification XLSForm pour relevé GNSS',
+          consigne: 'Téléchargez la trame XLSForm ci-dessous. Vous préparez un formulaire pour les enquêteurs chargés de géolocaliser les parcelles paysannes.',
+          question: 'Dans la feuille "survey" d’un questionnaire XLSForm, quel type de question permet d’enregistrer automatiquement la position GPS (latitude, longitude, altitude et précision) ?',
+          options: [
+            'geopoint',
+            'geotrace',
+            'coord_gps',
+            'location_sensor'
+          ],
+          bonneReponse: 0,
+          explication: 'Le mot-clé standard XLSForm "geopoint" déclenche le récepteur GNSS du smartphone ou de la tablette dans KoboCollect pour enregistrer les 4 attributs spatiaux.',
+          ressources: [
+            { nom: 'modele_enquete_agricole_kobo.csv (Trame XLSForm)', url: 'datasets/modele_enquete_agricole_kobo.csv' }
+          ]
+        },
+        'mn-07_2': {
+          titre: 'Défi 02 · Architecture d’un classeur XLSForm',
+          consigne: 'Vous concevez un fichier Excel d’enquête pour KoboToolbox. Identifiez les feuilles obligatoires nécessaires à son déploiement.',
+          question: 'Quelles sont les feuilles de calcul obligatoires que doit contenir un classeur Excel pour être importé avec succès sous KoboToolbox / ODK ?',
+          options: [
+            'survey et choices (la feuille settings étant facultative)',
+            'questions, reponses et variables',
+            'formulaire et dictionnaire_donnees',
+            'data et metadata'
+          ],
+          bonneReponse: 0,
+          explication: 'La norme universelle XLSForm exige au minimum la feuille "survey" (définition des questions) et "choices" (listes de choix déroulants), complétées souvent par "settings".',
+          ressources: [
+            { nom: 'modele_enquete_agricole_kobo.csv', url: 'datasets/modele_enquete_agricole_kobo.csv' }
+          ]
+        },
+
+        // --- MANUEL 08 : AGRONOMIE DE PRÉCISION ---
+        'mn-08_1': {
+          titre: 'Défi 01 · Télédétection multispectrale & Indice NDVI',
+          consigne: 'Pour évaluer la vigueur foliaire des cultures de maïs et de soja à partir d’images Sentinel-2 ou drone multispectral, vous calculez le NDVI.',
+          question: 'Quelle formule mathématique exprime l’Indice de Végétation par Différence Normalisée (NDVI) à partir des réflectances Rouge (R) et Proche Infrarouge (PIR) ?',
+          options: [
+            '(PIR - R) / (PIR + R)',
+            '(R - PIR) / (R + PIR)',
+            'PIR / (R + 1)',
+            '(PIR + R) / 2'
+          ],
+          bonneReponse: 0,
+          explication: 'La chlorophylle absorbe la lumière rouge pour la photosynthèse et les structures cellulaires mésophylliennes réfléchissent fortement le proche infrarouge. La normalisation produit un indice compris entre -1 et +1.',
+          ressources: [
+            { nom: 'dataset_agronomique_sahelia.csv', url: 'datasets/dataset_agronomique_sahelia.csv' }
+          ]
+        },
+
+        // --- MANUEL 12 : CRÉATION VIDÉO IA & STORYTELLING ---
+        'mn-12_1': {
+          titre: 'Défi 01 · Structure narrative de vulgarisation technique',
+          consigne: 'Vous rédigez le script d’une capsule vidéo courte destinée à former les producteurs du Borgou à l’utilisation raisonnée des engrais.',
+          question: 'Quelle structure narrative maximise l’attention et la rétention d’un public professionnel en format court (30 à 90 secondes) ?',
+          options: [
+            'Accroche terrain (Hook 0-3s) → Constat du problème → Solution pratique démontrée → Appel à l’action (CTA)',
+            'Générique musical de 30 secondes → Contexte théorique exhaustif → Bibliographie académique',
+            'Monologue sans illustration visuelle ni sous-titrage',
+            'Succession de logos institutionnels sans message clé'
+          ],
+          bonneReponse: 0,
+          explication: 'La structure narrative Hook-Problem-Solution-CTA capte l’attention dans les 3 premières secondes et garantit que le savoir agronomique est mémorisé et appliqué sur le terrain.'
+        }
+      };
+
+      // Si le défi est expressément défini dans la banque, le retourner
+      if (banque[cleCoursChap]) return banque[cleCoursChap];
+      if (banque[cleIndex]) return banque[cleIndex];
+
+      // Générateur contextuel procédural pour les autres chapitres
+      return this._genererDefiGenerique(cours, chapitre, index);
+    },
+
+    _genererDefiGenerique(cours, chapitre, index) {
+      const num = index + 1;
+      return {
+        titre: `Défi ${num < 10 ? '0' + num : num} · Validation Opérationnelle : ${chapitre.titre}`,
+        consigne: `Mettez en pratique les concepts clés présentés dans le chapitre "${chapitre.titre}". Répondez à la question méthodologique suivante pour certifier vos compétences et débloquer vos 150 XP.`,
+        question: `Dans le cadre de l’application rigoureuse des standards TEAM Sahélia pour "${chapitre.titre}", quelle démarche garantit la fiabilité et la reproductibilité des résultats sur le terrain ?`,
+        options: [
+          'Appliquer un protocole standardisé, vérifier la cohérence des données sources et documenter les étapes techniques.',
+          'Ignorer les valeurs aberrantes sans vérification et procéder par estimation intuitive.',
+          'Conserver des données non archivées sur un support temporaire sans sauvegarde de sécurité.'
+        ],
+        bonneReponse: 0,
+        explication: 'L’excellence opérationnelle repose sur la standardisation des protocoles, le contrôle qualité systématique et la traçabilité des données scientifiques et agronomiques.',
+        ressources: [
+          { nom: 'dataset_agronomique_sahelia.csv (Ressource d’entraînement)', url: 'datasets/dataset_agronomique_sahelia.csv' }
+        ]
+      };
+    },
+
+    _configurerDefiInteractif(cours, chapitreSelectionne) {
+      if (!chapitreSelectionne) return;
+      const index = (cours.chapitres || []).findIndex(ch => ch.id === chapitreSelectionne.id);
+      const defi = this._obtenirDefiPourChapitre(cours, chapitreSelectionne, index);
+      this._defiActif = defi;
+
+      const defiTitre = document.getElementById('defi-titre');
+      const defiDesc = document.getElementById('defi-description');
+      const resContainer = document.getElementById('defi-ressources');
+      const qTexte = document.getElementById('defi-question-texte');
+      const optContainer = document.getElementById('defi-options-container');
+      const btnDefi = document.getElementById('btn-valider-defi');
+      const feedback = document.getElementById('defi-statut-feedback');
+
+      if (defiTitre) defiTitre.textContent = defi.titre;
+      if (defiDesc) defiDesc.textContent = defi.consigne;
+
+      if (resContainer) {
+        if (defi.ressources && defi.ressources.length > 0) {
+          resContainer.style.display = 'flex';
+          resContainer.innerHTML = defi.ressources.map(r => `
+            <a href="${r.url}" download class="defi-dl-btn">
+              <span>📥</span> ${echapperHtml(r.nom)}
+            </a>
+          `).join('');
+        } else {
+          resContainer.style.display = 'none';
+          resContainer.innerHTML = '';
+        }
+      }
+
+      if (qTexte) qTexte.textContent = defi.question;
+
+      let estValide = false;
+      const cle = `sahelia_prog_${cours.id}_${chapitreSelectionne.id}`;
+      try {
+        estValide = localStorage.getItem(cle) === 'valide';
+      } catch (e) {}
+
+      if (optContainer) {
+        optContainer.innerHTML = '';
+        defi.options.forEach((opt, idx) => {
+          const item = document.createElement('label');
+          item.className = 'defi-option-item' + (estValide && idx === defi.bonneReponse ? ' selected' : '');
+          item.innerHTML = `
+            <input type="radio" name="sahelia-defi-opt" value="${idx}" class="defi-option-radio" ${estValide ? (idx === defi.bonneReponse ? 'checked' : 'disabled') : ''}>
+            <span class="defi-option-text">${echapperHtml(opt)}</span>
+          `;
+          item.addEventListener('click', () => {
+            if (estValide) return;
+            optContainer.querySelectorAll('.defi-option-item').forEach(el => el.classList.remove('selected'));
+            item.classList.add('selected');
+            const radio = item.querySelector('input');
+            if (radio) radio.checked = true;
+          });
+          optContainer.appendChild(item);
+        });
+
+        if (estValide && defi.explication) {
+          const expBox = document.createElement('div');
+          expBox.className = 'defi-explication-box';
+          expBox.innerHTML = `<strong>💡 Synthèse Pédagogique :</strong> ${echapperHtml(defi.explication)}`;
+          optContainer.appendChild(expBox);
+        }
+      }
+
+      if (btnDefi) {
+        if (estValide) {
+          btnDefi.textContent = '✓ Défi Validé avec Succès (+150 XP)';
+          btnDefi.classList.add('v-btn--fantome');
+          btnDefi.classList.remove('v-btn--vert');
+          btnDefi.disabled = true;
+          if (feedback) {
+            feedback.className = 'defi-feedback-texte succes';
+            feedback.innerHTML = '✓ Acquis validé et enregistré sur ce poste.';
+          }
+        } else {
+          btnDefi.textContent = '✓ Soumettre & Valider ce Défi (+150 XP)';
+          btnDefi.classList.remove('v-btn--fantome');
+          btnDefi.classList.add('v-btn--vert');
+          btnDefi.disabled = false;
+          if (feedback) {
+            feedback.className = 'defi-feedback-texte';
+            feedback.textContent = '';
+          }
+        }
+      }
+    },
+
+    _validerReponseDefi() {
+      if (!this.coursActif || !this.chapitreActif || !this._defiActif) return;
+      const cle = `sahelia_prog_${this.coursActif.id}_${this.chapitreActif.id}`;
+      const feedback = document.getElementById('defi-statut-feedback');
+      const btnDefi = document.getElementById('btn-valider-defi');
+
+      const radioChecked = document.querySelector('input[name="sahelia-defi-opt"]:checked');
+      if (!radioChecked) {
+        if (feedback) {
+          feedback.className = 'defi-feedback-texte erreur';
+          feedback.textContent = '⚠️ Veuillez sélectionner une réponse avant de valider votre défi.';
+        }
+        return;
+      }
+
+      const repUtilisateur = parseInt(radioChecked.value, 10);
+      if (repUtilisateur === this._defiActif.bonneReponse) {
+        try {
+          localStorage.setItem(cle, 'valide');
+        } catch (e) {}
+
+        if (feedback) {
+          feedback.className = 'defi-feedback-texte succes';
+          feedback.innerHTML = '🎉 <strong>Excellent !</strong> Défi validé avec succès (+150 XP). Vos acquis sont enregistrés.';
+        }
+
+        if (btnDefi) {
+          btnDefi.textContent = '✓ Défi Validé avec Succès (+150 XP)';
+          btnDefi.classList.add('v-btn--fantome');
+          btnDefi.classList.remove('v-btn--vert');
+          btnDefi.disabled = true;
+        }
+
+        const optContainer = document.getElementById('defi-options-container');
+        if (optContainer && this._defiActif.explication && !optContainer.querySelector('.defi-explication-box')) {
+          const expBox = document.createElement('div');
+          expBox.className = 'defi-explication-box';
+          expBox.innerHTML = `<strong>💡 Analyse Pédagogique :</strong> ${echapperHtml(this._defiActif.explication)}`;
+          optContainer.appendChild(expBox);
+        }
+
+        this._mettreAJourProgressionEtBadges(this.coursActif);
+        this._rendreSidebarChapitres(this.coursActif, this.chapitreActif);
+      } else {
+        if (feedback) {
+          feedback.className = 'defi-feedback-texte erreur';
+          feedback.innerHTML = '❌ <strong>Réponse incorrecte.</strong> Analysez bien le cours et réessayez pour mériter votre badge !';
+        }
+      }
+    },
+
     afficherErreur(message) {
       const zone = document.getElementById('zone-lecture-principale');
       if (zone) {
@@ -1226,5 +1453,12 @@
   // Démarrage automatique au chargement du DOM
   document.addEventListener('DOMContentLoaded', () => {
     Lecteur.init().catch(console.error);
+
+    // Enregistrement PWA Service Worker (Mode Hors-Ligne)
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      navigator.serviceWorker.register('sw.js').catch((err) => {
+        console.warn('PWA hors-ligne formation :', err);
+      });
+    }
   });
 })();

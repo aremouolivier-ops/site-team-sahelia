@@ -6,6 +6,7 @@
   <title>Espace de Formation & Bibliothèque Pédagogique · TEAM Sahélia</title>
   <meta name="description" content="Plateforme officielle de lecture et d'apprentissage de TEAM Sahélia : manuels d'agronomie, cartographie QGIS, bureautique professionnelle et Vibe Coding IA.">
   <link rel="icon" type="image/svg+xml" href="assets/logo-sahelia.svg">
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#08130f">
 
   <!-- Polices et Styles Officiels -->
@@ -40,7 +41,7 @@
             <option value="guide-04">04 · Collecte Numérique Terrain KoboToolbox</option>
             <option value="guide-05">05 · Création Visuelle & Affiches Pro</option>
           </optgroup>
-          <optgroup label="🔒 Les 12 Manuels Stratégiques (Membres & Formations)">
+          <optgroup label="📖 Les 12 Manuels Stratégiques (Accès 100% Libre &amp; Gratuit)">
             <option value="mn-01">Manuel 01 · Excel Pro Étudiants & Professionnels (Complet)</option>
             <option value="mn-02">Manuel 02 · Word & PowerPoint Pro (Mémoires)</option>
             <option value="mn-03">Manuel 03 · 50 Astuces & Raccourcis PC</option>
@@ -68,6 +69,9 @@
         <button type="button" id="btn-partager-lien-cours" class="btn-outil-lecture" title="Copier le lien direct unique de ce cours pour le partager">
           🔗 Partager
         </button>
+        <a href="outils.html" class="btn-outil-lecture" style="text-decoration: none; display: inline-flex; align-items: center;" title="Ouvrir la boîte à outils agronomiques et calculateurs">
+          🛠️ Outils
+        </a>
         <a href="documentation.html" target="_blank" rel="noopener noreferrer" class="btn-outil-lecture" style="text-decoration: none; display: inline-flex; align-items: center;" title="Consulter la documentation officielle de la plateforme">
           📘 Guide
         </a>
@@ -184,7 +188,7 @@
               <div class="hero-kicker-ligne">
                 <span id="cours-badge-pole" class="badge-pole-cours"></span>
                 <span class="hero-station-tag">📍 Centre d’Excellence TEAM Sahélia · République du Bénin</span>
-                <span class="hero-qualite-tag">✓ Conforme Normes CAMES & FAO</span>
+                <span class="hero-qualite-tag">✓ Aligné sur les standards méthodologiques CAMES & FAO</span>
               </div>
               <h1 id="cours-titre-principal" class="titre-cours-h1"></h1>
               <p id="cours-soustitre" class="soustitre-cours-p"></p>
@@ -224,9 +228,21 @@
           </div>
           <h3 id="defi-titre" class="defi-sandbox-titre">Application Pratique Immédiate</h3>
           <p id="defi-description" class="defi-sandbox-texte">Téléchargez les ressources associées, réalisez les manipulations demandées et validez vos compétences pour progresser vers l'attribution de votre badge officiel.</p>
+          
+          <!-- Évaluateur Interactif / Auto-Grader Pédagogique -->
+          <div id="defi-evaluateur" class="defi-evaluateur-box">
+            <div id="defi-ressources" class="defi-ressources-bar" style="display:none;"></div>
+            <div class="defi-question-card">
+              <div id="defi-question-texte" class="defi-question-libelle">Chargement du défi terrain...</div>
+              <div id="defi-options-container" class="defi-options-container">
+                <!-- Rempli dynamiquement par lecteur-formation.js -->
+              </div>
+            </div>
+          </div>
+
           <div class="defi-sandbox-actions">
             <button type="button" id="btn-valider-defi" class="v-btn v-btn--vert">
-              ✓ Valider ce chapitre & Débloquer la suite
+              ✓ Soumettre & Valider ce Défi (+150 XP)
             </button>
             <span id="defi-statut-feedback" class="defi-feedback-texte"></span>
           </div>

@@ -1,0 +1,22 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/projet-solution.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Créateur de Solution Numérique de Terrain",
+  "description": "Développement et mise en production d'une solution numérique concrète résolvant un problème d'ingénierie agronomique, géomatique ou communautaire.",
+  "achievementType": "Certificate",
+  "criteria": {
+    "narrative": "1. Diagnostic terrain et identification d'un besoin critique non couvert ; 2. Développement autonome d'un outil fonctionnel testé en conditions réelles ; 3. Déploiement auprès d'utilisateurs pilotes avec mesure d'impact documentée ; 4. Soutenance devant le comité technique et publication en accès libre."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "projet-solution",
+  "famille": "projet",
+  "level": "N3 · Maîtrise Avancée",
+  "shape": "octogone",
+  "accentColor": "#c084fc"
+}

@@ -185,32 +185,13 @@
         return { autorise: false, raison: 'Cours inexistant dans le catalogue' };
       }
 
-      // Règle 1 : Les 5 mini-guides sont 100% libres et ouverts à tous
-      if (cours.libre === true) {
-        return {
-          autorise: true,
-          mode: 'libre',
-          cours: cours
-        };
-      }
-
-      // Règle 2 : Les manuels stratégiques nécessitent une session active valide
+      // MODE ACCÈS 100% LIBRE : Tous les manuels et guides sont ouverts à tous sans restriction
       const session = this.obtenirSessionValide();
-      if (session) {
-        return {
-          autorise: true,
-          mode: 'protege_autorise',
-          cours: cours,
-          session: session
-        };
-      }
-
-      // Non authentifié ou session expirée
       return {
-        autorise: false,
-        mode: 'verrouille',
+        autorise: true,
+        mode: 'libre',
         cours: cours,
-        raison: 'Ce manuel stratégique nécessite la validation de votre badge TEAM Sahélia et du code d’accès de la fondation.'
+        session: session
       };
     },
 

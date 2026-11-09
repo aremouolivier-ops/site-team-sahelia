@@ -1,0 +1,22 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/kobo-collecte.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Collecte Mobile & Numérisation Terrain (KoboToolbox)",
+  "description": "Conception de formulaires d'enquête XLSForm complexes, déploiement sur flotte de smartphones, relevés GPS hors-ligne et synchronisation cloud sécurisée.",
+  "achievementType": "Certificate",
+  "criteria": {
+    "narrative": "1. Conception d'un formulaire XLSForm avec sauts logiques conditionnels et validation regex ; 2. Configuration des géopoints obligatoires et saisie hors-ligne sous KoboCollect ; 3. Déploiement mobile et supervision qualité des données sans doublon ni perte ; 4. Exportation propre pour croisement statistique et cartographique."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "kobo-collecte",
+  "famille": "competence",
+  "level": "N2 · Pratique Validée",
+  "shape": "pentagone",
+  "accentColor": "#10b981"
+}

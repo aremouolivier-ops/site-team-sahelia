@@ -10,3 +10,11 @@ assets/apercu_3_types_badges.png
 # Clés cryptographiques privées d'émission (Strictement confidentiel)
 scripts/cles/
 scratch/
+
+# Manuels sources protégés (chiffrés en mémoire vive dans js/formation-contenu.js)
+# Les schémas SVG et datasets CSV restent suivis dans Git
+manuels/**/*.md
+
+# Documents de travail et audits internes
+AUDIT_GENERAL_360_ET_PLAN_DIRECTEUR_SAHELIA.md
+

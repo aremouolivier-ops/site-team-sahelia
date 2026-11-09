@@ -1,0 +1,22 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/data-agronomie.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Analyste de Données Agronomiques (Excel & R)",
+  "description": "Maîtrise du nettoyage de données d'essais agronomiques, calculs statistiques avancés (ANOVA, Tukey HSD, régressions), tableaux croisés dynamiques et graphiques publiables.",
+  "achievementType": "Certificate",
+  "criteria": {
+    "narrative": "1. Nettoyage et structuration d'un dataset agronomique brut selon les normes scientifiques ; 2. Calculs statistiques descriptifs et Tableaux Croisés Dynamiques (TCD) ; 3. Analyse de variance (ANOVA) et tests post-hoc de Tukey sous RStudio ; 4. Production de graphiques scientifiques conformes aux normes académiques."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "data-agronomie",
+  "famille": "competence",
+  "level": "N2 · Pratique Validée",
+  "shape": "hexagone",
+  "accentColor": "#38bdf8"
+}

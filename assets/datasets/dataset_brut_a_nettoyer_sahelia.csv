@@ -1,0 +1,20 @@
+ID_Enquete;Date_Collecte;Agent_Enqueteur;Commune;Producteur;Superficie;Rendement_kg;Statut_Paiement
+ENQ-001;2026-01-12;Sabi Bio;Parakou;BIO Gounou;2.5;3200;Paye
+ENQ-002;2026-01-12;Sabi Bio; Parakou ;ADAMOU Rachidatou;1.8;1650;Paye
+ENQ-003;12/01/2026;MAMA Sanni;N'Dali;CHABI Orou;3,0;3800;Non paye
+ENQ-004;2026-01-13;Sabi Bio;Tchaourou;BIAOU Sabi;4.2;19500;Paye
+ENQ-005;2026-01-13;Sabi Bio;Parakou;SIDI Alassane;1.5;1200;Paye
+ENQ-003;12/01/2026;MAMA Sanni;N'Dali;CHABI Orou;3,0;3800;Non paye
+ENQ-006;2026-01-14;MAMA Sanni;Bemberèkè;WOROU Issa;2.0;2900;Paye
+ENQ-007;2026-01-14;MAMA Sanni;N'Dali ;KORA Mariam;2.2;1780;Paye
+ENQ-008;2026-01-15;Sabi Bio;Tchaourou;BONI Gado;1,5;2600;Non paye
+ENQ-009;2026-01-15;MAMA Sanni;Bembèrèkè;SEIDOU Bake;3.5;1850;Paye
+ENQ-010;2026-01-16;Sabi Bio;Parakou;TAMA Orou Seko;2.8;-450;Paye
+ENQ-011;2026-01-16;MAMA Sanni;N'Dali;BIO TAMOU Paul;1.2;1150;Paye
+ENQ-012;2026-01-17;Sabi Bio;Tchaourou ;YAROU Fatou;2.0;1720;Paye
+ENQ-013;2026-01-17;MAMA Sanni;Bembèrèkè;GOUNOU Alidou;3.2;4100;Paye
+ENQ-001;2026-01-12;Sabi Bio;Parakou;BIO Gounou;2.5;3200;Paye
+ENQ-014;2026-01-18;Sabi Bio;Parakou;DJIBRIL Nassirou;2,5;1900;Non paye
+ENQ-015;2026-01-18;MAMA Sanni;N'Dali;MAMA Aïcha;1.8;2750;Paye
+ENQ-016;2026-01-19;Sabi Bio;Tchaourou;SABI Bio;3.0;1850;Paye
+ENQ-017;2026-01-19;MAMA Sanni;Bembèrèkè;ALASSANE Ousmane;2.4;3300;Paye

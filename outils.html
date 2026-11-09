@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boîte à Outils Terrain & Calculateurs Agricoles · TEAM Sahélia</title>
+  <meta name="description" content="Calculateurs d'agronomie de précision, conversion GPS WGS84 vers UTM 31N/32N Bénin, densité de semis, fertilisation NPK/Urée, échantillonnage d'enquête et photogrammétrie drone.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-sahelia.svg">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#08130f">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .page-outils {
+      background: radial-gradient(circle at 50% 0%, rgba(23, 112, 74, 0.22), transparent 50%), #08130f;
+      color: var(--texte);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .outils-hero {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      max-width: 840px;
+      margin: 0 auto;
+    }
+    .outils-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .outils-tab-btn {
+      padding: 0.75rem 1.25rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      border-radius: 10px;
+      border: 1px solid var(--bordure);
+      background: var(--surface);
+      color: var(--texte-2);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .outils-tab-btn:hover {
+      background: rgba(95, 208, 160, 0.12);
+      border-color: rgba(95, 208, 160, 0.3);
+      color: #ffffff;
+    }
+    .outils-tab-btn.actif {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+      color: #10b981;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+    }
+    .outil-section {
+      display: none;
+      animation: fonduOutil 0.3s ease;
+    }
+    .outil-section.actif {
+      display: block;
+    }
+    @keyframes fonduOutil {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .carte-outil {
+      background: var(--surface);
+      border: 1px solid var(--bordure);
+      border-radius: 18px;
+      padding: clamp(1.5rem, 3.5vw, 2.5rem);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      max-width: 900px;
+      margin: 0 auto 3rem;
+    }
+    .outil-grille-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+    .champ-groupe {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .champ-groupe label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--texte-2);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .champ-groupe input, .champ-groupe select {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--bordure);
+      color: #ffffff;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: var(--police-corps);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .champ-groupe input:focus, .champ-groupe select:focus {
+      border-color: #10b981;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+    }
+    .resultat-boite {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .resultat-titre {
+      font-size: 0.85rem;
+      font-family: var(--police-mono);
+      text-transform: uppercase;
+      color: #10b981;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .resultats-grille {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem;
+    }
+    .metrique-kpi {
+      background: rgba(0,0,0,0.3);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .metrique-valeur {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      font-family: var(--police-mono);
+      margin-bottom: 0.25rem;
+    }
+    .metrique-label {
+      font-size: 0.76rem;
+      color: var(--texte-3);
+      text-transform: uppercase;
+    }
+    .notice-methode {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: rgba(255,255,255,0.02);
+      border-left: 3px solid #f59e0b;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.84rem;
+      color: var(--texte-2);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body class="page-outils">
+
+  <!-- ========================================================================= -->
+  <!-- EN-TÊTE DU SITE                                                           -->
+  <!-- ========================================================================= -->
+  <header class="site-entete">
+    <div class="enveloppe site-entete-rang">
+      <a href="index.html" class="logo-lien" style="display: flex; align-items: center; gap: 0.75rem;">
+        <img src="assets/logo-sahelia.svg" alt="TEAM Sahélia" style="height: 38px; width: auto;">
+      </a>
+
+      <nav class="site-nav" aria-label="Navigation principale">
+        <a href="index.html">Accueil Vitrine</a>
+        <a href="formation.html">📚 Espace Formation</a>
+        <a href="outils.html" style="color: var(--marque);">🛠️ Boîte à Outils</a>
+        <a href="verifier.html">🛡️ Vérificateur</a>
+        <a href="index.html#badges">🪪 Studio Badges</a>
+      </nav>
+
+      <div class="site-entete-actions">
+        <a href="formation.html" class="v-btn v-btn--vert" style="min-height: 36px; padding: 0 0.9rem; font-size: 0.8rem;">
+          Accéder aux Cours
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- HERO BANNER OUTILS                                                        -->
+  <!-- ========================================================================= -->
+  <main class="enveloppe" style="flex: 1;">
+    <div class="outils-hero">
+      <span class="etiquette etiquette--vert" style="margin-bottom: 0.6rem;">SAHELIA FIELD TOOLKIT · 100% HORS-LIGNE</span>
+      <h1 style="font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; margin-bottom: 0.75rem;">
+        Boîte à Outils Terrain pour l’Agronome du Sahel
+      </h1>
+      <p style="color: var(--texte-2); font-size: 1rem; line-height: 1.6;">
+        Calculateurs opérationnels conçus pour les parcelles du Bénin et de la sous-région sahélienne. Fonctionnent intégralement sans connexion Internet sur vos ordinateurs, smartphones et tablettes de terrain.
+      </p>
+    </div>
+
+    <!-- Sélecteur d'Outils (Onglets) -->
+    <div class="outils-tabs" role="tablist">
+      <button type="button" class="outils-tab-btn actif" data-cible="outil-gps">
+        📍 1. GPS, UTM &amp; Superficies
+      </button>
+      <button type="button" class="outils-tab-btn" data-cible="outil-semis">
+        🌱 2. Semis &amp; Doses d’Engrais
+      </button>
+      <button type="button" class="outils-tab-btn" data-cible="outil-echantillon">
+        📊 3. Échantillonnage d’Enquête
+      </button>
+      <button type="button" class="outils-tab-btn" data-cible="outil-drone">
+        🚁 4. Drone &amp; Photogrammétrie
+      </button>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- OUTIL 1 : GPS, UTM & SUPERFICIES                                        -->
+    <!-- ======================================================================= -->
+    <section id="outil-gps" class="outil-section actif">
+      <div class="carte-outil">
+        <div style="margin-bottom: 1.5rem;">
+          <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 0.35rem;">
+            Convertisseur de Coordonnées &amp; Calculateur de Superficie Parcellaire
+          </h2>
+          <p style="font-size: 0.88rem; color: var(--texte-2);">
+            Détermine automatiquement le fuseau officiel béninois (<strong>UTM Zone 31N · EPSG:32631</strong> ou <strong>UTM Zone 32N · EPSG:32632</strong>) et calcule la surface exacte de votre polygone en hectares.
+          </p>
+        </div>
+
+        <!-- Préréglage rapide par commune -->
+        <div class="champ-groupe" style="margin-bottom: 1.5rem;">
+          <label for="select-commune-benin">Pré-remplir avec une commune du Bénin :</label>
+          <select id="select-commune-benin">
+            <option value="">-- Choisir une commune pour centrer les coordonnées --</option>
+            <option value="9.3372,2.6303,31">Parakou (Borgou - UTM 31N)</option>
+            <option value="6.3703,2.4183,31">Cotonou (Littoral - UTM 31N)</option>
+            <option value="6.4969,2.6289,31">Porto-Novo (Ouémé - UTM 31N)</option>
+            <option value="7.1783,2.0667,31">Bohicon / Abomey (Zou - UTM 31N)</option>
+            <option value="10.3042,1.3796,31">Natitingou (Atacora - UTM 31N)</option>
+            <option value="9.7085,1.6660,31">Djougou (Donga - UTM 31N)</option>
+            <option value="9.8600,2.7167,31">N’Dali (Borgou - UTM 31N)</option>
+            <option value="9.9400,3.2108,32">Nikki (Borgou Est - UTM 32N)</option>
+            <option value="10.2833,3.3833,32">Kalalé (Borgou Est - UTM 32N)</option>
+            <option value="11.1342,2.9383,31">Kandi (Alibori - UTM 31N)</option>
+            <option value="11.8333,3.2500,32">Malanville / Niger (Alibori - UTM 32N)</option>
+          </select>
+        </div>
+
+        <div class="outil-grille-inputs">
+          <div class="champ-groupe">
+            <label for="gps-lat">Latitude (Degrés Décimaux) :</label>
+            <input type="number" id="gps-lat" step="0.000001" value="9.337200" placeholder="Ex: 9.337200">
+          </div>
+          <div class="champ-groupe">
+            <label for="gps-lon">Longitude (Degrés Décimaux) :</label>
+            <input type="number" id="gps-lon" step="0.000001" value="2.630300" placeholder="Ex: 2.630300">
+          </div>
+        </div>
+
+        <!-- Sommets de polygone pour calcul de surface -->
+        <div class="champ-groupe" style="margin-bottom: 1.5rem;">
+          <label for="gps-polygone-coords">Sommets du polygone (Lat, Lon par ligne pour calcul de superficie) :</label>
+          <textarea id="gps-polygone-coords" rows="4" style="background: rgba(0,0,0,0.4); border: 1px solid var(--bordure); color: #fff; padding: 0.75rem; border-radius: 8px; font-family: var(--police-mono); font-size: 0.85rem; width: 100%;" placeholder="9.3372, 2.6303&#10;9.3385, 2.6303&#10;9.3385, 2.6320&#10;9.3372, 2.6320">9.337200, 2.630300
+9.338500, 2.630300
+9.338500, 2.632000
+9.337200, 2.632000</textarea>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <button type="button" id="btn-calculer-gps" class="v-btn v-btn--vert" style="min-height: 42px;">
+            ⚡ Calculer la Projection &amp; la Superficie
+          </button>
+          <button type="button" id="btn-exporter-geojson" class="v-btn v-btn--fantome" style="min-height: 42px;">
+            📥 Télécharger en GeoJSON (QGIS)
+          </button>
+        </div>
+
+        <div class="resultat-boite">
+          <div class="resultat-titre">
+            <span>✓</span> Résultats de la Projection Géodésique &amp; Mesure
+          </div>
+          <div class="resultats-grille">
+            <div class="metrique-kpi">
+              <div id="res-utm-zone" class="metrique-valeur" style="color: #60a5fa;">UTM 31N</div>
+              <div class="metrique-label">Système EPSG Recommandé</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-utm-coord" class="metrique-valeur" style="font-size: 1.15rem;">E: 459 382 | N: 1 032 411</div>
+              <div class="metrique-label">Coordonnées Métriques (m)</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-superficie-ha" class="metrique-valeur" style="color: #4ade80;">2.71 ha</div>
+              <div class="metrique-label">Superficie Parcelle (Hectares)</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-superficie-m2" class="metrique-valeur" style="font-size: 1.15rem;">27 140 m²</div>
+              <div class="metrique-label">Périmètre : <span id="res-perimetre-m">660 m</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice-methode">
+          <strong>Règle d'or géodésique TEAM Sahélia :</strong> La longitude pivot de 3° Est sépare le Bénin entre l’UTM Zone 31N (EPSG:32631) à l’Ouest et l’UTM Zone 32N (EPSG:32632) à l’Est (communes de Nikki, Kalalé, Ségbana). Ne travaillez jamais en WGS84 géographique (degrés) pour calculer des hectares sous QGIS sous peine d'erreurs d'écrasement métrique !
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- OUTIL 2 : SEMIS & DOSES D'ENGRAIS                                       -->
+    <!-- ======================================================================= -->
+    <section id="outil-semis" class="outil-section">
+      <div class="carte-outil">
+        <div style="margin-bottom: 1.5rem;">
+          <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 0.35rem;">
+            Calculateur de Densité de Semis &amp; Plan de Fumure Raisonnée (NPK &amp; Urée)
+          </h2>
+          <p style="font-size: 0.88rem; color: var(--texte-2);">
+            Déterminez le peuplement théorique par hectare, les besoins en semences et le nombre exact de sacs d'engrais selon les recommandations techniques INRAB / ITRA.
+          </p>
+        </div>
+
+        <div class="outil-grille-inputs">
+          <div class="champ-groupe">
+            <label for="semis-culture">Culture Cible :</label>
+            <select id="semis-culture">
+              <option value="mais" data-interligne="80" data-poquet="40" data-graines="2" data-npk="200" data-uree="100" data-pmg="280">Maïs (Grain / ZEA MAYS)</option>
+              <option value="soja" data-interligne="50" data-poquet="20" data-graines="2" data-npk="100" data-uree="0" data-pmg="150">Soja (Glycine max - Fixateur d'N)</option>
+              <option value="coton" data-interligne="80" data-poquet="40" data-graines="3" data-npk="150" data-uree="50" data-pmg="100">Coton (Gossypium hirsutum)</option>
+              <option value="sorgho" data-interligne="80" data-poquet="40" data-graines="4" data-npk="100" data-uree="50" data-pmg="30">Sorgho (Sorghum bicolor)</option>
+              <option value="riz" data-interligne="20" data-poquet="20" data-graines="3" data-npk="200" data-uree="100" data-pmg="25">Riz pluvial (Oryza sativa)</option>
+            </select>
+          </div>
+
+          <div class="champ-groupe">
+            <label for="semis-surface">Superficie à emblaver (Hectares) :</label>
+            <input type="number" id="semis-surface" step="0.1" value="2.5" min="0.1">
+          </div>
+
+          <div class="champ-groupe">
+            <label for="semis-interligne">Écartement entre lignes (cm) :</label>
+            <input type="number" id="semis-interligne" value="80" min="10">
+          </div>
+
+          <div class="champ-groupe">
+            <label for="semis-poquet">Écartement sur la ligne (cm) :</label>
+            <input type="number" id="semis-poquet" value="40" min="5">
+          </div>
+
+          <div class="champ-groupe">
+            <label for="semis-graines">Graines par poquet :</label>
+            <input type="number" id="semis-graines" value="2" min="1" max="10">
+          </div>
+
+          <div class="champ-groupe">
+            <label for="semis-prix-sac">Prix moyen sac d'engrais 50kg (FCFA) :</label>
+            <input type="number" id="semis-prix-sac" value="22500" step="500">
+          </div>
+        </div>
+
+        <button type="button" id="btn-calculer-semis" class="v-btn v-btn--vert" style="min-height: 42px;">
+          ⚡ Calculer le Peuplement &amp; la Commande d’Engrais
+        </button>
+
+        <div class="resultat-boite">
+          <div class="resultat-titre">
+            <span>✓</span> Bilan Technique &amp; Approvisionnement Intrants
+          </div>
+          <div class="resultats-grille">
+            <div class="metrique-kpi">
+              <div id="res-densite-poquets" class="metrique-valeur">31 250</div>
+              <div class="metrique-label">Poquets / Hectare</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-densite-pieds" class="metrique-valeur" style="color: #4ade80;">62 500</div>
+              <div class="metrique-label">Plantes / Ha (Peuplement)</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-besoin-semences" class="metrique-valeur" style="color: #f59e0b;">43.8 kg</div>
+              <div class="metrique-label">Semences Totales nécessaires</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-sacs-npk" class="metrique-valeur" style="color: #60a5fa;">10 sacs</div>
+              <div class="metrique-label">NPK 15-15-15 (500 kg total)</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-sacs-uree" class="metrique-valeur" style="color: #c084fc;">5 sacs</div>
+              <div class="metrique-label">Urée 46% (250 kg total)</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-budget-engrais" class="metrique-valeur">337 500 F</div>
+              <div class="metrique-label">Budget Engrais Estimé (FCFA)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice-methode">
+          <strong>Recommandation de fractionnement agronomique :</strong> Le NPK doit être apporté au semis ou au premier sarclage (15e jour). L'Urée doit être impérativement fractionnée : 50% au 15e jour et 50% à la montaison (45e jour), enfouie à 5 cm du pied pour éviter les pertes par volatilisation ammoniacale sous forte chaleur.
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- OUTIL 3 : ÉCHANTILLONNAGE D'ENQUÊTE                                     -->
+    <!-- ======================================================================= -->
+    <section id="outil-echantillon" class="outil-section">
+      <div class="carte-outil">
+        <div style="margin-bottom: 1.5rem;">
+          <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 0.35rem;">
+            Calculateur d’Échantillon d’Enquêtes Agricoles (Cochran &amp; Yamane)
+          </h2>
+          <p style="font-size: 0.88rem; color: var(--texte-2);">
+            Dimensionnez la taille minimale d'échantillon statistiquement représentative de producteurs pour vos enquêtes KoboToolbox / ODK.
+          </p>
+        </div>
+
+        <div class="outil-grille-inputs">
+          <div class="champ-groupe">
+            <label for="echantillon-methode">Formule Statistique :</label>
+            <select id="echantillon-methode">
+              <option value="yamane">Taro Yamane (Formule standard simplifiée)</option>
+              <option value="cochran">Cochran (Correction pour population finie)</option>
+            </select>
+          </div>
+
+          <div class="champ-groupe">
+            <label for="echantillon-population">Taille de la Population Totale N :</label>
+            <input type="number" id="echantillon-population" value="2500" min="10" placeholder="Ex: 2500 producteurs">
+          </div>
+
+          <div class="champ-groupe">
+            <label for="echantillon-erreur">Marge d'erreur tolérée e (%) :</label>
+            <input type="number" id="echantillon-erreur" value="5" min="1" max="20" step="0.5">
+          </div>
+
+          <div class="champ-groupe">
+            <label for="echantillon-confiance">Niveau de Confiance (Z) :</label>
+            <select id="echantillon-confiance">
+              <option value="1.96">95% de confiance (Z = 1.96 - Recommandé)</option>
+              <option value="2.576">99% de confiance (Z = 2.576 - Recherche stricte)</option>
+              <option value="1.645">90% de confiance (Z = 1.645 - Diagnostic rapide)</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="button" id="btn-calculer-echantillon" class="v-btn v-btn--vert" style="min-height: 42px;">
+          ⚡ Calculer la Taille de l’Échantillon
+        </button>
+
+        <div class="resultat-boite">
+          <div class="resultat-titre">
+            <span>✓</span> Taille de l'Échantillon Représentatif
+          </div>
+          <div class="resultats-grille">
+            <div class="metrique-kpi">
+              <div id="res-echantillon-brut" class="metrique-valeur" style="color: #60a5fa;">345</div>
+              <div class="metrique-label">Exploitations à interroger</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-echantillon-securite" class="metrique-valeur" style="color: #4ade80;">380</div>
+              <div class="metrique-label">Avec marge de sécurité +10%</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-taux-sondage" class="metrique-valeur" style="color: #f59e0b;">13.8 %</div>
+              <div class="metrique-label">Taux de sondage (n / N)</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-jours-enquete" class="metrique-valeur">38 jrs-homme</div>
+              <div class="metrique-label">À raison de 10 enquêtes/jour</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice-methode">
+          <strong>Règle de rigueur méthodologique :</strong> Prévoyez toujours 10% d'enquêtes supplémentaires pour compenser les refus de réponse, les exploitations inaccessibles ou les questionnaires invalidés lors de la curation des données sous Excel ou R.
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================= -->
+    <!-- OUTIL 4 : DRONE & PHOTOGRAMMÉTRIE                                       -->
+    <!-- ======================================================================= -->
+    <section id="outil-drone" class="outil-section">
+      <div class="carte-outil">
+        <div style="margin-bottom: 1.5rem;">
+          <h2 style="font-size: 1.35rem; font-weight: 800; color: #ffffff; margin-bottom: 0.35rem;">
+            Calculateur de Vol Drone &amp; Photogrammétrie Agricole
+          </h2>
+          <p style="font-size: 0.88rem; color: var(--texte-2);">
+            Calculez la résolution au sol (GSD en cm/px), l'altitude de vol optimale, le recouvrement et le nombre de batteries nécessaires pour vos missions orthophoto et NDVI.
+          </p>
+        </div>
+
+        <div class="outil-grille-inputs">
+          <div class="champ-groupe">
+            <label for="drone-modele">Modèle de Drone / Capteur :</label>
+            <select id="drone-modele">
+              <option value="m3e" data-sw="17.3" data-f="12.3" data-iw="5280">DJI Mavic 3 Enterprise (Capteur 4/3 - 20 MP)</option>
+              <option value="m3m" data-sw="17.3" data-f="12.3" data-iw="5280">DJI Mavic 3 Multispectral (RGB + 4 bandes NDVI)</option>
+              <option value="p4p" data-sw="13.2" data-f="8.8" data-iw="5472">DJI Phantom 4 Pro / RTK (1 pouce - 20 MP)</option>
+              <option value="air2s" data-sw="13.2" data-f="8.4" data-iw="5472">DJI Air 2S (1 pouce - 20 MP)</option>
+            </select>
+          </div>
+
+          <div class="champ-groupe">
+            <label for="drone-surface">Surface de la mission (Hectares) :</label>
+            <input type="number" id="drone-surface" value="15" min="0.5" step="0.5">
+          </div>
+
+          <div class="champ-groupe">
+            <label for="drone-altitude">Altitude de vol au-dessus du sol (m) :</label>
+            <input type="number" id="drone-altitude" value="80" min="20" max="150" step="5">
+          </div>
+
+          <div class="champ-groupe">
+            <label for="drone-overlap-front">Recouvrement longitudinal / avant (%) :</label>
+            <input type="number" id="drone-overlap-front" value="75" min="50" max="90">
+          </div>
+
+          <div class="champ-groupe">
+            <label for="drone-overlap-side">Recouvrement latéral / sidelap (%) :</label>
+            <input type="number" id="drone-overlap-side" value="70" min="40" max="85">
+          </div>
+
+          <div class="champ-groupe">
+            <label for="drone-vitesse">Vitesse de vol programmée (m/s) :</label>
+            <input type="number" id="drone-vitesse" value="8" min="3" max="15">
+          </div>
+        </div>
+
+        <button type="button" id="btn-calculer-drone" class="v-btn v-btn--vert" style="min-height: 42px;">
+          ⚡ Paramétrer le Plan de Vol Photogrammétrique
+        </button>
+
+        <div class="resultat-boite">
+          <div class="resultat-titre">
+            <span>✓</span> Spécifications de la Mission Aérienne
+          </div>
+          <div class="resultats-grille">
+            <div class="metrique-kpi">
+              <div id="res-gsd" class="metrique-valeur" style="color: #4ade80;">2.13 cm/px</div>
+              <div class="metrique-label">Résolution au sol (GSD)</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-empreinte-photo" class="metrique-valeur" style="font-size: 1.15rem;">112 m × 84 m</div>
+              <div class="metrique-label">Empreinte au sol par cliché</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-nb-photos" class="metrique-valeur" style="color: #60a5fa;">215 clichés</div>
+              <div class="metrique-label">Photos totales estimées</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-temps-vol" class="metrique-valeur" style="color: #f59e0b;">24 min</div>
+              <div class="metrique-label">Durée de vol estimée</div>
+            </div>
+            <div class="metrique-kpi">
+              <div id="res-nb-batteries" class="metrique-valeur" style="color: #c084fc;">2 batteries</div>
+              <div class="metrique-label">Sécurité (réserve 25%)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="notice-methode">
+          <strong>Règle d'or de télédétection par drone :</strong> Pour cartographier des cultures de plein champ en vue d'orthophotos NDVI fiables, maintenez un recouvrement d'au moins 75% à l'avant et 70% sur les côtés. Volez de préférence entre 10h30 et 14h00 pour minimiser les ombres portées des feuillages.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- PIED DE PAGE                                                              -->
+  <!-- ========================================================================= -->
+  <footer style="padding: 2.5rem 0; border-top: 1px solid var(--bordure); background: #040a08; font-size: 0.82rem; color: var(--texte-3); text-align: center;">
+    <div class="enveloppe">
+      <p style="margin-bottom: 0.4rem;">© 2026 TEAM Sahélia · Boîte à Outils Terrain &amp; Agronomie Numérique</p>
+      <p style="font-family: var(--police-mono); font-size: 0.75rem; color: var(--texte-3);">
+        Développé pour les étudiants, chercheurs et agronomes du Bénin et d'Afrique de l'Ouest
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts Logiques des Calculateurs -->
+  <script>
+    (function () {
+      'use strict';
+
+      // 1. Gestion des Onglets
+      const tabBtns = document.querySelectorAll('.outils-tab-btn');
+      const sections = document.querySelectorAll('.outil-section');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabBtns.forEach(b => b.classList.remove('actif'));
+          sections.forEach(s => s.classList.remove('actif'));
+          btn.classList.add('actif');
+          const cibleId = btn.getAttribute('data-cible');
+          const cibleEl = document.getElementById(cibleId);
+          if (cibleEl) cibleEl.classList.add('actif');
+        });
+      });
+
+      // -----------------------------------------------------------------------
+      // 2. LOGIQUE OUTIL 1 : GPS, PROJECTION UTM ET SUPERFICIES
+      // -----------------------------------------------------------------------
+      const selectCommune = document.getElementById('select-commune-benin');
+      const inputLat = document.getElementById('gps-lat');
+      const inputLon = document.getElementById('gps-lon');
+      const textareaCoords = document.getElementById('gps-polygone-coords');
+      const btnCalculerGps = document.getElementById('btn-calculer-gps');
+      const btnExportGeoJson = document.getElementById('btn-exporter-geojson');
+
+      if (selectCommune) {
+        selectCommune.addEventListener('change', () => {
+          if (!selectCommune.value) return;
+          const [lat, lon] = selectCommune.value.split(',');
+          inputLat.value = lat;
+          inputLon.value = lon;
+          // Générer un carré de 200m autour du point
+          const d = 0.0018;
+          const lNum = parseFloat(lat);
+          const loNum = parseFloat(lon);
+          textareaCoords.value = [
+            `${(lNum).toFixed(6)}, ${(loNum).toFixed(6)}`,
+            `${(lNum + d).toFixed(6)}, ${(loNum).toFixed(6)}`,
+            `${(lNum + d).toFixed(6)}, ${(loNum + d).toFixed(6)}`,
+            `${(lNum).toFixed(6)}, ${(loNum + d).toFixed(6)}`
+          ].join('\n');
+          calculerGps();
+        });
+      }
+
+      function conversionWgs84VersUtm(lat, lon) {
+        // Détermination du fuseau : au Bénin, méridien 3°E sépare fuseau 31 et 32
+        const zone = lon >= 3.0 ? 32 : 31;
+        const epsg = zone === 32 ? 'EPSG:32632' : 'EPSG:32631';
+        
+        // Approximation métrique précise (Transverse Universelle de Mercator)
+        const radLat = lat * Math.PI / 180;
+        const radLon = lon * Math.PI / 180;
+        const lon0 = (zone * 6 - 183) * Math.PI / 180;
+        
+        const a = 6378137.0; // Demi-grand axe WGS84
+        const f = 1 / 298.257223563;
+        const e2 = 2 * f - f * f;
+        const k0 = 0.9996;
+        
+        const dLon = radLon - lon0;
+        const N = a / Math.sqrt(1 - e2 * Math.sin(radLat) * Math.sin(radLat));
+        const T = Math.tan(radLat) * Math.tan(radLat);
+        const C = (e2 / (1 - e2)) * Math.cos(radLat) * Math.cos(radLat);
+        const A = Math.cos(radLat) * dLon;
+        
+        const M = a * ((1 - e2/4 - 3*e2*e2/64) * radLat 
+                  - (3*e2/8 + 3*e2*e2/32) * Math.sin(2*radLat) 
+                  + (15*e2*e2/256) * Math.sin(4*radLat));
+                  
+        const easting = 500000 + k0 * N * (A + (1 - T + C) * Math.pow(A, 3) / 6);
+        const northing = k0 * (M + N * Math.tan(radLat) * (A*A/2 + (5 - T + 9*C + 4*C*C) * Math.pow(A, 4) / 24));
+        
+        return { zone, epsg, easting: Math.round(easting), northing: Math.round(northing) };
+      }
+
+      function calculerSuperficiePolygone(coords) {
+        if (coords.length < 3) return { m2: 0, ha: 0, perimetre: 0 };
+        // Conversion en coordonnées métriques locales
+        const pointsM = coords.map(c => conversionWgs84VersUtm(c.lat, c.lon));
+        let aire = 0;
+        let perimetre = 0;
+        const n = pointsM.length;
+        
+        for (let i = 0; i < n; i++) {
+          const j = (i + 1) % n;
+          aire += pointsM[i].easting * pointsM[j].northing;
+          aire -= pointsM[j].easting * pointsM[i].northing;
+          
+          const dx = pointsM[j].easting - pointsM[i].easting;
+          const dy = pointsM[j].northing - pointsM[i].northing;
+          perimetre += Math.sqrt(dx * dx + dy * dy);
+        }
+        
+        aire = Math.abs(aire) / 2;
+        return {
+          m2: Math.round(aire),
+          ha: (aire / 10000).toFixed(2),
+          perimetre: Math.round(perimetre)
+        };
+      }
+
+      function parserSommets() {
+        const lignes = textareaCoords.value.trim().split('\n');
+        const coords = [];
+        for (const lig of lignes) {
+          const parts = lig.split(/[,\t;]/).map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+          if (parts.length >= 2) {
+            coords.push({ lat: parts[0], lon: parts[1] });
+          }
+        }
+        return coords;
+      }
+
+      function calculerGps() {
+        const lat = parseFloat(inputLat.value);
+        const lon = parseFloat(inputLon.value);
+        if (isNaN(lat) || isNaN(lon)) return;
+
+        const proj = conversionWgs84VersUtm(lat, lon);
+        document.getElementById('res-utm-zone').textContent = `UTM ${proj.zone}N`;
+        document.getElementById('res-utm-zone').title = proj.epsg;
+        document.getElementById('res-utm-coord').textContent = `E: ${proj.easting.toLocaleString('fr-FR')} | N: ${proj.northing.toLocaleString('fr-FR')}`;
+
+        const coords = parserSommets();
+        const sup = calculerSuperficiePolygone(coords);
+        document.getElementById('res-superficie-ha').textContent = `${sup.ha} ha`;
+        document.getElementById('res-superficie-m2').textContent = `${sup.m2.toLocaleString('fr-FR')} m²`;
+        document.getElementById('res-perimetre-m').textContent = `${sup.perimetre.toLocaleString('fr-FR')} m`;
+      }
+
+      if (btnCalculerGps) btnCalculerGps.addEventListener('click', calculerGps);
+
+      if (btnExportGeoJson) {
+        btnExportGeoJson.addEventListener('click', () => {
+          const coords = parserSommets();
+          if (coords.length < 3) {
+            alert('Veuillez renseigner au moins 3 sommets pour exporter un polygone.');
+            return;
+          }
+          // Fermer le polygone si non fermé
+          const closed = coords.map(c => [c.lon, c.lat]);
+          if (closed[0][0] !== closed[closed.length - 1][0] || closed[0][1] !== closed[closed.length - 1][1]) {
+            closed.push([closed[0][0], closed[0][1]]);
+          }
+          
+          const sup = calculerSuperficiePolygone(coords);
+          const geojson = {
+            type: "FeatureCollection",
+            name: "Parcelle_Agricole_TEAM_Sahelia",
+            crs: { type: "name", properties: { name: "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+            features: [
+              {
+                type: "Feature",
+                properties: {
+                  nom: "Parcelle_Essai_Sahelia",
+                  superficie_ha: parseFloat(sup.ha),
+                  superficie_m2: sup.m2,
+                  perimetre_m: sup.perimetre,
+                  date_releve: new Date().toISOString().split('T')[0],
+                  source: "TEAM Sahélia Field Toolkit"
+                },
+                geometry: {
+                  type: "Polygon",
+                  coordinates: [closed]
+                }
+              }
+            ]
+          };
+
+          const blob = new Blob([JSON.stringify(geojson, null, 2)], { type: 'application/geo+json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'parcelle_agricole_sahelia.geojson';
+          a.click();
+          URL.revokeObjectURL(url);
+        });
+      }
+
+      // -----------------------------------------------------------------------
+      // 3. LOGIQUE OUTIL 2 : SEMIS & DOSES D'ENGRAIS
+      // -----------------------------------------------------------------------
+      const selectCulture = document.getElementById('semis-culture');
+      const inputInterligne = document.getElementById('semis-interligne');
+      const inputPoquet = document.getElementById('semis-poquet');
+      const inputGraines = document.getElementById('semis-graines');
+      const inputSurface = document.getElementById('semis-surface');
+      const inputPrixSac = document.getElementById('semis-prix-sac');
+      const btnCalculerSemis = document.getElementById('btn-calculer-semis');
+
+      if (selectCulture) {
+        selectCulture.addEventListener('change', () => {
+          const opt = selectCulture.selectedOptions[0];
+          if (!opt) return;
+          inputInterligne.value = opt.getAttribute('data-interligne');
+          inputPoquet.value = opt.getAttribute('data-poquet');
+          inputGraines.value = opt.getAttribute('data-graines');
+          calculerSemis();
+        });
+      }
+
+      function calculerSemis() {
+        const opt = selectCulture ? selectCulture.selectedOptions[0] : null;
+        const interL = parseFloat(inputInterligne.value) / 100; // en mètres
+        const interP = parseFloat(inputPoquet.value) / 100; // en mètres
+        const graines = parseInt(inputGraines.value, 10);
+        const surfaceHa = parseFloat(inputSurface.value);
+        const prixSac = parseFloat(inputPrixSac.value) || 22500;
+
+        if (interL <= 0 || interP <= 0 || isNaN(surfaceHa)) return;
+
+        const poquetsHa = Math.round(10000 / (interL * interP));
+        const piedsHa = poquetsHa * graines;
+
+        // Poids de semences estimé (PMG en g pour 1000 grains)
+        const pmg = opt ? parseFloat(opt.getAttribute('data-pmg')) : 250;
+        const besoinTotalKg = ((piedsHa * surfaceHa * pmg) / 1000000) * 1.15; // +15% de réserve semis
+
+        // Doses engrais (kg/ha)
+        const doseNpkHa = opt ? parseFloat(opt.getAttribute('data-npk')) : 200;
+        const doseUreeHa = opt ? parseFloat(opt.getAttribute('data-uree')) : 100;
+
+        const totalNpkKg = doseNpkHa * surfaceHa;
+        const totalUreeKg = doseUreeHa * surfaceHa;
+
+        const sacsNpk = Math.ceil(totalNpkKg / 50);
+        const sacsUree = Math.ceil(totalUreeKg / 50);
+        const budgetTotal = (sacsNpk + sacsUree) * prixSac;
+
+        document.getElementById('res-densite-poquets').textContent = poquetsHa.toLocaleString('fr-FR');
+        document.getElementById('res-densite-pieds').textContent = piedsHa.toLocaleString('fr-FR');
+        document.getElementById('res-besoin-semences').textContent = `${besoinTotalKg.toFixed(1)} kg`;
+        document.getElementById('res-sacs-npk').textContent = `${sacsNpk} sacs`;
+        document.getElementById('res-sacs-npk').nextElementSibling.textContent = `NPK 15-15-15 (${totalNpkKg} kg total)`;
+        document.getElementById('res-sacs-uree').textContent = `${sacsUree} sacs`;
+        document.getElementById('res-sacs-uree').nextElementSibling.textContent = `Urée 46% (${totalUreeKg} kg total)`;
+        document.getElementById('res-budget-engrais').textContent = `${budgetTotal.toLocaleString('fr-FR')} F`;
+      }
+
+      if (btnCalculerSemis) btnCalculerSemis.addEventListener('click', calculerSemis);
+
+      // -----------------------------------------------------------------------
+      // 4. LOGIQUE OUTIL 3 : ÉCHANTILLONNAGE D'ENQUÊTE
+      // -----------------------------------------------------------------------
+      const selectMethode = document.getElementById('echantillon-methode');
+      const inputPop = document.getElementById('echantillon-population');
+      const inputErreur = document.getElementById('echantillon-erreur');
+      const selectConfiance = document.getElementById('echantillon-confiance');
+      const btnCalculerEch = document.getElementById('btn-calculer-echantillon');
+
+      function calculerEchantillon() {
+        const N = parseFloat(inputPop.value);
+        const e = parseFloat(inputErreur.value) / 100;
+        const Z = parseFloat(selectConfiance.value);
+        const methode = selectMethode.value;
+
+        if (isNaN(N) || N <= 0 || isNaN(e) || e <= 0) return;
+
+        let n = 0;
+        if (methode === 'yamane') {
+          // n = N / (1 + N * e^2)
+          n = Math.ceil(N / (1 + N * e * e));
+        } else {
+          // Cochran avec p = 0.5 (variance max) : n0 = (Z^2 * p * q) / e^2
+          const p = 0.5;
+          const n0 = (Z * Z * p * (1 - p)) / (e * e);
+          n = Math.ceil(n0 / (1 + (n0 - 1) / N));
+        }
+
+        const nSecurite = Math.ceil(n * 1.10);
+        const tauxSondage = ((n / N) * 100).toFixed(1);
+        const joursHomme = Math.ceil(nSecurite / 10);
+
+        document.getElementById('res-echantillon-brut').textContent = n.toLocaleString('fr-FR');
+        document.getElementById('res-echantillon-securite').textContent = nSecurite.toLocaleString('fr-FR');
+        document.getElementById('res-taux-sondage').textContent = `${tauxSondage} %`;
+        document.getElementById('res-jours-enquete').textContent = `${joursHomme} jrs-homme`;
+      }
+
+      if (btnCalculerEch) btnCalculerEch.addEventListener('click', calculerEchantillon);
+
+      // -----------------------------------------------------------------------
+      // 5. LOGIQUE OUTIL 4 : DRONE & PHOTOGRAMMÉTRIE
+      // -----------------------------------------------------------------------
+      const selectDrone = document.getElementById('drone-modele');
+      const inputSurfDrone = document.getElementById('drone-surface');
+      const inputAltDrone = document.getElementById('drone-altitude');
+      const inputOverFront = document.getElementById('drone-overlap-front');
+      const inputOverSide = document.getElementById('drone-overlap-side');
+      const inputVitDrone = document.getElementById('drone-vitesse');
+      const btnCalculerDrone = document.getElementById('btn-calculer-drone');
+
+      function calculerDrone() {
+        const opt = selectDrone ? selectDrone.selectedOptions[0] : null;
+        if (!opt) return;
+
+        const sw = parseFloat(opt.getAttribute('data-sw')); // mm
+        const f = parseFloat(opt.getAttribute('data-f')); // mm
+        const iw = parseFloat(opt.getAttribute('data-iw')); // px
+        const H = parseFloat(inputAltDrone.value); // m
+        const surfHa = parseFloat(inputSurfDrone.value); // ha
+        const overFront = parseFloat(inputOverFront.value) / 100;
+        const overSide = parseFloat(inputOverSide.value) / 100;
+        const vit = parseFloat(inputVitDrone.value); // m/s
+
+        // GSD = (H * Sw) / (f * Iw) * 100 (cm/px)
+        const gsd = ((H * sw) / (f * iw)) * 100;
+
+        // Empreinte au sol (m)
+        const footW = (sw * H) / f;
+        const footH = footW * (3 / 4); // ratio standard 4:3
+
+        // Distance d'avancement entre photos (m)
+        const distFront = footH * (1 - overFront);
+        const distSide = footW * (1 - overSide);
+
+        // Surface utile par photo (m²)
+        const surfUtilePhoto = distFront * distSide;
+        const surfTotaleM2 = surfHa * 10000;
+        const nbPhotos = Math.ceil((surfTotaleM2 / surfUtilePhoto) * 1.25); // +25% virages et marge périmètre
+
+        // Durée de vol estimée
+        const distTotaleVol = (surfHa * 10000 / distSide) + (surfHa * 20);
+        const dureeSec = distTotaleVol / vit;
+        const dureeMin = Math.ceil(dureeSec / 60);
+        const batteries = Math.ceil(dureeMin / 18); // 18 minutes de travail utile par batterie
+
+        document.getElementById('res-gsd').textContent = `${gsd.toFixed(2)} cm/px`;
+        document.getElementById('res-empreinte-photo').textContent = `${Math.round(footW)} m × ${Math.round(footH)} m`;
+        document.getElementById('res-nb-photos').textContent = `${nbPhotos} clichés`;
+        document.getElementById('res-temps-vol').textContent = `${dureeMin} min`;
+        document.getElementById('res-nb-batteries').textContent = `${batteries} batterie${batteries > 1 ? 's' : ''}`;
+      }
+
+      if (btnCalculerDrone) btnCalculerDrone.addEventListener('click', calculerDrone);
+
+      // Calculs automatiques au chargement initial
+      calculerGps();
+      calculerSemis();
+      calculerEchantillon();
+      calculerDrone();
+
+      // Enregistrement PWA Service Worker
+      if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+        navigator.serviceWorker.register('sw.js').catch((err) => {
+          console.warn('PWA hors-ligne outils :', err);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

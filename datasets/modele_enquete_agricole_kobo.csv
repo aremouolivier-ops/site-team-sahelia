@@ -1,0 +1,34 @@
+# survey sheet (Questions)
+type,name,label::Français,required,relevant,constraint,constraint_message
+begin_group,groupe_ident,Identification de la Parcelle et de l'Enquêteur,,
+text,nom_enqueteur,Nom de l'enquêteur(rice),yes,,
+date,date_enquete,Date de l'observation,yes,,
+select_one communes,commune,Commune d'investigation,yes,,
+text,village,Nom du village ou campement,yes,,
+geopoint,gps_parcelle,Coordonnées GPS de la borne centrale,yes,,
+end_group,,,
+begin_group,groupe_agronomie,Caractéristiques Agronomiques de la Campagne,,
+select_one cultures,culture,Culture principale observée,yes,,
+select_one varietes_mais,variete_mais,Variété de maïs semée,yes,${culture} = 'mais',
+decimal,superficie_ha,Superficie emblavée en hectares,yes,,. > 0 and . < 100,La superficie doit être comprise entre 0.1 et 100 ha
+select_one fertilisation,type_engrais,Type de fertilisation appliquée,yes,,
+integer,dose_npk_kg,Dose NPK apportée (kg/ha),no,${type_engrais} != 'aucun',. >= 0,La dose ne peut être négative
+integer,rendement_estime_kg_ha,Rendement estimé à la récolte (kg/ha),yes,,. >= 100 and . <= 12000,Rendement agronomique incohérent
+image,photo_parcelle,Photo représentative de la végétation,no,,
+end_group,,,
+
+# choices sheet (Listes déroulantes)
+list_name,name,label::Français
+communes,parakou,Parakou
+communes,ndali,N'Dali
+communes,tchaourou,Tchaourou
+communes,bembereke,Bembèrèkè
+cultures,mais,Maïs
+cultures,soja,Soja
+cultures,coton,Coton
+cultures,sorgho,Sorgho
+varietes_mais,dmr_esr_w,DMR-ESR-W (Cycle précoce)
+varietes_mais,syn_ee_w,2000 SYN EE-W (Extra-précoce)
+fertilisation,aucun,Aucune fertilisation (Témoin)
+fertilisation,mineral,Engrais minéral seul (NPK / Urée)
+fertilisation,organo_mineral,Fumure organique + Minéral

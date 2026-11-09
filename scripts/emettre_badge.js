@@ -51,7 +51,23 @@ const id = params.id ? String(params.id).trim().toUpperCase() : '';
 const nom = params.nom ? String(params.nom).trim() : '';
 const role = params.role ? String(params.role).trim() : 'Membre Certifié';
 const institution = params.institution ? String(params.institution).trim() : 'TEAM Sahélia · République du Bénin';
-const track = params.track ? String(params.track).trim().toLowerCase() : 'membre-pionnier';
+const ALIASES = {
+  'pionnier': 'membre-pionnier',
+  'officiel': 'membre-officiel',
+  'actif': 'membre-actif',
+  'formation': 'formation-achevee',
+  'sig': 'sig-parcelle',
+  'data': 'data-agronomie',
+  'kobo': 'kobo-collecte',
+  'agro': 'agro-precision',
+  'vibe': 'vibe-coding-ia',
+  'drone': 'drone-terrain',
+  'projet': 'projet-solution',
+  'mentor': 'mentor-leadership'
+};
+
+const rawTrack = params.track ? String(params.track).trim().toLowerCase() : 'membre-pionnier';
+const track = ALIASES[rawTrack] || rawTrack;
 const preuve = params.preuve ? String(params.preuve).trim() : 'Évaluation pratique validée selon les critères officiels de terrain.';
 const validePar = params.validePar ? String(params.validePar).trim() : 'Conseil Pédagogique TEAM Sahélia';
 const slogan = params.slogan ? String(params.slogan).trim() : 'Apprendre aujourd’hui. Construire demain.';

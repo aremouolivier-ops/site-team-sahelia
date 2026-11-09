@@ -1,0 +1,22 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "https://aremouolivier-ops.github.io/site-team-sahelia/achievements/membre-actif.json",
+  "type": [
+    "Achievement"
+  ],
+  "name": "Membre Contributeur Actif · TEAM Sahélia",
+  "description": "Reconnaît les membres qui animent l'entraide quotidienne, partagent des ressources méthodologiques et soutiennent les pairs dans leurs apprentissages.",
+  "achievementType": "Membership",
+  "criteria": {
+    "narrative": "1. Animation régulière des canaux d'échange et résolution collaborative de problèmes ; 2. Partage de retours d'expérience et de tutoriels pratiques ; 3. Soutien actif aux nouveaux adhérents."
+  },
+  "creator": "https://aremouolivier-ops.github.io/site-team-sahelia/issuers/team-sahelia.json",
+  "track": "membre-actif",
+  "famille": "appartenance",
+  "level": "N2 · Engagement Remarquable",
+  "shape": "pentagone",
+  "accentColor": "#10b981"
+}

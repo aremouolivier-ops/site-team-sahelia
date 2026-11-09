@@ -1315,3 +1315,131 @@ body.mode-zen .layout-grille-formation {
   grid-template-columns: minmax(0, 900px) !important;
   justify-content: center !important;
 }
+
+/* Évaluateur Interactif & Auto-Grader (Défi Terrain) */
+.defi-evaluateur-box {
+  margin: 1.25rem 0 1.5rem;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.defi-ressources-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+  flex-wrap: wrap;
+}
+
+.defi-dl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.defi-dl-btn:hover {
+  background: rgba(16, 185, 129, 0.25);
+  transform: translateY(-1px);
+}
+
+.defi-question-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.defi-question-libelle {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+.defi-options-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.defi-option-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.defi-option-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(95, 208, 160, 0.3);
+}
+
+.defi-option-item.selected {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: #10b981;
+  color: #ffffff;
+}
+
+.defi-option-radio {
+  accent-color: #10b981;
+  width: 1.15rem;
+  height: 1.15rem;
+  cursor: pointer;
+}
+
+.defi-option-text {
+  font-size: 0.9rem;
+  color: var(--texte-1);
+}
+
+.defi-input-champ {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-family: var(--police-mono, monospace);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.defi-input-champ:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.defi-feedback-texte.erreur {
+  color: #f87171;
+}
+
+.defi-explication-box {
+  margin-top: 1rem;
+  padding: 0.9rem 1.1rem;
+  background: rgba(16, 185, 129, 0.12);
+  border-left: 4px solid #10b981;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #d1fae5;
+}
+
