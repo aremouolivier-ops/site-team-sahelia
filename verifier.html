@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/logo-sahelia.svg">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#06120e">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2026.6">
   <style>
     .page-verif {
       min-height: 100vh;
@@ -115,9 +115,18 @@
       background: rgba(23, 112, 74, 0.1);
     }
     @media (max-width: 640px) {
+      .carte-verif {
+        padding: 1.25rem 0.85rem;
+        border-radius: 14px;
+      }
       .ligne-info {
         grid-template-columns: 1fr;
         gap: 0.25rem;
+      }
+      .badge-statut-bandeau {
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
       }
     }
   </style>

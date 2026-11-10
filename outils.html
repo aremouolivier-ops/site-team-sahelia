@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/logo-sahelia.svg">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#08130f">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2026.6">
   <style>
     .page-outils {
       background: radial-gradient(circle at 50% 0%, rgba(23, 112, 74, 0.22), transparent 50%), #08130f;
@@ -158,6 +158,24 @@
       font-size: 0.84rem;
       color: var(--texte-2);
       line-height: 1.5;
+    }
+    @media (max-width: 640px) {
+      .carte-outil {
+        padding: 1.25rem 0.85rem;
+        border-radius: 14px;
+      }
+      .outils-tabs {
+        gap: 0.4rem;
+      }
+      .outils-tab-btn {
+        padding: 0.6rem 0.85rem;
+        font-size: 0.8rem;
+        flex: 1 1 140px;
+        justify-content: center;
+      }
+      .outil-grille-inputs {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>

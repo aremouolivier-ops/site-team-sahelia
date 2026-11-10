@@ -4,7 +4,7 @@
  * pour une disponibilité intégrale en milieu rural sans connexion Internet.
  */
 
-const CACHE_NAME = 'sahelia-v5-cache';
+const CACHE_NAME = 'sahelia-v6-cache';
 const ASSETS_A_METTRE_EN_CACHE = [
   './',
   'index.html',

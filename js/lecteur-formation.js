@@ -231,9 +231,9 @@
       .filter(Boolean)
       .join('\n\n');
 
-    // 9. Ré-injection des blocs HTML
+    // 9. Ré-injection des blocs HTML (avec fonction de remplacement pour neutraliser les séquences $& ou $<)
     blocsHtml.forEach((bloc, i) => {
-      htmlIntermediaire = htmlIntermediaire.replace(`__BLOC_HTML_${i}__`, bloc);
+      htmlIntermediaire = htmlIntermediaire.replace(`__BLOC_HTML_${i}__`, () => bloc);
     });
 
     return {
@@ -294,6 +294,9 @@
     sommaireActif: [],
 
     async init() {
+      // 0. Réinitialiser tout mode résiduel pour garantir un affichage fluide dès le chargement
+      document.body.classList.remove('mode-zen');
+
       // 1. Initialiser le contrôle d'accès
       if (window.SaheliaSecurite) {
         await window.SaheliaSecurite.init();
@@ -395,7 +398,7 @@
         });
       }
 
-      // Bouton Mode Zen (Plein Écran sans distractions)
+      // Bouton Mode Zen (Plein Écran sans distractions) - Uniquement pour grands écrans PC (> 1100px)
       const btnZen = document.getElementById('btn-zen-mode');
       if (btnZen) {
         btnZen.addEventListener('click', () => {
@@ -403,6 +406,13 @@
           const estZen = document.body.classList.contains('mode-zen');
           btnZen.textContent = estZen ? '✕ Quitter Zen' : '⛶ Zen';
           btnZen.title = estZen ? 'Revenir à l’affichage complet avec panneaux' : 'Basculer en mode lecture zen (plein écran)';
+        });
+
+        window.addEventListener('resize', () => {
+          if (window.innerWidth <= 1100 && document.body.classList.contains('mode-zen')) {
+            document.body.classList.remove('mode-zen');
+            btnZen.textContent = '⛶ Zen';
+          }
         });
       }
 
@@ -1010,7 +1020,10 @@
       const badgeSessionTop = document.getElementById('topbar-session-info');
 
       if (gatekeeper) gatekeeper.style.display = 'none';
-      if (zoneContenu) zoneContenu.style.display = 'grid';
+      if (zoneContenu) {
+        zoneContenu.style.display = '';
+        zoneContenu.removeAttribute('style');
+      }
 
       // Afficher l'indicateur de session active dans la topbar
       if (badgeSessionTop && session) {
