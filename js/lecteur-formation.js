@@ -882,9 +882,14 @@
       if (!conteneurCorps) return;
 
       const cleCache = String(cheminFichier || '').replace(/\\/g, '/').toLowerCase();
+      const aContenuDynamique = Boolean(
+        (this.chapitreActif && this.chapitreActif.contenuMarkdown) ||
+        (this.coursActif && this.coursActif.contenuMarkdown)
+      );
 
       // 1. Contrôle du Cache Mémoire Session (Accès instantané 0.0017 ms sans recalcul)
-      if (this.cacheChapitresRendus && this.cacheChapitresRendus.has(cleCache)) {
+      // Utilisé uniquement si aucun contenu personnalisé dynamique (créé en administration) n'est actif
+      if (!aContenuDynamique && this.cacheChapitresRendus && this.cacheChapitresRendus.has(cleCache)) {
         const entree = this.cacheChapitresRendus.get(cleCache);
         conteneurCorps.innerHTML = entree.html;
         this.sommaireActif = entree.sommaire || [];
@@ -961,8 +966,8 @@
         conteneurCorps.innerHTML = rendu.html;
         this.sommaireActif = rendu.sommaire || [];
 
-        // Mémorisation sécurisée dans le cache session (validé non corrompu)
-        if (rendu.html && rendu.html.length > 0 && this.cacheChapitresRendus) {
+        // Mémorisation sécurisée dans le cache session (validé non corrompu, hors contenus dynamiques)
+        if (!aContenuDynamique && cleCache && cleCache.length > 0 && rendu.html && rendu.html.length > 0 && this.cacheChapitresRendus) {
           this.cacheChapitresRendus.set(cleCache, {
             html: rendu.html,
             sommaire: Object.freeze([...(rendu.sommaire || [])]),
