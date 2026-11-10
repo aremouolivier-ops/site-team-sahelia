@@ -4,7 +4,7 @@
  * pour une disponibilité intégrale en milieu rural sans connexion Internet.
  */
 
-const CACHE_NAME = 'sahelia-v6-cache';
+const CACHE_NAME = 'sahelia-v7-cache';
 const ASSETS_A_METTRE_EN_CACHE = [
   './',
   'index.html',
@@ -12,17 +12,21 @@ const ASSETS_A_METTRE_EN_CACHE = [
   'verifier.html',
   'outils.html',
   'admin.html',
+  'documentation.html',
   'manifest.json',
   'css/style.css',
   'css/formation.css',
-  'css/verifier.css',
-  'css/admin.css',
   'js/app.js',
   'js/badge-crypto.js',
-  'js/badges-donnees.js',
+  'js/badge-data.js',
+  'js/badge-engine.js',
   'js/controle-acces.js',
+  'js/formation-catalogue.js',
   'js/formation-contenu.js',
+  'js/crypto-formation.js',
   'js/lecteur-formation.js',
+  'js/qrcode.min.js',
+  'js/jszip.min.js',
   'assets/logo-sahelia.svg',
   'assets/Badge_TEAM_Sahelia_Membre_Officiel.png',
   'assets/Badge_TEAM_Sahelia_Competence_Agronomie.png',
