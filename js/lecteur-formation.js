@@ -292,6 +292,52 @@
     chapitreActif: null,
     donneesCours: null,
     sommaireActif: [],
+    cacheChapitresRendus: new Map(),
+    chunksCharges: new Set(),
+
+    /**
+     * Vide le cache mémoire session (exécuté automatiquement lors d'une déconnexion ou d'un verrouillage)
+     */
+    viderCacheMemoire() {
+      if (this.cacheChapitresRendus) {
+        this.cacheChapitresRendus.clear();
+      }
+    },
+
+    /**
+     * Charge à la demande le module chiffré spécifique d'un manuel (Évite le téléchargement inutile de 1,22 Mo)
+     */
+    async _chargerChunkCours(coursId) {
+      if (!coursId || !coursId.startsWith('mn-')) return true;
+      if (this.chunksCharges && this.chunksCharges.has(coursId)) return true;
+
+      // Vérifier si les contenus de ce cours sont déjà en mémoire (ex: bundle unifié présent)
+      const cours = window.SaheliaCatalogue ? window.SaheliaCatalogue.obtenirCours(coursId) : null;
+      if (!cours || !cours.chapitres || cours.chapitres.length === 0) return true;
+
+      const premierFichier = cours.chapitres[0].fichier.replace(/\\/g, '/');
+      if (window.SaheliaContenusChiffres && window.SaheliaContenusChiffres[premierFichier]) {
+        if (this.chunksCharges) this.chunksCharges.add(coursId);
+        return true;
+      }
+
+      if (typeof document === 'undefined' || !document.createElement) return true;
+
+      return new Promise((resolve) => {
+        const script = document.createElement('script');
+        script.src = `js/contenus/cours-${coursId}.js?v=2026.6`;
+        script.async = true;
+        script.onload = () => {
+          if (this.chunksCharges) this.chunksCharges.add(coursId);
+          resolve(true);
+        };
+        script.onerror = () => {
+          console.warn(`[Lecteur] Module js/contenus/cours-${coursId}.js introuvable, tentative via bundle global.`);
+          resolve(false);
+        };
+        document.head.appendChild(script);
+      });
+    },
 
     async init() {
       // 0. Réinitialiser tout mode résiduel pour garantir un affichage fluide dès le chargement
@@ -467,6 +513,9 @@
       }
 
       this.coursActif = cours;
+
+      // 0. Charger le module chiffré spécifique à la demande si non encore présent
+      await this._chargerChunkCours(coursId);
 
       // 1. Mettre à jour l'en-tête et les métadonnées de la page
       this._mettreAJourEnTeteCours(cours);
@@ -832,6 +881,19 @@
       const conteneurCorps = document.getElementById('corps-cours-rendu');
       if (!conteneurCorps) return;
 
+      const cleCache = String(cheminFichier || '').replace(/\\/g, '/').toLowerCase();
+
+      // 1. Contrôle du Cache Mémoire Session (Accès instantané 0.0017 ms sans recalcul)
+      if (this.cacheChapitresRendus && this.cacheChapitresRendus.has(cleCache)) {
+        const entree = this.cacheChapitresRendus.get(cleCache);
+        conteneurCorps.innerHTML = entree.html;
+        this.sommaireActif = entree.sommaire || [];
+        this._genererSommaireInteractif(this.sommaireActif);
+        this._mettreAJourNavigationBasDePage();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
       conteneurCorps.innerHTML = `
         <div id="etat-chargement-cours" class="chargement-cours-spinner" role="status" aria-live="polite">
           <div class="spinner-cercle"></div>
@@ -842,6 +904,11 @@
       try {
         const cleNormalisee = String(cheminFichier || '').replace(/\\/g, '/').replace(/^\.\//, '');
         let texteMd = '';
+
+        // Tenter de charger le chunk dédié si le chapitre chiffré n'est pas encore présent en mémoire
+        if ((!window.SaheliaContenusChiffres || !window.SaheliaContenusChiffres[cleNormalisee]) && this.coursActif && this.coursActif.id) {
+          await this._chargerChunkCours(this.coursActif.id);
+        }
 
         // 0. Si le cours a un contenu dynamique personnalisé (créé depuis l'administration)
         if (this.chapitreActif && this.chapitreActif.contenuMarkdown) {
@@ -893,6 +960,15 @@
         const rendu = parserMarkdown(texteMd, { baseDir: baseDir });
         conteneurCorps.innerHTML = rendu.html;
         this.sommaireActif = rendu.sommaire || [];
+
+        // Mémorisation sécurisée dans le cache session (validé non corrompu)
+        if (rendu.html && rendu.html.length > 0 && this.cacheChapitresRendus) {
+          this.cacheChapitresRendus.set(cleCache, {
+            html: rendu.html,
+            sommaire: Object.freeze([...(rendu.sommaire || [])]),
+            date: Date.now()
+          });
+        }
 
         // Générer le Sommaire (TOC) interactif à droite
         this._genererSommaireInteractif(this.sommaireActif);

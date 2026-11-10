@@ -175,6 +175,9 @@
     verrouiller() {
       _activeCEK = null;
       _activePassphraseHash = null;
+      if (typeof window !== 'undefined' && window.Lecteur && typeof window.Lecteur.viderCacheMemoire === 'function') {
+        window.Lecteur.viderCacheMemoire();
+      }
     },
 
     /**

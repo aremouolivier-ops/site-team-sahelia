@@ -460,6 +460,9 @@
         if (typeof window !== 'undefined' && window.SaheliaCryptoFormation && typeof window.SaheliaCryptoFormation.verrouiller === 'function') {
           window.SaheliaCryptoFormation.verrouiller();
         }
+        if (typeof window !== 'undefined' && window.Lecteur && typeof window.Lecteur.viderCacheMemoire === 'function') {
+          window.Lecteur.viderCacheMemoire();
+        }
       } catch (e) {}
     },
 
