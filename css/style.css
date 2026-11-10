@@ -48,6 +48,13 @@ html {
 body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+img, svg, canvas, video {
+  max-width: 100%;
+  height: auto;
 }
 
 /* Typographie */

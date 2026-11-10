@@ -49,20 +49,26 @@
   }
 
   /**
-   * Parser Markdown complet en HTML sémantique
+   * Parser Markdown complet en HTML sémantique avec isolation stricte des blocs
+   * Empêche tout échappement accidentel des balises HTML et garantit la fluidité mobile
    */
   function parserMarkdown(md, options = {}) {
-    if (!md) return '';
+    if (!md) return { html: '', sommaire: [] };
     const baseDir = options.baseDir || '';
     const titresSommaire = [];
 
-    // 1. Découpage en blocs et extraction des blocs de code pour éviter les collisions
-    const blocsCode = [];
+    const blocsHtml = [];
+    function sauverBloc(html) {
+      const id = `__BLOC_HTML_${blocsHtml.length}__`;
+      blocsHtml.push(html.trim());
+      return `\n\n${id}\n\n`;
+    }
+
+    // 1. Découpage en blocs et extraction des blocs de code
     let texte = md.replace(/```([a-zA-Z0-9_\-\+]*)\n([\s\S]*?)```/g, (match, lang, code) => {
-      const id = `__BLOC_CODE_${blocsCode.length}__`;
       const langueAffichee = lang ? lang.toUpperCase() : 'TEXTE';
       const codeSecurise = echapperHtml(code.trim());
-      blocsCode.push(`
+      const htmlCode = `
         <div class="bloc-code-conteneur">
           <div class="bloc-code-barre">
             <span class="bloc-code-langue">${langueAffichee}</span>
@@ -73,12 +79,11 @@
           </div>
           <pre class="bloc-code-pre"><code>${codeSecurise}</code></pre>
         </div>
-      `);
-      return id;
+      `;
+      return sauverBloc(htmlCode);
     });
 
     // 2. Traitement des blocs d'alertes spéciales (Callouts GitHub-style)
-    // > [!NOTE], > [!TIP], > [!IMPORTANT], > [!WARNING], > [!CAUTION]
     const typesCallouts = {
       'NOTE': { classe: 'callout-note', icone: 'ℹ️', titre: 'Information Pédagogique' },
       'TIP': { classe: 'callout-tip', icone: '💡', titre: 'Astuce Sahélia de Terrain' },
@@ -89,7 +94,6 @@
       'CAUTION': { classe: 'callout-danger', icone: '🛑', titre: 'Erreur Critique à Éviter' }
     };
 
-    // Traitement des citations et callouts
     texte = texte.replace(/(^> ?.*(?:\n> ?.*)*)/gm, (bloc) => {
       const lignes = bloc.split('\n').map((l) => l.replace(/^> ?/, ''));
       const premiereLigne = lignes[0].trim();
@@ -100,7 +104,7 @@
         const conf = typesCallouts[typeCle] || typesCallouts['NOTE'];
         const titrePersonnalise = matchCallout[2] ? matchCallout[2].trim() : conf.titre;
         const contenuReste = lignes.slice(1).join('\n').trim();
-        return `
+        const htmlCallout = `
           <div class="callout-pedagogique ${conf.classe}">
             <div class="callout-entete">
               <span class="callout-icone">${conf.icone}</span>
@@ -109,10 +113,10 @@
             <div class="callout-corps">${parserLignesEnParagraphes(contenuReste)}</div>
           </div>
         `;
+        return sauverBloc(htmlCallout);
       }
 
-      // Citation standard
-      return `<blockquote class="citation-pedagogique">${parserLignesEnParagraphes(lignes.join('\n'))}</blockquote>`;
+      return sauverBloc(`<blockquote class="citation-pedagogique">${parserLignesEnParagraphes(lignes.join('\n'))}</blockquote>`);
     });
 
     // 3. Traitement des Tableaux Markdown (| col | col |)
@@ -121,33 +125,21 @@
       if (lignes.length < 2) return matchTable;
 
       const enteteLigne = lignes[0];
-      const colonnesEntete = enteteLigne
-        .split('|')
-        .slice(1, -1)
-        .map((c) => c.trim());
-
+      const colonnesEntete = enteteLigne.split('|').slice(1, -1).map((c) => c.trim());
       const corpsLignes = lignes.slice(2);
+
       let htmlTable = `
         <div class="tableau-conteneur-responsive">
           <table class="tableau-pedagogique">
             <thead>
-              <tr>
-                ${colonnesEntete.map((c) => `<th>${parserFormatInline(c)}</th>`).join('')}
-              </tr>
+              <tr>${colonnesEntete.map((c) => `<th>${parserFormatInline(c)}</th>`).join('')}</tr>
             </thead>
             <tbody>
       `;
 
       corpsLignes.forEach((l) => {
-        const cols = l
-          .split('|')
-          .slice(1, -1)
-          .map((c) => c.trim());
-        htmlTable += `
-          <tr>
-            ${cols.map((c) => `<td>${parserFormatInline(c)}</td>`).join('')}
-          </tr>
-        `;
+        const cols = l.split('|').slice(1, -1).map((c) => c.trim());
+        htmlTable += `<tr>${cols.map((c) => `<td>${parserFormatInline(c)}</td>`).join('')}</tr>`;
       });
 
       htmlTable += `
@@ -155,7 +147,7 @@
           </table>
         </div>
       `;
-      return '\n\n' + htmlTable + '\n\n';
+      return sauverBloc(htmlTable);
     });
 
     // 4. Traitement des Titres (H1, H2, H3, H4) et extraction pour Sommaire
@@ -172,10 +164,11 @@
         });
       }
 
-      return `<h${niveau} id="${slug}" class="titre-pedagogique-h${niveau}">
+      const htmlTitre = `<h${niveau} id="${slug}" class="titre-pedagogique-h${niveau}">
         <a href="#${slug}" class="lien-ancre-titre" title="Lien direct vers cette section">#</a>
         ${parserFormatInline(texteAffiche)}
       </h${niveau}>`;
+      return sauverBloc(htmlTitre);
     });
 
     // 5. Images et Schémas vectoriels avec zoom
@@ -183,7 +176,7 @@
       const cheminFinal = corrigerCheminImage(src.trim(), baseDir);
       const legende = alt ? `<figcaption class="figure-legende">${echapperHtml(alt)}</figcaption>` : '';
       const estSvg = cheminFinal.toLowerCase().endsWith('.svg');
-      return `
+      const htmlImg = `
         <figure class="figure-pedagogique ${estSvg ? 'figure-schema-svg' : ''}">
           <div class="figure-image-wrapper">
             <img src="${cheminFinal}" alt="${echapperHtml(alt)}" loading="lazy" class="image-cours-cliquable" data-zoom-src="${cheminFinal}">
@@ -194,64 +187,57 @@
           ${legende}
         </figure>
       `;
+      return sauverBloc(htmlImg);
     });
 
     // 6. Séparateurs horizontaux
-    texte = texte.replace(/^(\-{3,}|\*{3,}|_{3,})$/gm, '<hr class="separateur-pedagogique">');
+    texte = texte.replace(/^(\-{3,}|\*{3,}|_{3,})$/gm, () => {
+      return sauverBloc('<hr class="separateur-pedagogique">');
+    });
 
-    // 7. Listes à puces et listes ordonnées
-    // Traitement des listes avec cases à cocher [x] et [ ]
+    // 7. Listes à puces et ordonnées
     texte = texte.replace(/^- \[([ xX])\] (.*)$/gm, (match, coche, reste) => {
       const estCoche = coche.toLowerCase() === 'x';
       return `<li class="element-liste-tache"><input type="checkbox" ${estCoche ? 'checked' : ''} disabled> ${parserFormatInline(reste)}</li>`;
     });
-
-    // Listes ordonnées (1. 2. 3.)
     texte = texte.replace(/^(\d+)\.\s+(.+)$/gm, (match, num, reste) => {
       return `<li class="element-liste-ordonnee" value="${num}">${parserFormatInline(reste)}</li>`;
     });
-
-    // Listes à puces simples (- ou *)
     texte = texte.replace(/^[\-\*]\s+(.+)$/gm, (match, reste) => {
       return `<li class="element-liste-puce">${parserFormatInline(reste)}</li>`;
     });
 
-    // Emballer les li consécutifs dans <ul> ou <ol>
-    texte = texte.replace(/((?:<li class="element-liste-puce">.*<\/li>\s*)+)/g, '<ul class="liste-pedagogique-ul">$1</ul>');
-    texte = texte.replace(/((?:<li class="element-liste-ordonnee".*<\/li>\s*)+)/g, '<ol class="liste-pedagogique-ol">$1</ol>');
-    texte = texte.replace(/((?:<li class="element-liste-tache".*<\/li>\s*)+)/g, '<ul class="liste-pedagogique-taches">$1</ul>');
+    texte = texte.replace(/((?:<li class="element-liste-puce">.*<\/li>\s*)+)/g, (match) => {
+      return sauverBloc(`<ul class="liste-pedagogique-ul">${match.trim()}</ul>`);
+    });
+    texte = texte.replace(/((?:<li class="element-liste-ordonnee".*<\/li>\s*)+)/g, (match) => {
+      return sauverBloc(`<ol class="liste-pedagogique-ol">${match.trim()}</ol>`);
+    });
+    texte = texte.replace(/((?:<li class="element-liste-tache".*<\/li>\s*)+)/g, (match) => {
+      return sauverBloc(`<ul class="liste-pedagogique-taches">${match.trim()}</ul>`);
+    });
 
     // 8. Paragraphes normaux
     const paragraphes = texte.split(/\n{2,}/);
-    const htmlFinal = paragraphes
+    let htmlIntermediaire = paragraphes
       .map((p) => {
         const propre = p.trim();
         if (!propre) return '';
-        // Si le bloc commence déjà par un élément HTML structurel, ne pas l'envelopper dans <p>
-        if (
-          propre.startsWith('<h') ||
-          propre.startsWith('<div') ||
-          propre.startsWith('<figure') ||
-          propre.startsWith('<blockquote') ||
-          propre.startsWith('<ul') ||
-          propre.startsWith('<ol') ||
-          propre.startsWith('<hr') ||
-          propre.startsWith('__BLOC_CODE_')
-        ) {
+        if (/^__BLOC_HTML_\d+__$/.test(propre)) {
           return propre;
         }
         return `<p class="paragraphe-pedagogique">${parserFormatInline(propre)}</p>`;
       })
+      .filter(Boolean)
       .join('\n\n');
 
-    // 9. Réinjection des blocs de code
-    let resultatFinal = htmlFinal;
-    blocsCode.forEach((bloc, i) => {
-      resultatFinal = resultatFinal.replace(`__BLOC_CODE_${i}__`, bloc);
+    // 9. Ré-injection des blocs HTML
+    blocsHtml.forEach((bloc, i) => {
+      htmlIntermediaire = htmlIntermediaire.replace(`__BLOC_HTML_${i}__`, bloc);
     });
 
     return {
-      html: resultatFinal,
+      html: htmlIntermediaire,
       sommaire: titresSommaire
     };
   }
