@@ -437,6 +437,21 @@
     },
 
     /**
+     * Relance le chargement du cours ou du chapitre actif (Action utilisateur Réessayer)
+     */
+    reessayerChargement() {
+      if (this.coursActif && this.coursActif.id) {
+        const chId = this.chapitreActif ? this.chapitreActif.id : null;
+        this.chargerCours(this.coursActif.id, chId);
+      } else {
+        const params = new URLSearchParams(window.location.search);
+        const coursId = params.get('cours') || 'guide-01';
+        const chId = params.get('ch') || null;
+        this.chargerCours(coursId, chId);
+      }
+    },
+
+    /**
      * Charge et affiche un cours du catalogue
      */
     async chargerCours(coursId, chapitreId = null) {
@@ -681,6 +696,10 @@
 
       const heroFond = document.getElementById('hero-image-fond');
       if (heroFond && metaHybride.heroImg) {
+        const sourceWebp = document.getElementById('hero-image-source-webp');
+        if (sourceWebp) {
+          sourceWebp.srcset = metaHybride.heroImg.replace(/\.jpg$/i, '.webp');
+        }
         heroFond.src = metaHybride.heroImg;
       }
 
@@ -814,9 +833,9 @@
       if (!conteneurCorps) return;
 
       conteneurCorps.innerHTML = `
-        <div class="chargement-cours-spinner">
+        <div id="etat-chargement-cours" class="chargement-cours-spinner" role="status" aria-live="polite">
           <div class="spinner-cercle"></div>
-          <p>Chargement du document pédagogique...</p>
+          <p class="texte-chargement-cours">Chargement de votre manuel…</p>
         </div>
       `;
 
@@ -886,19 +905,34 @@
       } catch (err) {
         const estProtocoleFile = window.location.protocol === 'file:';
         conteneurCorps.innerHTML = `
-          <div class="alerte-erreur-chargement" style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; border-radius: 14px; padding: 1.5rem; text-align: left;">
-            <h3 style="color: #f87171; font-size: 1.1rem; margin-bottom: 0.5rem;">Impossible de charger cette section</h3>
-            <p style="color: #fca5a5; font-size: 0.92rem; line-height: 1.5;">${echapperHtml(err.message)}</p>
-            <p style="font-size: 0.82rem; color: var(--texte-3); margin-top: 0.5rem;">Fichier ciblé : <code>${echapperHtml(cheminFichier)}</code></p>
+          <div class="alerte-erreur-chargement" role="alert">
+            <div class="erreur-chargement-entete">
+              <span class="erreur-icone">⚠️</span>
+              <h3 class="erreur-chargement-titre">Impossible de charger cette section</h3>
+            </div>
+            <p class="erreur-message-detail">${echapperHtml(err.message || 'Une interruption temporaire est survenue lors de la récupération du manuel.')}</p>
+            <div class="erreur-chargement-actions">
+              <button type="button" class="v-btn v-btn--vert btn-reessayer" id="btn-reessayer-chargement">
+                🔄 Réessayer
+              </button>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--texte-3); margin-top: 0.75rem;">Ressource demandée : <code>${echapperHtml(cheminFichier)}</code></p>
             ${
               estProtocoleFile
-                ? `<div style="margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.82rem; color: var(--texte-2);">
+                ? `<div class="astuce-locale-file">
                     💡 <strong>Astuce locale :</strong> Vous ouvrez ce fichier directement avec le protocole <code>file:///</code>. Le fichier <code>js/formation-contenu.js</code> doit être présent pour afficher les cours sans serveur. Vous pouvez aussi lancer <code>node server.js</code> dans le terminal pour démarrer le serveur officiel sur <code>http://localhost:3000</code>.
                    </div>`
                 : ''
             }
           </div>
         `;
+
+        const btnReessayer = conteneurCorps.querySelector('#btn-reessayer-chargement');
+        if (btnReessayer) {
+          btnReessayer.addEventListener('click', () => {
+            this.reessayerChargement();
+          });
+        }
       }
     },
 
@@ -1449,6 +1483,7 @@
   };
 
   window.SaheliaLecteur = Lecteur;
+  window.Lecteur = Lecteur;
 
   // Démarrage automatique au chargement du DOM
   document.addEventListener('DOMContentLoaded', () => {

@@ -1143,6 +1143,15 @@
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
+.hero-banniere-fond-pic {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .hero-banniere-fond {
   position: absolute;
   inset: 0;
@@ -1525,5 +1534,122 @@ body.mode-zen .layout-grille-formation {
   font-size: 0.88rem;
   line-height: 1.5;
   color: #d1fae5;
+}
+
+/* =========================================================================
+   COMPOSANTS DE CHARGEMENT & GESTION D'ERREUR DU LECTEUR (ÉTAPE A)
+   ========================================================================= */
+
+@keyframes rotation-spinner-sahelia {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.chargement-cours-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+  min-height: 280px;
+  text-align: center;
+  background: rgba(14, 32, 25, 0.35);
+  border: 1px dashed var(--bordure, rgba(255, 255, 255, 0.1));
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+.spinner-cercle {
+  width: 46px;
+  height: 46px;
+  border: 3.5px solid rgba(95, 208, 160, 0.18);
+  border-top-color: var(--bordure-active, #5fd0a0);
+  border-right-color: var(--bordure-active, #5fd0a0);
+  border-radius: 50%;
+  animation: rotation-spinner-sahelia 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  margin-bottom: 1.15rem;
+  box-shadow: 0 0 16px rgba(95, 208, 160, 0.15);
+}
+
+.texte-chargement-cours {
+  color: var(--texte, #eaf4ee);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0;
+  animation: pulsation-verte 2.2s ease-in-out infinite;
+}
+
+/* Alerte et bouton de secours en cas d'erreur réseau */
+.alerte-erreur-chargement {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 14px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  margin: 1.5rem 0;
+  box-sizing: border-box;
+}
+
+.erreur-chargement-entete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.erreur-icone {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.erreur-chargement-titre {
+  color: #f87171 !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+}
+
+.erreur-message-detail {
+  color: #fca5a5 !important;
+  font-size: 0.92rem !important;
+  line-height: 1.55 !important;
+  max-width: 560px;
+  margin: 0.5rem auto 1.35rem !important;
+}
+
+.erreur-chargement-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.btn-reessayer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0 1.5rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.astuce-locale-file {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.82rem;
+  color: var(--texte-2, #a3c2b2);
+  line-height: 1.5;
+  text-align: left;
 }
 

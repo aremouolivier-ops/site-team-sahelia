@@ -9,6 +9,10 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#08130f">
 
+  <!-- Pré-connexions Polices Officielles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <!-- Polices et Styles Officiels -->
   <link rel="stylesheet" href="css/style.css?v=2026.6">
   <link rel="stylesheet" href="css/formation.css?v=2026.6">
@@ -182,7 +186,10 @@
         <!-- En-tête de la section : Bannière Hero Hybride avec Photographie de Terrain Réelle -->
         <header class="en-tete-article-cours">
           <div class="hero-banniere-hybride" id="hero-banniere-hybride">
-            <img src="assets/images/hero_terrain_agronomie.jpg" alt="Immersion Terrain TEAM Sahélia" class="hero-banniere-fond" id="hero-image-fond">
+            <picture class="hero-banniere-fond-pic">
+              <source id="hero-image-source-webp" srcset="assets/images/hero_terrain_agronomie.webp" type="image/webp">
+              <img src="assets/images/hero_terrain_agronomie.jpg" alt="Immersion Terrain TEAM Sahélia" class="hero-banniere-fond" id="hero-image-fond" fetchpriority="high" decoding="async" width="1024" height="576">
+            </picture>
             <div class="hero-banniere-voile"></div>
             <div class="hero-banniere-contenu">
               <div class="hero-kicker-ligne">
@@ -213,7 +220,10 @@
 
         <!-- Contenu Markdown Rendu -->
         <article id="corps-cours-rendu" class="corps-texte-rendu">
-          <!-- Rempli dynamiquement par lecteur-formation.js -->
+          <div id="etat-chargement-cours" class="chargement-cours-spinner" role="status" aria-live="polite">
+            <div class="spinner-cercle"></div>
+            <p class="texte-chargement-cours">Chargement de votre manuel…</p>
+          </div>
         </article>
 
         <!-- Défi Pratique du Chapitre & Sandbox de Validation Badge -->

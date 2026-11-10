@@ -18,3 +18,4 @@ manuels/**/*.md
 # Documents de travail et audits internes
 AUDIT_GENERAL_360_ET_PLAN_DIRECTEUR_SAHELIA.md
 
+*.bak
