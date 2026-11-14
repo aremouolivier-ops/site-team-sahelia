@@ -116,6 +116,37 @@
         return sauverBloc(htmlCallout);
       }
 
+      // Transformation des en-têtes métadonnées bruts (Manuel, Auteur, Temps, Illustration) en carte éditoriale propre
+      const estBlocMeta = lignes.some((l) => /\*\*(?:Manuel|Auteur|Temps d[’']apprentissage|Dur[ée]e|Illustration associ[ée]e|Fichiers associ[ée]s|Jeu de donn[ée]es)\s*:\*\*/i.test(l));
+      if (estBlocMeta) {
+        const itemsHtml = [];
+        lignes.forEach((l) => {
+          const m = l.match(/^\s*\*\*([^:*]+)\s*:\*\*\s*(.+)$/);
+          if (!m) return;
+          const cle = m[1].trim();
+          let val = m[2].trim();
+          // Masquer les chemins techniques internes schemas/*.svg (déjà rendus visuellement dans le corps)
+          val = val.replace(/`?(?:\.\.\/)?schemas\/[^`\s·,]+\.svg`?/gi, '').replace(/\s*·\s*$/, '').trim();
+          if (!val || /^aucun$/i.test(val)) return;
+
+          // Transformer les jeux de données (.csv, .xlsx) en liens propres
+          const matchDataset = val.match(/`?((?:\.\.\/)?datasets\/[^`\s·,]+)`?/i);
+          if (matchDataset) {
+            const cheminRes = corrigerCheminImage(matchDataset[1], baseDir);
+            const nomFichier = matchDataset[1].split('/').pop();
+            itemsHtml.push(`<a href="${echapperHtml(cheminRes)}" download class="meta-chapitre-pill meta-chapitre-dl">📥 ${echapperHtml(cle)} : ${echapperHtml(nomFichier)}</a>`);
+            return;
+          }
+
+          if (/illustration associ/i.test(cle)) return;
+          itemsHtml.push(`<span class="meta-chapitre-pill"><strong>${echapperHtml(cle)} :</strong> ${echapperHtml(val.replace(/`/g, ''))}</span>`);
+        });
+        if (itemsHtml.length > 0) {
+          return sauverBloc(`<div class="fiche-meta-chapitre">${itemsHtml.join('')}</div>`);
+        }
+        return '';
+      }
+
       return sauverBloc(`<blockquote class="citation-pedagogique">${parserLignesEnParagraphes(lignes.join('\n'))}</blockquote>`);
     });
 
@@ -179,7 +210,7 @@
       const htmlImg = `
         <figure class="figure-pedagogique ${estSvg ? 'figure-schema-svg' : ''}">
           <div class="figure-image-wrapper">
-            <img src="${cheminFinal}" alt="${echapperHtml(alt)}" loading="lazy" class="image-cours-cliquable" data-zoom-src="${cheminFinal}">
+            <img src="${cheminFinal}" alt="${echapperHtml(alt)}" ${estSvg ? 'decoding="async"' : 'loading="lazy"'} class="image-cours-cliquable" data-zoom-src="${cheminFinal}">
             <button type="button" class="btn-agrandir-image" title="Agrandir le schéma" data-zoom-src="${cheminFinal}">
               <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
             </button>
@@ -325,7 +356,7 @@
 
       return new Promise((resolve) => {
         const script = document.createElement('script');
-        script.src = `js/contenus/cours-${coursId}.js?v=2026.6`;
+        script.src = `js/contenus/cours-${coursId}.js?v=2026.8`;
         script.async = true;
         script.onload = () => {
           if (this.chunksCharges) this.chunksCharges.add(coursId);
@@ -340,8 +371,9 @@
     },
 
     async init() {
-      // 0. Réinitialiser tout mode résiduel pour garantir un affichage fluide dès le chargement
+      // 0. Réinitialiser tout mode résiduel et appliquer le thème mémorisé (Nuit Terrain / Papier Solaire)
       document.body.classList.remove('mode-zen');
+      this.initialiserTheme();
 
       // 1. Initialiser le contrôle d'accès
       if (window.SaheliaSecurite) {
@@ -351,7 +383,7 @@
       // 2. Afficher la bannière d'annonces si active
       this._initialiserBanniereAnnonces();
 
-      // 3. Écouteurs d'événements globaux (boutons de zoom, copies de code, tailles police)
+      // 3. Écouteurs d'événements globaux (zoom, copies de code, thème, hors-ligne, zen)
       this._attacherEcouteursGlobaux();
 
       // 4. Lire les paramètres de l'URL (?cours=mn-01&ch=ch-01)
@@ -360,6 +392,85 @@
       const chapitreId = params.get('ch') || null;
 
       await this.chargerCours(coursId, chapitreId);
+    },
+
+    initialiserTheme() {
+      let theme = 'sombre';
+      try {
+        const sauvegarde = localStorage.getItem('sahelia_theme_lecteur');
+        if (sauvegarde === 'clair' || sauvegarde === 'sombre') theme = sauvegarde;
+      } catch (e) {}
+      this._appliquerTheme(theme);
+    },
+
+    _appliquerTheme(theme) {
+      const estClair = theme === 'clair';
+      if (estClair) {
+        document.documentElement.setAttribute('data-theme', 'clair');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      const btnTheme = document.getElementById('btn-theme-lecteur');
+      if (btnTheme) {
+        btnTheme.textContent = estClair ? '🌙 Nuit' : '☀️ Papier';
+        btnTheme.title = estClair ? 'Passer en mode Nuit Terrain (sombre)' : 'Passer en mode Papier Solaire (clair haute lisibilité)';
+        btnTheme.setAttribute('aria-pressed', String(estClair));
+      }
+    },
+
+    basculerTheme() {
+      const estActuelClair = document.documentElement.getAttribute('data-theme') === 'clair';
+      const nouveau = estActuelClair ? 'sombre' : 'clair';
+      try {
+        localStorage.setItem('sahelia_theme_lecteur', nouveau);
+      } catch (e) {}
+      this._appliquerTheme(nouveau);
+    },
+
+    async telechargerCoursHorsLigne() {
+      if (!this.coursActif) return;
+      const btnOffline = document.getElementById('btn-offline-cours');
+      if (btnOffline) {
+        btnOffline.disabled = true;
+        btnOffline.textContent = '⏳ Mise en cache…';
+      }
+
+      const urls = new Set();
+      if (this.coursActif.id.startsWith('mn-')) {
+        urls.add(`js/contenus/cours-${this.coursActif.id}.js?v=2026.8`);
+      }
+      (this.coursActif.ressources || []).forEach((r) => {
+        if (r && r.fichier) urls.add(r.fichier);
+      });
+      // Récupérer également les schémas SVG déjà rendus ou connus du chapitre actif
+      document.querySelectorAll('#corps-cours-rendu img[src]').forEach((img) => {
+        const attrSrc = img.getAttribute('src');
+        if (attrSrc && !attrSrc.startsWith('data:')) urls.add(attrSrc);
+      });
+
+      const listeUrls = Array.from(urls);
+      try {
+        if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage({ type: 'CACHE_COURSE', urls: listeUrls });
+        }
+        if ('caches' in window) {
+          const cache = await caches.open('sahelia-v9-cache');
+          await Promise.allSettled(listeUrls.map((u) => fetch(u).then((r) => r.ok ? cache.put(u, r) : null)));
+        }
+        try {
+          localStorage.setItem(`sahelia_offline_${this.coursActif.id}`, String(Date.now()));
+        } catch (e) {}
+        if (btnOffline) {
+          btnOffline.disabled = false;
+          btnOffline.textContent = '✓ Hors-ligne prêt';
+          btnOffline.classList.add('offline-actif');
+        }
+      } catch (err) {
+        if (btnOffline) {
+          btnOffline.disabled = false;
+          btnOffline.textContent = '📥 Hors-ligne';
+        }
+      }
     },
 
     _initialiserBanniereAnnonces() {
@@ -444,6 +555,32 @@
         });
       }
 
+      // Bouton Bascule Thème Lecture (Nuit Terrain <-> Papier Solaire)
+      const btnTheme = document.getElementById('btn-theme-lecteur');
+      if (btnTheme) {
+        btnTheme.addEventListener('click', () => {
+          this.basculerTheme();
+        });
+      }
+
+      // Bouton Téléchargement Hors-Ligne du Manuel Actif
+      const btnOffline = document.getElementById('btn-offline-cours');
+      if (btnOffline) {
+        btnOffline.addEventListener('click', () => {
+          this.telechargerCoursHorsLigne();
+        });
+      }
+
+      // Fermeture du zoom SVG par touche Échap
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          const modalZoom = document.getElementById('modal-zoom-schema');
+          if (modalZoom && modalZoom.style.display === 'flex') {
+            modalZoom.style.display = 'none';
+          }
+        }
+      });
+
       // Bouton Mode Zen (Plein Écran sans distractions) - Uniquement pour grands écrans PC (> 1100px)
       const btnZen = document.getElementById('btn-zen-mode');
       if (btnZen) {
@@ -486,6 +623,15 @@
      * Relance le chargement du cours ou du chapitre actif (Action utilisateur Réessayer)
      */
     reessayerChargement() {
+      const conteneurCorps = document.getElementById('corps-cours-rendu');
+      if (conteneurCorps) {
+        conteneurCorps.innerHTML = `
+          <div id="etat-chargement-cours" class="chargement-cours-spinner" role="status" aria-live="polite">
+            <div class="spinner-cercle"></div>
+            <p class="texte-chargement-cours">Chargement de votre manuel…</p>
+          </div>
+        `;
+      }
       if (this.coursActif && this.coursActif.id) {
         const chId = this.chapitreActif ? this.chapitreActif.id : null;
         this.chargerCours(this.coursActif.id, chId);
@@ -730,6 +876,56 @@
 
       if (elemPct) elemPct.textContent = `${pct}%`;
       if (elemBarre) elemBarre.style.width = `${pct}%`;
+
+      // Pont vers le Studio Badge lors d'une complétion à 100 %
+      const badgeCard = document.getElementById('sidebar-badge-preview-card');
+      const parentSidebar = badgeCard ? badgeCard.parentElement : null;
+      let encart100 = document.getElementById('encart-certification-100');
+
+      if (pct === 100 && parentSidebar) {
+        const xpTotal = chapitres.length * 150;
+        const lienStudio = `index.html?badgeCours=${encodeURIComponent(cours.id)}#badges`;
+        if (!encart100 && typeof document.createElement === 'function' && typeof badgeCard.insertAdjacentElement === 'function') {
+          encart100 = document.createElement('div');
+          encart100.id = 'encart-certification-100';
+          encart100.className = 'encart-certification-100';
+          badgeCard.insertAdjacentElement('afterend', encart100);
+        }
+        if (encart100) {
+          encart100.innerHTML = `
+          <div class="encart-cert-titre">🏆 Parcours Complété à 100 % (${xpTotal} XP)</div>
+          <p class="encart-cert-texte">Tous les défis de ce parcours sont validés sur ce poste. Réclamez ou exportez votre preuve de complétion :</p>
+          <a href="${lienStudio}" class="v-btn v-btn--vert encart-cert-btn">🏅 Réclamer / Aperçu Badge</a>
+          <button type="button" id="btn-export-attestation-locale" class="v-btn v-btn--fantome encart-cert-btn">📄 Exporter Reçu JSON (${chapitres.length}/${chapitres.length})</button>
+        `;
+        }
+        const btnExport = document.getElementById('btn-export-attestation-locale');
+        if (btnExport) {
+          btnExport.onclick = () => {
+            const payload = {
+              plateforme: 'TEAM Sahélia',
+              coursId: cours.id,
+              titre: cours.titre,
+              chapitresValides: chapitres.map((c) => ({ id: c.id, titre: c.titre })),
+              progressionPourcent: 100,
+              xpTotal,
+              dateValidation: new Date().toISOString()
+            };
+            const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Completion_${cours.id}_TEAM_Sahelia.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+          };
+        }
+      } else if (encart100 && typeof encart100.remove === 'function') {
+        encart100.remove();
+      } else if (encart100 && encart100.style) {
+        encart100.innerHTML = '';
+        encart100.style.display = 'none';
+      }
     },
 
     _mettreAJourEnTeteCours(cours) {
@@ -790,6 +986,18 @@
         `).join('');
       }
 
+      // Mise à jour de l'état hors-ligne du cours actif
+      const btnOffline = document.getElementById('btn-offline-cours');
+      if (btnOffline) {
+        let estEnCache = false;
+        try {
+          estEnCache = Boolean(localStorage.getItem(`sahelia_offline_${cours.id}`));
+        } catch (e) {}
+        btnOffline.textContent = estEnCache ? '✓ Hors-ligne prêt' : '📥 Hors-ligne';
+        btnOffline.classList.toggle('offline-actif', estEnCache);
+        btnOffline.disabled = false;
+      }
+
       this._mettreAJourProgressionEtBadges(cours);
     },
 
@@ -809,6 +1017,9 @@
             </p>
           </div>
         `;
+        if (chapitreSelectionne) {
+          this._configurerDefiInteractif(cours, chapitreSelectionne);
+        }
         return;
       }
 
@@ -985,13 +1196,19 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } catch (err) {
         const estProtocoleFile = window.location.protocol === 'file:';
+        const estHorsLigne = typeof navigator !== 'undefined' && navigator.onLine === false;
+        const titreErr = estHorsLigne ? 'Connexion Internet interrompue' : 'Impossible de charger cette section';
+        const messageErr = estHorsLigne
+          ? 'Votre appareil semble actuellement hors ligne et ce chapitre n’a pas encore été enregistré dans le cache local.'
+          : (err.message || 'Une interruption temporaire est survenue lors de la récupération du manuel.');
+
         conteneurCorps.innerHTML = `
           <div class="alerte-erreur-chargement" role="alert">
             <div class="erreur-chargement-entete">
-              <span class="erreur-icone">⚠️</span>
-              <h3 class="erreur-chargement-titre">Impossible de charger cette section</h3>
+              <span class="erreur-icone">${estHorsLigne ? '📡' : '⚠️'}</span>
+              <h3 class="erreur-chargement-titre">${titreErr}</h3>
             </div>
-            <p class="erreur-message-detail">${echapperHtml(err.message || 'Une interruption temporaire est survenue lors de la récupération du manuel.')}</p>
+            <p class="erreur-message-detail">${echapperHtml(messageErr)}</p>
             <div class="erreur-chargement-actions">
               <button type="button" class="v-btn v-btn--vert btn-reessayer" id="btn-reessayer-chargement">
                 🔄 Réessayer
@@ -1191,221 +1408,1016 @@
     },
 
     /**
-     * Système d'Auto-Grader Pédagogique & Banque de Défis Terrains
+     * Système d'Auto-Grader Pédagogique & Banque de Défis Terrains (indexé par ID de chapitre exact)
      */
     _obtenirDefiPourChapitre(cours, chapitre, index) {
       const cleCoursChap = `${cours.id}_${chapitre.id}`;
-      const cleIndex = `${cours.id}_${index + 1}`;
 
       const banque = {
         // --- MANUEL 01 : EXCEL POUR ÉTUDIANTS & PROFESSIONNELS ---
-        'mn-01_1': {
-          titre: 'Défi 01 · Sécurisation des calculs agronomiques',
-          consigne: 'Téléchargez le jeu d’essais agronomiques réels ci-dessous. Ouvrez-le sous Excel et identifiez la formule standard évitant toute erreur de calcul lors de la division du rendement par la surface parcellaire.',
-          question: 'Dans une feuille de calcul d’essais agricoles, quelle formule protège vos automatisations d’une division par zéro (#DIV/0!) lorsque certaines parcelles ne sont pas encore récoltées ?',
+        'mn-01_ch-00': {
+          titre: 'Défi 00 · Architecture tabulaire propre',
+          consigne: 'Avant de saisir votre premier essai sous Excel, appliquez la règle structurelle fondamentale d’une base exploitable sous Excel, RStudio et QGIS.',
+          question: 'Pourquoi faut-il strictement proscrire les cellules fusionnées et les sous-titres intercalés au milieu d’une base de données d’essais ?',
           options: [
-            '=SIERREUR(Rendement / Superficie; 0)',
-            '=Rendement / 0',
-            '=DIVISER(Rendement; Superficie)',
-            '=TEST.DIV(Rendement; Superficie; FAUX)'
+            'Ils bloquent les filtres, les Tableaux Croisés Dynamiques (TCD) et l’importation R / QGIS.',
+            'Ils augmentent uniquement la taille visuelle des caractères à l’impression.',
+            'Ils empêchent le logiciel Excel d’enregistrer le fichier au format .xlsx.'
           ],
           bonneReponse: 0,
-          explication: 'L’encapsulation dans =SIERREUR(calcul; valeur_si_erreur) est la règle d’or pour fiabiliser les tableaux de bord et empêcher le blocage des macros ou des moyennes globales.',
-          ressources: [
-            { nom: 'dataset_agronomique_sahelia.csv (72 parcelles)', url: 'datasets/dataset_agronomique_sahelia.csv' }
-          ]
+          explication: 'Une table propre suit la règle 1 ligne = 1 observation et 1 colonne = 1 variable : zéro fusion, zéro ligne vide, en-tête unique en ligne 1.',
+          ressources: [{ nom: 'dataset_agronomique_sahelia.csv (72 parcelles)', url: 'datasets/dataset_agronomique_sahelia.csv' }]
         },
-        'mn-01_2': {
-          titre: 'Défi 02 · Références absolues et calcul de charges',
-          consigne: 'Vous devez multiplier une colonne de quantités d’engrais par le prix unitaire fixé en cellule $D$2. La formule doit être recopiée sur 72 lignes d’essais sans dérive.',
-          question: 'Quelle référence absolue garantit que la cellule D2 reste strictement figée en ligne et en colonne lors du glisser-déposer ?',
+        'mn-01_ch-01': {
+          titre: 'Défi 01 · Anatomie d’Excel & Hygiène de Saisie',
+          consigne: 'Téléchargez le jeu d’essais agronomiques réels ci-dessous. Ouvrez-le sous Excel et repérez le piège classique du séparateur décimal.',
+          question: 'Dans Excel configuré en français, comment reconnaissez-vous immédiatement qu’un nombre décimal saisi avec un point (`24.5`) est interprété comme du TEXTE inutilisable pour les moyennes ?',
           options: [
-            'D$2 (référence absolue sur la ligne uniquement)',
-            '$D$2 (référence absolue intégrale colonne et ligne)',
-            'D2$ (syntaxe non reconnue)',
-            '&D&2 (opérateur de concaténation)'
+            'Excel le colore automatiquement en rouge vif.',
+            'La valeur reste alignée à gauche par défaut dans la cellule au lieu de s’aligner à droite.',
+            'Excel affiche systématiquement #NOM? dès la validation par Entrée.'
           ],
           bonneReponse: 1,
-          explication: 'Le double dollar ($D$2) fige à la fois la colonne et la ligne. C’est la référence absolue universelle indispensable pour appliquer un taux unique ou un prix pivot.',
-          ressources: [
-            { nom: 'dataset_agronomique_sahelia.csv', url: 'datasets/dataset_agronomique_sahelia.csv' }
-          ]
+          explication: 'Dans Excel, un vrai nombre valide s’aligne toujours à droite, tandis qu’une chaîne de texte s’aligne par défaut à gauche. Tout calcul sur du texte fausse les rendements.',
+          ressources: [{ nom: 'dataset_agronomique_sahelia.csv (72 parcelles)', url: 'datasets/dataset_agronomique_sahelia.csv' }]
         },
-        'mn-01_6': {
-          titre: 'Défi 06 · Nettoyage et curation de données d’enquêtes',
-          consigne: 'Téléchargez le fichier brut d’enquêtes de terrain contenant des doublons, des coquilles et des espaces parasites. Identifiez la fonction standard de nettoyage textuel.',
-          question: 'Quelle fonction Excel permet d’éliminer instantanément les espaces superflus au début, à la fin et les doubles espaces internes dans les noms de producteurs ou de communes ?',
+        'mn-01_ch-02': {
+          titre: 'Défi 02 · Formules Arithmétiques & Règle du Dollar ($)',
+          consigne: 'Vous devez multiplier chaque dose d’engrais par un prix unitaire fixe placé en $D$2 et protéger la division rendement/surface contre les zéros.',
+          question: 'Quelle référence absolue et raccourci clavier permettent de figer intégralement la cellule D2 avant de recopier une formule sur 72 lignes ?',
           options: [
-            '=EPURAGE(texte)',
-            '=SUPPRESPACE(texte)',
+            'D$2 via la touche Échap',
+            'D2$ via la touche F2',
+            '$D$2 obtenue rapidement avec la touche F4'
+          ],
+          bonneReponse: 2,
+          explication: 'Le double dollar ($D$2) bloque colonne et ligne ; la touche F4 bascule en un appui entre référence relative, absolue et mixte.',
+          ressources: [{ nom: 'dataset_agronomique_sahelia.csv', url: 'datasets/dataset_agronomique_sahelia.csv' }]
+        },
+        'mn-01_ch-06': {
+          titre: 'Défi 06 · Nettoyage de Bases de Données Brutes',
+          consigne: 'Téléchargez le fichier brut d’enquêtes contenant des espaces parasites après import KoboToolbox.',
+          question: 'Quelle fonction Excel supprime les espaces superflus en début, fin et doublons internes dans les noms de communes ou producteurs ?',
+          options: [
             '=NETTOYER_ESPACES(texte)',
-            '=FORMAT.TEXTE(texte; "sans_espace")'
+            '=SUPPRESPACE(texte)',
+            '=CARACTERES(texte; 0)'
           ],
           bonneReponse: 1,
-          explication: 'La fonction =SUPPRESPACE(texte) (TRIM en anglais) élimine les espaces parasites générés lors des imports d’enquêtes mobiles Kobo ou ODK avant d’exécuter des jointures ou des TCD.',
-          ressources: [
-            { nom: 'dataset_brut_a_nettoyer_sahelia.csv (Données brutes)', url: 'datasets/dataset_brut_a_nettoyer_sahelia.csv' }
-          ]
+          explication: 'La fonction =SUPPRESPACE(texte) (TRIM en anglais) uniformise instantanément les libellés avant toute jointure ou TCD.',
+          ressources: [{ nom: 'dataset_brut_a_nettoyer_sahelia.csv (Données brutes)', url: 'datasets/dataset_brut_a_nettoyer_sahelia.csv' }]
         },
-        'mn-01_9': {
-          titre: 'Défi 09 · Analyse de rentabilité agronomique',
-          consigne: 'À partir des coûts totaux et des recettes calculées par culture (Maïs, Soja, Sorgho), déterminez la relation comptable de la Marge Brute.',
-          question: 'Comment se calcule précisément la Marge Brute d’une parcelle agricole par hectare ?',
+        'mn-01_ch-09': {
+          titre: 'Défi Capstone · Analyse de Rentabilité & TCD',
+          consigne: 'Calculez les marges par culture (Maïs, Soja, Sorgho) et consolidez vos résultats.',
+          question: 'Comment se calcule rigoureusement la Marge Brute agricole à l’hectare ?',
           options: [
-            'Marge Brute = Chiffre d’Affaires Total - Charges Opérationnelles Variables',
-            'Marge Brute = Chiffre d’Affaires Total + Amortissement du matériel',
-            'Marge Brute = Coût des Semences / Rendement Total',
-            'Marge Brute = Bénéfice Net avant impôt'
+            'Marge Brute = Chiffre d’Affaires Total − Charges Opérationnelles Variables',
+            'Marge Brute = Coût des Semences ÷ Rendement Total',
+            'Marge Brute = Chiffre d’Affaires Total + Subventions + Amortissements'
           ],
           bonneReponse: 0,
-          explication: 'La Marge Brute agricole isole la performance intrinsèque de l’itinéraire technique en soustrayant uniquement les charges directement liées à la culture (semences, engrais, main-d’œuvre).',
-          ressources: [
-            { nom: 'dataset_agronomique_sahelia.csv', url: 'datasets/dataset_agronomique_sahelia.csv' }
-          ]
+          explication: 'La Marge Brute isole la performance technique en déduisant uniquement les charges proportionnelles engagées pour la culture.',
+          ressources: [{ nom: 'dataset_agronomique_sahelia.csv', url: 'datasets/dataset_agronomique_sahelia.csv' }]
         },
 
-        // --- MANUEL 06 : SIG & CARTOGRAPHIE AGRICOLE ---
-        'mn-06_1': {
-          titre: 'Défi 01 · Géodésie et projection UTM au Bénin',
-          consigne: 'Téléchargez le jeu de polygones d’essais agricoles du Borgou. Vous devez configurer votre projet QGIS pour des calculs de surfaces en mètres et hectares.',
-          question: 'Dans quel fuseau de projection métrique UTM officiel se situe la grande majorité du Bénin (notamment Parakou, Cotonou et Bohicon) ?',
+        // --- MANUEL 02 : WORD & POWERPOINT PRO ---
+        'mn-02_ch-01': {
+          titre: 'Défi 01 · Styles Hiérarchiques & Sommaire Automatique',
+          question: 'Pourquoi faut-il appliquer les styles intégrés (Titre 1, Titre 2, Titre 3) plutôt que de mettre manuellement vos titres en gras et taille 16 ?',
           options: [
-            'WGS 84 / UTM Zone 31N (EPSG:32631)',
-            'WGS 84 / UTM Zone 32N (EPSG:32632)',
-            'Lambert-93 (EPSG:2154)',
-            'RGF93 / CC49 (EPSG:3949)'
+            'Les styles permettent à Word de générer un sommaire dynamique cliquable avec numéros de page auto-actualisés.',
+            'Le texte manuel en gras disparaît lors de l’export au format PDF.',
+            'Les styles réduisent la taille du fichier DOCX de 95 %.'
           ],
           bonneReponse: 0,
-          explication: 'Le Bénin s’étend entre 1° et 3°45’ Est, ce qui place l’essentiel de son territoire dans le fuseau 31 Nord (EPSG:32631). Seule la frange orientale (Nikki, Kalalé) bascule en 32N.',
-          ressources: [
-            { nom: 'parcelles_agricoles_borgou.geojson (Polygones)', url: 'datasets/parcelles_agricoles_borgou.geojson' }
-          ]
+          explication: 'Seuls les styles hiérarchiques alimentent le Volet de Navigation et la Table des Matières automatique sans ressaisie ni décalage.'
         },
-        'mn-06_2': {
-          titre: 'Défi 02 · Formats de données spatiales ouvertes',
-          consigne: 'Examinez la structure du fichier spatial fourni et identifiez les formats modernes recommandés pour éviter les limites historiques du Shapefile (noms de champs limités à 10 caractères).',
-          question: 'Quels formats vectoriels modernes et ouverts remplacent avantageusement le vieux format ESRI Shapefile pour les parcellaires agricoles ?',
+        'mn-02_ch-02': {
+          titre: 'Défi 02 · Sauts de Section & Pagination Différenciée',
+          question: 'Pour passer de la numérotation romaine (i, ii, iii) des pages liminaires aux chiffres arabes (1, 2, 3) à l’Introduction sans tout dérégler, que faut-il faire ?',
           options: [
-            'GeoPackage (.gpkg) et GeoJSON (.geojson)',
-            'Fichier texte délimité (.csv) sans géométrie',
-            'Image matricielle TIFF non géoréférencée',
-            'Document PDF interactif'
+            'Insérer un simple Saut de Page puis retaper les numéros à la main.',
+            'Insérer un Saut de Section (Page suivante) et désactiver « Lier au précédent » dans l’en-tête/pied de page.',
+            'Créer deux fichiers Word séparés et les imprimer en double.'
           ],
-          bonneReponse: 0,
-          explication: 'L’OGC préconise le standard ouvert OGC GeoPackage (.gpkg) basé sur SQLite et le GeoJSON (.geojson) qui supportent l’encodage UTF-8 universel et suppriment les limites de champs.',
-          ressources: [
-            { nom: 'parcelles_agricoles_borgou.geojson', url: 'datasets/parcelles_agricoles_borgou.geojson' }
-          ]
+          bonneReponse: 1,
+          explication: 'Le Saut de Section suivi de la rupture du lien « Lier au précédent » isole totalement les pieds de page entre sections.'
         },
-        'mn-06_3': {
-          titre: 'Défi 03 · Calculateur de superficies parcellaires dans QGIS',
-          consigne: 'Dans la table d’attributs sous QGIS, vous devez calculer la superficie exacte en hectares de chaque polygone numérisé.',
-          question: 'Quelle expression de la calculatrice de champ QGIS renvoie la superficie en hectares pour une couche projetée en UTM (EPSG:32631) ?',
+        'mn-02_ch-05': {
+          titre: 'Défi 05 · Soutenance & Lisibilité 10 Mètres',
+          question: 'Quelle règle caractérise une diapositive de soutenance claire selon les standards académiques modernes ?',
           options: [
-            '$area / 10000',
-            '$area * 100',
-            '$perimeter / 4',
-            '$length / 1000'
+            'La règle du 6×6 : maximum 6 lignes par slide et ~6 mots clés par ligne, police ≥ 24 pt.',
+            'Copier-coller l’intégralité du paragraphe Word de résultats en taille 11 pt.',
+            'Utiliser 4 animations par puce pour maintenir le jury éveillé.'
           ],
           bonneReponse: 0,
-          explication: 'Dans un CRS projeté en mètres, $area renvoie la surface en m². Un hectare valant 10 000 m², la division par 10 000 ($area / 10000) donne directement le résultat en hectares.',
-          ressources: [
-            { nom: 'parcelles_agricoles_borgou.geojson', url: 'datasets/parcelles_agricoles_borgou.geojson' }
-          ]
+          explication: 'Une diapositive accompagne votre discours oral : 1 idée maîtresse + 1 schéma ou graphique parlant vaut mieux que 15 lignes de prose.'
         },
 
-        // --- MANUEL 07 : COLLECTE MOBILE KOBOTOOLBOX ---
-        'mn-07_1': {
+        // --- MANUEL 03 : 50 ASTUCES & RACCOURCIS PC ---
+        'mn-03_ch-02': {
+          titre: 'Défi 02 · Nomenclature ISO 8601 des Fichiers',
+          question: 'Quel format de nommage garantit un tri chronologique automatique de vos versions de mémoire dans Windows et Google Drive ?',
+          options: [
+            'Memoire_Final_V2_VRAIFinal.docx',
+            '2026-04-15_Memoire_Licence_Chapitre2_v02.docx (préfixe AAAA-MM-JJ sans accent ni espace)',
+            '15-04-26-Mon Document !!.docx'
+          ],
+          bonneReponse: 1,
+          explication: 'Le préfixe ISO 8601 (AAAA-MM-JJ) place toujours vos fichiers du plus ancien au plus récent dans tout explorateur.'
+        },
+        'mn-03_ch-03': {
+          titre: 'Défi 03 · Règle de Sauvegarde 3-2-1',
+          question: 'Que signifie concrètement la stratégie internationale de sauvegarde 3-2-1 contre la perte de thèse ou de données ?',
+          options: [
+            '3 copies sur le même disque dur dans 2 dossiers différents et 1 mot de passe.',
+            '3 copies totales sur 2 supports physiques différents, dont au moins 1 copie hors-site / cloud.',
+            'Sauvegarder son PC uniquement 1 fois tous les 3 mois.'
+          ],
+          bonneReponse: 1,
+          explication: 'Disposer de 3 exemplaires sur 2 médias (ex. SSD + disque externe) et 1 copie distante (cloud chiffré) survit au vol, à la panne et aux ransomwares.'
+        },
+
+        // --- MANUEL 04 : R & RSTUDIO POUR L'AGRONOMIE ---
+        'mn-04_ch-04': {
+          titre: 'Défi 04 · Conditions Paramétriques de l’ANOVA',
+          question: 'Avant d’interpréter une ANOVA paramétrique sur des rendements agricoles, quelles deux hypothèses vérifie-t-on avec `shapiro.test()` et `bartlett.test()` ?',
+          options: [
+            'La normalité des résidus et l’homogénéité des variances entre groupes (homoscédasticité).',
+            'L’absence de valeurs nulles et le tri alphabétique des traitements.',
+            'La taille exacte de la mémoire RAM disponible sous RStudio.'
+          ],
+          bonneReponse: 0,
+          explication: 'Si p > 0,05 aux tests de Shapiro-Wilk (normalité des résidus) et Bartlett/Levene (homogénéité des variances), l’ANOVA classique est statistiquement valide.'
+        },
+        'mn-04_ch-06': {
+          titre: 'Défi 06 · Comparaisons Post-Hoc & Lettres de Tukey (HSD)',
+          question: 'À quoi servent les lettres statistiques (`a`, `b`, `ab`) affichées au-dessus des barres d’un graphique agronomique après un test de Tukey ?',
+          options: [
+            'Elles indiquent l’ordre chronologique des semis sur le terrain.',
+            'Deux traitements partageant au moins une même lettre ne diffèrent pas significativement au seuil α fixé (souvent 5 %).',
+            'Elles correspondent aux initiales des engrais utilisés.'
+          ],
+          bonneReponse: 1,
+          explication: 'Le test HSD de Tukey regroupe les moyennes qui ne présentent pas de différence statistiquement significative sous une lettre commune.'
+        },
+
+        // --- MANUEL 05 : KOBOTOOLBOX & COLLECTE MOBILE ---
+        'mn-05_ch-01': {
           titre: 'Défi 01 · Spécification XLSForm pour relevé GNSS',
-          consigne: 'Téléchargez la trame XLSForm ci-dessous. Vous préparez un formulaire pour les enquêteurs chargés de géolocaliser les parcelles paysannes.',
-          question: 'Dans la feuille "survey" d’un questionnaire XLSForm, quel type de question permet d’enregistrer automatiquement la position GPS (latitude, longitude, altitude et précision) ?',
+          consigne: 'Téléchargez la trame XLSForm ci-dessous destinée aux enquêteurs terrain.',
+          question: 'Dans la feuille "survey" d’un questionnaire XLSForm, quel type de question enregistre la position GPS (latitude, longitude, altitude, précision) sans connexion Internet ?',
           options: [
             'geopoint',
-            'geotrace',
-            'coord_gps',
-            'location_sensor'
+            'location_web_api',
+            'geotrace_text'
           ],
           bonneReponse: 0,
-          explication: 'Le mot-clé standard XLSForm "geopoint" déclenche le récepteur GNSS du smartphone ou de la tablette dans KoboCollect pour enregistrer les 4 attributs spatiaux.',
-          ressources: [
-            { nom: 'modele_enquete_agricole_kobo.csv (Trame XLSForm)', url: 'datasets/modele_enquete_agricole_kobo.csv' }
-          ]
+          explication: 'Le mot-clé standard `geopoint` pilote la puce GNSS du smartphone hors connexion pour capturer lat, lon, alt et précision en mètres.',
+          ressources: [{ nom: 'modele_enquete_agricole_kobo.csv (Trame XLSForm)', url: 'datasets/modele_enquete_agricole_kobo.csv' }]
         },
-        'mn-07_2': {
-          titre: 'Défi 02 · Architecture d’un classeur XLSForm',
-          consigne: 'Vous concevez un fichier Excel d’enquête pour KoboToolbox. Identifiez les feuilles obligatoires nécessaires à son déploiement.',
-          question: 'Quelles sont les feuilles de calcul obligatoires que doit contenir un classeur Excel pour être importé avec succès sous KoboToolbox / ODK ?',
+        'mn-05_ch-02': {
+          titre: 'Défi 02 · Sauts Logiques & Expression XLSForm',
+          question: 'Dans la colonne `relevant` d’un XLSForm, comment afficher une question uniquement si le producteur a répondu `oui` à la variable `utilise_engrais` ?',
           options: [
-            'survey et choices (la feuille settings étant facultative)',
-            'questions, reponses et variables',
-            'formulaire et dictionnaire_donnees',
+            "IF(${utilise_engrais} == 'oui')",
+            "${utilise_engrais} = 'oui'",
+            "#utilise_engrais === oui"
+          ],
+          bonneReponse: 1,
+          explication: 'XLSForm utilise la syntaxe XPath `${nom_variable} = \'valeur\'` (avec un seul signe `=`) dans la colonne `relevant`.'
+        },
+        'mn-05_ch-04': {
+          titre: 'Défi 04 · Structure Officielle d’un Classeur XLSForm',
+          question: 'Quelles sont les feuilles obligatoires d’un classeur Excel pour réussir l’importation sous `kf.kobotoolbox.org` ?',
+          options: [
+            'survey et choices (settings étant optionnelle mais recommandée)',
+            'questions, reponses et dashboard',
             'data et metadata'
           ],
           bonneReponse: 0,
-          explication: 'La norme universelle XLSForm exige au minimum la feuille "survey" (définition des questions) et "choices" (listes de choix déroulants), complétées souvent par "settings".',
-          ressources: [
-            { nom: 'modele_enquete_agricole_kobo.csv', url: 'datasets/modele_enquete_agricole_kobo.csv' }
-          ]
+          explication: 'La spécification XLSForm requiert au minimum `survey` (structure des questions) et `choices` (listes fermées).'
+        },
+        'mn-05_ch-05': {
+          titre: 'Défi 05 · Collecte Hors-Ligne sur KoboCollect',
+          question: 'Pour configurer rapidement 15 smartphones d’enquêteurs sans faute de frappe d’URL serveur, quelle méthode privilégier ?',
+          options: [
+            'Scanner le QR Code de configuration généré dans Paramètres > Collect data de KoboToolbox.',
+            'Désactiver la puce GPS pour économiser la RAM.',
+            'Saisir les 15 formulaires directement dans un tableur partagé en ligne.'
+          ],
+          bonneReponse: 0,
+          explication: 'Le QR Code KoboCollect configure instantanément l’URL `https://kf.kobotoolbox.org`, les identifiants et les règles de téléchargement.'
         },
 
-        // --- MANUEL 08 : AGRONOMIE DE PRÉCISION ---
-        'mn-08_1': {
-          titre: 'Défi 01 · Télédétection multispectrale & Indice NDVI',
-          consigne: 'Pour évaluer la vigueur foliaire des cultures de maïs et de soja à partir d’images Sentinel-2 ou drone multispectral, vous calculez le NDVI.',
-          question: 'Quelle formule mathématique exprime l’Indice de Végétation par Différence Normalisée (NDVI) à partir des réflectances Rouge (R) et Proche Infrarouge (PIR) ?',
+        // --- MANUEL 06 : CARTOGRAPHIE AGRICOLE & SIG QGIS ---
+        'mn-06_ch-01': {
+          titre: 'Défi 01 · Géodésie & Projection UTM au Bénin',
+          question: 'Quel système de coordonnées projetées (SCR métrique) s’applique à la majorité du Bénin pour mesurer des surfaces agricoles en m² et hectares ?',
+          options: [
+            'WGS 84 / UTM Zone 31N (EPSG:32631)',
+            'WGS 84 géographique en degrés décimaux (EPSG:4326)',
+            'Lambert-93 (EPSG:2154)'
+          ],
+          bonneReponse: 0,
+          explication: 'Le Bénin se situe majoritairement entre 1° et 3°45’ E : EPSG:32631 donne des coordonnées métriques fiables.'
+        },
+        'mn-06_ch-03': {
+          titre: 'Défi 03 · Calculatrice de Superficies QGIS',
+          question: 'Quelle expression de calculatrice de champ QGIS renvoie la superficie en hectares sur une couche projetée en UTM (EPSG:32631) ?',
+          options: [
+            '$area * 100',
+            '$area / 10000',
+            '$perimeter / 4'
+          ],
+          bonneReponse: 1,
+          explication: '1 hectare = 10 000 m². En UTM métrique, `$area / 10000` convertit directement l’aire en hectares.',
+          ressources: [{ nom: 'parcelles_agricoles_borgou.geojson', url: 'datasets/parcelles_agricoles_borgou.geojson' }]
+        },
+        'mn-06_ch-05': {
+          titre: 'Défi 05 · Télédétection Optique & Indice NDVI',
+          question: 'Quelle formule mathématique définit l’Indice de Végétation par Différence Normalisée (NDVI) avec les bandes Rouge (R) et Proche Infrarouge (PIR) ?',
           options: [
             '(PIR - R) / (PIR + R)',
             '(R - PIR) / (R + PIR)',
-            'PIR / (R + 1)',
             '(PIR + R) / 2'
           ],
           bonneReponse: 0,
-          explication: 'La chlorophylle absorbe la lumière rouge pour la photosynthèse et les structures cellulaires mésophylliennes réfléchissent fortement le proche infrarouge. La normalisation produit un indice compris entre -1 et +1.',
-          ressources: [
-            { nom: 'dataset_agronomique_sahelia.csv', url: 'datasets/dataset_agronomique_sahelia.csv' }
-          ]
+          explication: 'Une végétation saine absorbe fortement le Rouge et réfléchit le PIR : un NDVI proche de +0,7/+0,8 signale une forte biomasse chlorophyllienne.'
         },
 
-        // --- MANUEL 12 : CRÉATION VIDÉO IA & STORYTELLING ---
-        'mn-12_1': {
-          titre: 'Défi 01 · Structure narrative de vulgarisation technique',
-          consigne: 'Vous rédigez le script d’une capsule vidéo courte destinée à former les producteurs du Borgou à l’utilisation raisonnée des engrais.',
-          question: 'Quelle structure narrative maximise l’attention et la rétention d’un public professionnel en format court (30 à 90 secondes) ?',
+        // --- MANUEL 07 : DÉVELOPPEMENT WEB MODERNE ---
+        'mn-07_ch-01': {
+          titre: 'Défi 01 · Sémantique HTML5 & Accessibilité',
+          question: 'Pourquoi privilégier les balises sémantiques `<header>`, `<nav>`, `<main>` et `<article>` plutôt qu’une suite de `<div>` génériques ?',
           options: [
-            'Accroche terrain (Hook 0-3s) → Constat du problème → Solution pratique démontrée → Appel à l’action (CTA)',
-            'Générique musical de 30 secondes → Contexte théorique exhaustif → Bibliographie académique',
-            'Monologue sans illustration visuelle ni sous-titrage',
-            'Succession de logos institutionnels sans message clé'
+            'Elles améliorent le référencement (SEO), la navigation au clavier et la lecture par les lecteurs d’écran.',
+            'Les balises `<div>` ne sont plus supportées dans Google Chrome.',
+            'Elles chiffrent automatiquement les requêtes HTTP.'
           ],
           bonneReponse: 0,
-          explication: 'La structure narrative Hook-Problem-Solution-CTA capte l’attention dans les 3 premières secondes et garantit que le savoir agronomique est mémorisé et appliqué sur le terrain.'
+          explication: 'Le HTML5 sémantique donne du sens à la structure documentaire pour les moteurs de recherche et les technologies d’assistance.'
+        },
+        'mn-07_ch-02': {
+          titre: 'Défi 02 · Mise en Page Moderne CSS Grid & Flexbox',
+          question: 'Quelle propriété CSS permet de créer une grille de cartes responsive qui s’adapte sans media query complexe ?',
+          options: [
+            'display: block; float: left;',
+            'display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));',
+            'position: absolute; top: 50%;'
+          ],
+          bonneReponse: 1,
+          explication: 'Le motif `repeat(auto-fit, minmax(min(100%, 260px), 1fr))` adapte fluidement le nombre de colonnes sur smartphone, tablette et PC.'
+        },
+        'mn-07_ch-04': {
+          titre: 'Défi 04 · Interaction DOM & Sécurité XSS',
+          question: 'Pour afficher une chaîne saisie par l’utilisateur dans un élément DOM sans risque d’injection de script (XSS), quelle propriété privilégier ?',
+          options: [
+            'element.innerHTML = saisie;',
+            'element.textContent = saisie;',
+            'eval(saisie);'
+          ],
+          bonneReponse: 1,
+          explication: '`textContent` insère du texte brut sans jamais l’interpréter comme du HTML exécutable.'
+        },
+
+        // --- MANUEL 08 : VIBE CODING & IA RESPONSABLE ---
+        'mn-08_ch-02': {
+          titre: 'Défi 02 · Standard C.R.E.D. du Prompt d’Ingénierie',
+          question: 'Que désigne l’acronyme méthodologique C.R.E.D. utilisé pour piloter un assistant de code IA avec précision ?',
+          options: [
+            'Code · Rapide · Erreur · Déploiement',
+            'Contexte · Rôle · Exigences · Données (ou Livrable attendu)',
+            'Copier · Recoller · Effacer · Dupliquer'
+          ],
+          bonneReponse: 1,
+          explication: 'Le cadre C.R.E.D. (Contexte, Rôle, Exigences techniques, Données/Format) élimine les prompts vagues et réduit fortement les hallucinations.'
+        },
+        'mn-08_ch-04': {
+          titre: 'Défi 04 · Audit de Code Généré par IA',
+          question: 'Après avoir généré un script fonctionnel via un LLM, quel réflexe d’ingénieur prévient les régressions et failles de sécurité en production ?',
+          options: [
+            'Déployer immédiatement sans relire dès que la première page s’affiche.',
+            'Relire le diff, vérifier les dépendances réelles, exécuter les tests automatisés et tester les cas limites hors-ligne.',
+            'Demander au modèle de supprimer tous les messages d’erreur.'
+          ],
+          bonneReponse: 1,
+          explication: 'En Vibe Coding responsable, l’humain reste architecte et vérificateur : revue de code, sécurité (XSS/secrets) et tests font foi.'
+        },
+
+        // --- MANUEL 09 : CRÉATION GRAPHIQUE & VIDÉO MOBILE ---
+        'mn-09_ch-01': {
+          titre: 'Défi 01 · Formats Sociaux & Safe Zones',
+          question: 'Pourquoi faut-il éviter de placer vos textes importants tout en bas ou à droite d’un Reel / TikTok vertical 9:16 ?',
+          options: [
+            'Ces zones sont masquées par les légendes, icônes J’aime/Partager et boutons de l’interface mobile.',
+            'Les couleurs sombres deviennent transparentes sur smartphone.',
+            'La résolution 1080×1920 rogne obligatoirement la moitié gauche.'
+          ],
+          bonneReponse: 0,
+          explication: 'Respecter les Safe Zones garantit que vos titres et sous-titres restent 100 % lisibles malgré l’interface des réseaux sociaux.'
+        },
+        'mn-09_ch-04': {
+          titre: 'Défi 04 · Prise de Son en Milieu Agricole Venteux',
+          question: 'Sur une parcelle exposée au vent lors d’une interview d’agriculteur, quel facteur prime sur la qualité 4K de la caméra ?',
+          options: [
+            'L’intelligibilité de la voix (micro-cravate ou téléphone à 30 cm avec bonnette anti-vent).',
+            'L’ajout d’un filtre néon saturé à la prise de vue.',
+            'Filmer systématiquement à contre-jour en grand angle.'
+          ],
+          bonneReponse: 0,
+          explication: 'Un spectateur pardonne une image moyenne, jamais un son saturé ou inaudible dans le vent.'
+        },
+
+        // --- MANUEL 10 : L'AGRONOME-NUMÉRICIEN INDÉPENDANT ---
+        'mn-10_ch-02': {
+          titre: 'Défi 02 · Sécurisation Financière d’un Devis Consultant',
+          question: 'Quelle modalité de paiement protège efficacement un consultant indépendant avant de démarrer une mission d’enquête ou SIG pour une organisation ?',
+          options: [
+            'Encaisser 100 % six mois après la remise finale sans bon de commande.',
+            'Prévoir un acompte au démarrage (ex. 40 % à la signature), un jalon intermédiaire et le solde à la livraison des livrables.',
+            'Travailler exclusivement sur accord verbal sans devis écrit.'
+          ],
+          bonneReponse: 1,
+          explication: 'L’échelonnement avec acompte contractuel sécurise votre trésorerie terrain (déplacement, forfaits data, temps d’analyse).'
+        },
+        'mn-10_ch-03': {
+          titre: 'Défi 03 · Réponse aux Termes de Référence (TDR)',
+          question: 'Dans une proposition technique répondant à un appel d’offres ONG, qu’est-ce qui convainc le comité d’évaluation au-delà des diplômes ?',
+          options: [
+            'Une méthodologie opérationnelle chiffrée, un chronogramme réaliste et des livrables concrets vérifiables.',
+            'Une lettre de motivation de 5 pages répétant le texte des TDR mot pour mot.',
+            'Un tarif divisé par 10 par rapport aux coûts de terrain.'
+          ],
+          bonneReponse: 0,
+          explication: 'Les jurys évaluent la compréhension des enjeux terrain, la clarté méthodologique et la maîtrise des délais.'
+        },
+
+        // --- MANUEL 11 : PILOTAGE DE DRONES & DRONES AGRICOLES ---
+        'mn-11_ch-03': {
+          titre: 'Défi 03 · Sécurité Aérienne & Réglementation ANAC',
+          question: 'Avant de décoller avec un drone cartographique ou agricole dans l’espace béninois ou ouest-africain, quelle vérifications réglementaires s’imposent ?',
+          options: [
+            'Vérifier les zones restreintes/aérodromes, autorisations ANAC, météo (vent/pluie) et périmètre de sécurité public.',
+            'Voler à 500 mètres d’altitude pour éviter les arbres et les câbles.',
+            'Éteindre le retour télémétrique pour économiser la batterie.'
+          ],
+          bonneReponse: 0,
+          explication: 'Le vol sécurisé repose sur le respect du plafond légal, des zones réglementées ANAC et d’un check-list pré-vol rigoureux.'
+        },
+        'mn-11_ch-04': {
+          titre: 'Défi 04 · Photogrammétrie & Résolution au Sol (GSD)',
+          question: 'Pour obtenir une orthomosaïque exploitable sans trous de recalage sous QGIS ou WebODM, quel recouvrement minimal vise-t-on généralement en plan de vol ?',
+          options: [
+            '20 % de recouvrement longitudinal et latéral.',
+            '75 % à 80 % frontal et 65 % à 75 % latéral (grille ou double grille).',
+            'Un seul cliché vertical par hectare.'
+          ],
+          bonneReponse: 1,
+          explication: 'La photogrammétrie SIFT nécessite des points homologues vus sous plusieurs angles : un fort recouvrement évite les trous de reconstruction.'
+        },
+
+        // --- MANUEL 12 : CRÉATION VIDÉO & VISUELLE PAR IA ---
+        'mn-12_ch-01': {
+          titre: 'Défi 01 · Storytelling & Accroche Terrain',
+          question: 'Quelle structure maximise la rétention d’une capsule éducative courte (30–90 s) sur les réseaux ?',
+          options: [
+            'Accroche terrain (Hook 0–3 s) → Constat du problème → Solution démontrée → Appel à l’action (CTA)',
+            'Générique musical de 25 s suivi d’un texte défilant statique',
+            'Enchaînement de logos institutionnels sans démonstration'
+          ],
+          bonneReponse: 0,
+          explication: 'Les 3 premières secondes conditionnent la rétention : montrer immédiatement l’enjeu concret retient l’apprenant.'
+        },
+        'mn-12_ch-03': {
+          titre: 'Défi 03 · Mixage Audio Professionnel (-14 LUFS)',
+          question: 'Quel niveau sonore cible-t-on pour le master final d’une vidéo pédagogique destinée au web et à YouTube ?',
+          options: [
+            'Autour de -14 LUFS intégrés (avec pics sous -1 dBTP) afin d’éviter la distorsion et la compression brutale.',
+            '+6 dB continu dans la zone rouge du vumètre.',
+            '-45 LUFS pour forcer l’auditeur à brancher un amplificateur.'
+          ],
+          bonneReponse: 0,
+          explication: 'Les plateformes (YouTube, réseaux sociaux) normalisent autour de -14 LUFS ; viser ce palier assure confort et dynamique propre.'
+        },
+        // ══ 5 MINI-GUIDES D'URGENCE ══
+        'guide-01_unique': {
+          titre: 'Défi · Styles, Sommaire Auto & Pagination Mixte',
+          question: 'Dans Word, comment obtenir des chiffres romains (i, ii) en préliminaires et des chiffres arabes (1, 2) à partir de l’Introduction ?',
+          options: [
+            'Taper manuellement les numéros dans le bas de chaque page une par une.',
+            'Insérer un Saut de section (Page suivante), désactiver « Lier au précédent » dans le pied de page, puis changer le format des numéros.',
+            'Créer deux fichiers .docx séparés puis les imprimer séparément sans jamais générer de sommaire.'
+          ],
+          bonneReponse: 1,
+          explication: 'Le saut de section combiné au déliement « Lier au précédent » isole la numérotation romaine de la numérotation arabe.'
+        },
+        'guide-02_unique': {
+          titre: 'Défi · Levé GPS Smartphone & Surface en Hectares',
+          question: 'Dans QGIS (zone Bénin / Afrique de l’Ouest en UTM 31N — EPSG:32631), quelle expression calcule la superficie en hectares ?',
+          options: [
+            '$area * 10000',
+            '$length / 100',
+            '$area / 10000'
+          ],
+          bonneReponse: 2,
+          explication: 'En projection métrique UTM (EPSG:32631), $area renvoie des m² ; diviser par 10 000 convertit exactement en hectares (ha).'
+        },
+        'guide-03_unique': {
+          titre: 'Défi · Méthode C.R.E.D. & Zéro Citation Inventée',
+          question: 'Avant de citer une référence bibliographique générée par une IA dans un mémoire académique, quelle règle est impérative ?',
+          options: [
+            'Vérifier l’existence réelle de l’auteur, du DOI et du résumé dans Google Scholar / Crossref (Règle D de C.R.E.D.).',
+            'Modifier seulement l’année de publication pour la rendre plus récente.',
+            'Supposer qu’un titre plausible est toujours authentique si le prompt était précis.'
+          ],
+          bonneReponse: 0,
+          explication: 'Les LLM peuvent halluciner des DOI ou auteurs réalistes ; la vérification externe garantit l’intégrité scientifique.'
+        },
+        'guide-04_unique': {
+          titre: 'Défi · Déploiement KoboCollect Hors-Ligne',
+          question: 'Quelle URL de serveur faut-il saisir dans l’application Android KoboCollect pour un compte KoboToolbox standard ?',
+          options: [
+            'https://kc.kobotoolbox.org (ancien domaine obsolète)',
+            'https://kf.kobotoolbox.org',
+            'http://localhost:8080/kobo'
+          ],
+          bonneReponse: 1,
+          explication: 'Les projets KoboToolbox utilisent désormais le serveur unifié https://kf.kobotoolbox.org.'
+        },
+        'guide-05_unique': {
+          titre: 'Défi · Poster Scientifique & Règle 60-30-10',
+          question: 'Dans la règle chromatique 60-30-10 appliquée à un poster de soutenance ou une affiche professionnelle, à quoi servent les 10 % ?',
+          options: [
+            'À la couleur d’accentuation réservée aux chiffres clés, boutons d’action et appels visuels.',
+            'À remplir l’intégralité de l’arrière-plan avec un dégradé saturé.',
+            'À colorer chaque paragraphe de texte d’une teinte différente.'
+          ],
+          bonneReponse: 0,
+          explication: '60 % de fond respirant, 30 % de couleur structurelle et 10 % d’accent créent un guidage visuel immédiat.'
+        },
+        // ══ COMPLÉMENT MANUELS MN-01 À MN-12 ══
+        'mn-01_ch-03': {
+          titre: 'Défi 03 · Dispersion & Coefficient de Variation (CV%)',
+          question: 'En expérimentation agronomique, comment écrit-on et calcule-t-on rigoureusement la variabilité relative d’un rendement en % ?',
+          options: [
+            'Moyenne / Médiane × 100',
+            '(ECARTYPE.STANDARD(plage) / MOYENNE(plage)) × 100, présenté sous forme Moyenne ± Écart-Type.',
+            'MAX(plage) - MIN(plage) divisé par le nombre de parcelles.'
+          ],
+          bonneReponse: 1,
+          explication: 'Le CV% rapporte l’écart-type à la moyenne pour juger l’homogénéité d’un essai quelle que soit l’unité.'
+        },
+        'mn-01_ch-04': {
+          titre: 'Défi 04 · Agrégations Conditionnelles (.SI vs .ENS)',
+          question: 'Quelle différence de syntaxe piège souvent les utilisateurs entre SOMME.SI et SOMME.SI.ENS dans Excel ?',
+          options: [
+            'SOMME.SI.ENS interdit plus de deux critères de filtrage.',
+            'SOMME.SI ne fonctionne pas sur les nombres décimaux.',
+            'Dans SOMME.SI.ENS, la plage à additionner (plage_somme) passe en PREMIER argument, à l’inverse de SOMME.SI.'
+          ],
+          bonneReponse: 2,
+          explication: 'Placer plage_somme en premier permet ensuite d’ajouter autant de paires (plage_critère, critère) que nécessaire.'
+        },
+        'mn-01_ch-05': {
+          titre: 'Défi 05 · Logique Décisionnelle =SI() & ET()/OU()',
+          question: 'Comment tester simultanément deux conditions obligatoires (ex. Humidité <= 13% ET Pureté >= 98%) dans un seul =SI() ?',
+          options: [
+            '=SI(ET(B2<=0.13; C2>=0.98); "Conforme"; "Rejet")',
+            '=SI(B2<=0.13 + C2>=0.98; "Conforme"; "Rejet")',
+            '=ET.SI(B2<=0.13; C2>=0.98; "Conforme")'
+          ],
+          bonneReponse: 0,
+          explication: 'La fonction ET(...) retourne VRAI uniquement si tous ses tests logiques sont satisfaits simultanément.'
+        },
+        'mn-01_ch-07': {
+          titre: 'Défi 07 · Visualisation Scientifique & Barres d’Erreur',
+          question: 'Que doit-on ajouter sur un histogramme comparant des traitements agronomiques pour montrer la fiabilité des moyennes ?',
+          options: [
+            'Un effet 3D avec ombres portées et textures marbrées.',
+            'Des barres d’erreur personnalisées basées sur la colonne des écarts-types (ou erreurs standard) calculés.',
+            'Une courbe logarithmique sur chaque barre.'
+          ],
+          bonneReponse: 1,
+          explication: 'Sans barres d’erreur d’écart-type (ou SE), un lecteur scientifique ne peut évaluer le chevauchement entre traitements.'
+        },
+        'mn-01_ch-08': {
+          titre: 'Défi 08 · Tableaux Croisés Dynamiques (TCD)',
+          question: 'Avant de créer un Tableau Croisé Dynamique fiable, quelle règle structurelle doit respecter le tableau source ?',
+          options: [
+            'Fusionner les cellules d’en-tête sur deux lignes et insérer des sous-totaux intermédiaires.',
+            'Disposer d’en-têtes uniques non vides, zéro cellule fusionnée et aucune ligne vide ni sous-total intégré.',
+            'Laisser les dates saisies en texte libre sans format homogène.'
+          ],
+          bonneReponse: 1,
+          explication: 'Un jeu de données normalisé (1 ligne = 1 observation, 1 colonne = 1 variable) garantit un TCD sans erreur de regroupement.'
+        },
+        'mn-02_ch-03': {
+          titre: 'Défi 03 · Légendes Normées & Renvois Croisés',
+          question: 'Selon les normes académiques classiques (CAMES / UAC), où place-t-on le titre d’un Tableau par rapport à celui d’une Figure ?',
+          options: [
+            'Tableau : légende AU-DESSUS ; Figure / Graphique : légende EN-DESSOUS (avec source en note).',
+            'Toujours en-dessous pour les tableaux et au-dessus pour les figures.',
+            'Sur une page annexe à la fin du document uniquement.'
+          ],
+          bonneReponse: 0,
+          explication: 'La convention académique place l’intitulé des tableaux au-dessus et celui des figures en-dessous, lié par renvoi croisé dynamique.'
+        },
+        'mn-02_ch-04': {
+          titre: 'Défi 04 · Bibliographie Dynamique Zotero (APA 7e)',
+          question: 'Pourquoi faut-il utiliser le plugin Zotero dans Word plutôt que de saisir ses références à la main ?',
+          options: [
+            'Pour colorer automatiquement tous les noms d’auteurs en bleu.',
+            'Pour synchroniser les appels de citation dans le texte avec la bibliographie finale et changer de norme en 1 clic.',
+            'Parce que Word refuse d’enregistrer un mémoire sans Zotero.'
+          ],
+          bonneReponse: 1,
+          explication: 'Zotero supprime les oublis ou citations orphelines lors des révisions du jury et formate instantanément selon APA 7e ou ISO.'
+        },
+        'mn-02_ch-06': {
+          titre: 'Défi 06 · Visuels de Soutenance & Vidéoprojecteur',
+          question: 'Sur un vidéoprojecteur en salle éclairée, quelle combinaison garantit une lisibilité maximale de vos diapositives ?',
+          options: [
+            'Texte jaune clair sur fond blanc avec tableau Excel complet en taille 9 pt.',
+            'Fond sobre très contrasté, 1 idée par diapo, police >= 24 pt et schémas épurés en 3 blocs.',
+            'Paragraphes complets de 15 lignes lus mot pour mot face à l’écran.'
+          ],
+          bonneReponse: 1,
+          explication: 'Un fort contraste et des blocs synthétiques (>= 24 pt) restent lisibles du fond de l’amphithéâtre sans distraire du discours.'
+        },
+        'mn-02_ch-07': {
+          titre: 'Défi 07 · Chronogramme 20 min & Questions du Jury',
+          question: 'Quelle attitude est recommandée face à une remarque critique fondée d’un membre du jury lors de la soutenance ?',
+          options: [
+            'Prendre note calmement, reconnaître la pertinence de la piste et expliquer précisément les limites ou perspectives.',
+            'Couper la parole au rapporteur pour défendre coûte que coûte une erreur méthodologique.',
+            'Répondre que les données ont été perdues sur le terrain.'
+          ],
+          bonneReponse: 0,
+          explication: 'La posture scientifique consiste à écouter, noter et situer objectivement la portée et les limites de l’étude.'
+        },
+        'mn-02_ch-08': {
+          titre: 'Défi 08 · Capstone Documentaire Word + PowerPoint',
+          question: 'Quel élément doit être strictement identique entre le manuscrit Word déposé et le support PowerPoint de soutenance ?',
+          options: [
+            'La couleur exacte de chaque bordure de page.',
+            'Les chiffres clés, unités, tailles d’échantillon (n) et conclusions principales.',
+            'L’intégralité des annexes brutes copiées sur les diapositives.'
+          ],
+          bonneReponse: 1,
+          explication: 'Toute divergence de chiffre entre le mémoire écrit et l’oral entame immédiatement la crédibilité devant le jury.'
+        },
+        'mn-03_ch-01': {
+          titre: 'Défi 01 · Productivité Windows (Win+V & Ancrage)',
+          question: 'Quel raccourci Windows ouvre l’historique du presse-papiers afin de retrouver plusieurs éléments copiés successivement ?',
+          options: [
+            'Ctrl + Alt + Suppr',
+            'Alt + F4',
+            'Win + V (après activation initiale)'
+          ],
+          bonneReponse: 2,
+          explication: 'Win+V affiche les derniers textes et captures copiés et permet même d’épingler des extraits récurrents.'
+        },
+        'mn-03_ch-04': {
+          titre: 'Défi 04 · Maintenance Windows & Commande SFC',
+          question: 'À quoi sert la commande « sfc /scannow » exécutée en tant qu’administrateur dans l’invite de commandes ?',
+          options: [
+            'À analyser l’intégrité des fichiers système Windows protégés et réparer ceux qui sont corrompus.',
+            'À formater intégralement le disque dur secondaire.',
+            'À télécharger une version piratée de Microsoft Office.'
+          ],
+          bonneReponse: 0,
+          explication: 'System File Checker (sfc /scannow) vérifie les fichiers protégés de Windows et restaure les copies saines depuis le cache système.'
+        },
+        'mn-03_ch-05': {
+          titre: 'Défi 05 · Recherche Booléenne & Hygiène Numérique',
+          question: 'Dans Google ou Google Scholar, quelle requête cible exclusivement des rapports PDF officiels sur le maïs au Bénin ?',
+          options: [
+            'mais benin pdf gratuit telecharger',
+            '"Zea mays" Bénin filetype:pdf',
+            'mais + benin -filetype:all'
+          ],
+          bonneReponse: 1,
+          explication: 'Les guillemets imposent l’expression exacte et l’opérateur filetype:pdf filtre strictement les documents PDF.'
+        },
+        'mn-03_ch-06': {
+          titre: 'Défi 06 · Capstone Script maintenance_sahelia.bat',
+          question: 'Pourquoi faut-il vérifier les variables %TEMP% avant d’exécuter un script batch de nettoyage automatisé ?',
+          options: [
+            'Pour éviter de cibler un répertoire utilisateur ou projet par erreur et ne purger que les fichiers temporaires sûrs.',
+            'Parce que Windows interdit les fichiers .bat de plus de 5 lignes.',
+            'Pour désactiver automatiquement le pare-feu Windows Defender.'
+          ],
+          bonneReponse: 0,
+          explication: 'Valider le chemin cible (%TEMP%) et la gestion d’erreur garantit une maintenance sûre sans perte de documents.'
+        },
+        'mn-04_ch-01': {
+          titre: 'Défi 01 · Quadrants RStudio & Projets .Rproj',
+          question: 'Pourquoi travaille-t-on toujours dans un Projet RStudio (.Rproj) avec chemins relatifs plutôt qu’avec setwd("C:/Users/...") ?',
+          options: [
+            'Parce que les projets .Rproj doublent la vitesse du processeur.',
+            'Pour rendre le script immédiatement exécutable sur n’importe quel ordinateur sans casser les chemins d’accès aux données.',
+            'Parce que RStudio refuse d’importer un fichier CSV sans connexion Internet.'
+          ],
+          bonneReponse: 1,
+          explication: 'Le dossier du .Rproj devient automatiquement la racine ; les chemins relatifs ("data/essai.csv") assurent la reproductibilité.'
+        },
+        'mn-04_ch-02': {
+          titre: 'Défi 02 · Les 5 Verbes dplyr',
+          question: 'Quel enchaînement dplyr calcule le rendement moyen par variété uniquement pour les parcelles sans dégât majeur ?',
+          options: [
+            'df |> select(variete) |> plot()',
+            'df |> mutate(variete = mean(rendement))',
+            'df |> filter(degat == "Non") |> group_by(variete) |> summarise(rdt_moy = mean(rendement, na.rm = TRUE))'
+          ],
+          bonneReponse: 2,
+          explication: 'filter() sélectionne les lignes, group_by() regroupe par facteur et summarise() agrège avec na.rm = TRUE.'
+        },
+        'mn-04_ch-03': {
+          titre: 'Défi 03 · Couches ggplot2 & Export Publication',
+          question: 'Quelle fonction sauvegarde proprement un graphique ggplot2 en haute résolution (300 DPI) prêt pour un article scientifique ?',
+          options: [
+            'ggsave("fig_rendement.png", width = 8, height = 5, dpi = 300)',
+            'screenshot.window(dpi = 72)',
+            'write.csv(ggplot_obj, "figure.png")'
+          ],
+          bonneReponse: 0,
+          explication: 'ggsave() contrôle précisément les dimensions physiques et la résolution (300 DPI) exigées par les revues.'
+        },
+        'mn-04_ch-05': {
+          titre: 'Défi 05 · ANOVA 1 Facteur aov() & Pr(>F)',
+          question: 'Dans le résumé summary(aov(rendement ~ traitement, data = essai)), que signifie Pr(>F) = 0.0021 au seuil alpha = 0.05 ?',
+          options: [
+            'Toutes les variétés ont strictement le même rendement.',
+            'On rejette H0 : il existe au moins un traitement dont la moyenne diffère significativement des autres.',
+            'L’expérience contient 0,21 % de données manquantes.'
+          ],
+          bonneReponse: 1,
+          explication: 'Puisque p = 0.0021 < 0.05, l’effet du facteur traitement est statistiquement significatif et justifie un test post-hoc.'
+        },
+        'mn-04_ch-07': {
+          titre: 'Défi 07 · ANOVA Bifactorielle & Interaction',
+          question: 'Quelle formule R teste à la fois l’effet de la Variété, de la Dose d’engrais ET leur interaction ?',
+          options: [
+            'aov(rendement ~ variete + dose, data = essai)',
+            'aov(rendement ~ variete * dose, data = essai)',
+            'aov(rendement ~ variete / dose, data = essai)'
+          ],
+          bonneReponse: 1,
+          explication: 'En syntaxe R, l’opérateur * développe automatiquement les effets principaux plus le terme d’interaction variete:dose.'
+        },
+        'mn-04_ch-08': {
+          titre: 'Défi 08 · Capstone Script R Reproductible',
+          question: 'Dans quel ordre logique structure-t-on un script d’analyse agronomique reproductible de bout en bout ?',
+          options: [
+            'Tests post-hoc -> Import des données -> Suppression des graphiques.',
+            'Chargement packages & import propre -> Exploration/nettoyage -> Vérification hypothèses -> Modèle & post-hoc -> Graphique exporté.',
+            'Coloration manuelle dans Excel -> Copie des p-values sans enregistrer le code.'
+          ],
+          bonneReponse: 1,
+          explication: 'Respecter l’ordre Import -> Nettoyage -> Hypothèses -> Modèle -> Visualisation garantit la traçabilité de chaque résultat.'
+        },
+        'mn-05_ch-03': {
+          titre: 'Défi 03 · Contraintes XLSForm (. >= 18 and . <= 95)',
+          question: 'Dans une feuille XLSForm, que fait l’expression « . >= 18 and . <= 95 » placée dans la colonne constraint ?',
+          options: [
+            'Elle bloque la validation du champ si l’âge saisi est inférieur à 18 ou supérieur à 95, en affichant le constraint_message.',
+            'Elle calcule la moyenne entre 18 et 95 après soumission.',
+            'Elle masque automatiquement la question pour tous les enquêteurs.'
+          ],
+          bonneReponse: 0,
+          explication: 'Le point « . » désigne la réponse courante ; borner les valeurs numériques empêche les fautes de frappe sur le terrain.'
+        },
+        'mn-05_ch-06': {
+          titre: 'Défi 06 · Contrôle Qualité & Export vers R/QGIS',
+          question: 'Avant d’analyser les données exportées depuis KoboToolbox dans R ou QGIS, quel format d’en-tête choisir pour éviter les noms de colonnes illisibles ?',
+          options: [
+            'Exporter les noms XML techniques (valeurs/codes) plutôt que les longues questions avec accents et espaces.',
+            'Fusionner toutes les colonnes de coordonnées GPS en une seule cellule texte.',
+            'Supprimer la colonne _uuid générée par le serveur.'
+          ],
+          bonneReponse: 0,
+          explication: 'Les noms XML (ex. age_chef, superf_ha) assurent des scripts R et jointures QGIS stables sans caractères spéciaux.'
+        },
+        'mn-06_ch-02': {
+          titre: 'Défi 02 · Import CSV GPS & Géoréférencement',
+          question: 'Lors de l’import d’un fichier CSV de points GPS (Longitude, Latitude) dans QGIS, quel SCR choisir avant toute reprojection ?',
+          options: [
+            'EPSG:32631 (UTM mètres), même si le fichier contient des degrés décimaux.',
+            'EPSG:4326 (WGS 84 géographique en degrés décimaux) pour placer correctement les coordonnées brutes.',
+            'Aucun SCR : laisser le projet sans système de référence.'
+          ],
+          bonneReponse: 1,
+          explication: 'Les coordonnées GPS en degrés appartiennent à WGS 84 (EPSG:4326) ; on les reprojette ensuite en UTM 31N pour mesurer en mètres.'
+        },
+        'mn-06_ch-04': {
+          titre: 'Défi 04 · Jointure Attributaire & Sémiologie Choroplèthe',
+          question: 'Pourquoi faut-il normaliser une variable quantitative absolue (ex. production en tonnes par surface en ha) sur une carte choroplèthe ?',
+          options: [
+            'Pour éviter de biaiser la lecture visuelle en fonction de la taille géographique des communes.',
+            'Parce que QGIS interdit de colorer des polygones avec des nombres entiers.',
+            'Pour remplacer les polygones par des symboles ponctuels aléatoires.'
+          ],
+          bonneReponse: 0,
+          explication: 'Les cartes choroplèthes en aplats colorés doivent représenter des ratios/densités (t/ha, %), jamais des effectifs bruts.'
+        },
+        'mn-06_ch-06': {
+          titre: 'Défi 06 · Mise en Page CAMES & Export 300 DPI',
+          question: 'Quels éléments obligatoires assurent qu’une carte produite sous QGIS est scientifiquement exploitable ?',
+          options: [
+            'Uniquement un titre centré sans grille ni légende.',
+            'Titre, flèche Nord, barre d’échelle graphique, légende explicite, grille de coordonnées, SCR et sources/auteur.',
+            'Une photo satellite brute sans échelle ni orientation.'
+          ],
+          bonneReponse: 1,
+          explication: 'Sans échelle, orientation Nord, légende et référence SCR/source, une carte ne peut être interprétée ni vérifiée.'
+        },
+        'mn-11_ch-01': {
+          titre: 'Défi 01 · Architecture Drone & Sécurité LiPo Tropicale',
+          question: 'En climat tropical chaud, quelle précaution prolonge la durée de vie et la sécurité des batteries LiPo de drone ?',
+          options: [
+            'Les stocker chargées à 100 % au soleil dans le coffre du véhicule.',
+            'Les conserver à température tempérée au niveau de stockage (~3,8 V/cellule, ~50-60 %) hors vol prolongé.',
+            'Les refroidir brutalement au congélateur juste avant le décollage.'
+          ],
+          bonneReponse: 1,
+          explication: 'La tension de stockage (~3,8 V/cellule) à l’abri de la chaleur prévient le gonflement chimique des cellules LiPo.'
+        },
+        'mn-11_ch-02': {
+          titre: 'Défi 02 · Commandes Mode 2 & Retour Maison (RTH)',
+          question: 'Sur une radiocommande en Mode 2, quand le drone revient face au pilote (« nose-in »), que doit anticiper ce dernier ?',
+          options: [
+            'L’inversion intuitive des axes gauche/droite (roulis) et avant/arrière par rapport à son propre point de vue.',
+            'Que les gaz passent automatiquement sur le manche de droite.',
+            'Que le RTH coupe immédiatement les moteurs en plein vol.'
+          ],
+          bonneReponse: 0,
+          explication: 'En vol face pilote, pousser le roulis à droite déplace le drone vers la gauche du pilote ; s’entraîner à ce repère évite les collisions.'
+        },
+        'mn-11_ch-05': {
+          titre: 'Défi 05 · Downwash & Calibration Débit/Hectare',
+          question: 'Quel paramètre physique explique que le brouillard d’un drone épandeur pénètre mieux le cœur du feuillage qu’un passage trop haut ?',
+          options: [
+            'L’effet « Downwash » (flux d’air descendant généré par les rotors), calibré avec la hauteur et la vitesse d’avancement.',
+            'La perte totale de gravité sous les hélices.',
+            'L’utilisation d’eau bouillante dans le réservoir.'
+          ],
+          bonneReponse: 0,
+          explication: 'Le flux descendant des rotors brasse la canopée et plaque les micro-gouttelettes si hauteur, débit et vitesse sont bien calibrés.'
+        },
+        'mn-11_ch-06': {
+          titre: 'Défi 06 · Boucle Fermée NDVI -> Prescription -> Épandage',
+          question: 'Dans le cycle d’agriculture de précision par drone, quel rôle joue la carte de prescription issue de l’orthomosaïque NDVI ?',
+          options: [
+            'Piloter la modulation de dose afin d’appliquer l’intrant uniquement sur les zones qui en ont besoin.',
+            'Remplacer totalement le calibrage des buses du pulvérisateur.',
+            'Servir uniquement de fond d’écran publicitaire sans coordonnées GPS.'
+          ],
+          bonneReponse: 0,
+          explication: 'La modulation ciblée réduit les coûts d’intrants et l’impact environnemental en traitant strictement les zones déficientes ou infestées.'
+        },
+        'mn-07_ch-03': {
+          titre: 'Défi 03 · JavaScript Moderne ES6+ (const/let)',
+          question: 'Pourquoi préfère-t-on « const » par défaut en JavaScript moderne plutôt que « var » ?',
+          options: [
+            '« const » a une portée de bloc prévisible et empêche les réassignations accidentelles de référence.',
+            '« var » n’est plus reconnu par les navigateurs depuis 2020.',
+            '« const » transforme automatiquement le JavaScript en Python.'
+          ],
+          bonneReponse: 0,
+          explication: 'Utiliser const (et let seulement en cas de réassignation) évite les fuites de portée liées au hoisting de var.'
+        },
+        'mn-07_ch-05': {
+          titre: 'Défi 05 · Persistance Locale & Mode Hors-Ligne',
+          question: 'Quelle combinaison permet de sauvegarder un objet JavaScript structuré dans localStorage malgré le fait que ce stockage n’accepte que du texte ?',
+          options: [
+            'JSON.stringify() à l’écriture et JSON.parse() dans un bloc try/catch à la lecture.',
+            'Math.round() à l’écriture et parseInt() à la lecture.',
+            'Stocker directement l’objet DOM sans sérialisation.'
+          ],
+          bonneReponse: 0,
+          explication: 'localStorage ne stocke que des chaînes ; JSON.stringify/parse gère la sérialisation de manière sûre avec try/catch.'
+        },
+        'mn-07_ch-06': {
+          titre: 'Défi 06 · Pipeline Git & GitHub Pages (0 FCFA)',
+          question: 'Quel enchaînement de commandes publie proprement une mise à jour locale vers la branche principale distante ?',
+          options: [
+            'git status -> git add . -> git commit -m "message clair" -> git push',
+            'git delete -> git init -> git clone --force',
+            'Copier le dossier .git sur une clé USB puis renommer index.html.'
+          ],
+          bonneReponse: 0,
+          explication: 'Inspecter git status avant add/commit/push garantit un historique propre et un déploiement continu sans fichier indésirable.'
+        },
+        'mn-08_ch-01': {
+          titre: 'Défi 01 · Fonctionnement LLM & Vibe Coding Responsable',
+          question: 'Sur quel mécanisme fondamental repose un Grand Modèle de Langage (LLM) lorsqu’il rédige du texte ou du code ?',
+          options: [
+            'Une prédiction probabiliste du prochain token (fragment) à partir du contexte fourni, sans compréhension humaine autonome.',
+            'Une vérification systématique en temps réel sur un laboratoire physique certifié.',
+            'Une exécution automatique et garantie sans bug de tout code proposé.'
+          ],
+          bonneReponse: 0,
+          explication: 'Un LLM prédit des séquences plausibles ; c’est pourquoi l’humain reste responsable des tests, de la sécurité et des faits.'
+        },
+        'mn-08_ch-03': {
+          titre: 'Défi 03 · Architecture Modulaire en 4 Briques',
+          question: 'Comment éviter qu’un assistant IA ne casse les fonctionnalités existantes lorsque l’application grandit (« amnésie de contexte ») ?',
+          options: [
+            'Découper l’application en modules indépendants (données, logique, interface, tests) avec un contrat clair par fichier.',
+            'Mettre 8 000 lignes de HTML, CSS et JS mélangées dans un unique bloc sans commentaires.',
+            'Changer de langage de programmation à chaque prompt.'
+          ],
+          bonneReponse: 0,
+          explication: 'La modularité limite la taille de contexte nécessaire par tâche et permet de tester chaque brique isolément.'
+        },
+        'mn-08_ch-05': {
+          titre: 'Défi 05 · Environnement Cursor & Modèles Locaux Ollama',
+          question: 'Quel avantage majeur offre un modèle local via Ollama sur un poste professionnel par rapport aux API cloud ?',
+          options: [
+            'Les données confidentielles et code source restent 100 % sur la machine locale sans frais par requête.',
+            'Il génère du matériel physique directement par le port USB.',
+            'Il ne nécessite ni RAM ni espace disque.'
+          ],
+          bonneReponse: 0,
+          explication: 'L’exécution locale garantit la confidentialité des données agricoles ou clients sensibles même hors connexion Internet.'
+        },
+        'mn-08_ch-06': {
+          titre: 'Défi 06 · Capstone Sahélia-AgriPilot',
+          question: 'Quelle étape valide véritablement la livraison d’une mini-application web conçue en Vibe Coding ?',
+          options: [
+            'Le simple fait que l’IA réponde « Tout fonctionne parfaitement ! ».',
+            'Les tests manuels et automatisés sur données réelles, console sans erreur et relecture de sécurité (zéro clé exposée).',
+            'L’absence totale de gestion d’erreurs.'
+          ],
+          bonneReponse: 1,
+          explication: 'Seule l’exécution vérifiée (tests, console propre, validation des entrées) prouve qu’une application est prête pour les utilisateurs.'
+        },
+        'mn-09_ch-02': {
+          titre: 'Défi 02 · Hiérarchie Typographique en 3 Niveaux',
+          question: 'Comment structurer une affiche événementielle agricole pour qu’elle soit comprise en moins de 3 secondes ?',
+          options: [
+            'Multiplier 6 polices décoratives centrées sans marge extérieure.',
+            'Respecter 3 niveaux clairs (Accroche forte > Sous-titre/Date > Détails/CTA) avec marges généreuses et règle 60-30-10.',
+            'Écrire toutes les informations en taille uniforme 11 pt.'
+          ],
+          bonneReponse: 1,
+          explication: 'Un contraste net de taille et de graisse sur 3 niveaux guide l’œil immédiatement vers le message principal puis l’action.'
+        },
+        'mn-09_ch-03': {
+          titre: 'Défi 03 · Infographie Agronomique Vulgarisée',
+          question: 'Quel principe rend une fiche technique visuelle immédiatement utile pour un groupement de producteurs ?',
+          options: [
+            'Traduire les étapes complexes en pictogrammes séquentiels numérotés, unités concrètes et contrastes lisibles sur mobile.',
+            'Copier des équations différentielles non expliquées sur fond chargé.',
+            'Omettre les dosages et unités de mesure.'
+          ],
+          bonneReponse: 0,
+          explication: 'Des visuels séquentiels clairs avec dosages pratiques (ex. bouchons/pulvérisateur ou kg/ha) lèvent les barrières techniques.'
+        },
+        'mn-09_ch-05': {
+          titre: 'Défi 05 · Montage Dynamique (Jump Cuts, B-Roll & Sous-titres)',
+          question: 'Pourquoi les sous-titres synchronisés (Auto-Captions) sont-ils essentiels sur les vidéos courtes mobiles ?',
+          options: [
+            'Parce que de nombreux utilisateurs regardent d’abord les vidéos sans le son ou dans des environnements bruyants.',
+            'Pour cacher le sujet principal au centre de l’image.',
+            'Pour rendre le fichier vidéo dix fois plus lourd sur WhatsApp.'
+          ],
+          bonneReponse: 0,
+          explication: 'Couplés aux jump cuts et plans d’illustration (B-Roll), les sous-titres maintiennent la rétention dès les premières secondes.'
+        },
+        'mn-09_ch-06': {
+          titre: 'Défi 06 · Capstone Kit Média (4 Livrables)',
+          question: 'Pourquoi faut-il décliner une campagne aux formats 1:1 / 4:5 (post), 9:16 (vertical) et 16:9 (écran large) plutôt que d’exporter un seul fichier ?',
+          options: [
+            'Pour éviter le recadrage destructeur des plateformes qui coupent textes et logos hors des zones sûres (Safe Zones).',
+            'Parce que les JPEG 1:1 ne s’ouvrent pas sur ordinateur.',
+            'Uniquement pour changer le nom de l’entreprise sur chaque image.'
+          ],
+          bonneReponse: 0,
+          explication: 'Chaque format respecte les marges d’interface (icônes TikTok/Reels/WhatsApp) et préserve une présentation professionnelle.'
+        },
+        'mn-12_ch-02': {
+          titre: 'Défi 02 · Image-to-Video & Plans Rushes 3-5 s',
+          question: 'Pourquoi génère-t-on généralement des plans vidéo IA courts (3 à 5 secondes) avant le montage ?',
+          options: [
+            'Pour garder une stabilité visuelle maximale sur chaque mouvement de caméra avant d’enchaîner un rythme maîtrisé au montage.',
+            'Parce que l’œil humain ne perçoit pas plus de 5 secondes par scène.',
+            'Pour supprimer totalement la piste audio au montage.'
+          ],
+          bonneReponse: 0,
+          explication: 'Des plans courts Image-to-Video limitent la dérive morphologique et donnent un rythme dynamique lors de l’assemblage.'
+        },
+        'mn-12_ch-04': {
+          titre: 'Défi 04 · Règle des 3 Secondes & Montage Multipiste',
+          question: 'À quoi sert la « règle des 3 secondes » au tout début d’une vidéo de présentation ou capsule de formation ?',
+          options: [
+            'À capter immédiatement l’attention par un visuel marquant ou une promesse concrète avant que le spectateur ne passe à autre chose.',
+            'À laisser 3 secondes d’écran noir silencieux pour charger.',
+            'À afficher les remerciements dès la première image.'
+          ],
+          bonneReponse: 0,
+          explication: 'Les 3 premières secondes décident du taux de rétention sur mobile ; elles doivent montrer l’enjeu et poser le rythme.'
+        },
+        'mn-12_ch-05': {
+          titre: 'Défi 05 · DaVinci Resolve (Lift / Gamma / Gain & Waveform)',
+          question: 'Quel outil graphique dans DaVinci Resolve permet d’exposer objectivement les noirs, tons moyens et hautes lumières sans se fier à un écran mal calibré ?',
+          options: [
+            'L’oscilloscope Waveform (Parade / Luma), ajusté avec les roues Lift, Gamma et Gain.',
+            'L’outil gomme magique sur la piste audio.',
+            'Le compteur de mots du générique de fin.'
+          ],
+          bonneReponse: 0,
+          explication: 'Le Waveform mesure objectivement la luminance de 0 à 1023, guidant Lift (ombres), Gamma (tons moyens) et Gain (hautes lumières).'
+        },
+        'mn-12_ch-06': {
+          titre: 'Défi 06 · Capstone Teaser 60 s & Cohérence Visuelle',
+          question: 'Qu’est-ce qui distingue un projet vidéo IA professionnel livré en 5 formats d’une simple compilation de clips disparates ?',
+          options: [
+            'Une direction artistique unifiée (palette, typographie, voix, mixage -14 LUFS) et une continuité narrative entre chaque plan.',
+            'L’utilisation d’au moins dix transitions étoile différentes entre chaque seconde.',
+            'L’exportation systématique en 360p avec filigrane.'
+          ],
+          bonneReponse: 0,
+          explication: 'La cohérence chromatique, sonore et narrative transforme des plans générés séparément en production crédible.'
+        },
+        'mn-10_ch-01': {
+          titre: 'Défi 01 · Grille Tarifaire UEMOA & Acompte Contrat',
+          question: 'Avant de démarrer une mission de terrain (cartographie, enquête Kobo ou analyse R) pour un client ou une ONG, quelle pratique sécurise la trésorerie ?',
+          options: [
+            'Signer un devis/contrat précisant périmètre, livrables et encaisser un acompte initial (ex. 40 % à 50 %) avant le démarrage.',
+            'Livrer tous les fichiers bruts non verrouillés sans devis écrit préalable.',
+            'Fixer un tarif symbolique inférieur aux frais réels de déplacement.'
+          ],
+          bonneReponse: 0,
+          explication: 'Le contrat borné et l’acompte engagent les deux parties et financent les coûts opérationnels dès le lancement.'
+        },
+        'mn-10_ch-04': {
+          titre: 'Défi 04 · Maîtrise du Scope Creep & Révisions',
+          question: 'Comment gérer professionnellement une demande hors-devis du client (« pouvez-vous aussi refaire toute la base gratuitement ? ») ?',
+          options: [
+            'Accepter tout sans limitation pour éviter toute discussion.',
+            'Appliquer la règle des 2 cycles de révisions inclus et chiffrer toute extension de périmètre via un avenant clair.',
+            'Interrompre brutalement le contrat sans répondre aux messages.'
+          ],
+          bonneReponse: 1,
+          explication: 'Distinguer ajustements inclus (2 cycles) et nouvelles fonctionnalités facturables préserve à la fois la marge et la relation client.'
+        },
+        'mn-10_ch-05': {
+          titre: 'Défi 05 · Profil LinkedIn & Étude de Cas Terrain',
+          question: 'Quel type de publication démontre le mieux l’expertise d’un agronome-numéricien auprès des ONG et bureaux d’études ?',
+          options: [
+            'Une étude de cas chiffrée « Problème terrain -> Méthode Kobo/QGIS/R -> Résultat concret » accompagnée d’un visuel net.',
+            'Un simple partage automatique d’offre d’emploi sans commentaire.',
+            'Une liste brute de 40 diplômes sans aucun exemple appliqué.'
+          ],
+          bonneReponse: 0,
+          explication: 'Montrer comment vous avez résolu un problème réel avec des livrables vérifiables apporte une preuve immédiate de compétence.'
+        },
+        'mn-10_ch-06': {
+          titre: 'Défi 06 · Capstone Dossier Consultant Indépendant',
+          question: 'Quel ensemble compose un dossier commercial complet prêt à décrocher des missions en zone UEMOA ?',
+          options: [
+            'Un CV générique de trois pages sans modèle de devis.',
+            'Offre packagée tarifée, modèle de contrat + échéancier 4 paliers, portfolio de 2-3 cas chiffrés et présence pro à jour.',
+            'Une simple carte de visite sans lien ni portfolio.'
+          ],
+          bonneReponse: 1,
+          explication: 'Un consultant crédible combine clarté commerciale (devis/contrat), preuves techniques (cas concrets) et réactivité.'
         }
       };
 
-      // Si le défi est expressément défini dans la banque, le retourner
       if (banque[cleCoursChap]) return banque[cleCoursChap];
-      if (banque[cleIndex]) return banque[cleIndex];
-
-      // Générateur contextuel procédural pour les autres chapitres
       return this._genererDefiGenerique(cours, chapitre, index);
     },
 
     _genererDefiGenerique(cours, chapitre, index) {
       const num = index + 1;
+      const ressourcesCours = (cours.ressources || [])
+        .filter(r => r && r.fichier)
+        .map(r => ({ nom: r.nom || 'Ressource du cours', url: r.fichier }));
+      const reponseIndex = index % 3;
+      const optsParDefaut = [
+        'Structurer les données selon un protocole reproductible, vérifier leur cohérence et documenter chaque étape.',
+        'Sauter les vérifications de conformité pour accélérer la livraison au détriment de la précision.',
+        'Stocker les fichiers finaux sans nommage ni copie de sauvegarde hors poste.'
+      ];
+      // Rotation propre pour éviter que la réponse A soit toujours en position 0
+      const options = [
+        optsParDefaut[(3 - reponseIndex) % 3],
+        optsParDefaut[(4 - reponseIndex) % 3],
+        optsParDefaut[(5 - reponseIndex) % 3]
+      ];
       return {
-        titre: `Défi ${num < 10 ? '0' + num : num} · Validation Opérationnelle : ${chapitre.titre}`,
-        consigne: `Mettez en pratique les concepts clés présentés dans le chapitre "${chapitre.titre}". Répondez à la question méthodologique suivante pour certifier vos compétences et débloquer vos 150 XP.`,
-        question: `Dans le cadre de l’application rigoureuse des standards TEAM Sahélia pour "${chapitre.titre}", quelle démarche garantit la fiabilité et la reproductibilité des résultats sur le terrain ?`,
-        options: [
-          'Appliquer un protocole standardisé, vérifier la cohérence des données sources et documenter les étapes techniques.',
-          'Ignorer les valeurs aberrantes sans vérification et procéder par estimation intuitive.',
-          'Conserver des données non archivées sur un support temporaire sans sauvegarde de sécurité.'
-        ],
-        bonneReponse: 0,
-        explication: 'L’excellence opérationnelle repose sur la standardisation des protocoles, le contrôle qualité systématique et la traçabilité des données scientifiques et agronomiques.',
-        ressources: [
-          { nom: 'dataset_agronomique_sahelia.csv (Ressource d’entraînement)', url: 'datasets/dataset_agronomique_sahelia.csv' }
-        ]
+        titre: `Défi ${num < 10 ? '0' + num : num} · Consolidation : ${chapitre.titre}`,
+        consigne: `Validez les acquis opérationnels de la section « ${chapitre.titre} » (${cours.titre}) pour enregistrer vos 150 XP.`,
+        question: `En appliquant les principes de « ${chapitre.titre} » sur un projet réel, quelle pratique reflète les exigences qualité TEAM Sahélia ?`,
+        options: options,
+        bonneReponse: reponseIndex,
+        explication: 'La rigueur méthodologique repose sur la standardisation, le contrôle qualité systématique et la traçabilité des livrables.',
+        ressources: ressourcesCours
       };
     },
 
@@ -1541,6 +2553,10 @@
 
         this._mettreAJourProgressionEtBadges(this.coursActif);
         this._rendreSidebarChapitres(this.coursActif, this.chapitreActif);
+
+        if (window.SaheliaCloud && typeof window.SaheliaCloud.synchroniserCloud === 'function') {
+          window.SaheliaCloud.synchroniserCloud().catch(() => {});
+        }
       } else {
         if (feedback) {
           feedback.className = 'defi-feedback-texte erreur';

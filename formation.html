@@ -12,10 +12,11 @@
   <!-- Pré-connexions Polices Officielles -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@500;700&display=swap">
 
   <!-- Polices et Styles Officiels -->
-  <link rel="stylesheet" href="css/style.css?v=2026.6">
-  <link rel="stylesheet" href="css/formation.css?v=2026.6">
+  <link rel="stylesheet" href="css/style.css?v=2026.8">
+  <link rel="stylesheet" href="css/formation.css?v=2026.8">
 </head>
 <body id="conteneur-article-pedagogique">
 
@@ -67,6 +68,12 @@
       <div class="outils-lecteur-groupe">
         <div id="topbar-session-info"></div>
 
+        <button type="button" id="btn-theme-lecteur" class="btn-outil-lecture" title="Basculer entre Nuit Terrain et Papier Solaire">
+          ☀️ Papier
+        </button>
+        <button type="button" id="btn-offline-cours" class="btn-outil-lecture" title="Télécharger ce manuel pour lecture hors connexion">
+          📥 Hors-ligne
+        </button>
         <button type="button" id="btn-zen-mode" class="btn-outil-lecture" title="Basculer en mode lecture zen (plein écran)">
           ⛶ Zen
         </button>
@@ -293,13 +300,13 @@
   <!-- ========================================================================= -->
   <!-- 3. SCRIPTS DU SYSTÈME PÉDAGOGIQUE (MODULAIRE & RAPIDE)                     -->
   <!-- ========================================================================= -->
-  <script src="js/badge-data.js?v=2026.6"></script>
-  <script src="js/formation-catalogue.js?v=2026.6"></script>
-  <script src="js/formation-contenu-socle.js?v=2026.6"></script>
-  <script src="js/crypto-formation.js?v=2026.6"></script>
-  <script src="js/controle-acces.js?v=2026.6"></script>
-  <script src="js/lecteur-formation.js?v=2026.6"></script>
-  <script src="js/formation-contenu.js?v=2026.6" defer></script>
+  <script src="js/badge-data.js?v=2026.8"></script>
+  <script src="js/formation-catalogue.js?v=2026.8"></script>
+  <script src="js/formation-contenu-socle.js?v=2026.8"></script>
+  <script src="js/crypto-formation.js?v=2026.8"></script>
+  <script src="js/controle-acces.js?v=2026.8"></script>
+  <script src="js/sahelia-cloud-adapter.js?v=2026.8"></script>
+  <script src="js/lecteur-formation.js?v=2026.8"></script>
 
   <script>
     // Synchronisation du menu déroulant supérieur avec le cours chargé + liens WhatsApp dynamiques

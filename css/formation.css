@@ -1221,7 +1221,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.75rem;
+  gap: 0.75rem;
+  font-size: 0.72rem;
   color: var(--texte-3);
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -1652,4 +1653,287 @@ body.mode-zen .layout-grille-formation {
   line-height: 1.5;
   text-align: left;
 }
+
+/* =========================================================================
+   WAVE 2 — DESIGN ÉDITORIAL HAUT DE GAMME, FICHE MÉTA & MODE PAPIER SOLAIRE
+   ========================================================================= */
+
+/* Scrollbars discrètes pour les volets de navigation */
+.sidebar-gauche-navigation,
+.sidebar-droite-sommaire {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(95, 208, 160, 0.28) transparent;
+}
+.sidebar-gauche-navigation::-webkit-scrollbar,
+.sidebar-droite-sommaire::-webkit-scrollbar {
+  width: 5px;
+}
+.sidebar-gauche-navigation::-webkit-scrollbar-thumb,
+.sidebar-droite-sommaire::-webkit-scrollbar-thumb {
+  background: rgba(95, 208, 160, 0.25);
+  border-radius: 999px;
+}
+
+/* Titre H1 intra-chapitre sobre et lisible (sans majuscules forcées) */
+.titre-pedagogique-h1 {
+  font-family: 'Bricolage Grotesque', var(--police-texte), sans-serif;
+  font-size: clamp(1.45rem, 3vw, 1.95rem);
+  font-weight: 800;
+  color: var(--texte);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-top: 0.4rem;
+  margin-bottom: 1.1rem;
+  text-transform: none;
+}
+
+/* Fiche métadonnées de chapitre (remplace les encarts bruts avec chemins SVG) */
+.fiche-meta-chapitre {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0.75rem 0 1.65rem;
+  padding: 0.85rem 1rem;
+  background: rgba(95, 208, 160, 0.06);
+  border: 1px solid rgba(95, 208, 160, 0.2);
+  border-radius: 12px;
+}
+
+.meta-chapitre-pill {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--texte-2);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.35rem 0.7rem;
+  border-radius: 10px;
+}
+
+.meta-chapitre-pill strong {
+  color: var(--marque);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.meta-chapitre-dl {
+  text-decoration: none;
+  color: var(--marque);
+  font-weight: 600;
+  border-color: rgba(95, 208, 160, 0.35);
+  transition: transform 0.15s, background 0.15s;
+}
+
+.meta-chapitre-dl:hover {
+  background: rgba(95, 208, 160, 0.15);
+  transform: translateY(-1px);
+}
+
+.btn-outil-lecture.offline-actif {
+  border-color: #22c55e;
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.12);
+}
+
+/* THÈME CLAIR : PAPIER SOLAIRE (CONCEPTION HAUTE LISIBILITÉ PLEIN JOUR / TERRAIN) */
+html[data-theme="clair"] {
+  --fond: #f4f7f3;
+  --surface: #ffffff;
+  --surface-2: #edf4ef;
+  --bordure: #d3e2d8;
+  --bordure-active: #0f7653;
+  --texte: #10241b;
+  --texte-2: #2e4b3d;
+  --texte-3: #577365;
+  --marque: #0f7653;
+  --terre: #c25924;
+}
+
+html[data-theme="clair"] body {
+  background: var(--fond);
+  color: var(--texte);
+}
+
+html[data-theme="clair"] .topbar-lecteur {
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom-color: var(--bordure);
+}
+
+html[data-theme="clair"] .selecteur-cours-select,
+html[data-theme="clair"] .btn-outil-lecture {
+  background: #ffffff;
+  color: var(--texte);
+  border-color: var(--bordure);
+}
+
+html[data-theme="clair"] .btn-outil-lecture:hover {
+  background: var(--surface-2);
+  border-color: var(--marque);
+}
+
+html[data-theme="clair"] .article-contenu-central {
+  box-shadow: 0 12px 32px rgba(16, 36, 27, 0.07);
+}
+
+html[data-theme="clair"] .corps-texte-rendu {
+  color: #1f372b;
+}
+
+html[data-theme="clair"] .texte-gras {
+  color: #0b1c14;
+}
+
+html[data-theme="clair"] .titre-pedagogique-h2 {
+  border-bottom-color: var(--bordure);
+}
+
+html[data-theme="clair"] .hero-banniere-voile {
+  background: linear-gradient(180deg, rgba(10, 29, 22, 0.48) 0%, rgba(10, 29, 22, 0.85) 80%, rgba(10, 29, 22, 0.94) 100%);
+}
+
+html[data-theme="clair"] .hero-banniere-hybride .titre-cours-h1,
+html[data-theme="clair"] .hero-banniere-hybride .soustitre-cours-p,
+html[data-theme="clair"] .hero-banniere-hybride .metadonnees-barre-cours {
+  color: #f4faf7;
+}
+
+html[data-theme="clair"] .meta-chapitre-pill {
+  background: #ffffff;
+  border-color: var(--bordure);
+  color: var(--texte-2);
+}
+
+html[data-theme="clair"] .code-inline {
+  background: #e6f2ec;
+  color: #0b5d40;
+  border-color: #c3dfd1;
+}
+
+html[data-theme="clair"] .bloc-code-conteneur {
+  background: #0d1d17;
+  border-color: #1f3c31;
+}
+
+html[data-theme="clair"] .callout-note {
+  background: #eff6ff;
+  color: #1e3a8a;
+}
+html[data-theme="clair"] .callout-note .callout-titre { color: #1d4ed8; }
+
+html[data-theme="clair"] .callout-tip {
+  background: #ecfdf5;
+  color: #064e3b;
+}
+
+html[data-theme="clair"] .callout-important {
+  background: #fff7ed;
+  color: #7c2d12;
+}
+
+html[data-theme="clair"] .callout-warning {
+  background: #fffbeb;
+  color: #78350f;
+}
+
+html[data-theme="clair"] .callout-danger {
+  background: #fef2f2;
+  color: #7f1d1d;
+}
+
+html[data-theme="clair"] .tableau-pedagogique td {
+  border-bottom-color: var(--bordure);
+}
+
+html[data-theme="clair"] .carte-defi-sandbox {
+  background: linear-gradient(135deg, #f0fdf7 0%, #ffffff 100%);
+  box-shadow: 0 12px 30px rgba(15, 118, 83, 0.08);
+}
+
+html[data-theme="clair"] .defi-sandbox-titre,
+html[data-theme="clair"] .defi-question-libelle,
+html[data-theme="clair"] .sidebar-badge-details strong {
+  color: var(--texte);
+}
+
+html[data-theme="clair"] .defi-evaluateur-box,
+html[data-theme="clair"] .nav-progression-carte,
+html[data-theme="clair"] .sidebar-objectifs-box,
+html[data-theme="clair"] .sidebar-badge-preview-card,
+html[data-theme="clair"] .carte-ressource-telechargement {
+  background: var(--surface-2);
+  border-color: var(--bordure);
+}
+
+html[data-theme="clair"] .defi-option-item {
+  background: #ffffff;
+  border-color: var(--bordure);
+}
+
+html[data-theme="clair"] .defi-option-item.selected {
+  background: #dcfce7;
+  border-color: #16a34a;
+  color: #052e16;
+}
+
+html[data-theme="clair"] .defi-explication-box {
+  background: #ecfdf5;
+  color: #064e3b;
+}
+
+html[data-theme="clair"] .chap-badge-num {
+  background: var(--surface-2);
+  border: 1px solid var(--bordure);
+}
+
+html[data-theme="clair"] .btn-onglet-chapitre.actif .chap-badge-num {
+  background: var(--marque);
+  color: #ffffff;
+  border-color: var(--marque);
+}
+
+.encart-certification-100 {
+  margin-top: 0.9rem;
+  padding: 0.95rem;
+  border-radius: 12px;
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  background: rgba(16, 185, 129, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.encart-cert-titre {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #6ee7b7;
+}
+
+.encart-cert-texte {
+  margin: 0;
+  font-size: 0.77rem;
+  line-height: 1.45;
+  color: var(--texte-2);
+}
+
+.encart-cert-btn {
+  width: 100%;
+  justify-content: center;
+  min-height: 36px;
+  font-size: 0.78rem;
+  padding: 0.45rem 0.75rem;
+}
+
+html[data-theme="clair"] .encart-certification-100 {
+  background: #ecfdf5;
+  border-color: #16a34a;
+}
+
+html[data-theme="clair"] .encart-cert-titre {
+  color: #065f46;
+}
+
+
 

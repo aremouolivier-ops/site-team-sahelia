@@ -11,7 +11,7 @@
 
   <!-- Titre -->
   <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
-  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">CHECKLIST D'AUDIT & AUTOMATISATION PC PRO · TEAM SAHÉLIA</text>
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">CHECKLIST D'AUDIT &amp; AUTOMATISATION PC PRO · TEAM SAHÉLIA</text>
 
   <!-- Colonne Gauche : Checklist des 20 Critères d'Évaluation -->
   <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
@@ -20,25 +20,25 @@
 
   <!-- Piler 1 -->
   <rect x="50" y="145" width="370" height="65" fill="#0d352b" rx="6" />
-  <text x="65" y="167" fill="#3fae7a" font-size="12" font-weight="bold">1. Hygiène Disque & Système (25 pts)</text>
+  <text x="65" y="167" fill="#3fae7a" font-size="12" font-weight="bold">1. Hygiène Disque &amp; Système (25 pts)</text>
   <text x="65" y="185" fill="#f4faf7" font-size="11">☑ Au moins 20% d'espace libre sur le lecteur C:\</text>
   <text x="65" y="201" fill="#88b3a4" font-size="10">☑ Dossiers %temp% et cache cleanmgr purgés</text>
 
   <!-- Piler 2 -->
   <rect x="50" y="218" width="370" height="65" fill="#0d352b" rx="6" />
-  <text x="65" y="240" fill="#7fb0ee" font-size="12" font-weight="bold">2. Organisation & Sauvegarde (25 pts)</text>
+  <text x="65" y="240" fill="#7fb0ee" font-size="12" font-weight="bold">2. Organisation &amp; Sauvegarde (25 pts)</text>
   <text x="65" y="258" fill="#f4faf7" font-size="11">☑ Arborescence 4 piliers respectée sur le disque D:\</text>
   <text x="65" y="274" fill="#88b3a4" font-size="10">☑ Règle de sauvegarde 3-2-1 active (Cloud synchronisé)</text>
 
   <!-- Piler 3 -->
   <rect x="50" y="291" width="370" height="65" fill="#0d352b" rx="6" />
-  <text x="65" y="313" fill="#e8946a" font-size="12" font-weight="bold">3. Sécurité & Clés USB (25 pts)</text>
+  <text x="65" y="313" fill="#e8946a" font-size="12" font-weight="bold">3. Sécurité &amp; Clés USB (25 pts)</text>
   <text x="65" y="331" fill="#f4faf7" font-size="11">☑ Dossier de vaccination autorun.inf présent sur la clé</text>
   <text x="65" y="347" fill="#88b3a4" font-size="10">☑ Double authentification (2FA) active sur les emails</text>
 
   <!-- Piler 4 -->
   <rect x="50" y="364" width="370" height="65" fill="#0d352b" rx="6" />
-  <text x="65" y="386" fill="#88b3a4" font-size="12" font-weight="bold">4. Vitesse & Productivité Clavier (25 pts)</text>
+  <text x="65" y="386" fill="#88b3a4" font-size="12" font-weight="bold">4. Vitesse &amp; Productivité Clavier (25 pts)</text>
   <text x="65" y="404" fill="#f4faf7" font-size="11">☑ Historique presse-papier Win+V activé</text>
   <text x="65" y="420" fill="#88b3a4" font-size="10">☑ Applications inutiles au démarrage désactivées</text>
 

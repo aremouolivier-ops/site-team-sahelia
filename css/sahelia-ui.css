@@ -1,0 +1,240 @@
+/* =========================================================================
+   TEAM SAHÉLIA — WAVE 2 UI : VITRINE ÉDITORIALE, RECHERCHE CTRL+K & PASSEPORT
+   ========================================================================= */
+
+/* Navigation supérieure raffinée sur 1 ligne desktop & tactile sur mobile */
+.site-entete {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.site-entete-rang {
+  flex-wrap: nowrap;
+}
+
+.site-nav {
+  justify-content: flex-start !important;
+  gap: 0.25rem !important;
+  scrollbar-width: none;
+  min-width: 0;
+}
+
+@media (max-width: 960px) {
+  .site-entete-rang {
+    flex-wrap: wrap;
+  }
+}
+.site-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.site-nav a {
+  padding: 0.42rem 0.72rem;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.15s ease;
+}
+
+.site-nav a:hover {
+  background: rgba(95, 208, 160, 0.1);
+}
+
+/* Boutons d'action rapides injectés dans le header */
+.nav-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: var(--police-texte, sans-serif);
+  background: rgba(95, 208, 160, 0.12);
+  border: 1px solid rgba(95, 208, 160, 0.3);
+  color: #a7f3d0;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.18s ease;
+}
+
+.nav-action-pill:hover {
+  background: rgba(95, 208, 160, 0.22);
+  border-color: var(--marque);
+  transform: translateY(-1px);
+}
+
+.nav-action-pill kbd {
+  font-family: var(--police-mono, monospace);
+  font-size: 0.68rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--texte-2);
+}
+
+/* Micro-élévation et finition éditoriale des cartes manuels */
+#manuels article {
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+#manuels article:hover {
+  transform: translateY(-3px);
+  border-color: rgba(95, 208, 160, 0.45) !important;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+}
+
+/* Barre de filtres par pôle métier au-dessus des manuels */
+.catalogue-filtres-barre {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  margin-bottom: 1.75rem;
+  padding: 0.85rem 1.15rem;
+  background: rgba(14, 34, 27, 0.72);
+  border: 1px solid var(--bordure);
+  border-radius: 14px;
+}
+
+.catalogue-chips-groupe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip-filtre-pole {
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--bordure);
+  background: var(--surface);
+  color: var(--texte-2);
+  transition: all 0.18s ease;
+}
+
+.chip-filtre-pole:hover {
+  border-color: rgba(95, 208, 160, 0.45);
+  color: var(--texte);
+}
+
+.chip-filtre-pole.actif {
+  background: var(--marque);
+  color: #06100c;
+  border-color: var(--marque);
+}
+
+.badge-progression-carte {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.65rem;
+  font-family: var(--police-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #4ade80;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  padding: 0.22rem 0.55rem;
+  border-radius: 6px;
+}
+
+/* Modale Recherche Globale (Ctrl+K) & Passeport Apprenant */
+.sa-overlay-palette {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 10, 8, 0.82);
+  backdrop-filter: blur(8px);
+  z-index: 9998;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 6vh 1rem 2rem;
+}
+
+.sa-overlay-palette.ouvert {
+  display: flex;
+}
+
+.sa-palette-card {
+  width: 100%;
+  max-width: 680px;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  background: #0b1d17;
+  border: 1px solid rgba(95, 208, 160, 0.38);
+  border-radius: 18px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
+}
+
+.sa-palette-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 1.2rem;
+  border-bottom: 1px solid var(--bordure);
+  background: #071410;
+}
+
+.sa-palette-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: var(--police-texte, sans-serif);
+}
+
+.sa-palette-results {
+  overflow-y: auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sa-palette-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0.95rem;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--texte);
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.02);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.sa-palette-item:hover {
+  background: rgba(95, 208, 160, 0.1);
+  border-color: rgba(95, 208, 160, 0.35);
+}
+
+.sa-palette-item-titre {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+.sa-palette-item-meta {
+  font-size: 0.76rem;
+  color: var(--texte-3);
+  margin-top: 0.15rem;
+}
+
+@media (max-width: 720px) {
+  .nav-action-pill kbd {
+    display: none;
+  }
+}

@@ -11,7 +11,7 @@
 
   <!-- En-tête -->
   <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
-  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">CITATIONS DANS LE TEXTE & BIBLIOGRAPHIE APA 7e / CAMES · TEAM SAHÉLIA</text>
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">CITATIONS DANS LE TEXTE &amp; BIBLIOGRAPHIE APA 7e / CAMES · TEAM SAHÉLIA</text>
 
   <!-- Colonne 1 : Citation dans le corps du texte -->
   <rect x="35" y="80" width="405" height="320" fill="#061a14" stroke="#25604d" stroke-width="1" rx="8" />

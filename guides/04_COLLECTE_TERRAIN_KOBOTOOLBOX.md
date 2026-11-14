@@ -103,7 +103,7 @@ Une fois le formulaire testé sur ordinateur :
 1. Cliquez sur **Save** puis sur **Deploy** (Déployer). Votre formulaire passe au statut actif avec une version v1.
 2. Sur votre smartphone Android : installez **KoboCollect** depuis le Google Play Store.
 3. Ouvrez KoboCollect, allez dans **Paramètres du projet** (icône en haut à droite) > **Paramètres du serveur** :
-   - **URL :** `https://kc.kobotoolbox.org` (ou l'URL exacte affichée dans vos paramètres de compte).
+   - **URL :** `https://kf.kobotoolbox.org` (ou l'URL exacte affichée dans vos paramètres de projet KoboToolbox).
    - **Nom d'utilisateur :** votre identifiant Kobo.
    - **Mot de passe :** votre mot de passe.
 4. Revenez à l'écran d'accueil de l'application et appuyez sur **Télécharger un formulaire vierge**.

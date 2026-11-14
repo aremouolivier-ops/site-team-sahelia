@@ -1,11 +1,11 @@
 /**
- * TEAM Sahélia — Service Worker PWA & Mode Hors-Ligne (v8 Versionné & Modulaire)
- * Cache les ressources statiques, les calculateurs terrain, les socles et les modules de cours
- * pour une disponibilité intégrale en milieu rural sans connexion Internet.
+ * TEAM Sahélia — Service Worker PWA & Mode Hors-Ligne (v9 Rapide & Modulaire)
+ * Pré-cache uniquement le noyau léger pour installation instantanée, puis met en cache
+ * les chapitres, schémas SVG et ressources à la demande ou sur action « 📥 Hors-ligne ».
  */
 
-const APP_VERSION = '2026.6';
-const CACHE_NAME = 'sahelia-v8-cache';
+const APP_VERSION = '2026.8';
+const CACHE_NAME = 'sahelia-v9-cache';
 
 const ASSETS_A_METTRE_EN_CACHE = [
   './',
@@ -13,70 +13,58 @@ const ASSETS_A_METTRE_EN_CACHE = [
   'formation.html',
   'verifier.html',
   'outils.html',
-  'admin.html',
-  'documentation.html',
   'manifest.json',
   'css/style.css',
   'css/formation.css',
+  'css/sahelia-ui.css',
   'js/app.js',
-  'js/badge-crypto.js',
   'js/badge-data.js',
-  'js/badge-engine.js',
   'js/controle-acces.js',
   'js/formation-catalogue.js',
   'js/formation-contenu-socle.js',
-  'js/formation-contenu.js',
   'js/crypto-formation.js',
   'js/lecteur-formation.js',
-  'js/qrcode.min.js',
-  'js/jszip.min.js',
-  // Modules de cours individuels pour disponibilité hors-ligne intégrale :
-  'js/contenus/cours-mn-01.js',
-  'js/contenus/cours-mn-02.js',
-  'js/contenus/cours-mn-03.js',
-  'js/contenus/cours-mn-04.js',
-  'js/contenus/cours-mn-05.js',
-  'js/contenus/cours-mn-06.js',
-  'js/contenus/cours-mn-07.js',
-  'js/contenus/cours-mn-08.js',
-  'js/contenus/cours-mn-09.js',
-  'js/contenus/cours-mn-10.js',
-  'js/contenus/cours-mn-11.js',
-  'js/contenus/cours-mn-12.js',
+  'js/sahelia-cloud-adapter.js',
   'assets/logo-sahelia.svg',
   'assets/images/hero_terrain_agronomie.webp',
-  'assets/images/hero_terrain_agronomie.jpg',
-  'assets/images/immersion_terrain_recherche.webp',
-  'assets/images/immersion_terrain_recherche.jpg',
-  'assets/Badge_TEAM_Sahelia_Membre_Officiel.png',
-  'assets/Badge_TEAM_Sahelia_Competence_Agronomie.png',
-  'assets/Badge_TEAM_Sahelia_Competence_SIG.png',
-  'assets/Badge_TEAM_Sahelia_Competence_VibeCoding.png',
-  'datasets/dataset_agronomique_sahelia.csv',
-  'datasets/dataset_brut_a_nettoyer_sahelia.csv',
-  'datasets/modele_enquete_agricole_kobo.csv',
-  'datasets/parcelles_agricoles_borgou.geojson'
+  'assets/images/immersion_terrain_recherche.webp'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async (cache) => {
-      for (const asset of ASSETS_A_METTRE_EN_CACHE) {
-        try {
-          const resp = await fetch(asset);
-          if (resp && resp.ok) {
-            // Mettre en cache la clé propre
-            await cache.put(asset, resp.clone());
-            // Pour les scripts et feuilles de style, indexer également la version active pour match instantané
-            if (asset.endsWith('.js') || asset.endsWith('.css')) {
-              await cache.put(`${asset}?v=${APP_VERSION}`, resp.clone());
+      await Promise.allSettled(
+        ASSETS_A_METTRE_EN_CACHE.map(async (asset) => {
+          try {
+            const resp = await fetch(asset);
+            if (resp && resp.ok) {
+              await cache.put(asset, resp.clone());
+              if (asset.endsWith('.js') || asset.endsWith('.css')) {
+                await cache.put(`${asset}?v=${APP_VERSION}`, resp.clone());
+              }
             }
+          } catch (err) {
+            console.warn('[SW] Pré-cache ignoré :', asset);
           }
-        } catch (err) {
-          console.warn('[SW] Pré-cache partiel pour :', asset, err);
-        }
-      }
+        })
+      );
     }).then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener('message', (event) => {
+  if (!event.data || event.data.type !== 'CACHE_COURSE' || !Array.isArray(event.data.urls)) return;
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(async (cache) => {
+      await Promise.allSettled(
+        event.data.urls.map(async (u) => {
+          try {
+            const resp = await fetch(u);
+            if (resp && resp.ok) await cache.put(u, resp);
+          } catch (e) {}
+        })
+      );
+    })
   );
 });
 

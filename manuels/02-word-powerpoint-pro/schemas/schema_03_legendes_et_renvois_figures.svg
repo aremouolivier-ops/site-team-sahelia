@@ -11,7 +11,7 @@
 
   <!-- En-tête -->
   <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
-  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">NORMES ACADÉMIQUES : LÉGENDES & TABLES DES FIGURES · TEAM SAHÉLIA</text>
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">NORMES ACADÉMIQUES : LÉGENDES &amp; TABLES DES FIGURES · TEAM SAHÉLIA</text>
 
   <!-- 2 Grands Blocs : Règle Tableau vs Règle Figure -->
   

@@ -1,0 +1,8 @@
+name = "team-sahelia-api"
+main = "worker.js"
+compatibility_date = "2026-03-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "team_sahelia_db"
+database_id = "REMPLACER_APRES_WRANGLER_D1_CREATE"

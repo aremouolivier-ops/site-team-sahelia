@@ -8,7 +8,10 @@
   <link rel="icon" type="image/svg+xml" href="assets/logo-sahelia.svg">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#08130f">
-  <link rel="stylesheet" href="css/style.css?v=2026.6">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="css/style.css?v=2026.8">
   <style>
     .admin-page-wrapper {
       min-height: 100vh;
@@ -691,6 +694,30 @@
             </div>
             <div id="gh-sync-feedback" style="margin-top: 1rem; font-size: 0.85rem; font-weight: 600;"></div>
           </div>
+
+          <!-- Passerelle Cloudflare Worker + D1 (Backend gratuit 0 €/mois) -->
+          <div id="bloc-cloudflare-worker" style="margin-top: 1.5rem; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; padding: 1.25rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
+              <h3 style="font-size: 0.95rem; font-weight: 700; color: #38bdf8;">☁️ Backend Cloudflare Worker + Base D1 (Optionnel · 0 €/mois)</h3>
+              <span class="etiquette etiquette--or" style="font-size: 0.72rem;">Cloud Hybride</span>
+            </div>
+            <p style="font-size: 0.82rem; color: var(--texte-2); margin-bottom: 1rem;">
+              Configurez l’URL de votre Worker Cloudflare (<code>backend/cloudflare-worker/worker.js</code>) pour synchroniser la progression des apprenants et activer la révocation dynamique sur <code>verifier.html</code>. En l’absence d’URL, le site reste 100 % fonctionnel en statique.
+            </p>
+            <div style="margin-bottom: 0.9rem;">
+              <label for="cf-endpoint-input" style="display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 0.35rem;">URL du Worker Cloudflare :</label>
+              <input type="url" id="cf-endpoint-input" class="champ-saisie" placeholder="https://sahelia-api.votre-compte.workers.dev" style="font-family: var(--police-mono);">
+            </div>
+            <div style="display: flex; gap: 0.65rem; flex-wrap: wrap; margin-bottom: 1rem;">
+              <button type="button" id="btn-cf-sauvegarder" class="v-btn v-btn--vert" style="min-height: 38px; font-size: 0.82rem; padding: 0 1rem;">💾 Enregistrer Endpoint</button>
+              <button type="button" id="btn-cf-tester" class="v-btn v-btn--fantome" style="min-height: 38px; font-size: 0.82rem; padding: 0 1rem;">🩺 Tester /api/health</button>
+            </div>
+            <div style="display: flex; gap: 0.65rem; flex-wrap: wrap; align-items: center; padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08);">
+              <input type="password" id="cf-admin-password" class="champ-saisie" placeholder="Mot de passe ADMIN_PASSWORD du Worker" style="flex: 1; min-width: 220px; font-family: var(--police-mono);">
+              <button type="button" id="btn-cf-login" class="v-btn v-btn--fantome" style="min-height: 38px; font-size: 0.82rem; padding: 0 1rem;">🔑 Connexion Session D1</button>
+            </div>
+            <div id="cf-status-feedback" style="margin-top: 0.8rem; font-size: 0.82rem; font-weight: 600;"></div>
+          </div>
         </div>
       </section>
 
@@ -708,6 +735,7 @@
   <script src="js/formation-contenu.js"></script>
   <script src="js/crypto-formation.js"></script>
   <script src="js/controle-acces.js"></script>
+  <script src="js/sahelia-cloud-adapter.js?v=2026.8"></script>
   <script>
     (function () {
       'use strict';
@@ -867,7 +895,7 @@
         const role = document.getElementById('adm-mem-role').value;
         const tel = document.getElementById('adm-mem-tel').value;
         const email = document.getElementById('adm-mem-email').value;
-                <input type="text" id="adm-mem-inst" class="champ-saisie" placeholder="Ex: TEAM Sahélia / Université / Institution" required>
+        const inst = document.getElementById('adm-mem-inst').value;
         const sexe = document.getElementById('adm-mem-sexe').value;
         const slogan = document.getElementById('adm-mem-slogan').value;
         const customId = document.getElementById('adm-mem-id').value.trim();
@@ -1341,12 +1369,25 @@
         `;
       });
 
-      window.revoquerBadgeAdminDirect = function (id) {
+      window.revoquerBadgeAdminDirect = async function (id) {
         const motif = prompt('Veuillez indiquer le motif de révocation :', 'Non-conformité des livrables de terrain.');
         if (motif === null) return;
         if (window.SaheliaDB.revoquerBadge) {
           window.SaheliaDB.revoquerBadge(id, motif);
-          alert(`✓ Le badge ${id} a été révoqué.`);
+          const cfEndpoint = window.SaheliaCloud && window.SaheliaCloud.obtenirEndpoint ? window.SaheliaCloud.obtenirEndpoint() : '';
+          const cfJwt = sessionStorage.getItem('sahelia_cf_admin_jwt') || '';
+          let msgCloud = '';
+          if (cfEndpoint && cfJwt) {
+            try {
+              const r = await fetch(`${cfEndpoint}/api/admin/badges/revoke`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${cfJwt}` },
+                body: JSON.stringify({ badgeId: id, reason: motif })
+              });
+              if (r.ok) msgCloud = ' (synchronisé dans Cloudflare D1)';
+            } catch (e) {}
+          }
+          alert(`✓ Le badge ${id} a été révoqué${msgCloud}.`);
           document.getElementById('form-recherche-badge-admin').dispatchEvent(new Event('submit'));
         }
       };
@@ -1567,6 +1608,76 @@
 
       document.addEventListener('DOMContentLoaded', () => {
         setTimeout(rafraichirInterface, 60);
+
+        const cfEndpointInput = document.getElementById('cf-endpoint-input');
+        const btnCfSave = document.getElementById('btn-cf-sauvegarder');
+        const btnCfTest = document.getElementById('btn-cf-tester');
+        const btnCfLogin = document.getElementById('btn-cf-login');
+        const cfFeedback = document.getElementById('cf-status-feedback');
+
+        if (cfEndpointInput && window.SaheliaCloud) {
+          cfEndpointInput.value = window.SaheliaCloud.obtenirEndpoint() || '';
+        }
+        if (btnCfSave && cfEndpointInput && window.SaheliaCloud) {
+          btnCfSave.addEventListener('click', () => {
+            const saved = window.SaheliaCloud.configurerEndpoint(cfEndpointInput.value);
+            if (cfFeedback) {
+              cfFeedback.innerHTML = saved
+                ? `<span style="color:#4ade80;">✓ Endpoint Worker enregistré : <code>${escapeHTML(saved)}</code></span>`
+                : '<span style="color:#fbbf24;">ℹ️ Endpoint réinitialisé (mode 100 % statique / hors-ligne actif).</span>';
+            }
+          });
+        }
+        if (btnCfTest && cfEndpointInput) {
+          btnCfTest.addEventListener('click', async () => {
+            const base = (cfEndpointInput.value || '').trim().replace(/\/+$/, '');
+            if (!base) {
+              if (cfFeedback) cfFeedback.innerHTML = '<span style="color:#f87171;">⚠️ Saisissez une URL https://... avant de tester.</span>';
+              return;
+            }
+            if (cfFeedback) cfFeedback.innerHTML = '<span style="color:#60a5fa;">⏳ Test de santé /api/health en cours...</span>';
+            try {
+              const res = await fetch(`${base}/api/health`);
+              const data = await res.json();
+              if (res.ok && data.ok) {
+                if (cfFeedback) cfFeedback.innerHTML = `<span style="color:#4ade80;">✅ Worker opérationnel : ${escapeHTML(data.service || 'team-sahelia-api')} (v${escapeHTML(data.version || '2026.8')})</span>`;
+              } else {
+                if (cfFeedback) cfFeedback.innerHTML = `<span style="color:#f87171;">❌ Réponse inattendue (${res.status}).</span>`;
+              }
+            } catch (err) {
+              if (cfFeedback) cfFeedback.innerHTML = `<span style="color:#f87171;">❌ Erreur réseau : ${escapeHTML(err.message)}</span>`;
+            }
+          });
+        }
+        if (btnCfLogin && cfEndpointInput) {
+          btnCfLogin.addEventListener('click', async () => {
+            const base = (cfEndpointInput.value || '').trim().replace(/\/+$/, '');
+            const pwd = (document.getElementById('cf-admin-password')?.value || '').trim();
+            if (!base || !pwd) {
+              if (cfFeedback) cfFeedback.innerHTML = '<span style="color:#fbbf24;">⚠️ Renseignez l’URL du Worker et le mot de passe ADMIN_PASSWORD.</span>';
+              return;
+            }
+            try {
+              const res = await fetch(`${base}/api/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: pwd })
+              });
+              const data = await res.json().catch(() => ({}));
+              if (res.ok && data.ok && data.token) {
+                sessionStorage.setItem('sahelia_cf_admin_jwt', data.token);
+                if (cfFeedback) cfFeedback.innerHTML = '<span style="color:#4ade80;">🔐 Session Admin D1 active pour cet onglet (révocations synchronisées).</span>';
+              } else {
+                if (cfFeedback) cfFeedback.innerHTML = `<span style="color:#f87171;">❌ Échec d’authentification D1 (${res.status}).</span>`;
+              }
+            } catch (err) {
+              if (cfFeedback) cfFeedback.innerHTML = `<span style="color:#f87171;">❌ Erreur : ${escapeHTML(err.message)}</span>`;
+            }
+          });
+        }
+        if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+          navigator.serviceWorker.register('sw.js').catch(() => {});
+        }
       });
     })();
   </script>

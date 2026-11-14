@@ -1,0 +1,37 @@
+name: Qualité & Non-Régression TEAM Sahélia
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  verification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Valider les 77 schémas vectoriels SVG (XML strict)
+        run: |
+          python3 -c "
+          import glob, xml.etree.ElementTree as ET, sys
+          svgs = sorted(glob.glob('manuels/**/schemas/*.svg', recursive=True))
+          assert len(svgs) >= 77, f'Attendu >= 77 SVGs, trouvé {len(svgs)}'
+          for p in svgs:
+              ET.parse(p)
+          print(f'OK: {len(svgs)} SVGs XML valides.')
+          "
+
+      - name: Exécuter la suite complète de tests (Badges, Catalogue, Étape B, Rôles, Liens)
+        run: |
+          node tests_badge_engine.js
+          node tests_verification.js
+          node scripts/test_etape_b.js
+          node scripts/test_tous_les_roles.js
+          node scripts/audit_integrite_totale.js

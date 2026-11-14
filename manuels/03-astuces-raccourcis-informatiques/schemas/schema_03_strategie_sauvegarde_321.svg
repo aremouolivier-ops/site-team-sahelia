@@ -11,7 +11,7 @@
 
   <!-- Titre -->
   <rect x="15" y="15" width="870" height="45" fill="#0d352b" rx="8" />
-  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">STRATÉGIE DE SAUVEGARDE 3-2-1 & DÉCONTAMINATION CLÉ USB · TEAM SAHÉLIA</text>
+  <text x="35" y="44" fill="#3fae7a" font-size="16" font-weight="bold" letter-spacing="1">STRATÉGIE DE SAUVEGARDE 3-2-1 &amp; DÉCONTAMINATION CLÉ USB · TEAM SAHÉLIA</text>
 
   <!-- Colonne Gauche : Règle d'or 3-2-1 -->
   <rect x="35" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
@@ -42,7 +42,7 @@
   <text x="50" y="405" fill="#3fae7a" font-size="12" font-weight="bold">Un fichier sauvegardé à 1 seul endroit n'existe pas !</text>
   <text x="50" y="425" fill="#88b3a4" font-size="11">Le disque d'un ordinateur peut griller sans avertissement.</text>
 
-  <!-- Colonne Droite : Sauvetage Clé USB & Commande Attrib -->
+  <!-- Colonne Droite : Sauvetage Clé USB &amp; Commande Attrib -->
   <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#e8946a" stroke-width="1.5" rx="8" />
   <text x="480" y="105" fill="#e8946a" font-size="15" font-weight="bold">Éradication du Virus de Raccourcis USB</text>
   <text x="480" y="125" fill="#88b3a4" font-size="12">Vos fichiers sont masqués, PAS supprimés !</text>

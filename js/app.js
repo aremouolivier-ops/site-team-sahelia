@@ -695,6 +695,9 @@
         if (etatApp.typeBadge === 'membre') {
           const panel = document.getElementById('panneau-type-membre');
           if (panel) panel.style.display = 'block';
+        } else if (etatApp.typeBadge === 'formation') {
+          const panel = document.getElementById('panneau-type-formation');
+          if (panel) panel.style.display = 'block';
         } else {
           // Afficher le panneau compétences pour les badges de spécialités
           const panel = document.getElementById('panneau-type-competence');
@@ -1038,6 +1041,38 @@
       document.fonts.ready.then(actualiserApercuBadge);
     }
     actualiserApercuBadge();
+
+    // Pont depuis formation.html (?badgeCours=mn-XX#badges)
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const badgeCours = params.get('badgeCours');
+      if (badgeCours) {
+        const formationMatch = DB.formations.find((f) => f && f.id === badgeCours);
+        if (formationMatch && selectFormation) {
+          const btnForm = document.querySelector('.btn-type-badge[data-type="formation"]');
+          if (btnForm) btnForm.click();
+          selectFormation.value = badgeCours;
+          selectFormation.dispatchEvent(new Event('change'));
+        } else {
+          const btnComp = document.querySelector('.btn-type-badge[data-type="competence"]');
+          if (btnComp) btnComp.click();
+        }
+
+        const sectionBadges = document.getElementById('badges');
+        if (sectionBadges && !document.getElementById('bandeau-completion-bridge')) {
+          const coursObj = window.SaheliaCatalogue && window.SaheliaCatalogue.obtenirCours
+            ? window.SaheliaCatalogue.obtenirCours(badgeCours)
+            : null;
+          const nomCours = coursObj ? coursObj.titre : badgeCours;
+          const note = document.createElement('div');
+          note.id = 'bandeau-completion-bridge';
+          note.style.cssText = 'margin: 0 auto 1.25rem; max-width: 960px; padding: 0.9rem 1.2rem; border-radius: 12px; border: 1px solid rgba(52, 211, 153, 0.45); background: rgba(16, 185, 129, 0.12); color: var(--texte); font-size: 0.9rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem;';
+          note.innerHTML = `<span>🏆 <strong>Parcours « ${escapeHTML(nomCours)} » complété à 100 % sur ce poste !</strong> Prévisualisez le modèle officiel ou soumettez votre reçu JSON à l’administration pour délivrance signée.</span>`;
+          const conteneurStudio = sectionBadges.querySelector('.enveloppe') || sectionBadges;
+          conteneurStudio.insertBefore(note, conteneurStudio.firstChild);
+        }
+      }
+    } catch (e) {}
   }
 
   // ---------------------------------------------------------------------------
@@ -1080,7 +1115,250 @@
   }
 
   // ---------------------------------------------------------------------------
-  
+  // 5. RECHERCHE GLOBALE (CTRL+K), FILTRES PÔLES & PASSEPORT APPRENANT (WAVE 2)
+  // ---------------------------------------------------------------------------
+  function initialiserExperienceEdtorialeVitrine() {
+    const actionsHeader = document.querySelector('.site-entete-actions') || document.querySelector('.site-entete .enveloppe');
+    if (actionsHeader && !document.getElementById('btn-ouvrir-recherche-globale')) {
+      const btnSearch = document.createElement('button');
+      btnSearch.type = 'button';
+      btnSearch.id = 'btn-ouvrir-recherche-globale';
+      btnSearch.className = 'nav-action-pill';
+      btnSearch.title = 'Rechercher parmi les 17 formations et 85 chapitres (Ctrl+K)';
+      btnSearch.innerHTML = '🔍 Rechercher <kbd>Ctrl+K</kbd>';
+
+      const btnPasseport = document.createElement('button');
+      btnPasseport.type = 'button';
+      btnPasseport.id = 'btn-ouvrir-passeport';
+      btnPasseport.className = 'nav-action-pill';
+      btnPasseport.title = 'Exporter ou restaurer votre progression et vos XP';
+      const statsInit = window.SaheliaCloud ? window.SaheliaCloud.obtenirStatistiquesLocales() : { xpTotal: 0 };
+      btnPasseport.innerHTML = statsInit.xpTotal > 0 ? `🎒 Passeport (${statsInit.xpTotal} XP)` : '🎒 Passeport';
+
+      actionsHeader.prepend(btnPasseport);
+      actionsHeader.prepend(btnSearch);
+    }
+
+    // Indexation des 17 cours & 85 chapitres pour Ctrl+K
+    const indexCatalogue = [];
+    if (window.SaheliaCatalogue) {
+      window.SaheliaCatalogue.listerTous().forEach((c) => {
+        indexCatalogue.push({
+          type: c.type === 'guide' ? 'Mini-Guide Libre' : 'Manuel Stratégique',
+          titre: c.titre,
+          sousTitre: c.pole || '',
+          mots: `${c.id} ${c.titre} ${c.sousTitre || ''} ${c.description || ''} ${c.pole || ''}`.toLowerCase(),
+          url: `formation.html?cours=${encodeURIComponent(c.id)}`
+        });
+        (c.chapitres || []).forEach((ch) => {
+          if (ch.id === 'unique') return;
+          indexCatalogue.push({
+            type: c.titre,
+            titre: ch.titre,
+            sousTitre: `${c.pole || ''} · ${ch.duree || ''}`,
+            mots: `${c.id} ${c.titre} ${ch.id} ${ch.titre}`.toLowerCase(),
+            url: `formation.html?cours=${encodeURIComponent(c.id)}&ch=${encodeURIComponent(ch.id)}`
+          });
+        });
+      });
+    }
+
+    let modalSearch = document.getElementById('sa-modal-recherche-globale');
+    if (!modalSearch) {
+      modalSearch = document.createElement('div');
+      modalSearch.id = 'sa-modal-recherche-globale';
+      modalSearch.className = 'sa-overlay-palette';
+      modalSearch.setAttribute('role', 'dialog');
+      modalSearch.setAttribute('aria-label', 'Recherche globale dans les formations');
+      modalSearch.innerHTML = `
+        <div class="sa-palette-card">
+          <div class="sa-palette-header">
+            <span>🔍</span>
+            <input type="search" id="sa-palette-input-recherche" class="sa-palette-input" placeholder="Rechercher un manuel, chapitre, QGIS, NDVI, Excel, Vibe Coding…">
+            <button type="button" id="sa-palette-fermer" style="background:transparent;border:none;color:var(--texte-3);font-size:1.15rem;cursor:pointer;">✕</button>
+          </div>
+          <div id="sa-palette-results" class="sa-palette-results"></div>
+        </div>
+      `;
+      document.body.appendChild(modalSearch);
+    }
+
+    const inputSearch = document.getElementById('sa-palette-input-recherche');
+    const resultsBox = document.getElementById('sa-palette-results');
+
+    function afficherResultats(requete) {
+      if (!resultsBox) return;
+      const q = String(requete || '').trim().toLowerCase();
+      const matches = q
+        ? indexCatalogue.filter((item) => item.mots.includes(q)).slice(0, 14)
+        : indexCatalogue.filter((item) => !item.url.includes('&ch=')).slice(0, 12);
+
+      if (matches.length === 0) {
+        resultsBox.innerHTML = `<p style="padding:1.5rem;text-align:center;color:var(--texte-3);font-size:0.88rem;">Aucun chapitre ou manuel trouvé pour « ${escapeHTML(requete)} ».</p>`;
+        return;
+      }
+
+      resultsBox.innerHTML = matches.map((m) => `
+        <a href="${m.url}" class="sa-palette-item">
+          <div>
+            <div class="sa-palette-item-titre">${escapeHTML(m.titre)}</div>
+            <div class="sa-palette-item-meta">${escapeHTML(m.type)}${m.sousTitre ? ' · ' + escapeHTML(m.sousTitre) : ''}</div>
+          </div>
+          <span style="color:var(--marque);font-weight:700;font-size:0.82rem;white-space:nowrap;">Ouvrir →</span>
+        </a>
+      `).join('');
+    }
+
+    function ouvrirRecherche() {
+      modalSearch.classList.add('ouvert');
+      afficherResultats('');
+      if (inputSearch) setTimeout(() => inputSearch.focus(), 40);
+    }
+
+    const btnOpenSearch = document.getElementById('btn-ouvrir-recherche-globale');
+    if (btnOpenSearch) btnOpenSearch.addEventListener('click', ouvrirRecherche);
+    const btnCloseSearch = document.getElementById('sa-palette-fermer');
+    if (btnCloseSearch) btnCloseSearch.addEventListener('click', () => modalSearch.classList.remove('ouvert'));
+    modalSearch.addEventListener('click', (e) => {
+      if (e.target === modalSearch) modalSearch.classList.remove('ouvert');
+    });
+    if (inputSearch) {
+      inputSearch.addEventListener('input', (e) => afficherResultats(e.target.value));
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        ouvrirRecherche();
+      } else if (e.key === 'Escape') {
+        modalSearch.classList.remove('ouvert');
+        const modPass = document.getElementById('sa-modal-passeport');
+        if (modPass) modPass.classList.remove('ouvert');
+      }
+    });
+
+    // Filtres par Pôle + Pastilles de progression sur les 12 cartes manuels
+    const sectionManuels = document.getElementById('manuels');
+    if (sectionManuels && window.SaheliaCatalogue) {
+      const cartes = Array.from(sectionManuels.querySelectorAll('article'));
+      const gridManuels = cartes[0]?.parentElement;
+      cartes.forEach((carte) => {
+        const lien = carte.querySelector('a[href*="formation.html?cours="]');
+        if (!lien) return;
+        const m = lien.getAttribute('href').match(/cours=([a-z0-9-]+)/i);
+        if (!m) return;
+        const coursId = m[1];
+        const info = window.SaheliaCatalogue.obtenirCours(coursId);
+        if (!info) return;
+        carte.setAttribute('data-pole-id', info.poleId || '');
+
+        const totalCh = (info.chapitres || []).length;
+        let valides = 0;
+        (info.chapitres || []).forEach((ch) => {
+          try {
+            if (localStorage.getItem(`sahelia_prog_${coursId}_${ch.id}`) === 'valide') valides++;
+          } catch (e) {}
+        });
+        if (valides > 0) {
+          const badgeProg = document.createElement('div');
+          badgeProg.className = 'badge-progression-carte';
+          badgeProg.textContent = valides >= totalCh
+            ? `✓ Terminé (${valides}/${totalCh} chap.)`
+            : `▶ En cours : ${valides}/${totalCh} chapitres`;
+          const innerDiv = carte.querySelector('div');
+          if (innerDiv) innerDiv.prepend(badgeProg);
+        }
+      });
+
+      if (gridManuels && !document.getElementById('barre-filtres-poles')) {
+        const barreFiltres = document.createElement('div');
+        barreFiltres.id = 'barre-filtres-poles';
+        barreFiltres.className = 'catalogue-filtres-barre';
+        barreFiltres.innerHTML = `
+          <div class="catalogue-chips-groupe" role="tablist" aria-label="Filtrer par pôle métier">
+            <button type="button" class="chip-filtre-pole actif" data-pole="tous">Tous les manuels</button>
+            <button type="button" class="chip-filtre-pole" data-pole="bureautique">📊 Bureautique</button>
+            <button type="button" class="chip-filtre-pole" data-pole="agronomie_sig">🌱 Agronomie & SIG</button>
+            <button type="button" class="chip-filtre-pole" data-pole="code_ia">💻 Code & IA</button>
+            <button type="button" class="chip-filtre-pole" data-pole="communication_carriere">🚀 Création & Carrière</button>
+          </div>
+          <span style="font-size:0.78rem;color:var(--texte-3);">Accès libre · Certification Open Badges 3.0</span>
+        `;
+        gridManuels.parentElement.insertBefore(barreFiltres, gridManuels);
+
+        barreFiltres.querySelectorAll('.chip-filtre-pole').forEach((chip) => {
+          chip.addEventListener('click', () => {
+            barreFiltres.querySelectorAll('.chip-filtre-pole').forEach((c) => c.classList.remove('actif'));
+            chip.classList.add('actif');
+            const pole = chip.getAttribute('data-pole');
+            cartes.forEach((card) => {
+              card.style.display = (pole === 'tous' || card.getAttribute('data-pole-id') === pole) ? 'flex' : 'none';
+            });
+          });
+        });
+      }
+    }
+
+    // Modale Passeport d'Apprentissage (Export/Import JSON & Cloud Sync)
+    const btnPass = document.getElementById('btn-ouvrir-passeport');
+    if (btnPass && window.SaheliaCloud) {
+      btnPass.addEventListener('click', () => {
+        let mod = document.getElementById('sa-modal-passeport');
+        if (!mod) {
+          mod = document.createElement('div');
+          mod.id = 'sa-modal-passeport';
+          mod.className = 'sa-overlay-palette';
+          mod.innerHTML = `
+            <div class="sa-palette-card" style="padding:1.5rem;gap:1rem;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <h3 style="font-size:1.15rem;font-weight:800;color:#fff;margin:0;">🎒 Mon Passeport d’Apprentissage TEAM Sahélia</h3>
+                <button type="button" id="sa-passeport-fermer" style="background:transparent;border:none;color:var(--texte-3);font-size:1.15rem;cursor:pointer;">✕</button>
+              </div>
+              <div id="sa-passeport-stats" style="font-size:0.88rem;color:var(--texte-2);background:#071410;padding:0.9rem;border-radius:10px;border:1px solid var(--bordure);"></div>
+              <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+                <button type="button" id="sa-btn-export-passeport" class="v-btn v-btn--vert" style="font-size:0.85rem;">⬇ Exporter mon Passeport (.json)</button>
+                <label class="v-btn v-btn--fantome" style="font-size:0.85rem;cursor:pointer;">
+                  ⬆ Importer un Passeport (.json)
+                  <input type="file" id="sa-input-import-passeport" accept="application/json,.json" style="display:none;">
+                </label>
+              </div>
+              <p id="sa-passeport-feedback" style="font-size:0.8rem;color:var(--marque);margin:0;"></p>
+            </div>
+          `;
+          document.body.appendChild(mod);
+          document.getElementById('sa-passeport-fermer').addEventListener('click', () => mod.classList.remove('ouvert'));
+          mod.addEventListener('click', (e) => { if (e.target === mod) mod.classList.remove('ouvert'); });
+          document.getElementById('sa-btn-export-passeport').addEventListener('click', () => {
+            window.SaheliaCloud.telechargerPasseport();
+            document.getElementById('sa-passeport-feedback').textContent = '✓ Passeport téléchargé. Conservez-le pour restaurer vos chapitres sur tout autre téléphone ou PC.';
+          });
+          document.getElementById('sa-input-import-passeport').addEventListener('change', (ev) => {
+            const f = ev.target.files && ev.target.files[0];
+            if (!f) return;
+            const r = new FileReader();
+            r.onload = (re) => {
+              try {
+                const res = window.SaheliaCloud.importerPasseportJSON(re.target.result);
+                document.getElementById('sa-passeport-feedback').textContent = `✓ ${res.chapitresRestaures} chapitre(s) validé(s) restaurés sur cet appareil !`;
+                setTimeout(() => window.location.reload(), 900);
+              } catch (err) {
+                document.getElementById('sa-passeport-feedback').textContent = '❌ ' + err.message;
+              }
+            };
+            r.readAsText(f);
+          });
+        }
+        const st = window.SaheliaCloud.obtenirStatistiquesLocales();
+        document.getElementById('sa-passeport-stats').innerHTML = `
+          <div>Identifiant apprenant : <code style="color:var(--marque);">${escapeHTML(st.learnerId)}</code></div>
+          <div style="margin-top:0.4rem;">Chapitres validés : <strong>${st.chapitresValides}</strong> · XP cumulés : <strong>${st.xpTotal} XP</strong></div>
+          <div style="margin-top:0.4rem;">Mode de persistance : <strong>${st.cloudActif ? '☁️ Cloud Worker D1 + Local' : '📱 Autonome Local + Export JSON'}</strong></div>
+        `;
+        mod.classList.add('ouvert');
+      });
+    }
+  }
+
   // ---------------------------------------------------------------------------
   // ACTUALISATION DYNAMIQUE DES COMPTEURS DE FORMATIONS (AUTO-INCREMENT)
   // ---------------------------------------------------------------------------
@@ -1103,6 +1381,7 @@
     initialiserStudioMultiBadges();
     actualiserCompteursFormations();
     initialiserLecteurGuides();
+    initialiserExperienceEdtorialeVitrine();
 
     // Enregistrement PWA Service Worker (Mode Hors-Ligne)
     if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {

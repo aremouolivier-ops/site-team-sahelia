@@ -37,8 +37,8 @@
   <rect x="50" y="335" width="380" height="100" fill="#06100c" stroke="#1b4d3e" rx="6" />
   <text x="65" y="358" fill="#3fae7a" font-size="11" font-weight="bold">Section "Infos" : La Structure P.A.S. :</text>
   <text x="65" y="378" fill="#f4faf7" font-size="10">• <tspan fill="#e86a6a" font-weight="bold">P (Problème) :</tspan> Vos enquêtes terrain prennent des semaines à être saisies ?</text>
-  <text x="65" y="396" fill="#7fb0ee" font-weight="bold">• A (Agitation) :</tspan> Les erreurs de saisie faussent vos rapports aux bailleurs...</text>
-  <text x="65" y="416" fill="#3fae7a" font-weight="bold">• S (Solution) :</tspan> Je déploie KoboToolbox &amp; QGIS pour automatiser vos livrables.</text>
+  <text x="65" y="396" fill="#f4faf7" font-size="10">• <tspan fill="#7fb0ee" font-weight="bold">A (Agitation) :</tspan> Les erreurs de saisie faussent vos rapports aux bailleurs...</text>
+  <text x="65" y="416" fill="#f4faf7" font-size="10">• <tspan fill="#3fae7a" font-weight="bold">S (Solution) :</tspan> Je déploie KoboToolbox &amp; QGIS pour automatiser vos livrables.</text>
 
   <!-- Colonne Droite : La Méthode de Publication "Étude de Cas" (465 à 865) -->
   <rect x="465" y="75" width="400" height="375" fill="#061a14" stroke="#3fae7a" stroke-width="1.5" rx="8" />
