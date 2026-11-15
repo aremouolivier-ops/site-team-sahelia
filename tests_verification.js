@@ -47,10 +47,18 @@ manuels.forEach((m) => {
   const dossierManuel = path.join(BASE_DIR, m.baseDir);
   assert(fs.existsSync(dossierManuel), `Le dossier du manuel ${m.id} existe (${m.baseDir})`);
 
-  // Vérifier tous les chapitres enregistrés
+  // Vérifier tous les chapitres enregistrés (module chiffré toujours, source brute si présente hors CI)
+  const chunkPath = path.join(BASE_DIR, 'js', 'contenus', `cours-${m.id}.js`);
+  assert(fs.existsSync(chunkPath), `Module chiffré compilé présent pour ${m.id} (js/contenus/cours-${m.id}.js)`);
+  const chunkContent = fs.readFileSync(chunkPath, 'utf8');
+  const sourcesBrutesPresentes = !process.env.CI && fs.existsSync(path.join(dossierManuel, '00_PLAN_ET_INTRODUCTION.md'));
+
   (m.chapitres || []).forEach((ch) => {
-    const fichierCh = path.join(BASE_DIR, ch.fichier);
-    assert(fs.existsSync(fichierCh), `Chapitre ${ch.id} du manuel ${m.id} existe : ${ch.fichier}`);
+    assert(chunkContent.includes(ch.fichier), `Chapitre ${ch.id} du manuel ${m.id} présent dans cours-${m.id}.js : ${ch.fichier}`);
+    if (sourcesBrutesPresentes) {
+      const fichierCh = path.join(BASE_DIR, ch.fichier);
+      assert(fs.existsSync(fichierCh), `Source locale ${ch.id} du manuel ${m.id} existe : ${ch.fichier}`);
+    }
   });
 });
 
@@ -440,12 +448,16 @@ assert(styleCss.includes('overflow-x: auto'), 'css/style.css rend la barre de na
 assert(!styleCss.includes('.site-nav {\n    display: none;\n  }'), 'css/style.css ne masque plus jamais la barre de menu sur mobile');
 
 console.log('\n========================================================================');
-console.log('TEST 4 : VÉRIFICATION DU RÉPERTOIRE PROJET-SAAS-PRESENCE');
+console.log('TEST 4 : AUTONOMIE & PORTABILITÉ HÉBERGEMENT STATIQUE');
 console.log('========================================================================');
 
-const saasPresencePath = 'C:\\Users\\DELL\\Desktop\\projet-saas-presence';
-assert(fs.existsSync(saasPresencePath), 'Le répertoire projet-saas-presence existe');
-console.log('✓ projet-saas-presence préservé et 100% intact');
+['manifest.json', 'sw.js', 'issuers/team-sahelia.json', 'status/revocations.json'].forEach((rel) => {
+  assert(fs.existsSync(path.join(BASE_DIR, rel)), `Ressource autonome présente : ${rel}`);
+});
+const manifestObj = JSON.parse(fs.readFileSync(path.join(BASE_DIR, 'manifest.json'), 'utf8'));
+assert(Array.isArray(manifestObj.icons) && manifestObj.icons.length >= 2, 'manifest.json déclare les icônes PWA officielles');
+assert(!indexHtml.includes('C:\\Users\\') && !formationHtml.includes('C:\\Users\\'), 'Aucune dépendance à un chemin local PC dans les pages HTML');
+console.log('✓ Site TEAM Sahélia 100% autonome et portable (indépendant de projet-saas-presence)');
 
 console.log('\n========================================================================');
 console.log('🎉 TOUS LES TESTS SONT PASSÉS AVEC SUCCÈS (100% DE CONFORMITÉ) !');

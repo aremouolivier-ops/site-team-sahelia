@@ -396,6 +396,7 @@
       if (cohortes.length === 0) {
         selectCohorte.innerHTML = '<option value="">Aucune cohorte active</option>';
         etatApp.cohorteSelectionnee = null;
+        etatApp.participantSelectionne = null;
         if (listeParticipants) listeParticipants.innerHTML = '<div style="padding: 0.5rem; color: var(--texte-3);">Aucun participant</div>';
         return;
       }

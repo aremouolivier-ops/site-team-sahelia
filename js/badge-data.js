@@ -599,35 +599,139 @@
   const FORMATIONS = [
     {
       id: 'mn-01',
-      titre: 'Bureautique Avancée & Analyse de Données (Excel & Word)',
+      titre: 'Excel pour les Étudiants & Professionnels',
       pole: 'Bureautique & Données',
       formateur: 'Olivier AREMOU',
       accentColor: '#2563eb',
       volumeHoraire: '35 heures'
     },
     {
+      id: 'mn-02',
+      titre: 'Word & PowerPoint Pro : Mémoires & Soutenances',
+      pole: 'Bureautique & Données',
+      formateur: 'Amina CHABI',
+      accentColor: '#5fd0a0',
+      volumeHoraire: '30 heures'
+    },
+    {
+      id: 'mn-03',
+      titre: '50 Astuces & Raccourcis Informatiques du Débutant au Pro',
+      pole: 'Bureautique & Données',
+      formateur: 'Équipe Pédagogique TEAM Sahélia',
+      accentColor: '#5fd0a0',
+      volumeHoraire: '25 heures'
+    },
+    {
+      id: 'mn-04',
+      titre: 'R & RStudio pour l’Agronomie & la Recherche',
+      pole: 'Agronomie & Données',
+      formateur: 'Olivier AREMOU',
+      accentColor: '#2563eb',
+      volumeHoraire: '40 heures'
+    },
+    {
+      id: 'mn-05',
+      titre: 'KoboToolbox & Collecte Numérique de Terrain sur Smartphone',
+      pole: 'Agronomie & SIG',
+      formateur: 'Mariam DIALLO',
+      accentColor: '#2563eb',
+      volumeHoraire: '30 heures'
+    },
+    {
       id: 'mn-06',
-      titre: 'Cartographie Parcellaire & SIG de Terrain (QGIS & GPS)',
+      titre: 'Cartographie Agricole & SIG : QGIS, ArcGIS & Google Earth',
       pole: 'Agronomie & SIG',
       formateur: 'Ségla Bio KPEROU',
       accentColor: '#16a34a',
       volumeHoraire: '40 heures'
     },
     {
+      id: 'mn-07',
+      titre: 'Développement Web Moderne (HTML5, CSS3 & JavaScript)',
+      pole: 'Code & Web',
+      formateur: 'Olivier AREMOU',
+      accentColor: '#e8946a',
+      volumeHoraire: '40 heures'
+    },
+    {
+      id: 'mn-08',
+      titre: 'Vibe Coding & IA Responsable : Bâtir ses Outils sur Mesure',
+      pole: 'Innovation & IA',
+      formateur: 'Olivier AREMOU',
+      accentColor: '#7fb0ee',
+      volumeHoraire: '40 heures'
+    },
+    {
+      id: 'mn-09',
+      titre: 'Création Graphique & Vidéo Mobile de Terrain',
+      pole: 'Création & Médias',
+      formateur: 'Pôle Communication TEAM Sahélia',
+      accentColor: '#a855f7',
+      volumeHoraire: '25 heures'
+    },
+    {
+      id: 'mn-10',
+      titre: 'L’Agronome-Numéricien & Consultant Indépendant',
+      pole: 'Conseil & Carrière',
+      formateur: 'Olivier AREMOU',
+      accentColor: '#a855f7',
+      volumeHoraire: '35 heures'
+    },
+    {
       id: 'mn-11',
-      titre: 'Pilotage de Drone & Télédétection Agricole',
+      titre: 'Pilotage de Drones & Drones Agricoles : Cartographie & Pulvérisation',
       pole: 'Drones & Télédétection',
       formateur: 'Pôle Drones TEAM Sahélia',
       accentColor: '#e8946a',
       volumeHoraire: '45 heures'
     },
     {
-      id: 'mn-08',
-      titre: 'Vibe Coding & Ingénierie de Solutions IA',
-      pole: 'Innovation & IA',
-      formateur: 'Olivier AREMOU',
-      accentColor: '#7fb0ee',
+      id: 'mn-12',
+      titre: 'Création Vidéo & Visuelle par IA : Des Prompts aux Logiciels Professionnels',
+      pole: 'Création & Médias IA',
+      formateur: 'Pôle Création IA TEAM Sahélia',
+      accentColor: '#ec4899',
       volumeHoraire: '40 heures'
+    },
+    {
+      id: 'guide-01',
+      titre: 'Urgence Mémoire & Rapport sous Word & Excel',
+      pole: 'Mini-Guide Libre',
+      formateur: 'Équipe Pédagogique TEAM Sahélia',
+      accentColor: '#5fd0a0',
+      volumeHoraire: '10 heures (Pratique)'
+    },
+    {
+      id: 'guide-02',
+      titre: 'Tracer sa Parcelle Agricole avec GPS & QGIS',
+      pole: 'Mini-Guide Libre',
+      formateur: 'Ségla Bio KPEROU',
+      accentColor: '#2563eb',
+      volumeHoraire: '10 heures (Pratique)'
+    },
+    {
+      id: 'guide-03',
+      titre: 'Prompts de Recherche Scientifique & Vibe Coding IA',
+      pole: 'Mini-Guide Libre',
+      formateur: 'Olivier AREMOU',
+      accentColor: '#e8946a',
+      volumeHoraire: '10 heures (Pratique)'
+    },
+    {
+      id: 'guide-04',
+      titre: 'Collecte Numérique de Terrain avec KoboToolbox',
+      pole: 'Mini-Guide Libre',
+      formateur: 'Mariam DIALLO',
+      accentColor: '#2563eb',
+      volumeHoraire: '10 heures (Pratique)'
+    },
+    {
+      id: 'guide-05',
+      titre: 'Création Visuelle, Infographies & Affiches Pro',
+      pole: 'Mini-Guide Libre',
+      formateur: 'Pôle Communication TEAM Sahélia',
+      accentColor: '#a855f7',
+      volumeHoraire: '10 heures (Pratique)'
     }
   ];
 

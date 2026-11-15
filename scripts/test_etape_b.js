@@ -3,7 +3,7 @@ const path = require('path');
 const crypto = require('crypto');
 const { performance } = require('perf_hooks');
 
-const dir = 'C:\\Users\\DELL\\Desktop\\site-team-sahelia';
+const dir = path.resolve(__dirname, '..');
 
 const mockWindow = {
   location: { protocol: 'http:', search: '', href: 'http://localhost/' },

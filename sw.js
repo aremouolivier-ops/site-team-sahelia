@@ -4,8 +4,8 @@
  * les chapitres, schémas SVG et ressources à la demande ou sur action « 📥 Hors-ligne ».
  */
 
-const APP_VERSION = '2026.9';
-const CACHE_NAME = 'sahelia-v10-cache';
+const APP_VERSION = '2026.10';
+const CACHE_NAME = 'sahelia-v11-cache';
 
 const ASSETS_A_METTRE_EN_CACHE = [
   './',
@@ -13,6 +13,7 @@ const ASSETS_A_METTRE_EN_CACHE = [
   'formation.html',
   'verifier.html',
   'outils.html',
+  'documentation.html',
   'manifest.json',
   'css/style.css',
   'css/formation.css',
@@ -26,6 +27,8 @@ const ASSETS_A_METTRE_EN_CACHE = [
   'js/lecteur-formation.js',
   'js/sahelia-cloud-adapter.js',
   'assets/logo-sahelia.svg',
+  'assets/icon-192.png',
+  'assets/icon-512.png',
   'assets/images/hero_terrain_agronomie.webp',
   'assets/images/immersion_terrain_recherche.webp'
 ];

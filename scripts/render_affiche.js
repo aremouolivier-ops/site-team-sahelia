@@ -5,7 +5,7 @@ const path = require('path');
 const edge = 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe';
 const html = path.resolve('C:/Users/DELL/.gemini/antigravity/brain/f059b97b-0db9-4f81-b62c-ea0e1ed8efa6/affiche_bienvenue_template.html');
 const outArtifact = path.resolve('C:/Users/DELL/.gemini/antigravity/brain/f059b97b-0db9-4f81-b62c-ea0e1ed8efa6/affiche_bienvenue_team_sahelia.png');
-const outSite = path.resolve('C:/Users/DELL/Desktop/site-team-sahelia/assets/affiches/affiche_bienvenue_team_sahelia.png');
+const outSite = path.resolve(__dirname, '..', 'assets', 'affiches', 'affiche_bienvenue_team_sahelia.png');
 
 const cmd = `"${edge}" --headless --disable-gpu --hide-scrollbars --window-size=1080,1350 --screenshot="${outArtifact}" "${html}"`;
 console.log('Rendering affiche...');

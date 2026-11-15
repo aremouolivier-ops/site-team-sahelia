@@ -1,7 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 
-const dir = 'C:\\Users\\DELL\\Desktop\\site-team-sahelia';
+const dir = path.resolve(__dirname, '..');
+
+function existsCaseStrict(baseDir, relTarget) {
+  const parts = String(relTarget).replace(/\\/g, '/').split('/').filter(Boolean);
+  let cur = baseDir;
+  for (const seg of parts) {
+    if (!fs.existsSync(cur) || !fs.statSync(cur).isDirectory()) return false;
+    if (!fs.readdirSync(cur).includes(seg)) return false;
+    cur = path.join(cur, seg);
+  }
+  return true;
+}
 const htmlFiles = [
   'index.html',
   'formation.html',
@@ -38,6 +49,9 @@ htmlFiles.forEach(file => {
     const assetPath = path.join(dir, target);
     if (!fs.existsSync(assetPath)) {
       console.error(`[HTML-BROKEN-REF] Dans ${file} : ${attr}="${target}" n'existe pas sur disque !`);
+      errors++;
+    } else if (!existsCaseStrict(dir, target)) {
+      console.error(`[HTML-CASE-REF] Dans ${file} : ${attr}="${target}" ne respecte pas la casse exacte du fichier (bloquant sur Linux) !`);
       errors++;
     }
     checkedCount++;

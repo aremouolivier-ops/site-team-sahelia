@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
-const dir = 'C:\\Users\\DELL\\Desktop\\site-team-sahelia';
+const dir = path.resolve(__dirname, '..');
 
 const mockElements = new Map();
 function getMockEl(id) {
