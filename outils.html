@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@500;700&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=2026.8">
+  <link rel="stylesheet" href="css/style.css?v=2026.9">
   <style>
     .page-outils {
       background: radial-gradient(circle at 50% 0%, rgba(23, 112, 74, 0.22), transparent 50%), #08130f;
@@ -80,7 +80,7 @@
     }
     .outil-grille-inputs {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
       gap: 1.25rem;
       margin-bottom: 1.75rem;
     }
@@ -131,7 +131,7 @@
     }
     .resultats-grille {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
       gap: 1.25rem;
     }
     .metrique-kpi {

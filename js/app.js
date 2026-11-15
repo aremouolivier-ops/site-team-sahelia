@@ -1175,7 +1175,7 @@
           <div class="sa-palette-header">
             <span>🔍</span>
             <input type="search" id="sa-palette-input-recherche" class="sa-palette-input" placeholder="Rechercher un manuel, chapitre, QGIS, NDVI, Excel, Vibe Coding…">
-            <button type="button" id="sa-palette-fermer" style="background:transparent;border:none;color:var(--texte-3);font-size:1.15rem;cursor:pointer;">✕</button>
+            <button type="button" id="sa-palette-fermer" aria-label="Fermer la recherche" style="background:transparent;border:none;color:var(--texte-3);font-size:1.15rem;cursor:pointer;min-width:38px;min-height:38px;display:inline-flex;align-items:center;justify-content:center;">✕</button>
           </div>
           <div id="sa-palette-results" class="sa-palette-results"></div>
         </div>
@@ -1312,7 +1312,7 @@
             <div class="sa-palette-card" style="padding:1.5rem;gap:1rem;">
               <div style="display:flex;justify-content:space-between;align-items:center;">
                 <h3 style="font-size:1.15rem;font-weight:800;color:#fff;margin:0;">🎒 Mon Passeport d’Apprentissage TEAM Sahélia</h3>
-                <button type="button" id="sa-passeport-fermer" style="background:transparent;border:none;color:var(--texte-3);font-size:1.15rem;cursor:pointer;">✕</button>
+                <button type="button" id="sa-passeport-fermer" aria-label="Fermer le passeport" style="background:transparent;border:none;color:var(--texte-3);font-size:1.15rem;cursor:pointer;min-width:38px;min-height:38px;display:inline-flex;align-items:center;justify-content:center;">✕</button>
               </div>
               <div id="sa-passeport-stats" style="font-size:0.88rem;color:var(--texte-2);background:#071410;padding:0.9rem;border-radius:10px;border:1px solid var(--bordure);"></div>
               <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">

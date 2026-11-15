@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@500;700&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=2026.8">
+  <link rel="stylesheet" href="css/style.css?v=2026.9">
   <style>
     .admin-page-wrapper {
       min-height: 100vh;
@@ -32,12 +32,11 @@
       border-bottom: 1px solid var(--bordure);
       padding-bottom: 0.75rem;
       margin-bottom: 1.75rem;
-      overflow-x: auto;
-      white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
+      flex-wrap: wrap;
+      overflow-x: visible;
     }
     .admin-tab-btn {
+      min-height: 38px;
       padding: 0.6rem 1.1rem;
       border-radius: 8px;
       border: 1px solid transparent;
@@ -133,7 +132,7 @@
         <img src="assets/logo-sahelia.svg" alt="TEAM Sahélia" style="height: 38px; width: auto;">
       </a>
 
-      <nav class="site-nav" aria-label="Navigation administration">
+      <nav class="site-nav" aria-label="Navigation administration" style="flex-wrap: wrap;">
         <a href="index.html">← Vitrine Publique</a>
         <a href="formation.html">📚 Espace Formation</a>
       </nav>
@@ -236,7 +235,7 @@
               <h2 style="font-size: 1.25rem; font-weight: 800;">Enregistrer un Nouveau Membre de l’Équipe</h2>
               <p style="font-size: 0.85rem; color: var(--texte-2);">Les informations saisies ici alimentent directement la vitrine publique et permettent la délivrance de badges officiels.</p>
             </div>
-            <div style="display: flex; gap: 0.6rem;">
+            <div style="display: flex; flex-wrap: wrap; gap: 0.6rem;">
               <button type="button" id="btn-export-membres" class="v-btn v-btn--fantome" style="min-height: 36px; padding: 0 0.8rem; font-size: 0.8rem;">
                 📥 Exporter JSON
               </button>
@@ -620,8 +619,8 @@
             Module exclusif d'inspection et de vérification réservé à l'éditeur. Saisissez l'identifiant unique figurant sur un badge (ou scannez son QR code) pour vérifier son authenticité en direct.
           </p>
 
-          <form id="form-recherche-badge-admin" style="display: flex; gap: 0.8rem; max-width: 600px; margin-bottom: 1.5rem;">
-            <input type="text" id="input-recherche-id-badge" class="champ-saisie" placeholder="Ex: TS-MBR-2026-001" style="font-family: var(--police-mono);" required>
+          <form id="form-recherche-badge-admin" style="display: flex; flex-wrap: wrap; gap: 0.8rem; max-width: 600px; margin-bottom: 1.5rem;">
+            <input type="text" id="input-recherche-id-badge" class="champ-saisie" placeholder="Ex: TS-MBR-2026-001" style="flex: 1 1 min(100%, 240px); min-width: 0; font-family: var(--police-mono);" required>
             <button type="submit" class="v-btn v-btn--vert" style="min-height: 44px; padding: 0 1.25rem; font-size: 0.85rem; white-space: nowrap;">
               Inspecter le Titre
             </button>
@@ -713,7 +712,7 @@
               <button type="button" id="btn-cf-tester" class="v-btn v-btn--fantome" style="min-height: 38px; font-size: 0.82rem; padding: 0 1rem;">🩺 Tester /api/health</button>
             </div>
             <div style="display: flex; gap: 0.65rem; flex-wrap: wrap; align-items: center; padding-top: 0.85rem; border-top: 1px solid rgba(255,255,255,0.08);">
-              <input type="password" id="cf-admin-password" class="champ-saisie" placeholder="Mot de passe ADMIN_PASSWORD du Worker" style="flex: 1; min-width: 220px; font-family: var(--police-mono);">
+              <input type="password" id="cf-admin-password" class="champ-saisie" placeholder="Mot de passe ADMIN_PASSWORD du Worker" style="flex: 1 1 200px; min-width: min(100%, 220px); font-family: var(--police-mono);">
               <button type="button" id="btn-cf-login" class="v-btn v-btn--fantome" style="min-height: 38px; font-size: 0.82rem; padding: 0 1rem;">🔑 Connexion Session D1</button>
             </div>
             <div id="cf-status-feedback" style="margin-top: 0.8rem; font-size: 0.82rem; font-weight: 600;"></div>
@@ -735,7 +734,7 @@
   <script src="js/formation-contenu.js"></script>
   <script src="js/crypto-formation.js"></script>
   <script src="js/controle-acces.js"></script>
-  <script src="js/sahelia-cloud-adapter.js?v=2026.8"></script>
+  <script src="js/sahelia-cloud-adapter.js?v=2026.9"></script>
   <script>
     (function () {
       'use strict';
@@ -1167,11 +1166,11 @@
                 </div>
               </div>
 
-              <div style="display: flex; gap: 0.5rem;">
-                <button type="button" onclick="window.copierLienDirect('${encodeURIComponent(lienDirect)}', this)" class="v-btn v-btn--vert" style="flex: 1; min-height: 34px; font-size: 0.78rem;">
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                <button type="button" onclick="window.copierLienDirect('${encodeURIComponent(lienDirect)}', this)" class="v-btn v-btn--vert" style="flex: 1 1 135px; min-height: 36px; font-size: 0.78rem;">
                   📋 Copier le lien
                 </button>
-                <a href="formation.html?cours=${encodeURIComponent(c.id)}" target="_blank" class="v-btn v-btn--fantome" style="min-height: 34px; font-size: 0.78rem;">
+                <a href="formation.html?cours=${encodeURIComponent(c.id)}" target="_blank" class="v-btn v-btn--fantome" style="min-height: 36px; font-size: 0.78rem;">
                   📖 Ouvrir ↗
                 </a>
               </div>

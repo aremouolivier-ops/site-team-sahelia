@@ -233,8 +233,17 @@
   margin-top: 0.15rem;
 }
 
+.nav-action-pill,
+.chip-filtre-pole {
+  min-height: 36px;
+}
+
 @media (max-width: 720px) {
   .nav-action-pill kbd {
     display: none;
+  }
+  .nav-action-pill {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.76rem;
   }
 }

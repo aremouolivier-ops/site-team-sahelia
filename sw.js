@@ -4,8 +4,8 @@
  * les chapitres, schémas SVG et ressources à la demande ou sur action « 📥 Hors-ligne ».
  */
 
-const APP_VERSION = '2026.8';
-const CACHE_NAME = 'sahelia-v9-cache';
+const APP_VERSION = '2026.9';
+const CACHE_NAME = 'sahelia-v10-cache';
 
 const ASSETS_A_METTRE_EN_CACHE = [
   './',

@@ -462,6 +462,23 @@ a {
 }
 
 @media (max-width: 640px) {
+  .site-entete {
+    position: relative;
+  }
+  .site-entete-rang {
+    gap: 0.45rem 0.75rem;
+  }
+  .site-entete-actions {
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    max-width: 100%;
+  }
+  .site-nav a {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+  }
   .badge-studio-box {
     padding: 1.2rem;
     border-radius: 16px;
